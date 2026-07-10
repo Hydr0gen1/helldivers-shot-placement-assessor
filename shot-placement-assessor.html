@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d0f12">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<title>HD2 Shot Placement Assessor</title>
+<style>:root{
+  --bg:#0b0d10;--panel:#15191f;--panel2:#1d232c;--panel3:#252d38;--border:#343d4a;
+  --yellow:#ffe10a;--yellow-soft:#332f08;--text:#e2e6ec;--dim:#a2acbb;--red:#ff7169;
+  --green:#68ff9b;--blue:#73c7ff;--purple:#d28aff;--shadow:0 18px 48px #0008;
+}
+*{box-sizing:border-box;margin:0;padding:0} [hidden]{display:none!important}
+html{scroll-behavior:smooth} body{min-height:100vh;background:radial-gradient(circle at 50% -20%,#25260c 0,#0b0d10 38%);color:var(--text);font-family:"Segoe UI",Roboto,Arial,sans-serif;padding:22px}
+button,input,select{font:inherit} button{color:inherit} a{color:var(--blue)}
+.app{width:100%;max-width:1180px;margin:auto}.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px}
+.brand h1{font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);margin-bottom:4px}.brand p{color:var(--dim);font-size:13px}
+.data-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid #57530f;background:var(--yellow-soft);color:#fff5a5;border-radius:999px;padding:7px 10px;font-size:12px;white-space:nowrap}
+.data-badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--yellow)}
+.global-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-bottom:14px}.action,.icon-action,.swap-button,.view-tab,.filter-chip,.intent-tab,.mode-tab{border:1px solid var(--border);background:var(--panel2);border-radius:5px;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+.action{padding:8px 11px;font-size:12px}.action:hover,.icon-action:hover,.swap-button:hover,.view-tab:hover,.filter-chip:hover{background:var(--panel3);border-color:#697587}.action:active,.rank-card:active{transform:translateY(1px)}
+.mode-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:5px;background:#111419;border:1px solid var(--border);border-radius:8px;margin-bottom:16px}.mode-tab{padding:11px 14px;font-weight:700;letter-spacing:.5px}.mode-tab[aria-selected="true"]{background:var(--yellow);border-color:var(--yellow);color:#151500}
+.layout{display:grid;grid-template-columns:minmax(280px,330px) minmax(0,1fr);gap:18px;align-items:start}.controls{position:sticky;top:16px;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;box-shadow:var(--shadow)}
+.controls-title{font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--dim);margin-bottom:12px}.intent-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:16px}.intent-tab{padding:9px 8px;font-size:12px}.intent-tab[aria-selected="true"]{border-color:var(--yellow);color:var(--yellow);background:var(--yellow-soft)}
+.field{margin-bottom:14px}.field-label-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}.field label,.field-label{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim)}
+.field-control{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px}.field-control.no-action{display:block}
+select,.combo-input{width:100%;min-width:0;min-height:39px;background:var(--panel2);color:var(--text);border:1px solid var(--border);border-radius:5px;padding:8px 10px;font-size:14px}
+.icon-action{width:39px;min-width:39px;min-height:39px;font-size:18px}.icon-action[aria-pressed="true"]{color:var(--yellow);border-color:var(--yellow);background:var(--yellow-soft)}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.combo{position:relative;min-width:0}.combo-input{padding-right:34px}.combo::after{content:"▾";position:absolute;right:11px;top:9px;color:var(--dim);pointer-events:none}
+.combo-panel{position:absolute;z-index:30;top:calc(100% + 4px);left:0;right:0;background:var(--panel2);border:1px solid var(--border);border-radius:6px;box-shadow:0 16px 36px #000c;overflow:hidden}.combo-panel[hidden]{display:none}.combo-filters{display:flex;gap:5px;padding:8px;overflow:auto;border-bottom:1px solid var(--border)}
+.filter-chip{padding:5px 8px;font-size:11px;white-space:nowrap}.filter-chip[aria-pressed="true"]{color:#171700;background:var(--yellow);border-color:var(--yellow)}.combo-list{max-height:300px;overflow:auto;padding:4px}.combo-group{padding:8px 8px 4px;color:var(--dim);font-size:10px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase}.combo-option{padding:8px;border-radius:4px;cursor:pointer}.combo-option:hover,.combo-option.active,.combo-option[aria-selected="true"]{background:#343e4d;color:white}.combo-empty{padding:14px;color:var(--dim);font-size:13px}
+.conditions{border-top:1px solid var(--border);padding-top:12px}.conditions summary,.technical summary,.help summary{cursor:pointer;list-style:none}.conditions summary::-webkit-details-marker,.technical summary::-webkit-details-marker,.help summary::-webkit-details-marker{display:none}.conditions summary{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:700}.conditions summary span{color:var(--yellow);font-weight:500}.conditions-body{padding-top:12px}.swap-button{width:100%;padding:9px;margin:-2px 0 12px;font-size:12px}
+.content{min-width:0}.panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
+.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.panel-heading h2{font-size:13px;letter-spacing:1.6px;text-transform:uppercase}.panel-heading p{font-size:12px;color:var(--dim)}
+.answer-card{position:relative;overflow:hidden;background:linear-gradient(135deg,#2c2c08 0,#1b1f26 65%);border:1px solid #716c12;border-left:5px solid var(--yellow);border-radius:8px;padding:20px;margin-bottom:16px}.answer-eyebrow{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#fff5a0;margin-bottom:7px}.answer-title{font-size:28px;line-height:1.08;margin-bottom:8px}.answer-subtitle{color:var(--dim);line-height:1.45}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:16px}.metric{background:#0e1115aa;border:1px solid #ffffff18;border-radius:6px;padding:10px}.metric span{display:block;color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}.metric b{font-size:16px;font-variant-numeric:tabular-nums}.status{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:700}.status.immediate{background:#12341e;color:var(--green)}.status.bleedout{background:#3b310e;color:#ffdf74}.status.disable{background:#26303d;color:#c7d2e0}.status.blocked{background:#3c1717;color:var(--red)}
+.rank-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.rank-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;text-align:left;width:100%;background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:11px;cursor:pointer}.rank-card:hover{border-color:#687485;background:var(--panel3)}.rank-card.selected{border-color:var(--yellow);box-shadow:inset 3px 0 var(--yellow)}.rank-number{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#0f1216;color:var(--dim);font-size:11px}.rank-main{min-width:0}.rank-main b,.rank-main span{display:block}.rank-main b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rank-main span{font-size:11px;color:var(--dim);margin-top:3px}.rank-value{text-align:right;font-weight:800;color:var(--yellow);white-space:nowrap}.rank-value small{display:block;color:var(--dim);font-weight:400;margin-top:2px}.rank-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.advice{border:1px solid #494513;background:#252309;border-radius:6px;padding:12px;margin-top:12px}.advice h3{font-size:12px;color:var(--yellow);margin-bottom:6px}.advice ul{padding-left:18px;color:#e8e1a0;font-size:13px;line-height:1.5}
+.status.gated{color:#e7b35d}.access-note{display:grid;gap:3px;border:1px solid #5b512d;border-left:3px solid #d5a84c;background:#17150e;padding:10px 12px;margin-top:12px;font-size:12px;line-height:1.45}.access-note b{color:#f1c56d;text-transform:uppercase;letter-spacing:.55px;font-size:10px}.access-note span{color:#d7d1bd}.access-note.blocked{border-color:#623c31;border-left-color:var(--red);background:#1b1110}.access-note.blocked b{color:#ff8a78}
+.anatomy-layout{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:14px;align-items:start}.view-tabs{display:flex;gap:5px;margin-bottom:8px;overflow:auto}.view-tab{padding:6px 9px;font-size:11px;white-space:nowrap}.view-tab[aria-selected="true"]{background:var(--yellow);color:#171700;border-color:var(--yellow)}.anatomy-frame{min-height:190px;display:grid;place-items:center;background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:8px}.anatomy-frame img{display:block;width:100%;height:190px;object-fit:contain}.image-fallback{color:var(--dim);font-size:12px;text-align:center}.detail-summary{background:var(--panel2);border-radius:6px;padding:12px}.detail-summary h3{font-size:17px;margin-bottom:8px}.detail-summary p{color:var(--dim);font-size:13px;line-height:1.5}
+.technical{margin-top:12px;border-top:1px solid var(--border);padding-top:12px}.technical summary{font-size:12px;font-weight:700;color:var(--blue)}.technical-body{padding-top:12px}.pen{font-size:14px;font-weight:600;margin-bottom:10px}.full{color:var(--green)}.partial{color:#eee}.none,.warn{color:var(--red)}.stat{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px dashed var(--border);font-size:13px}.stat>span:last-child{text-align:right;color:var(--yellow);font-variant-numeric:tabular-nums}.tag,.note{font-size:11px;color:var(--dim);font-weight:400}.tag{margin-left:7px}.note{line-height:1.5;margin-top:8px}.route{display:flex;justify-content:space-between;gap:12px;background:var(--panel2);border-left:3px solid var(--border);border-radius:4px;padding:8px;margin-bottom:6px;font-size:13px}.route.best{border-left-color:var(--yellow)}.shots{color:var(--yellow);font-weight:700;white-space:nowrap}
+.comparison-summary{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch}.compare-weapon{background:var(--panel2);border:1px solid var(--border);border-radius:7px;padding:14px}.compare-weapon.winner{border-color:var(--green)}.versus{display:grid;place-items:center;color:var(--dim);font-weight:800}.comparison-table{width:100%;border-collapse:collapse;font-size:12px}.comparison-table th,.comparison-table td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--border)}.comparison-table th{color:var(--dim);font-size:10px;letter-spacing:1px;text-transform:uppercase}.comparison-table button{border:0;background:none;cursor:pointer;text-align:left}.win-mark{color:var(--green);font-weight:700}.tie-mark{color:var(--dim)}
+.term-wrap{position:relative;display:inline}.term-button{border:0;border-bottom:1px dotted currentColor;background:none;color:inherit;cursor:help;font-size:inherit}.term-tip{position:absolute;z-index:50;left:0;bottom:calc(100% + 7px);width:230px;background:#050608;border:1px solid #667180;border-radius:5px;padding:8px;color:var(--text);font-size:11px;line-height:1.4;box-shadow:var(--shadow);display:none}.term-wrap:hover .term-tip,.term-button:focus+.term-tip,.term-wrap.open .term-tip{display:block}.help{color:var(--dim);font-size:13px;line-height:1.6}.help summary{color:var(--text);font-size:12px;text-transform:uppercase;letter-spacing:1px}.glossary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;padding-top:12px}.glossary dt{font-weight:700;color:var(--text)}.glossary dd{margin-bottom:7px}
+.sticky-result{display:none}.toast{position:fixed;z-index:80;right:18px;bottom:18px;background:#080a0d;border:1px solid var(--border);border-radius:6px;padding:10px 12px;box-shadow:var(--shadow);font-size:12px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.empty{padding:18px;border:1px dashed var(--border);border-radius:6px;text-align:center;color:var(--dim)}
+.copy-dialog{width:min(560px,calc(100% - 24px));margin:auto;background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow)}.copy-dialog::backdrop{background:#000b}.copy-dialog h2{font-size:18px;margin-bottom:7px}.copy-dialog p{color:var(--dim);font-size:13px;margin-bottom:10px}.copy-dialog textarea{width:100%;min-height:150px;resize:vertical;background:#0b0d10;color:var(--text);border:1px solid var(--border);border-radius:5px;padding:10px;margin-bottom:10px}
+@media(max-width:860px){body{padding:14px}.layout{grid-template-columns:1fr}.controls{position:static}.metrics{grid-template-columns:repeat(2,1fr)}.anatomy-layout{grid-template-columns:1fr}.anatomy-frame{max-width:420px}.comparison-table{display:block;overflow:auto}.topbar{align-items:flex-start}.rank-grid{grid-template-columns:1fr}.term-tip{left:auto;right:0;max-width:calc(100vw - 36px)}}
+@media(max-width:560px){body{padding:10px}.topbar{display:block}.data-badge{margin-top:10px}.brand h1{font-size:18px}.mode-tabs{position:sticky;top:0;z-index:20}.mode-tab{padding:10px 5px;font-size:12px}.panel,.controls{padding:12px}.answer-title{font-size:23px}.metrics{grid-template-columns:repeat(2,1fr)}select,.combo-input{min-height:44px;font-size:16px}.icon-action{width:44px;min-width:44px;min-height:44px}.combo::after{top:12px}.comparison-summary{grid-template-columns:1fr}.versus{height:24px}.stat,.route{flex-wrap:wrap}.stat>span:last-child{text-align:left}.glossary{grid-template-columns:1fr}.term-tip{left:auto;right:0;max-width:calc(100vw - 30px)}.sticky-result{position:fixed;z-index:60;left:10px;right:10px;bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#11151b;border:1px solid var(--yellow);border-radius:7px;padding:10px 12px;box-shadow:var(--shadow)}.sticky-result[hidden]{display:none!important}.sticky-result b{font-size:12px}.sticky-result span{font-size:11px;color:var(--dim)}.sticky-result a{color:var(--yellow);font-size:12px;font-weight:700}.global-actions{justify-content:flex-start}.action{min-height:38px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Professional field-instrument visual system */
+:root{
+  --bg:#090b0c;--panel:#111416;--panel2:#171b1e;--panel3:#1d2226;--border:#2a3034;
+  --yellow:#f2d335;--yellow-soft:#24220f;--text:#edf0ec;--dim:#8f989e;--red:#e47d76;
+  --green:#78d394;--blue:#8bb7cd;--purple:#be98d6;--shadow:none;
+}
+html{scroll-padding-top:72px}
+body{
+  background-color:var(--bg);
+  background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);
+  background-size:32px 32px;
+  font-family:"Segoe UI Variable Text","Segoe UI",Roboto,Arial,sans-serif;
+  padding:24px 28px 48px;
+}
+.app{max-width:1220px}
+.topbar{align-items:flex-end;border-bottom:1px solid var(--border);padding:4px 0 18px;margin-bottom:0}
+.brand{position:relative;padding-left:18px}.brand::before{content:"";position:absolute;left:0;top:2px;bottom:1px;width:3px;background:var(--yellow)}
+.product-kicker{color:var(--yellow);font-family:Consolas,"Courier New",monospace;font-size:10px;letter-spacing:1.5px;margin-bottom:7px}
+.brand h1,.answer-title,.panel-heading h2,.detail-summary h3,.compare-weapon h3{font-family:Bahnschrift,"Arial Narrow","Segoe UI",sans-serif;font-stretch:condensed}
+.brand h1{font-size:24px;line-height:1;letter-spacing:1.5px;font-weight:600;color:var(--text);margin:0 0 7px}.brand p{font-size:12px;letter-spacing:.2px}
+.topbar-meta{display:flex;flex-direction:column;align-items:flex-end;gap:9px}.data-badge{border:0;border-radius:0;background:none;color:var(--dim);font:10px/1.2 Consolas,"Courier New",monospace;letter-spacing:.8px;padding:0}.data-badge::before{width:6px;height:6px;box-shadow:0 0 0 2px #f2d33522}
+.global-actions{margin:0;gap:2px}.action{border:0;border-left:1px solid var(--border);border-radius:0;background:transparent;padding:6px 10px;color:var(--dim);font-size:11px;letter-spacing:.3px;min-height:auto}.action:first-child{border-left:0}.action:hover{background:#ffffff06;border-color:var(--border);color:var(--text)}
+.mode-tabs{display:flex;gap:0;padding:0;background:#0d1012;border:0;border-bottom:1px solid var(--border);border-radius:0;margin-bottom:18px}.mode-tab{position:relative;min-width:150px;padding:13px 22px;border:0;border-right:1px solid var(--border);border-radius:0;background:transparent;color:var(--dim);font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase}.mode-tab[aria-selected="true"]{background:#151718;color:var(--text)}.mode-tab[aria-selected="true"]::after{content:"";position:absolute;left:20px;right:20px;bottom:-1px;height:2px;background:var(--yellow)}
+.layout{grid-template-columns:minmax(280px,318px) minmax(0,1fr);gap:22px}
+.controls{top:18px;border-radius:2px;border-color:var(--border);padding:0;background:var(--panel);box-shadow:none}.controls::before{content:"PARAMETERS";display:block;padding:9px 14px;border-bottom:1px solid var(--border);background:#0d1012;color:#6f787e;font:9px Consolas,"Courier New",monospace;letter-spacing:1.4px}.controls>*:not(.controls-title){margin-left:14px;margin-right:14px}.controls-title{padding:15px 14px 11px;margin:0!important;color:var(--text);font:600 11px Bahnschrift,"Arial Narrow",sans-serif;letter-spacing:1.3px;border-bottom:1px solid #202529}
+.intent-tabs{margin-top:12px;margin-bottom:18px;gap:0;border:1px solid var(--border)}.intent-tab{border:0;border-radius:0;background:#0f1214;padding:9px 7px;color:var(--dim);font-size:11px}.intent-tab+ .intent-tab{border-left:1px solid var(--border)}.intent-tab[aria-selected="true"]{background:var(--yellow-soft);color:var(--yellow);box-shadow:inset 0 -2px var(--yellow)}
+.field{margin-bottom:17px}.field-label-row{margin-bottom:7px}.field label,.field-label{font:10px Consolas,"Courier New",monospace;letter-spacing:1px;color:#7f898f}
+select,.combo-input{min-height:40px;background:#0d1012;border:1px solid #30373c;border-radius:2px;padding:8px 10px;color:var(--text);font-size:13px;box-shadow:inset 0 1px #ffffff03}select:hover,.combo-input:hover{border-color:#465057}select:focus,.combo-input:focus{border-color:#8c822b}
+.icon-action{width:40px;min-width:40px;min-height:40px;border-radius:2px;background:#0d1012;border-color:#30373c;color:#778087}.icon-action[aria-pressed="true"]{background:#1d1c0d;color:var(--yellow);border-color:#776f24}.combo::after{font-size:10px;top:12px}
+.combo-panel{border-radius:2px;background:#111416;border-color:#3a4248;box-shadow:0 14px 40px #000b}.combo-filters{background:#0c0f11}.filter-chip{border-radius:1px;background:transparent;color:var(--dim);font:10px Consolas,"Courier New",monospace;text-transform:uppercase;letter-spacing:.4px}.filter-chip[aria-pressed="true"]{background:transparent;color:var(--yellow);border-color:#716a2a}.combo-option{border-radius:1px;font-size:12px}.combo-option:hover,.combo-option.active,.combo-option[aria-selected="true"]{background:#22282c}.combo-group{font-family:Consolas,"Courier New",monospace}
+.conditions{margin:4px 14px 0!important;padding:12px 0 15px;border-top:1px solid var(--border)}.conditions summary{font:600 11px Bahnschrift,"Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.7px}.conditions summary span{font:10px Consolas,"Courier New",monospace;color:var(--yellow)}.swap-button{border-radius:2px;background:#0d1012;border-color:#30373c;font-size:10px;text-transform:uppercase;letter-spacing:.7px}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:2px;padding:18px 20px;margin-bottom:14px;box-shadow:none}.panel-heading{padding-bottom:11px;border-bottom:1px solid var(--border);margin-bottom:12px}.panel-heading h2{font-size:12px;font-weight:600;letter-spacing:1.3px}.panel-heading p{font-size:11px}
+.answer-card{background:#12150f;border:1px solid #333529;border-left:3px solid var(--yellow);border-radius:2px;padding:22px 22px 19px;margin-bottom:14px}.answer-eyebrow{font:10px Consolas,"Courier New",monospace;letter-spacing:1.1px;color:var(--dim)}.answer-title{font-size:31px;font-weight:600;letter-spacing:-.2px;margin-bottom:6px}.answer-subtitle{font-size:13px}
+.status{border-radius:0;background:none!important;padding:0;font:600 10px Consolas,"Courier New",monospace;text-transform:uppercase;letter-spacing:.5px}.status::before{content:"■";font-size:7px}.status.immediate{color:var(--green)}.status.bleedout{color:#ddc16f}.status.disable{color:#aab5bc}.status.blocked{color:var(--red)}
+.metrics{gap:0;margin-top:19px;border-top:1px solid #34382e}.metric{background:transparent;border:0;border-right:1px solid #34382e;border-radius:0;padding:11px 13px 3px}.metric:first-child{padding-left:0}.metric:last-child{border-right:0}.metric span{font:9px Consolas,"Courier New",monospace;letter-spacing:1px}.metric b{font-family:Bahnschrift,"Arial Narrow",sans-serif;font-size:18px;font-weight:600}
+.rank-grid{display:block}.rank-card{grid-template-columns:32px minmax(0,1fr) 92px;border:0;border-top:1px solid var(--border);border-radius:0;background:transparent;padding:10px 5px}.rank-card:last-child{border-bottom:1px solid var(--border)}.rank-card:hover{background:#ffffff04;border-color:var(--border)}.rank-card.selected{background:#202016;border-color:#4e4b24;box-shadow:inset 2px 0 var(--yellow)}.rank-number{width:20px;height:20px;background:transparent;border:1px solid #3b4348;border-radius:1px;font:9px Consolas,"Courier New",monospace}.rank-main b{font-family:Bahnschrift,"Arial Narrow",sans-serif;font-size:14px;font-weight:500}.rank-main span{font:10px Consolas,"Courier New",monospace}.rank-value{font-family:Bahnschrift,"Arial Narrow",sans-serif;font-size:15px}.rank-value small{font:10px Consolas,"Courier New",monospace}
+.advice{border-radius:1px;border-color:#49472b;background:#18180f}.advice h3{font-family:Bahnschrift,"Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.6px}.anatomy-layout{grid-template-columns:minmax(230px,310px) minmax(0,1fr)}.view-tab{border-radius:1px;background:transparent;font:10px Consolas,"Courier New",monospace;text-transform:uppercase}.view-tab[aria-selected="true"]{background:transparent;color:var(--yellow);border-color:#70692a}.anatomy-frame{border-radius:1px;background:#0d1012}.detail-summary,.compare-weapon{border-radius:1px;background:#0d1012;border-color:var(--border)}.detail-summary h3,.compare-weapon h3{font-weight:500}.technical summary{font:10px Consolas,"Courier New",monospace;text-transform:uppercase;letter-spacing:.5px;color:var(--blue)}
+.comparison-summary{gap:10px}.compare-weapon.winner{border-color:#456751;box-shadow:inset 0 2px var(--green)}.versus{font:10px Consolas,"Courier New",monospace}.comparison-table th{font-family:Consolas,"Courier New",monospace}.comparison-table td{font-size:11px}.comparison-table tr:hover td{background:#ffffff03}.term-tip{border-radius:1px;background:#080a0b;box-shadow:0 12px 30px #000b}
+.help{background:#0d1012}.help summary{font:10px Consolas,"Courier New",monospace;letter-spacing:1px}.copy-dialog{border-radius:2px;background:var(--panel)}.toast{border-radius:1px;background:#0d1012;font-family:Consolas,"Courier New",monospace}.sticky-result{border-radius:2px!important;background:#101312!important}
+@media(max-width:860px){body{padding:16px}.topbar{align-items:flex-start}.layout{grid-template-columns:1fr;gap:14px}.controls{position:static}.controls::before{display:none}.controls-title{padding-top:13px}.anatomy-layout{grid-template-columns:1fr}.comparison-table{display:block;overflow:auto}}
+@media(max-width:560px){body{padding:10px;background-size:24px 24px}.topbar{display:block;padding:4px 0 13px}.topbar-meta{align-items:flex-start;margin-top:13px}.brand{padding-left:12px}.brand h1{font-size:20px}.product-kicker{font-size:9px}.global-actions{justify-content:flex-start}.mode-tabs{top:0}.mode-tab{min-width:0;flex:1;padding:11px 6px;font-size:10px}.mode-tab[aria-selected="true"]::after{left:10px;right:10px}.panel{padding:14px}.answer-card{padding:17px 15px}.answer-title{font-size:25px}.metrics{grid-template-columns:repeat(2,1fr)}.metric:nth-child(2){border-right:0}.metric:nth-child(3),.metric:nth-child(4){border-top:1px solid #34382e}.rank-card{grid-template-columns:26px minmax(0,1fr) 72px}.comparison-summary{grid-template-columns:1fr}.versus{height:24px}select,.combo-input{min-height:44px;font-size:16px}.icon-action{width:44px;min-width:44px;min-height:44px}.combo::after{top:14px}.action{padding:7px 9px}.controls>*:not(.controls-title){margin-left:12px;margin-right:12px}.conditions{margin-left:12px!important;margin-right:12px!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="product-kicker">FIELD MANUAL // DAMAGE ANALYSIS</div><h1>Shot Placement Assessor</h1><p>Target selection and weapon effectiveness reference</p></div>
+    <div class="topbar-meta">
+      <div class="data-badge" id="dataBadge">DATASET // 2026-07-10</div>
+      <div class="global-actions" aria-label="Share and export">
+        <button class="action" id="copySummary" type="button">Copy</button>
+        <button class="action" id="copyLink" type="button">Share link</button>
+        <button class="action" id="downloadCard" type="button">Export PNG</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mode-tabs" role="tablist" aria-label="Tool mode">
+    <button class="mode-tab" id="recommendTab" role="tab" aria-controls="recommendPanel" aria-selected="true" data-view="recommend">Recommend</button>
+    <button class="mode-tab" id="inspectTab" role="tab" aria-controls="inspectPanel" aria-selected="false" data-view="inspect">Inspect</button>
+    <button class="mode-tab" id="compareTab" role="tab" aria-controls="comparePanel" aria-selected="false" data-view="compare">Compare</button>
+  </nav>
+
+  <div class="layout">
+    <aside class="controls" aria-label="Assessment controls">
+      <div class="controls-title" id="controlsTitle">01 / Build your recommendation</div>
+      <div class="intent-tabs" id="intentTabs" role="tablist" aria-label="Recommendation type">
+        <button class="intent-tab" role="tab" aria-selected="true" data-intent="aim">Where should I aim?</button>
+        <button class="intent-tab" role="tab" aria-selected="false" data-intent="weapon">Which weapon?</button>
+      </div>
+
+      <div class="field" id="enemyField">
+        <div class="field-label-row"><label for="enemy">Enemy</label></div>
+        <div class="field-control"><select id="enemy" class="native-source"></select><button class="icon-action favorite-button" type="button" data-favorite="enemy" aria-label="Favorite selected enemy" aria-pressed="false">☆</button></div>
+      </div>
+      <div class="field" id="partField">
+        <div class="field-label-row"><label for="part">Body part</label></div>
+        <div class="field-control no-action"><select id="part"></select></div>
+      </div>
+      <div class="field" id="weaponField">
+        <div class="field-label-row"><label for="weapon">Weapon A</label></div>
+        <div class="field-control"><select id="weapon" class="native-source"></select><button class="icon-action favorite-button" type="button" data-favorite="weapon" aria-label="Favorite selected weapon" aria-pressed="false">☆</button></div>
+      </div>
+      <div class="field" id="modeRow" hidden>
+        <div class="field-label-row"><label for="mode">Firing mode A</label></div>
+        <div class="field-control no-action"><select id="mode"></select></div>
+      </div>
+      <div class="field" id="weaponBField" hidden>
+        <div class="field-label-row"><label for="weaponB">Weapon B</label></div>
+        <div class="field-control"><select id="weaponB" class="native-source"></select><button class="icon-action favorite-button" type="button" data-favorite="weaponB" aria-label="Favorite comparison weapon" aria-pressed="false">☆</button></div>
+      </div>
+      <div class="field" id="modeBRow" hidden>
+        <div class="field-label-row"><label for="modeB">Firing mode B</label></div>
+        <div class="field-control no-action"><select id="modeB"></select></div>
+      </div>
+      <button class="swap-button" id="swapWeapons" type="button" hidden>Swap weapons</button>
+
+      <details class="conditions" id="conditions">
+        <summary>Combat conditions <span id="conditionsSummary">Direct · Point blank</span></summary>
+        <div class="conditions-body">
+          <div class="field"><div class="field-label-row"><label for="angle">Firing angle</label></div><div class="field-control no-action"><select id="angle"><option value="0">Direct (0–30°)</option><option value="1">Slight (30–60°)</option><option value="2">Large (60–80°)</option><option value="3">Extreme (80°+)</option></select></div></div>
+          <div class="field"><div class="field-label-row"><label for="range">Range</label></div><div class="field-control no-action"><select id="range"><option value="0">Point blank</option><option value="1">~25 m</option><option value="2">~50 m</option><option value="3">~75 m</option><option value="4">100 m+</option></select></div></div>
+        </div>
+      </details>
+    </aside>
+
+    <main class="content">
+      <section id="recommendPanel" role="tabpanel" aria-labelledby="recommendTab">
+        <div id="recommendContent" aria-live="polite"></div>
+      </section>
+      <section id="inspectPanel" role="tabpanel" aria-labelledby="inspectTab" hidden>
+        <div id="inspectContent" aria-live="polite"></div>
+      </section>
+      <section id="comparePanel" role="tabpanel" aria-labelledby="compareTab" hidden>
+        <div id="compareContent" aria-live="polite"></div>
+      </section>
+
+      <details class="panel help" id="helpPanel">
+        <summary>How to read the results</summary>
+        <dl class="glossary" id="glossary"></dl>
+        <p>Recommendations assume the enemy's armor is intact. Targets marked <strong>Break armor first</strong> are not initially hittable: the ranking adds the required plate or outer-layer destruction to the route's total shots, magazines, and firing-time estimate. If the selected weapon cannot open the target, that route is labeled armor-gated and ranked below directly accessible targets.</p>
+        <p>Time-to-kill includes firing time and, when more than one magazine is needed, reload time (wiki-documented for some weapons, class estimates for the rest). Target movement is not modeled. Bleedout kills are marked "+ bleedout" instead of adding its duration to the number; rankings quietly prefer immediate kills when times are close (~5s).</p>
+        <p>Game data: <a href="https://helldivers.wiki.gg" target="_blank" rel="noopener noreferrer">helldivers.wiki.gg</a>, retrieved 2026-07-10.</p>
+      </details>
+    </main>
+  </div>
+</div>
+
+<div class="sticky-result" id="stickyResult" hidden><div><b id="stickyTitle"></b><span id="stickyMeta"></span></div><a href="#primaryAnswer">Details</a></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<dialog class="copy-dialog" id="copyFallback" aria-labelledby="copyFallbackTitle">
+  <h2 id="copyFallbackTitle">Copy this text</h2>
+  <p>Your browser blocked automatic clipboard access. The result is selected below.</p>
+  <textarea id="copyFallbackText" readonly></textarea>
+  <button class="action" id="closeCopyFallback" type="button">Done</button>
+</dialog>
+
+<script>
+// ============ DATA (helldivers.wiki.gg, 2026-07-10) ============
+// part: hp = number | "main"; av; dur = durability %; toMain = % of part dmg routed to main (null = none/direct);
+// fatal: "instant" | "downs" (bleedout kill) | false; exdr = explosive dmg resistance %
+const ENEMIES = [
+ {name:"Charger", faction:"Terminids", main:2400, parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:25, img:["Charger Main Health.png"]},
+   {name:"Head", hp:1200, av:4, dur:75, toMain:70, fatal:"instant", exdr:25, img:["Charger Head Front.png","Charger Head Side.png"]},
+   {name:"Torso Armor", hp:800, av:4, dur:85, toMain:100, fatal:false, cap:0, exdr:25, img:["Charger Torso Armor Front.png","Charger Torso Armor Side.png"]},
+   {name:"Inner Flesh (exposed)", hp:"main", av:1, dur:30, toMain:300, fatal:"instant", exdr:100, img:["Charger Inner Flesh.png","Charger Inner Flesh with Destroyed Butt.png"]},
+   {name:"Underside", hp:"main", av:2, dur:100, toMain:100, fatal:"instant", exdr:100, img:["Charger Underside Front.png","Charger Underside Side.png"]},
+   {name:"Rear Armor Plates", hp:2200, av:4, dur:75, toMain:75, fatal:"instant", exdr:100, img:["Charger Rear Armor Plates Rear.png","Charger Rear Armor Plates Side.png"]},
+   {name:"Butt", hp:950, av:0, dur:80, toMain:150, fatal:"downs", exdr:25, img:["Charger Butt Rear.png","Charger Butt Side.png"]},
+   {name:"Claw", hp:500, av:4, dur:70, toMain:70, fatal:false, cap:0, exdr:100, img:["Charger Claws Front.png","Charger Claws Side.png"]},
+   {name:"Front Leg Armor", hp:800, av:4, dur:70, toMain:60, fatal:false, cap:0, exdr:25, img:["Charger Front Leg Armor Front.png","Charger Front Leg Armor Side.png"]},
+   {name:"Rear Leg Armor", hp:800, av:4, dur:70, toMain:50, fatal:false, cap:0, exdr:25, img:["Charger Rear Leg Armor Front.png","Charger Rear Leg Armor Side.png"]},
+   {name:"Leg Flesh (exposed)", hp:800, av:2, dur:70, toMain:50, fatal:"instant", exdr:25, img:["Charger Leg Flesh Front.png","Charger Leg Flesh Side.png"]}]},
+ {name:"Warrior", faction:"Terminids", main:325, note:"HP shown for difficulty 4+ (250 main / 110 head below diff 4).", parts:[
+   {name:"Main (body)", hp:"main", av:1, dur:20, toMain:100, fatal:"instant", exdr:0, img:["Warrior_Main_Front.png","Warrior_Main_Side.png"]},
+   {name:"Head", hp:150, av:1, dur:20, toMain:100, fatal:"downs", exdr:100, img:["Warrior_Head_Front.png","Warrior_Head_Side.png"]},
+   {name:"Claw", hp:100, av:1, dur:0, toMain:40, fatal:false, cap:0, exdr:100, img:["Warrior_Claws_Front.png","Warrior_Claws_Side.png"]},
+   {name:"Leg", hp:100, av:1, dur:0, toMain:40, fatal:false, cap:0, exdr:100, img:["Warrior_Legs_Front.png","Warrior_Legs_Side.png"]}]},
+ {name:"Alpha Warrior", faction:"Terminids", main:325, parts:[
+   {name:"Main (body)", hp:"main", av:1, dur:20, toMain:100, fatal:"instant", exdr:0, img:["Alpha_Warrior_Main_Front.png","Alpha_Warrior_Main_Side.png"]},
+   {name:"Head", hp:150, av:1, dur:20, toMain:50, fatal:"downs", cap:0, exdr:100, img:["Alpha Warrior Head Front.png","Alpha_Warrior_Head_Side.png"]},
+   {name:"Claw", hp:100, av:1, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Alpha Warrior Claws Front.png","Alpha Warrior Claws Side.png"]},
+   {name:"Leg", hp:100, av:1, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Alpha_Warrior_Legs_Front.png","Alpha_Warrior_Legs_Side.png"]}]},
+ {name:"Bile Warrior", faction:"Terminids", main:325, note:"Explodes on death (85 acid blast, AP6) unless it bleeds out from a headshot.", parts:[
+   {name:"Main (body)", hp:"main", av:1, dur:20, toMain:100, fatal:"instant", exdr:0, img:["Bile_Warrior_Main_Front.png","Bile_Warrior_Main_Side.png"]},
+   {name:"Head", hp:150, av:1, dur:20, toMain:100, fatal:"downs", cap:0, exdr:100, img:["Bile Warrior Head Front.png","Bile_Warrior_Head_Side.png"]},
+   {name:"Claw", hp:100, av:1, dur:0, toMain:40, fatal:false, cap:0, exdr:100, img:["Bile Warrior Claws Front.png","Bile Warrior Claws Side.png"]},
+   {name:"Leg", hp:100, av:1, dur:0, toMain:40, fatal:false, cap:0, exdr:100, img:["Bile_Warrior_Legs_Front.png","Bile_Warrior_Legs_Side.png"]}]},
+ {name:"Rupture Warrior", faction:"Terminids", sub:"Rupture Strain", main:250, note:"Rupture Strain burrower — AV3 head and claws (unlike the normal Warrior's AV1) traded for less main HP. Surfaces under your feet.", parts:[
+   {name:"Main (body)", hp:"main", av:1, dur:20, toMain:100, fatal:"instant", exdr:0, img:["Rupture Warrior Main Front.png","Rupture Warrior Main Side.png"]},
+   {name:"Head", hp:110, av:3, dur:20, toMain:100, fatal:"downs", cap:0, exdr:100, img:["Rupture Warrior Head Front.png","Rupture Warrior Head Side.png"]},
+   {name:"Leg", hp:100, av:1, dur:0, toMain:40, fatal:false, cap:0, exdr:100, img:["Rupture Warrior Legs Front.png","Rupture Warrior Legs Side.png"]},
+   {name:"Claw", hp:75, av:3, dur:0, toMain:40, fatal:false, cap:0, exdr:100, img:["Rupture Warrior Claws Front.png","Rupture Warrior Claws Side.png"]}]},
+ {name:"Spore Burst Warrior", faction:"Terminids", sub:"Spore Burst Strain", main:325, note:"Explodes into a speed-buffing spore cloud on death — unless killed while burning or via headshot bleedout. Higher durability than the base Warrior.", parts:[
+   {name:"Main (body)", hp:"main", av:1, dur:50, toMain:100, fatal:"instant", exdr:0, img:["Spore Burst Warrior Main Front.png","Spore Burst Warrior Main Side.png"]},
+   {name:"Head", hp:150, av:1, dur:40, toMain:100, fatal:"downs", cap:0, exdr:100, img:["Spore Burst Warrior Head Front.png","Spore Burst Warrior Head Side.png"]},
+   {name:"Claw", hp:100, av:1, dur:25, toMain:40, fatal:false, cap:0, exdr:100, img:["Spore Burst Warrior Claws Front.png","Spore Burst Warrior Claws Side.png"]},
+   {name:"Leg", hp:100, av:1, dur:35, toMain:40, fatal:false, cap:0, exdr:100, img:["Spore Burst Warrior Limbs Front.png","Spore Burst Warrior Limbs Side.png"]}]},
+ {name:"Hive Guard", faction:"Terminids", main:500, parts:[
+   {name:"Main (body)", hp:"main", av:2, dur:30, toMain:100, fatal:"instant", exdr:0, img:["Hive Guard Main Front.png","Hive Guard Main Side.png"]},
+   {name:"Head", hp:250, av:3, dur:35, toMain:75, fatal:"downs", exdr:100, img:["Hive Guard Head Front.png","Hive Guard Head Side.png"]},
+   {name:"Claw", hp:100, av:1, dur:0, toMain:25, fatal:false, cap:0, exdr:100, img:["Hive Guard Claws Front.png","Hive Guard Claws Side.png"]},
+   {name:"Frontal Tarsal Plate", hp:125, av:3, dur:0, toMain:45, fatal:false, cap:0, exdr:100, img:["Hive Guard Frontal Tarsal Plate Armor Front.png","Hive Guard Frontal Tarsal Plate Armor Side.png"]},
+   {name:"Front Leg", hp:125, av:1, dur:0, toMain:45, fatal:false, cap:0, exdr:100, img:["Hive Guard Front Legs Front.png","Hive Guard Front Legs Side.png"]},
+   {name:"Rear Leg", hp:125, av:1, dur:0, toMain:35, fatal:false, cap:0, exdr:100, img:["Hive Guard Hind Legs Front.png","Hive Guard Hind Legs Side.png"]}]},
+ {name:"Brood Commander", faction:"Terminids", main:800, parts:[
+   {name:"Main (body)", hp:"main", av:2, dur:60, toMain:100, fatal:"instant", exdr:0, img:["Brood_Commander_Main_Front.png","Brood_Commander_Main_Side.png"]},
+   {name:"Head", hp:200, av:2, dur:60, toMain:50, fatal:"downs", exdr:100, img:["Brood_Commander_Head_Front.png","Brood_Commander_Head_Side.png"]},
+   {name:"Claw", hp:200, av:2, dur:50, toMain:50, fatal:false, cap:0, exdr:100, img:["Brood_Commander_Claws_Front.png","Brood_Commander_Claws_Side.png"]},
+   {name:"Leg", hp:170, av:1, dur:40, toMain:60, fatal:false, cap:0, exdr:100, img:["Brood_Commander_Legs_Front.png","Brood_Commander_Legs_Side.png"]}]},
+ {name:"Alpha Commander", faction:"Terminids", main:1000, note:"Destroying both claws also kills it.", parts:[
+   {name:"Main (body)", hp:"main", av:2, dur:70, toMain:100, fatal:"instant", exdr:0, img:["Alpha_Commander_Main_Front.png","Alpha Commander Main Side.png"]},
+   {name:"Head", hp:250, av:2, dur:70, toMain:100, fatal:"downs", cap:0, exdr:100, img:["Alpha_Commander_Head_Front.png","Alpha_Commander_Head_Side.png"]},
+   {name:"Claw", hp:200, av:2, dur:50, toMain:50, fatal:false, cap:0, exdr:100, img:["Alpha_Commander_Claws_Front.png","Alpha_Commander_Claws_Side.png"]},
+   {name:"Leg", hp:200, av:1, dur:50, toMain:60, fatal:false, cap:0, exdr:100, img:["Alpha_Commander_Legs_Front.png","Alpha_Commander_Legs_Side.png"]}]},
+ {name:"Stalker", faction:"Terminids", main:800, parts:[
+   {name:"Main (body)", hp:"main", av:1, dur:50, toMain:100, fatal:"instant", exdr:0, img:["Stalker_Main_Front.png","Stalker_Main_Side.png"]},
+   {name:"Head", hp:175, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Stalker_Head_Front.png","Stalker_Head_Side.png"]},
+   {name:"Body Armor", hp:"main", av:2, dur:50, toMain:100, fatal:"instant", exdr:100, img:["Stalker_Body_Armor_Front.png","Stalker_Body_Armor_Side.png"]},
+   {name:"Underbelly", hp:"main", av:1, dur:50, toMain:100, fatal:"instant", exdr:100, img:["Stalker_Belly_Front.png","Stalker_Belly_Side.png"]},
+   {name:"Claw", hp:"main", av:1, dur:50, toMain:100, fatal:false, exdr:100, img:["Stalker_Claws_Front.png","Stalker_Claws_Side.png"]},
+   {name:"Leg", hp:"main", av:1, dur:50, toMain:100, fatal:false, exdr:100, img:["Stalker_Legs_Front.png","Stalker_Legs_Side.png"]},
+   {name:"Wings", hp:125, av:0, dur:50, toMain:30, fatal:false, exdr:100, img:["Stalker_Wings_Front.png"]}]},
+ {name:"Predator Hunter", faction:"Terminids", sub:"Predator Strain", main:175, note:"Predator Strain — cloaks like a Stalker and spits bile.", parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Predator Hunter Main Front.png","Predator Hunter Main Side.png"]},
+   {name:"Head", hp:40, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Predator Hunter Head Front.png","Predator Hunter Head Side.png"]},
+   {name:"Claw", hp:60, av:0, dur:0, toMain:40, fatal:false, cap:0, exdr:100, img:["Predator Hunter Claws Front.png","Predator Hunter Claws Side.png"]},
+   {name:"Leg", hp:60, av:0, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Predator Hunter Legs Front.png","Predator Hunter Legs Side.png"]},
+   {name:"Wing", hp:20, av:0, dur:0, toMain:30, fatal:false, cap:0, exdr:100, img:["Predator Hunter Wings Front.png"]}]},
+ {name:"Predator Stalker", faction:"Terminids", sub:"Predator Strain", main:650, note:"Predator Strain — can't cloak, never retreats. Weaker than a true Stalker but spawns in normal patrols.", parts:[
+   {name:"Main (body)", hp:"main", av:1, dur:50, toMain:100, fatal:"instant", exdr:0, img:["Predator Stalker Main Front.png","Predator Stalker Main Side.png"]},
+   {name:"Head", hp:175, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Predator Stalker Head Front.png","Predator Stalker Head Side.png"]},
+   {name:"Body Armor", hp:"main", av:2, dur:50, toMain:100, fatal:false, exdr:100, img:["Predator Stalker Body Armor Front.png","Predator Stalker Body Armor Side.png"]},
+   {name:"Underbelly", hp:"main", av:1, dur:50, toMain:100, fatal:"instant", exdr:100, img:["Predator Stalker Belly Front.png","Predator Stalker Belly Side.png"]},
+   {name:"Claw", hp:200, av:1, dur:50, toMain:70, fatal:false, cap:0, exdr:100, img:["Predator Stalker Claws Front.png","Predator Stalker Claws Side.png"]},
+   {name:"Left Legs", hp:200, av:1, dur:50, toMain:100, fatal:false, exdr:100, img:["Predator Stalker Left Legs Front.png"]},
+   {name:"Right Legs", hp:200, av:1, dur:50, toMain:70, fatal:false, cap:0, exdr:100, img:["Predator Stalker Right Legs Front.png","Predator Stalker Right Legs Side.png"]},
+   {name:"Wings", hp:125, av:0, dur:50, toMain:30, fatal:false, exdr:100, img:["Predator Stalker Wings.png"]}]},
+ {name:"Bile Titan", faction:"Terminids", main:6500, parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:50, img:["Bile Titan Main Health.png"]},
+   {name:"Head", hp:1500, av:4, dur:95, toMain:100, fatal:"instant", exdr:50, img:["Bile Titan Head Front.png","Bile Titan Head Side.png"]},
+   {name:"Torso Armor", hp:1500, av:4, dur:100, toMain:100, fatal:false, cap:0, exdr:50, img:["Bile Titan Torso Armor Front.png","Bile Titan Torso Armor Side.png"]},
+   {name:"Inner Flesh (exposed)", hp:"main", av:0, dur:70, toMain:100, fatal:"instant", exdr:50, img:["Bile Titan Inner Flesh Front.png","Bile Titan Inner Flesh Side.png"]},
+   {name:"Butt Armor", hp:3500, av:4, dur:100, toMain:100, fatal:"instant", exdr:50, img:["Bile Titan Butt Armor Rear.png","Bile Titan Butt Armor Side.png"]},
+   {name:"Upper Bile Sac", hp:750, av:0, dur:100, toMain:100, fatal:false, exdr:50, img:["Bile Titan Upper Bile Sac Front.png","Bile Titan Upper Bile Sac Side.png"]},
+   {name:"Lower Bile Sac", hp:750, av:0, dur:100, toMain:100, fatal:false, exdr:50, img:["Bile Titan Lower Bile Sac Front.png","Bile Titan Lower Bile Sac Side.png"]},
+   {name:"Underside (belly)", hp:4000, av:2, dur:80, toMain:60, fatal:"instant", exdr:0, img:["Bile Titan Underside Front.png","Bile Titan Underside Side.png"]},
+   {name:"Claw", hp:1000, av:4, dur:0, toMain:100, fatal:false, cap:0, exdr:50, img:["Bile Titan Claws Front.png","Bile Titan Claws Side.png"]},
+   {name:"Leg Armor", hp:1000, av:4, dur:100, toMain:100, fatal:false, cap:0, exdr:50, img:["Bile Titan Leg Armor Front.png","Bile Titan Leg Armor Side.png"]},
+   {name:"Leg Flesh", hp:2000, av:4, dur:100, toMain:100, fatal:"instant", exdr:50, img:["Bile Titan Leg Flesh Front.png","Bile Titan Leg Flesh Left.png"]}]},
+ {name:"Impaler", faction:"Terminids", main:4000, note:"The head (AV1, 150% to main) is only exposed while its tentacles are burrowed. Destroying head armor also breaks the RIGHT torso armor.", parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:0, img:["Impaler Main Health.png"]},
+   {name:"Head (exposed)", hp:1250, av:1, dur:75, toMain:150, fatal:"instant", cap:0, exdr:0, img:["Impaler Head Front.png","Impaler Head Side.png"]},
+   {name:"Tentacle Armor", hp:"main", av:4, dur:75, toMain:100, fatal:false, exdr:0, img:["Impaler Tentacle Armor Front.png","Impaler Tentacle Armor Side.png"]},
+   {name:"Tentacle Flesh", hp:500, av:1, dur:70, toMain:50, fatal:false, cap:0, exdr:0, img:["Impaler Tentacles Front.png","Impaler Tentacles Side.png"]},
+   {name:"Crest Armor", hp:1000, av:4, dur:80, toMain:75, fatal:false, exdr:0, img:["Impaler Crest Armor Front.png","Impaler Crest Armor Side.png"]},
+   {name:"Torso Armor", hp:1000, av:4, dur:75, toMain:75, fatal:false, exdr:0, img:["Impaler Torso Armor Rear.png","Impaler Torso Armor Side.png"]},
+   {name:"Inner Flesh (exposed)", hp:"main", av:0, dur:90, toMain:150, fatal:"instant", exdr:100, img:["Impaler Inner Flesh.png"]},
+   {name:"Underside", hp:"main", av:2, dur:100, toMain:150, fatal:"instant", exdr:100, img:["Impaler Underside.png"]},
+   {name:"Rear Armor Plates", hp:1000, av:4, dur:75, toMain:75, fatal:false, exdr:0, img:["Impaler Rear Armor Plates Rear.png","Impaler Rear Armor Plates Side.png"]},
+   {name:"Butt", hp:1100, av:3, dur:85, toMain:140, fatal:false, cap:0, exdr:0, img:["Impaler Butt Rear.png","Impaler Butt Side.png"]},
+   {name:"Leg Armor", hp:1000, av:4, dur:70, toMain:50, fatal:false, cap:0, exdr:0, img:["Impaler Leg Armor Front.png","Impaler Leg Armor Side.png"]},
+   {name:"Leg Flesh", hp:1000, av:0, dur:70, toMain:50, fatal:"instant", cap:0, exdr:0, img:["Impaler Leg Flesh Front.png","Impaler Leg Flesh Side.png"]}]},
+ {name:"Charger Behemoth", faction:"Terminids", main:3000, parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:25, img:["Charger Behemoth Main Health.png"]},
+   {name:"Head", hp:1600, av:4, dur:100, toMain:70, fatal:"instant", cap:0, exdr:25, img:["Charger Behemoth Head Front.png","Charger Behemoth Head Side.png"]},
+   {name:"Torso Armor", hp:1000, av:4, dur:85, toMain:100, fatal:false, cap:0, exdr:25, img:["Charger Behemoth Torso Armor Front.png","Charger Behemoth Torso Armor Side.png"]},
+   {name:"Inner Flesh (exposed)", hp:"main", av:1, dur:30, toMain:300, fatal:"instant", exdr:100, img:["Charger Behemoth Inner Flesh.png"]},
+   {name:"Underside", hp:"main", av:2, dur:100, toMain:100, fatal:"instant", exdr:100, img:["Charger Behemoth Underside Front.png","Charger Behemoth Underside Side.png"]},
+   {name:"Rear Armor Plates", hp:2200, av:4, dur:75, toMain:75, fatal:"instant", cap:0, exdr:100, img:["Charger Behemoth Rear Armor Plates Back.png","Charger Behemoth Rear Armor Plates.png"]},
+   {name:"Butt", hp:950, av:0, dur:100, toMain:50, fatal:"downs", cap:0, exdr:25, img:["Charger Behemoth Butt Rear.png","Charger Behemoth Butt Side.png"]},
+   {name:"Claw", hp:500, av:4, dur:70, toMain:70, fatal:false, cap:0, exdr:100, img:["Charger Behemoth Claws Front.png","Charger Behemoth Claws Side.png"]},
+   {name:"Front Leg Armor", hp:1000, av:4, dur:80, toMain:60, fatal:false, cap:0, exdr:25, img:["Charger Behemoth Front Leg Armor Front.png","Charger Behemoth Front Leg Armor Side.png"]},
+   {name:"Rear Leg Armor", hp:1000, av:4, dur:80, toMain:50, fatal:false, cap:0, exdr:25, img:["Charger Behemoth Rear Leg Armor Front.png","Charger Behemoth Rear Leg Armor Side.png"]},
+   {name:"Leg Flesh (exposed)", hp:800, av:2, dur:70, toMain:50, fatal:"instant", cap:0, exdr:25, img:["Charger Behemoth Leg Flesh Front.png","Charger Behemoth Leg Flesh Side.png"]}]},
+ {name:"Spore Charger", faction:"Terminids", main:2400, note:"Explodes on death (300 acid blast) unless it bleeds out. Spore sacs are shootable by anything but route only 20% to main.", parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:25, img:["Spore Charger Main Health.png"]},
+   {name:"Head", hp:1200, av:4, dur:75, toMain:70, fatal:"instant", cap:0, exdr:25, img:["Spore Charger Head Front.png","Spore Charger Head Side.png"]},
+   {name:"Torso Armor", hp:800, av:4, dur:85, toMain:100, fatal:false, cap:0, exdr:25, img:["Spore Charger Torso Armor Front.png","Spore Charger Torso Armor Side.png"]},
+   {name:"Inner Flesh (exposed)", hp:"main", av:1, dur:100, toMain:300, fatal:"instant", exdr:100, img:["Spore Charger Inner Flesh.png"]},
+   {name:"Underside", hp:"main", av:2, dur:100, toMain:100, fatal:"instant", exdr:100, img:["Spore Charger Underside Front.png","Spore Charger Underside Side.png"]},
+   {name:"Rear Armor Plates", hp:2200, av:4, dur:75, toMain:75, fatal:"instant", cap:0, exdr:100, img:["Spore Charger Rear Armor Plates Rear.png","Spore Charger Rear Armor Plates Side.png"]},
+   {name:"Butt", hp:950, av:0, dur:100, toMain:150, fatal:"downs", cap:0, exdr:25, img:["Spore Charger Butt Rear.png","Spore Charger Butt Side.png"]},
+   {name:"Spore Flesh (sac)", hp:500, av:1, dur:100, toMain:20, fatal:false, exdr:100, img:["Spore Charger Spores Front.png","Spore Charger Spores Side.png"]},
+   {name:"Claw", hp:500, av:4, dur:70, toMain:70, fatal:false, cap:0, exdr:100, img:["Spore Charger Claws Front.png","Spore Charger Claws Side.png"]},
+   {name:"Front Leg Armor", hp:800, av:4, dur:70, toMain:60, fatal:false, cap:0, exdr:25, img:["Spore Charger Front Leg Armor Front.png","Spore Charger Front Leg Armor Side.png"]},
+   {name:"Rear Leg Armor", hp:800, av:4, dur:70, toMain:50, fatal:false, cap:0, exdr:25, img:["Spore Charger Rear Leg Armor Front.png","Spore Charger Rear Leg Armor Side.png"]},
+   {name:"Leg Flesh (exposed)", hp:800, av:2, dur:70, toMain:50, fatal:"instant", cap:0, exdr:25, img:["Spore Charger Leg Flesh Front.png","Spore Charger Leg Flesh Side.png"]}]},
+ {name:"Rupture Charger", faction:"Terminids", sub:"Rupture Strain", main:2400, note:"Rupture Strain burrower — AV5 head and front tarsal plates, tougher than any other Charger variant up front.", parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:25, img:["Rupture Charger Main.png"]},
+   {name:"Head", hp:1200, av:5, dur:75, toMain:70, fatal:"instant", cap:0, exdr:25, img:["Rupture Charger Head Front.png","Rupture Charger Head Side.png"]},
+   {name:"Torso Armor", hp:800, av:4, dur:85, toMain:100, fatal:false, cap:0, exdr:25, img:["Rupture Charger Torso Armor Rear.png","Rupture Charger Torso Armor Side.png"]},
+   {name:"Inner Flesh (exposed)", hp:"main", av:1, dur:30, toMain:300, fatal:"instant", exdr:100, img:["Rupture Charger Inner Flesh.png"]},
+   {name:"Underside", hp:"main", av:2, dur:100, toMain:100, fatal:"instant", exdr:100, img:["Rupture Charger Underside Front.png","Rupture Charger Underside Side.png"]},
+   {name:"Rear Armor Plates", hp:2200, av:4, dur:75, toMain:75, fatal:"instant", cap:0, exdr:100, img:["Rupture Charger Rear Armor Plates Rear.png","Rupture Charger Rear Armor Plates Side.png"]},
+   {name:"Butt", hp:950, av:0, dur:80, toMain:150, fatal:"downs", cap:0, exdr:25, img:["Rupture Charger Butt Rear.png","Rupture Charger Butt Side.png"]},
+   {name:"Claw", hp:500, av:4, dur:70, toMain:70, fatal:false, cap:0, exdr:100, img:["Rupture Charger Claws Front.png","Rupture Charger Claws Side.png"]},
+   {name:"Frontal Tarsal Plate", hp:800, av:5, dur:70, toMain:60, fatal:false, cap:0, exdr:25, img:["Rupture Charger Front Leg Tarsal Plate Armor Front.png","Rupture Charger Front Leg Tarsal Plate Armor Side.png"]},
+   {name:"Front Leg Armor", hp:800, av:4, dur:70, toMain:60, fatal:false, cap:0, exdr:25, img:["Rupture Charger Front Leg Armor Front.png","Rupture Charger Front Leg Armor Side.png"]},
+   {name:"Rear Leg Armor", hp:800, av:4, dur:70, toMain:50, fatal:false, cap:0, exdr:25, img:["Rupture Charger Rear Leg Armor Rear.png","Rupture Charger Rear Leg Armor Side.png"]},
+   {name:"Leg Flesh (exposed)", hp:800, av:2, dur:70, toMain:50, fatal:"instant", cap:0, exdr:25, img:["Rupture Charger Leg Flesh Front.png","Rupture Charger Leg Flesh Side.png"]}]},
+ {name:"Dragonroach", faction:"Terminids", main:6500, note:"Flying Bile Titan analogue. Wings have +2,500 no-decay bleedout HP (effectively 4,000) and destroying one is fatal. Innards AV values are bugged high per the wiki's Known Issues.", parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:50, img:["Dragonroach_Main_Front.png"]},
+   {name:"Head", hp:1500, av:4, dur:95, toMain:100, fatal:"instant", cap:0, exdr:50, img:["Dragonroach_Head_Front.png","Dragonroach_Head_Side.png"]},
+   {name:"Carapace", hp:1500, av:4, dur:100, toMain:100, fatal:false, cap:0, exdr:50, img:["Dragonroach_Carapace_Front.png","Dragonroach_Carapace_Side.png"]},
+   {name:"Claw", hp:1000, av:4, dur:0, toMain:100, fatal:false, cap:0, exdr:50, img:["Dragonroach_Claws_Front.png","Dragonroach_Claws_Side.png"]},
+   {name:"Wing", hp:1500, av:0, dur:100, toMain:30, fatal:"instant", cap:0, exdr:50, img:["Dragonroach_Wings_Front.png","Dragonroach_Wings_Side.png"]},
+   {name:"Thorax Sac", hp:750, av:0, dur:100, toMain:100, fatal:false, exdr:50, img:["Dragonroach_Thorax_Sac_Front.png","Dragonroach_Thorax_Sac_Side.png"]},
+   {name:"Abdomen Sac", hp:750, av:0, dur:100, toMain:100, fatal:false, exdr:50, img:["Dragonroach_Abdominal_Sac_Front.png","Dragonroach_Abdominal_Sac_Side.png"]},
+   {name:"Thorax Innards", hp:3000, av:4, dur:80, toMain:60, fatal:"instant", cap:0, exdr:100, img:["Dragonroach_Thorax_Innards_Front.png","Dragonroach_Thorax_Innards_Side.png"]},
+   {name:"Abdomen Innards", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:100, img:["Dragonroach_Abdominal_Innards_Front.png","Dragonroach_Abdominal_Innards_Side.png"]},
+   {name:"Abdomen Armor", hp:3500, av:4, dur:100, toMain:100, fatal:"instant", exdr:50, img:["Dragonroach_Abdomen_Front.png","Dragonroach_Abdomen_Side.png"]},
+   {name:"Leg Armor", hp:1000, av:4, dur:0, toMain:100, fatal:false, cap:0, exdr:50, img:["Dragonroach_Leg_Armor_Front.png","Dragonroach_Leg_Armor_Side.png"]}]},
+ {name:"Hive Lord", faction:"Terminids", main:150000, note:"150,000 main HP — largest in the game. Plate armor sections carry +35,000 no-decay bleedout HP (≈50,000 effective each). Break a plate (AP5+), then hose the exposed AV2 flesh — which is explosion-immune. Parts listed at 150,000 HP share the main pool. Stun/confusion immune.", parts:[
+   {name:"Main (body)", hp:"main", av:5, dur:0, toMain:100, fatal:"instant", exdr:25, img:["Hive_Lord_Main.png"]},
+   {name:"Crown", hp:"main", av:10, dur:0, toMain:25, fatal:false, exdr:100, img:["Hive_Lord_Crown_Top.png","Hive_Lord_Crown_Side.png"]},
+   {name:"Jaws", hp:"main", av:6, dur:0, toMain:50, fatal:false, exdr:100, img:["Hive_Lord_Jaws_Top.png","Hive_Lord_Jaws_Side.png"]},
+   {name:"Mandible", hp:10000, av:6, dur:0, toMain:50, fatal:false, exdr:100, img:["Hive_Lord_Mandibles_Top.png","Hive_Lord_Mandibles_Side.png"]},
+   {name:"Mouth (open)", hp:"main", av:2, dur:0, toMain:100, fatal:false, exdr:100, img:["Hive_Lord_Mouth_Top.png","Hive_Lord_Mouth_Side.png"]},
+   {name:"Dorsal Plate Armor", hp:15000, av:5, dur:0, toMain:10, fatal:false, exdr:25, img:["Hive_Lord_Dorsal_Plate_Top.png","Hive_Lord_Dorsal_Plate_Side.png"]},
+   {name:"Sterna Plate Armor", hp:15000, av:5, dur:0, toMain:10, fatal:false, exdr:25, img:["Hive_Lord_Sterna_Plates_Side.png","Hive_Lord_Sterna_Plates_Bottom.png"]},
+   {name:"Lower Sterna Plate", hp:20000, av:5, dur:0, toMain:10, fatal:false, exdr:100, img:["Hive_Lord_Lower_Sterna_Plate_Side.png","Hive_Lord_Lower_Sterna_Plate_Bottom.png"]},
+   {name:"Inner Flesh (exposed)", hp:"main", av:2, dur:0, toMain:100, fatal:false, exdr:100, img:["Hive_Lord_Flesh_Top.png","Hive_Lord_Flesh_Side.png"]},
+   {name:"Fin", hp:5000, av:5, dur:0, toMain:25, fatal:false, exdr:50, img:["Hive_Lord_Fins_Top.png","Hive_Lord_Fins_Side.png"]}]},
+ {name:"Spore Burst Bile Titan", faction:"Terminids", sub:"Spore Burst Strain", main:7000, note:"Tougher than the base Titan: 7,000 main and a 2,500 HP head — EAT-17/Quasar NO LONGER one-shot the head; Recoilless and Spear still do. Spew buffs nearby Spore Burst bugs, so popping the 1,000 HP sacs matters double. Leg flesh carries no-decay bleedout HP. Stun/confusion immune.", parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:50, img:["Spore Burst Bile Titan Main.png"]},
+   {name:"Head", hp:2500, av:4, dur:95, toMain:100, fatal:"instant", cap:0, exdr:50, img:["Spore Burst Bile Titan Head Front.png","Spore Burst Bile Titan Head Side.png"]},
+   {name:"Torso Armor", hp:1500, av:4, dur:100, toMain:100, fatal:false, cap:0, exdr:50, img:["Spore Burst Bile Titan Torso Armor Front.png","Spore Burst Bile Titan Torso Armor Side.png"]},
+   {name:"Inner Flesh (exposed)", hp:"main", av:0, dur:70, toMain:100, fatal:"instant", exdr:50, img:["Spore Burst Bile Titan Inner Flesh Front.png","Spore Burst Bile Titan Inner Flesh Side.png"]},
+   {name:"Butt Armor", hp:3500, av:4, dur:100, toMain:100, fatal:"instant", exdr:50, img:["Spore Burst Bile Titan Butt Armor Rear.png","Spore Burst Bile Titan Butt Armor Side.png"]},
+   {name:"Upper Spore Sac", hp:1000, av:0, dur:100, toMain:100, fatal:false, exdr:50, img:["Spore Burst Bile Titan Upper Spore Sac Front.png","Spore Burst Bile Titan Upper Spore Sac Side.png"]},
+   {name:"Lower Spore Sac", hp:1000, av:0, dur:100, toMain:100, fatal:false, exdr:50, img:["Spore Burst Bile Titan Lower Spore Sac Front.png","Spore Burst Bile Titan Lower Spore Sac Side.png"]},
+   {name:"Underside (belly)", hp:4000, av:2, dur:80, toMain:60, fatal:"instant", cap:0, exdr:0, img:["Spore Burst Bile Titan Underside Front.png","Spore Burst Bile Titan Underside Side.png"]},
+   {name:"Claw", hp:1000, av:4, dur:0, toMain:100, fatal:false, cap:0, exdr:50, img:["Spore Burst Bile Titan Claws Front.png","Spore Burst Bile Titan Claws Side.png"]},
+   {name:"Leg Armor", hp:1000, av:4, dur:100, toMain:100, fatal:false, cap:0, exdr:50, img:["Spore Burst Bile Titan Leg Armor Front.png","Spore Burst Bile Titan Leg Armor Side.png"]},
+   {name:"Leg Flesh", hp:2000, av:4, dur:100, toMain:100, fatal:"instant", cap:0, exdr:50, img:["Spore Burst Bile Titan Leg Flesh Front.png","Spore Burst Bile Titan Leg Flesh Left.png"]}]},
+ {name:"Hunter", faction:"Terminids", main:160, parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Hunter_Main_Front.png","Hunter_Main_Side.png"]},
+   {name:"Head", hp:40, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Hunter_Head_Front.png","Hunter_Head_Side.png"]},
+   {name:"Claw", hp:60, av:0, dur:0, toMain:40, fatal:false, cap:0, exdr:100, img:["Hunter_Claws_Front.png","Hunter_Claws_Side.png"]},
+   {name:"Leg", hp:60, av:0, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Hunter_Legs_Front.png","Hunter_Legs_Side.png"]},
+   {name:"Wing", hp:20, av:0, dur:0, toMain:30, fatal:false, cap:0, exdr:100, img:["Hunter_Wings_Front.png"]}]},
+ {name:"Scavenger", faction:"Terminids", main:60, parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Scavenger Main Front.png","Scavenger Main Side.png"]},
+   {name:"Head", hp:20, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Scavenger Head Front.png","Scavenger Head Side.png"]},
+   {name:"Limb", hp:30, av:0, dur:0, toMain:30, fatal:false, exdr:100, img:["Scavenger Limbs Front.png","Scavenger Limbs Side.png"]}]},
+ {name:"Pouncer", faction:"Terminids", main:60, parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Pouncer Main Front.png","Pouncer Main Side.png"]},
+   {name:"Head", hp:20, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Pouncer Head Front.png","Pouncer Head Side.png"]},
+   {name:"Limb", hp:30, av:0, dur:0, toMain:30, fatal:"instant", exdr:100, img:["Pouncer Limbs Front.png","Pouncer Limbs Side.png"]}]},
+ {name:"Shrieker", faction:"Terminids", main:80, note:"Wings are 100% durable — destroying one is fatal. Its falling corpse still deals damage.", parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Shrieker Main Front.png","Shrieker Main Side.png"]},
+   {name:"Head", hp:30, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Shrieker Head Front.png","Shrieker Head Side.png"]},
+   {name:"Limbs", hp:30, av:0, dur:0, toMain:40, fatal:false, cap:0, exdr:100, img:["Shrieker Limbs Front.png","Shrieker Limbs Side.png"]},
+   {name:"Wing", hp:20, av:0, dur:100, toMain:30, fatal:"instant", exdr:100, img:["Shrieker Wings Front.png","Shrieker Wings Side.png"]}]},
+ {name:"Bile Spitter", faction:"Terminids", main:60, note:"Explodes on death (85 acid blast, AP6) — chains through groups.", parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Bile Spitter Main Front.png","Bile Spitter Main Side.png"]},
+   {name:"Head", hp:20, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Bile Spitter Head Front.png","Bile Spitter Head Side.png"]},
+   {name:"Limb", hp:30, av:0, dur:0, toMain:30, fatal:"instant", exdr:100, img:["Bile Spitter Limbs Front.png","Bile Spitter Limbs Side.png"]}]},
+ {name:"Bile Spewer", faction:"Terminids", main:750, note:"Armored parts are AV3 on difficulty 6+ (AV2 shown).", parts:[
+   {name:"Main (body)", hp:"main", av:2, dur:50, toMain:100, fatal:"instant", exdr:0, img:["Bile Spewer Main Front.png","Bile Spewer Main Side.png"]},
+   {name:"Head", hp:300, av:2, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Bile Spewer Head Front.png","Bile Spewer Head Side.png"]},
+   {name:"Mouth", hp:250, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Bile Spewer Mouth.png"]},
+   {name:"Spinal Plates", hp:500, av:2, dur:80, toMain:20, fatal:"instant", exdr:0, img:["Bile Spewer Spinal Plates Front.png","Bile Spewer Spinal Plates Rear.png"]},
+   {name:"Butt", hp:750, av:0, dur:100, toMain:60, fatal:"instant", exdr:0, img:["Bile Spewer Butt Rear.png","Bile Spewer Butt Side.png"]},
+   {name:"Front Leg", hp:200, av:2, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Bile Spewer Front Legs Front.png","Bile Spewer Front Legs Side.png"]},
+   {name:"Rear Leg", hp:250, av:2, dur:30, toMain:50, fatal:false, cap:0, exdr:100, img:["Bile Spewer Hind Legs Front.png","Bile Spewer Hind Legs Side.png"]}]},
+ {name:"Rupture Spewer", faction:"Terminids", sub:"Rupture Strain", main:750, note:"Rupture Strain burrower — AV3 head and front legs (vs the Bile Spewer's AV2/3). Explodes on death; stagger-immune while emerging.", parts:[
+   {name:"Main (body)", hp:"main", av:2, dur:50, toMain:100, fatal:"instant", exdr:0, img:["Rupture_Spewer_Main_Front.png","Rupture_Spewer_Main_Side.png"]},
+   {name:"Head", hp:300, av:3, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Rupture_Spewer_Head_Front.png","Rupture_Spewer_Head_Side.png"]},
+   {name:"Mouth", hp:250, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Rupture_Spewer_Mouth.png"]},
+   {name:"Spinal Plates", hp:500, av:2, dur:80, toMain:20, fatal:"instant", exdr:0, img:["Rupture_Spewer_Spinal_Plates_Front.png","Rupture Spewer Spinal Plates Rear.png"]},
+   {name:"Butt", hp:750, av:0, dur:100, toMain:60, fatal:"instant", exdr:0, img:["Rupture_Spewer_Butt_Front.png","Rupture Spewer Butt Rear.png"]},
+   {name:"Front Leg", hp:200, av:3, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Rupture_Spewer_Front_Legs_Front.png","Rupture_Spewer_Front_Legs_Side.png"]},
+   {name:"Rear Leg", hp:250, av:2, dur:30, toMain:50, fatal:false, cap:0, exdr:100, img:["Rupture_Spewer_Rear_Legs_Front.png","Rupture_Spewer_Rear_Legs_Side.png"]}]},
+ {name:"Nursing Spewer", faction:"Terminids", main:750, note:"Explodes on death (300 acid blast) if the butt is intact. AV2 on all difficulties, unlike the Bile Spewer.", parts:[
+   {name:"Main (body)", hp:"main", av:2, dur:50, toMain:100, fatal:"instant", exdr:0, img:["Nursing_Spewer_Main_Front.png","Nursing_Spewer_Main_Side.png"]},
+   {name:"Head", hp:300, av:2, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Nursing_Spewer_Head_Front.png","Nursing_Spewer_Head_Side.png"]},
+   {name:"Mouth", hp:250, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Nursing_Spewer_Mouth.png"]},
+   {name:"Spinal Plates", hp:500, av:2, dur:80, toMain:20, fatal:"instant", exdr:0, img:["Nursing_Spewer_Spinal_Plates_Front.png","Nursing Spewer Spinal Plates Rear.png"]},
+   {name:"Butt", hp:750, av:0, dur:100, toMain:60, fatal:"instant", exdr:0, img:["Nursing Spewer Butt Rear.png","Nursing_Spewer_Butt_Side.png"]},
+   {name:"Front Leg", hp:200, av:2, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Nursing_Spewer_Front_Legs_Front.png"]},
+   {name:"Rear Leg", hp:250, av:2, dur:30, toMain:50, fatal:false, cap:0, exdr:100, img:["Nursing Spewer Rear Legs Front.png","Nursing_Spewer_Rear_Legs_Side.png"]}]},
+ {name:"Hulk (Scorcher)", faction:"Automatons", main:1800, parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:60, toMain:100, fatal:"instant", exdr:0, img:["Hulk Scorcher Main Front.png","Hulk Scorcher Main Rear.png"]},
+   {name:"Head (eye slit)", hp:250, av:4, dur:25, toMain:100, fatal:"instant", exdr:100, img:["Hulk Scorcher Head Front.png","Hulk Scorcher Head Side.png"]},
+   {name:"Arm", hp:500, av:4, dur:70, toMain:80, fatal:false, cap:0, exdr:100, img:["Hulk Scorcher Arms Front.png","Hulk Scorcher Arms Side.png"]},
+   {name:"Leg", hp:500, av:4, dur:80, toMain:80, fatal:false, cap:0, exdr:100, img:["Hulk Scorcher Legs Front.png","Hulk Scorcher Legs Side.png"]},
+   {name:"Heatsink (rear vent)", hp:900, av:1, dur:60, toMain:60, fatal:"downs", exdr:0, img:["Hulk Scorcher Vent Rear.png","Hulk Scorcher Vent Side.png"]}]},
+ {name:"Radical", faction:"Automatons", sub:"Cyborg Legion", main:750, note:"Cyborg Legion melee rusher. One-shot headshot with 150+ damage weapons; torso oddly has MORE HP than main (likely a bug, per wiki). Fire multiplier only 0.5×.", parts:[
+   {name:"Main (body)", hp:"main", av:1, dur:20, toMain:100, fatal:"instant", exdr:0, img:["Radical Main Health Front.png","Radical Main Health Side.png"]},
+   {name:"Head", hp:150, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Radical Head Front.png","Radical Head Side.png"]},
+   {name:"Torso Circuits", hp:1200, av:2, dur:0, toMain:100, fatal:"instant", cap:0, exdr:100, img:["Radical Torso Circuits Front.png","Radical Torso Circuits Side.png"]},
+   {name:"Pauldron", hp:200, av:2, dur:0, toMain:30, fatal:false, cap:0, exdr:65, img:["Radical Pauldron Front.png","Radical Pauldron Side.png"]},
+   {name:"Upper Arm", hp:300, av:1, dur:0, toMain:80, fatal:false, exdr:55, img:["Radical Upper Arms Front.png","Radical Upper Arms Side.png"]},
+   {name:"Forearm", hp:300, av:2, dur:0, toMain:75, fatal:false, exdr:100, img:["Radical Forearms Front.png","Radical Forearms Side.png"]},
+   {name:"Pelvis + Left Leg", hp:1400, av:2, dur:0, toMain:100, fatal:"instant", cap:0, exdr:100, img:["Radical Pelvis and Left Leg.png"]},
+   {name:"Right Leg", hp:1400, av:2, dur:0, toMain:75, fatal:"instant", cap:0, exdr:100, img:["Radical Radical Right Leg Front.png","Radical Right Leg Side.png"]}]},
+ {name:"Agitator", faction:"Automatons", sub:"Cyborg Legion", main:750, note:"Cyborg Legion commander — buffs nearby bots; killing it stuns them. Armored version of the Radical: break the AV2 helmet (200 HP) for the one-shot head, or the torso armor for the flesh. Fire multiplier 0.5×.", parts:[
+   {name:"Main (body)", hp:"main", av:1, dur:20, toMain:100, fatal:"instant", exdr:0, img:["Agitator Main Health Front.png","Agitator Main Side.png"]},
+   {name:"Helmet", hp:200, av:2, dur:0, toMain:30, fatal:false, cap:0, exdr:65, img:["Agitator Helmet Front.png","Agitator Helmet Side.png"]},
+   {name:"Head (under helmet)", hp:150, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Agitator Head Front.png","Agitator Head Side.png"]},
+   {name:"Torso Armor", hp:300, av:2, dur:0, toMain:30, fatal:false, cap:0, exdr:65, img:["Agitator Torso Armor Front.png","Agitator Torso Armor Side.png"]},
+   {name:"Torso (circuits)", hp:1200, av:2, dur:0, toMain:100, fatal:"instant", cap:0, exdr:100, img:["Agitator Torso Circuits Front.png","Agitator Torso Circuits Side.png"]},
+   {name:"Pauldron", hp:200, av:2, dur:0, toMain:30, fatal:false, cap:0, exdr:65, img:["Agitator Pauldrons Front.png","Agitator Pauldrons Side.png"]},
+   {name:"Upper Arm", hp:300, av:1, dur:0, toMain:80, fatal:false, exdr:55, img:["Agitator Upper Arms Front.png","Agitator Upper Arms Side.png"]},
+   {name:"Forearm", hp:300, av:2, dur:0, toMain:75, fatal:false, exdr:100, img:["Agitator Forearms Front.png","Agitator Forearms Side.png"]},
+   {name:"Pelvis + Left Leg", hp:1400, av:2, dur:0, toMain:100, fatal:"instant", cap:0, exdr:100, img:["Agitator Pelvis and Left Leg.png"]},
+   {name:"Right Leg", hp:1400, av:2, dur:0, toMain:75, fatal:"instant", cap:0, exdr:100, img:["Agitator Right Leg Front.png","Agitator Right Leg Side.png"]}]},
+ {name:"Trooper", faction:"Automatons", main:125, note:"Also covers Raider/MG Raider/Rocket Raider variants — same body. Headshots and grenades one-shot all light Automatons.", parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:50, img:["Trooper Main Health.png"]},
+   {name:"Head", hp:40, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Trooper Head Front.png","Trooper Head Side.png"]},
+   {name:"Torso", hp:100, av:0, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Trooper Torso Front.png","Trooper Torso Side.png"]},
+   {name:"Arm", hp:65, av:0, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Trooper Arms Front.png","Trooper Arms Side.png"]},
+   {name:"Leg", hp:90, av:0, dur:0, toMain:65, fatal:"instant", exdr:100, img:["Trooper Legs Front.png","Trooper Legs Side.png"]}]},
+ {name:"Commissar", faction:"Automatons", main:125, note:"Trooper body with AV1 plating everywhere — light-pen weapons still work, extreme angles ricochet.", parts:[
+   {name:"Main (body)", hp:"main", av:1, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Trooper Main Health.png"]},
+   {name:"Head", hp:40, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Trooper Head Front.png","Trooper Head Side.png"]},
+   {name:"Torso", hp:100, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Trooper Torso Front.png","Trooper Torso Side.png"]},
+   {name:"Arm", hp:65, av:1, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Trooper Arms Front.png","Trooper Arms Side.png"]},
+   {name:"Leg", hp:90, av:1, dur:0, toMain:65, fatal:"instant", exdr:100, img:["Trooper Legs Front.png","Trooper Legs Side.png"]}]},
+ {name:"Devastator", faction:"Automatons", main:750, parts:[
+   {name:"Main (body)", hp:"main", av:2, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Devastator Main Health.png"]},
+   {name:"Head", hp:110, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Devastator Head Front.png","Devastator Head Side.png"]},
+   {name:"Torso", hp:425, av:3, dur:30, toMain:100, fatal:"instant", exdr:100, img:["Devastator Torso Front.png","Devastator Torso Side.png"]},
+   {name:"Shoulder", hp:150, av:2, dur:0, toMain:25, fatal:false, exdr:100, img:["Devastator Shoulders Front.png","Devastator Shoulders Side.png"]},
+   {name:"Arm (gun)", hp:260, av:1, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Devastator Arms Front.png","Devastator Arms Side.png"]},
+   {name:"Stomach", hp:350, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Devastator Stomach Front.png","Devastator Stomach Side.png"]},
+   {name:"Pelvis", hp:500, av:2, dur:0, toMain:75, fatal:"instant", exdr:100, img:["Devastator Pelvis Front.png","Devastator Pelvis Side.png"]},
+   {name:"Leg", hp:500, av:2, dur:30, toMain:60, fatal:"instant", exdr:100, img:["Devastator Legs Front.png","Devastator Legs Side.png"]}]},
+ {name:"Rocket Devastator", faction:"Automatons", main:750, parts:[
+   {name:"Main (body)", hp:"main", av:2, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Rocket Devastator Main.png"]},
+   {name:"Head", hp:110, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Rocket Devastator Head Front.png","Rocket Devastator Head Side.png"]},
+   {name:"Torso", hp:425, av:3, dur:30, toMain:100, fatal:"instant", exdr:100, img:["Rocket Devastator Torso Front.png","Rocket Devastator Torso Side.png"]},
+   {name:"Shoulder", hp:150, av:2, dur:0, toMain:25, fatal:false, exdr:100, img:["Rocket Devastator Shoulders Front.png","Rocket Devastator Shoulders Side.png"]},
+   {name:"Arm (gun)", hp:260, av:1, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Rocket Devastator Arms Front.png","Rocket Devastator Arms Side.png"]},
+   {name:"Stomach", hp:350, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Rocket Devastator Stomach Front.png","Rocket Devastator Stomach Side.png"]},
+   {name:"Pelvis", hp:500, av:1, dur:0, toMain:75, fatal:"instant", exdr:100, img:["Rocket Devastator Pelvis Front.png","Rocket Devastator Pelvis Side.png"]},
+   {name:"Leg", hp:500, av:2, dur:30, toMain:60, fatal:"instant", exdr:100, img:["Rocket Devastator Legs Front.png","Rocket Devastator Legs Side.png"]},
+   {name:"Rockets", hp:200, av:0, dur:0, toMain:100, fatal:false, exdr:100, img:["Rocket Devastator Rockets Front.png","Rocket Devastator Rockets Side.png"]},
+   {name:"Rocket Pods", hp:300, av:1, dur:100, toMain:30, fatal:false, exdr:100, img:["Rocket Devastator Rocket Pods Front.png","Rocket Devastator Rocket Pods Side.png"]}]},
+ {name:"Heavy Devastator", faction:"Automatons", main:750, parts:[
+   {name:"Main (body)", hp:"main", av:2, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Heavy Devastator Main.png"]},
+   {name:"Head", hp:110, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Heavy Devastator Head Front.png","Heavy Devastator Head Side.png"]},
+   {name:"Torso", hp:425, av:3, dur:30, toMain:100, fatal:"instant", exdr:100, img:["Heavy Devastator Torso Front.png","Heavy Devastator Torso Side.png"]},
+   {name:"Shoulder", hp:150, av:2, dur:0, toMain:25, fatal:false, exdr:100, img:["Heavy Devastator Shoulders Front.png","Heavy Devastator Shoulders Side.png"]},
+   {name:"Arm (gun)", hp:260, av:1, dur:0, toMain:50, fatal:false, cap:0, exdr:100, img:["Heavy Devastator Arms Front.png","Heavy Devastator Arms Side.png"]},
+   {name:"Stomach", hp:350, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Heavy Devastator Stomach Front.png","Heavy Devastator Stomach Side.png"]},
+   {name:"Pelvis", hp:500, av:2, dur:0, toMain:75, fatal:"instant", exdr:100, img:["Heavy Devastator Pelvis Front.png","Heavy Devastator Pelvis Side.png"]},
+   {name:"Leg", hp:500, av:2, dur:30, toMain:60, fatal:"instant", exdr:100, img:["Heavy Devastator Legs Front.png","Heavy Devastator Legs Side.png"]},
+   {name:"Backpack", hp:600, av:2, dur:0, toMain:40, fatal:"instant", exdr:100, img:["Heavy Devastator Backpack Rear.png","Heavy Devastator Backpack Side.png"]},
+   {name:"Shield", hp:800, av:4, dur:70, toMain:null, fatal:false, exdr:0, img:["Heavy_Devastator_Shield_Front.png","Heavy Devastator Shield Side.png"]}]},
+ {name:"Conflagration Devastator", faction:"Automatons", sub:"Incineration Corps", main:750, note:"Incineration Corps shield Devastator with an incendiary scattergun. Same body as the Heavy Devastator but NO backpack weak spot — headshot or flank the stomach/pelvis.", parts:[
+   {name:"Main (body)", hp:"main", av:2, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Conflagration Devastator Main.png"]},
+   {name:"Head", hp:110, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Conflagration Devastator Head Front.png","Conflagration Devastator Head Side.png"]},
+   {name:"Torso", hp:425, av:3, dur:30, toMain:100, fatal:"instant", exdr:100, img:["Conflagration Devastator Torso Front.png","Conflagration Devastator Torso Side.png"]},
+   {name:"Shoulder", hp:150, av:2, dur:0, toMain:25, fatal:false, exdr:100, img:["Conflagration Devastator Shoulders Front.png","Conflagration Devastator Shoulders Side.png"]},
+   {name:"Arm (gun)", hp:260, av:1, dur:0, toMain:50, fatal:false, exdr:100, img:["Conflagration Devastator Arms Front.png","Conflagration Devastator Arms Side.png"]},
+   {name:"Stomach", hp:350, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Conflagration Devastator Stomach Front.png","Conflagration Devastator Stomach Side.png"]},
+   {name:"Pelvis", hp:500, av:2, dur:0, toMain:75, fatal:"instant", exdr:100, img:["Conflagration Devastator Pelvis Front.png","Conflagration Devastator Pelvis Side.png"]},
+   {name:"Leg", hp:500, av:2, dur:30, toMain:60, fatal:"instant", exdr:100, img:["Conflagration Devastator Legs Front.png","Conflagration Devastator Legs Side.png"]},
+   {name:"Shield", hp:800, av:4, dur:70, toMain:null, fatal:false, exdr:0, img:["Conflagration Devastator Shield Front.png","Conflagration Devastator Shield Side.png"]}]},
+ {name:"Berserker", faction:"Automatons", main:750, parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Berserker Main Health.png"]},
+   {name:"Head", hp:110, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Berserker Head.png","Berserker Head Side.png"]},
+   {name:"Chest", hp:425, av:2, dur:40, toMain:100, fatal:"instant", exdr:100, img:["Berserker Chest.png","Berserker Chest Side.png"]},
+   {name:"Stomach (glowing)", hp:350, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Berserker Boss.png","Berserker Boss Side.png"]},
+   {name:"Pelvis", hp:600, av:1, dur:0, toMain:65, fatal:"instant", exdr:100, img:["Berserker Pelvis.png","Berserker Pelvis Side.png"]},
+   {name:"Shoulder", hp:180, av:0, dur:0, toMain:0, fatal:false, exdr:100, img:["Berserker Shoulders.png","Berserker Shoulders Side.png"]},
+   {name:"Arm", hp:260, av:1, dur:30, toMain:50, fatal:false, exdr:100, img:["Berserker Arms.png","Berserker Arms Side.png"]},
+   {name:"Leg", hp:750, av:1, dur:30, toMain:0, fatal:"instant", exdr:100, img:["Berserker Legs.png","Berserker Legs Side.png"]}]},
+ {name:"Scout Strider", faction:"Automatons", main:500, parts:[
+   {name:"Main (vehicle)", hp:"main", av:4, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Scout Strider Main Health.png"]},
+   {name:"Pilot (Trooper)", hp:125, av:0, dur:0, toMain:null, fatal:"instant", exdr:50, img:["Scout Strider Pilot Front.png","Scout Strider Pilot Rear.png"]},
+   {name:"Front Plate", hp:350, av:4, dur:40, toMain:null, fatal:"instant", exdr:0, img:["Scout Strider Front Plate Front.png","Scout Strider Front Plate Side.png"]},
+   {name:"HMG", hp:300, av:4, dur:100, toMain:null, fatal:"instant", exdr:0, img:["Scout Strider HMG Front.png","Scout Strider HMG Side.png"]},
+   {name:"Turret System", hp:300, av:3, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Scout Strider Turret System Front.png","Scout Strider Turret System Side.png"]},
+   {name:"Waist", hp:300, av:3, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Scout Strider Waist Front.png","Scout Strider Waist Side.png"]},
+   {name:"Leg", hp:400, av:2, dur:75, toMain:50, fatal:"instant", exdr:0, img:["Scout Strider Legs Front.png","Scout Strider Legs Side.png"]}]},
+ {name:"Reinforced Scout Strider", faction:"Automatons", main:500, note:"Pilot is sealed in — no exposed weak point. Shooting a rocket (100 HP, AV2, 0% durable) detonates it; currently bugged to cripple rather than kill.", parts:[
+   {name:"Main (vehicle)", hp:"main", av:4, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Reinforced Scout Strider Main Health.png"]},
+   {name:"Faceplate", hp:400, av:4, dur:40, toMain:null, fatal:"instant", exdr:0, img:["Reinforced Scout Strider Cabin Front.png","Reinforced Scout Strider Cabin Side.png"]},
+   {name:"HMG", hp:300, av:4, dur:100, toMain:null, fatal:"instant", exdr:0, img:["Reinforced Scout Strider HMG Front.png","Reinforced Scout Strider HMG Side.png"]},
+   {name:"Rocket Rail", hp:200, av:2, dur:0, toMain:null, fatal:false, exdr:80, img:["Reinforced Scout Strider Rocket Rails Front.png","Reinforced Scout Strider Rocket Rails Side.png"]},
+   {name:"Rocket", hp:100, av:2, dur:0, toMain:null, fatal:"instant", exdr:100, img:["Reinforced Scout Strider Rockets Front.png","Reinforced Scout Strider Rocket Side.png"]},
+   {name:"Turret System", hp:300, av:3, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Reinforced Scout Strider Turret System Front.png","Reinforced Scout Strider Turret System Side.png"]},
+   {name:"Waist", hp:300, av:3, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Reinforced Scout Strider Waist Front.png","Reinforced Scout Strider Waist Side.png"]},
+   {name:"Leg", hp:400, av:2, dur:75, toMain:50, fatal:"instant", exdr:0, img:["Reinforced Scout Strider Legs Front.png","Reinforced Scout Strider Legs Side.png"]}]},
+ {name:"Annihilator Tank", faction:"Automatons", main:4000, note:"Tanks have two pools: hull main (4,000, shown) and turret main (2,100). Turret parts kill via the turret pool — turret heatsink damage routes there at 200%.", parts:[
+   {name:"Hull Main", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:0, img:["Annihilator Hull Main Health.png"]},
+   {name:"Hull Front", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:35, img:["Annihilator Hull Front.png"]},
+   {name:"Hull Side", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:35, img:["Annihilator Hull Sides 1.png","Annihilator Hull Sides 2.png"]},
+   {name:"Turret (2,100 pool)", hp:2100, av:5, dur:100, toMain:null, fatal:"instant", exdr:0, img:["Annihilator Turret Main Front.png","Annihilator Turret Main Side.png"]},
+   {name:"Turret Heatsink", hp:750, av:3, dur:100, toMain:null, fatal:"instant", exdr:0, img:["Annihilator Turret Vent Rear.png","Annihilator Turret Vent Side.png"]},
+   {name:"Engine Bay", hp:1500, av:4, dur:100, toMain:150, fatal:"instant", exdr:50, img:["Annihilator Engine Bay Rear.png","Annihilator Engine Bay Side.png"]},
+   {name:"Track", hp:750, av:3, dur:80, toMain:100, fatal:false, cap:0, exdr:100, img:["Annihilator Tracks Front.png","Annihilator Tracks Side.png"]}]},
+ {name:"Shredder Tank", faction:"Automatons", main:4000, note:"Tanks have two pools: hull main (4,000, shown) and turret main (2,100). Turret parts kill via the turret pool.", parts:[
+   {name:"Hull Main", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:0, img:["Shredder Hull Main Health.png"]},
+   {name:"Hull Front", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:35, img:["Shredder Hull Front.png"]},
+   {name:"Hull Side", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:35, img:["Shredder Hull Sides 1.png","Shredder Hull Sides 2.png"]},
+   {name:"Turret (2,100 pool)", hp:2100, av:5, dur:100, toMain:null, fatal:"instant", exdr:0, img:["Shredder Turret Main Front.png","Shredder Turret Main Side.png"]},
+   {name:"Turret Heatsink", hp:750, av:3, dur:100, toMain:null, fatal:"instant", exdr:0, img:["Shredder Turret Vent Rear.png","Shredder Turret Vent Side.png"]},
+   {name:"Engine Bay", hp:1500, av:4, dur:100, toMain:150, fatal:"instant", exdr:50, img:["Shredder Engine Bay Rear.png","Shredder Engine Bay Side.png"]},
+   {name:"Track", hp:750, av:3, dur:80, toMain:100, fatal:false, cap:0, exdr:100, img:["Shredder Tracks Front.png","Shredder Tracks Side.png"]}]},
+ {name:"Barrager Tank", faction:"Automatons", main:4000, note:"Tanks have two pools: hull main (4,000, shown) and turret main (2,100). Launch tubes route 150% into the turret pool.", parts:[
+   {name:"Hull Main", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:0, img:["Barrager Hull Main Health.png"]},
+   {name:"Hull Front", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:35, img:["Barrager Hull Front 1.png"]},
+   {name:"Hull Side", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:35, img:["Barrager Hull Sides 1.png","Barrager Hull Sides 2.png"]},
+   {name:"Turret (2,100 pool)", hp:2100, av:5, dur:100, toMain:null, fatal:"instant", exdr:0, img:["Barrager Turret Main Front.png","Barrager Turret Main Side.png"]},
+   {name:"Launch Tubes", hp:1500, av:3, dur:100, toMain:null, fatal:"instant", exdr:0, img:["Barrager Turret Launch Tubes Front.png","Barrager Turret Launch Tubes Rear.png"]},
+   {name:"Engine Bay", hp:1500, av:4, dur:100, toMain:150, fatal:"instant", exdr:50, img:["Barrager Engine Bay Rear.png","Barrager Engine Bay Side.png"]},
+   {name:"Track", hp:750, av:3, dur:80, toMain:100, fatal:false, cap:0, exdr:100, img:["Barrager Tracks Front.png","Barrager Tracks Side.png"]}]},
+ {name:"Cannon Turret", faction:"Automatons", main:2100, note:"Emplaced Annihilator turret. Heatsink routes 200% to main — the intended kill route for AP4+ weapons.", parts:[
+   {name:"Main", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:0, img:["Cannon Turret Main Front.png","Cannon Turret Main Side.png"]},
+   {name:"Turret Front", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:100, img:["Cannon Turret Frontal Armor Front.png","Cannon Turret Frontal Armor Side.png"]},
+   {name:"Heatsink (rear)", hp:750, av:3, dur:100, toMain:200, fatal:"instant", exdr:0, img:["Cannon Turret Vent 1.png","Cannon Turret Vent 2.png"]}]},
+ {name:"Vox Engine", faction:"Automatons", sub:"Cyborg Legion", main:9000, note:"Cyborg Legion super-heavy. Special kills the calculator can't model: destroy 3 top or 3 bottom vents to open a hatch — ANY thrown grenade inside is an instant kill; each destroyed vent also deals 700 bonus to main; destroying BOTH cannons (2,000 dmg each on death) kills it outright. Main pool has +50,000 bleedout at 10,000/s decay.", parts:[
+   {name:"Main (body)", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:0, img:["Vox Engine Main Health Front.png","Vox Engine Main Health Side.png"]},
+   {name:"Sarcophagus", hp:7000, av:5, dur:60, toMain:100, fatal:false, cap:0, exdr:100, img:["Vox Engine Sarcophagus Front.png","Vox Engine Sarcophagus Side.png"]},
+   {name:"Torso", hp:9000, av:5, dur:0, toMain:100, fatal:false, exdr:60, img:["Vox Engine Torso Front.png","Vox Engine Torso Side.png"]},
+   {name:"Cannon (Macro-Culverin)", hp:3500, av:4, dur:70, toMain:null, fatal:false, exdr:60, img:["Vox Engine Cannons Front.png","Vox Engine Cannons Side.png"]},
+   {name:"Missile Launcher", hp:1200, av:3, dur:60, toMain:100, fatal:false, exdr:100, img:["Vox Engine Missile Launchers Rear.png","Vox Engine Missile Launchers Side.png"]},
+   {name:"Minigun", hp:300, av:3, dur:100, toMain:null, fatal:false, exdr:100, img:["Vox Engine Gatling Guns Front.png","Vox Engine Gatling Guns Side.png"]},
+   {name:"Speaker", hp:800, av:3, dur:0, toMain:0, fatal:false, exdr:100, img:["Vox Engine Speakers Front.png","Vox Engine Speakers Side.png"]},
+   {name:"Fog Light", hp:50, av:1, dur:60, toMain:100, fatal:false, cap:0, exdr:100, img:["Vox Engine Fog Lights.png"]},
+   {name:"Torso Flap", hp:500, av:3, dur:0, toMain:100, fatal:false, exdr:60, img:["Vox Engine Torso Flaps Front.png","Vox Engine Torso Flaps Side.png"]},
+   {name:"Vent", hp:300, av:1, dur:60, toMain:100, fatal:false, cap:0, exdr:100, img:["Vox Engine Vents Rear.png","Vox Engine Vents Side.png"]},
+   {name:"Undercarriage", hp:9000, av:5, dur:0, toMain:100, fatal:false, cap:0, exdr:60, img:["Vox Engine Undercarriage Front.png","Vox Engine Undercarriage Side.png"]},
+   {name:"Trackpod Latch", hp:2000, av:3, dur:0, toMain:50, fatal:false, exdr:60, img:["Vox Engine Trackpod Latches Front.png","Vox Engine Trackpod Latches Side.png"]},
+   {name:"Track", hp:3000, av:4, dur:0, toMain:60, fatal:false, cap:0, exdr:60, img:["Vox Engine Tracks Front.png","Vox Engine Tracks Side.png"]}]},
+ {name:"Gunship", faction:"Automatons", main:950, note:"Destroying ANY thruster brings it down instantly. Fuselage is fully durable and explosion-immune.", parts:[
+   {name:"Main", hp:"main", av:3, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Gunship Main Health.png"]},
+   {name:"Fuselage", hp:"main", av:3, dur:100, toMain:100, fatal:"instant", exdr:100, img:["Gunship Fuselage Front.png","Gunship Fuselage Side.png"]},
+   {name:"Front Thruster", hp:400, av:3, dur:85, toMain:0, fatal:"instant", exdr:0, img:["Gunship Front Engines 1.png","Gunship Front Engines 2.png"]},
+   {name:"Rear Thruster", hp:400, av:3, dur:80, toMain:0, fatal:"instant", exdr:0, img:["Gunship Rear Engines 1.png","Gunship Rear Engines 2.png"]}]},
+ {name:"Dropship", faction:"Automatons", main:3500, note:"Destroying a thruster downs it onto its own cargo. Killing the fuselage before deployment destroys all carried units.", parts:[
+   {name:"Main", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:0, img:["Dropship Main.png"]},
+   {name:"Fuselage", hp:"main", av:5, dur:100, toMain:100, fatal:"instant", exdr:100, img:["Dropship Fuselage Front.png","Dropship Fuselage Side.png"]},
+   {name:"Thruster", hp:1500, av:5, dur:100, toMain:0, fatal:"downs", exdr:0, img:["Dropship Thrusters Front.png","Dropship Thrusters Side.png"]}]},
+ {name:"War Strider", faction:"Automatons", main:3500, note:"Eyes and rear heatsink are the low-HP fatal weak spots; hip joints are the only AV3 opening. Greaves on the leg backs are AV5.", parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:0, img:["War Strider Main Front.png"]},
+   {name:"Torso", hp:3300, av:4, dur:100, toMain:80, fatal:"instant", exdr:0, img:["War Strider Torso Front.png","War Strider Torso Side.png"]},
+   {name:"Eye", hp:500, av:4, dur:70, toMain:30, fatal:"instant", exdr:100, img:["War Strider Front Eye Front.png"]},
+   {name:"Fusion Cannon", hp:500, av:4, dur:80, toMain:null, fatal:false, exdr:40, img:["War Strider Cannons Front.png","War Strider Cannons Side.png"]},
+   {name:"Grenade Launcher", hp:400, av:4, dur:70, toMain:0, fatal:false, exdr:100, img:["War Strider Grenade Launchers Front.png","War Strider Grenade Launchers Side.png"]},
+   {name:"Crotch", hp:1800, av:4, dur:100, toMain:100, fatal:"instant", exdr:100, img:["War Strider Crotch Front.png","War Strider Crotch Side.png"]},
+   {name:"Heatsink (rear)", hp:700, av:4, dur:70, toMain:70, fatal:"instant", exdr:100, img:["War Strider Vent Back.png"]},
+   {name:"Hip Joint", hp:750, av:3, dur:80, toMain:50, fatal:"instant", exdr:100, img:["War Strider Leg Joints Front.png","War Strider Hip Joints Rear.png"]},
+   {name:"Leg", hp:1500, av:4, dur:80, toMain:80, fatal:"instant", exdr:40, img:["War Strider Legs Front.png","War Strider Legs Side.png"]},
+   {name:"Greave", hp:150, av:5, dur:0, toMain:50, fatal:false, exdr:100, img:["War Strider Greaves Rear.png","War Strider Greaves Side.png"]}]},
+ {name:"Factory Strider", faction:"Automatons", main:10000, note:"Belly panels and leg assemblies have extra no-decay bleedout HP (effectively +1,200 / +2,000).", parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:40, img:["Factory Strider Main Health.png"]},
+   {name:"Head Body (eye)", hp:2500, av:4, dur:100, toMain:100, fatal:"instant", exdr:40, img:["Factory Strider Head Body Front.png","Factory Strider Head Body Side.png"]},
+   {name:"Head Armor", hp:1500, av:5, dur:100, toMain:30, fatal:false, exdr:40, img:["Factory Strider Head Armor Front.png","Factory Strider Head Armor Side.png"]},
+   {name:"Cannon Turret", hp:900, av:5, dur:100, toMain:null, fatal:false, exdr:50, img:["Factory Strider Cannon Turret Front.png","Factory Strider Cannon Turret Side.png"]},
+   {name:"Fusion Gatling Gun", hp:300, av:3, dur:100, toMain:null, fatal:false, exdr:100, img:["Factory Strider Gatling Guns Front.png","Factory Strider Gatling Guns Side.png"]},
+   {name:"Belly Panel", hp:1200, av:3, dur:100, toMain:100, fatal:"instant", exdr:40, img:["Factory Strider Belly Panels Bottom.png","Factory Strider Belly Panels Side.png"]},
+   {name:"Rear Engine Weakspot", hp:1500, av:3, dur:75, toMain:100, fatal:false, exdr:40, img:["Factory Strider Rear Engine Weakspot Rear.png","Factory Strider Rear Engine Weakspot Side.png"]},
+   {name:"Leg Assembly", hp:1500, av:4, dur:100, toMain:40, fatal:"instant", exdr:40, img:["Factory Strider Leg Assembly Front.png","Factory Strider Leg Assembly Side.png"]}]},
+ {name:"Voteless (Medium)", faction:"Illuminate", sub:"Mindless Masses", main:130, parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Medium Voteless Main Front.png","Medium Voteless Main Side.png"]},
+   {name:"Head", hp:50, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Medium Voteless Head Front.png","Medium Voteless Head Side.png"]},
+   {name:"Upper Arm", hp:65, av:0, dur:0, toMain:40, fatal:false, exdr:100, img:["Medium Voteless Upper Arms Front.png","Medium Voteless Upper Arms Side.png"]},
+   {name:"Forearm", hp:50, av:0, dur:0, toMain:30, fatal:false, cap:0, exdr:100, img:["Medium Voteless Forearms Front.png","Medium Voteless Forearms Side.png"]},
+   {name:"Legs", hp:80, av:0, dur:0, toMain:30, fatal:"downs", exdr:100, img:["Medium Voteless Legs Front.png","Medium Voteless Legs Side.png"]}]},
+ {name:"Fleshmob", faction:"Illuminate", sub:"Mindless Masses", main:5000, note:"No fatal parts — pure DPS check. Head chunks route 150% to main with overflow, so high-alpha weapons excel there. 1.8× fire and arc damage.", parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:40, toMain:100, fatal:"instant", exdr:0, img:["Fleshmob Main Front.png","Fleshmob Main Rear.png"]},
+   {name:"Head Chunk", hp:400, av:0, dur:25, toMain:150, fatal:false, cap:0, exdr:25, img:["Fleshmob Head Chunks Front.png","Fleshmob Head Chunks Left.png"]},
+   {name:"Stomach Chunk", hp:400, av:0, dur:40, toMain:100, fatal:false, cap:0, exdr:25, img:["Fleshmob Stomach Chunk Front.png","Fleshmob Stomach Chunks Left.png"]},
+   {name:"Arm", hp:200, av:0, dur:40, toMain:25, fatal:false, exdr:100, img:["Fleshmob Arms Front.png","Fleshmob Arms Left.png"]},
+   {name:"Leg", hp:400, av:0, dur:40, toMain:100, fatal:false, cap:0, exdr:25, img:["Fleshmob Legs Front.png","Fleshmob Legs Left.png"]}]},
+ {name:"Obtruder", faction:"Illuminate", sub:"Appropriators", main:400, note:"Appropriators swarm drone. Explodes on death/ground contact (80 blast) — chains into nearby Obtruders.", parts:[
+   {name:"Main", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Obtruder Main Front.png","Obtruder Main Side.png"]},
+   {name:"Body", hp:400, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Obtruder Body Front.png","Obtruder Body Side.png"]},
+   {name:"Eye", hp:300, av:0, dur:0, toMain:100, fatal:false, exdr:100, img:["Obtruder Eye Front.png","Obtruder Eye Side.png"]},
+   {name:"Vertical Fin", hp:100, av:0, dur:0, toMain:100, fatal:false, exdr:100, img:["Obtruder Vertical Fins Front.png","Obtruder Vertical Fins Side.png"]},
+   {name:"Lateral Fin", hp:100, av:0, dur:0, toMain:100, fatal:false, exdr:100, img:["Obtruder Lateral Fins Front.png","Obtruder Lateral Fins Side.png"]}]},
+ {name:"Overseer", faction:"Illuminate", main:600, parts:[
+   {name:"Main (body)", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Overseer_Main_Health.png"]},
+   {name:"Head (helmet)", hp:150, av:3, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Overseer Head Front.png","Overseer Head Side.png"]},
+   {name:"Chest Armor", hp:150, av:2, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Overseer Chest Armor Front.png","Overseer Chest Armor Side.png"]},
+   {name:"Crotch Armor", hp:200, av:2, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Overseer Crotch Armor Front.png","Overseer Crotch Armor Side.png"]},
+   {name:"Limb Armor", hp:100, av:2, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Overseer Limb Armor Front.png","Overseer Limb Armor Side.png"]},
+   {name:"Torso (exposed)", hp:600, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Overseer Half Bare Torso.png","Overseer Bare Torso Side.png"]},
+   {name:"Right Arm", hp:300, av:1, dur:0, toMain:50, fatal:"instant", exdr:100, img:["Overseer Right Arm Front.png","Overseer Right Arm Side.png"]},
+   {name:"Left Arm", hp:300, av:1, dur:0, toMain:50, fatal:false, exdr:100, img:["Overseer Left Arm.png"]},
+   {name:"Legs", hp:"main", av:0, dur:0, toMain:70, fatal:false, exdr:100, img:["Overseer Half Bare Legs.png","Overseer Bare Leg Side.png"]},
+   {name:"Energy Shield", hp:1500, av:2, dur:0, toMain:0, fatal:false, exdr:100, img:[]}]},
+ {name:"Elevated Overseer", faction:"Illuminate", main:450, note:"Destroying the jetpack detonates it, killing the Overseer outright (150 blast). Note change-history says torso/arm HP were reduced to 450/250; anatomy table still lists 600/300.", parts:[
+   {name:"Main", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Elevated_Overseer_Main.png"]},
+   {name:"Head", hp:200, av:2, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Elevated_Overseer_Head_Front.png","Elevated_Overseer_Head_Side.png"]},
+   {name:"Jetpack", hp:300, av:2, dur:0, toMain:50, fatal:"instant", exdr:100, img:["Elevated_Overseer_Jetpack_Rear.png","Elevated_Overseer_Jetpack_Side.png"]},
+   {name:"Chest Armor", hp:150, av:2, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Elevated Overseer Torso Armor Front.png","Elevated Overseer Torso Armor Side.png"]},
+   {name:"Crotch Armor", hp:200, av:2, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Elevated Overseer Crotch Armor Front.png","Elevated Overseer Crotch Armor Side.png"]},
+   {name:"Limb Armor", hp:100, av:2, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Elevated_Overseer_Limb_Armor_Front.png","Elevated_Overseer_Limb_Armor_Side.png"]},
+   {name:"Torso (exposed)", hp:600, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Overseer Half Bare Torso.png","Overseer Bare Torso Side.png"]},
+   {name:"Right Arm", hp:300, av:1, dur:0, toMain:50, fatal:"instant", exdr:100, img:["Overseer Right Arm Front.png","Overseer Right Arm Side.png"]},
+   {name:"Left Arm", hp:300, av:1, dur:0, toMain:50, fatal:false, exdr:100, img:["Overseer Left Arm.png"]},
+   {name:"Legs", hp:"main", av:0, dur:0, toMain:70, fatal:false, exdr:100, img:["Overseer Half Bare Legs.png","Overseer Bare Leg Side.png"]}]},
+ {name:"Crescent Overseer", faction:"Illuminate", main:600, note:"Plasma-artillery Overseer. Backpack is intangible — not a weak spot. Same body/armor as the standard Overseer.", parts:[
+   {name:"Main", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Overseer_Main_Health.png"]},
+   {name:"Head (helmet)", hp:150, av:3, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Overseer Head Front.png","Overseer Head Side.png"]},
+   {name:"Chest Armor", hp:150, av:2, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Overseer Chest Armor Front.png","Overseer Chest Armor Side.png"]},
+   {name:"Crotch Armor", hp:200, av:2, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Overseer Crotch Armor Front.png","Overseer Crotch Armor Side.png"]},
+   {name:"Limb Armor", hp:100, av:2, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Overseer Limb Armor Front.png","Overseer Limb Armor Side.png"]},
+   {name:"Torso (exposed)", hp:600, av:1, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Overseer Half Bare Torso.png","Overseer Bare Torso Side.png"]},
+   {name:"Right Arm", hp:300, av:1, dur:0, toMain:50, fatal:"instant", exdr:100, img:["Overseer Right Arm Front.png","Overseer Right Arm Side.png"]},
+   {name:"Left Arm", hp:300, av:1, dur:0, toMain:50, fatal:false, exdr:100, img:["Overseer Left Arm.png"]},
+   {name:"Legs", hp:"main", av:0, dur:0, toMain:70, fatal:false, exdr:100, img:["Overseer Half Bare Legs.png","Overseer Bare Leg Side.png"]}]},
+ {name:"Watcher", faction:"Illuminate", main:600, note:"The only Illuminate reinforcement-caller — priority target. Explodes on ground impact after death (80 blast).", parts:[
+   {name:"Main", hp:"main", av:0, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Watcher Main Front.png","Watcher Main Side.png"]},
+   {name:"Body", hp:400, av:2, dur:0, toMain:100, fatal:"instant", exdr:100, img:["Watcher Body Front.png","Watcher Body Side.png"]},
+   {name:"Eye", hp:300, av:0, dur:0, toMain:100, fatal:false, exdr:100, img:["Watcher Eye Front.png","Watcher Eye Side.png"]},
+   {name:"Upper Fin", hp:200, av:0, dur:0, toMain:100, fatal:false, exdr:100, img:["Watcher Upper Fin Front.png","Watcher Upper Fin Side.png"]},
+   {name:"Lower Fin", hp:200, av:0, dur:0, toMain:100, fatal:false, exdr:100, img:["Watcher Lower Fin Front.png","Watcher Lower Fin Side.png"]},
+   {name:"Side Fin", hp:150, av:2, dur:0, toMain:100, fatal:false, exdr:100, img:["Watcher Side Fins Front.png","Watcher Side Fins Side.png"]}]},
+ {name:"Stingray", faction:"Illuminate", main:800, note:"Only realistically hittable during its strafing hover. Death explosion is 300 blast at AP6 — keep your distance.", parts:[
+   {name:"Fuselage (Main)", hp:"main", av:3, dur:70, toMain:100, fatal:"instant", exdr:0, img:["Stringray_Fuselage_Front.png","Stringray_Fuselage_Side.png"]},
+   {name:"Gun Ports", hp:"main", av:3, dur:50, toMain:100, fatal:false, exdr:100, img:["Stringray_Gunports_Front.png","Stringray_Gunports_Side.png"]}]},
+ {name:"Veracitor", faction:"Illuminate", sub:"Appropriators", main:3000, note:"Appropriators melee mech. Kill the pilot (drop its 1,300 HP shield first, or destroy the Head to disable the shield permanently) to destroy the whole mech. Limbs are explosion-immune.", parts:[
+   {name:"Main", hp:"main", av:3, dur:100, toMain:100, fatal:"instant", exdr:0, img:["Veracitor Main.png"]},
+   {name:"Head (shield projector)", hp:300, av:3, dur:0, toMain:0, fatal:false, exdr:100, img:["Veracitor Head Front.png","Veracitor Head Side.png"]},
+   {name:"Chassis", hp:1600, av:3, dur:50, toMain:75, fatal:"instant", cap:0, exdr:100, img:["Veracitor Chassis Front.png","Veracitor Chassis Side.png"]},
+   {name:"Carapace", hp:400, av:3, dur:50, toMain:50, fatal:false, cap:0, exdr:100, img:["Veracitor Carapace Front.png","Veracitor Carapace Side.png"]},
+   {name:"Internals (vent)", hp:600, av:1, dur:50, toMain:100, fatal:"instant", cap:0, exdr:100, img:["Veracitor Internals.png"]},
+   {name:"Pilot Shield", hp:1300, av:2, dur:0, toMain:0, fatal:false, exdr:100, img:["Veracitor Shield Front.png","Veracitor Shield Side.png"]},
+   {name:"Pilot", hp:700, av:2, dur:0, toMain:0, fatal:"instant", exdr:100, img:["Veracitor Pilot Front.png"]},
+   {name:"Cockpit", hp:1600, av:3, dur:50, toMain:100, fatal:"instant", exdr:100, img:["Veracitor Cockpit Front.png","Veracitor Cockpit Side.png"]},
+   {name:"Cockpit Weakspot (rear)", hp:800, av:1, dur:50, toMain:100, fatal:"instant", exdr:100, img:["Veracitor Cockpit Weakspot.png"]},
+   {name:"Shoulder", hp:800, av:2, dur:50, toMain:75, fatal:false, cap:0, exdr:100, img:["Veracitor Shoulders Front.png","Veracitor Shoulders Side.png"]},
+   {name:"Upper Arm", hp:800, av:2, dur:50, toMain:75, fatal:false, cap:0, exdr:100, img:["Veracitor Upper Arms Front.png","Veracitor Upper Arms Side.png"]},
+   {name:"Lower Arm", hp:800, av:3, dur:50, toMain:0, fatal:false, exdr:100, img:["Veracitor Lower Arms Front.png","Veracitor Lower Arms Side.png"]},
+   {name:"Arm Weakspot (vent)", hp:800, av:1, dur:0, toMain:0, fatal:false, exdr:100, img:["Veracitor Arm Weakspots.png"]},
+   {name:"Hip", hp:1600, av:2, dur:50, toMain:75, fatal:"instant", cap:0, exdr:100, img:["Veracitor Hips Front.png","Veracitor Hips Rear.png"]},
+   {name:"Upper Leg", hp:1600, av:2, dur:50, toMain:75, fatal:"instant", cap:0, exdr:100, img:["Veracitor Upper Legs Front.png","Veracitor Upper Legs Side.png"]},
+   {name:"Lower Leg", hp:1600, av:3, dur:50, toMain:75, fatal:"instant", cap:0, exdr:100, img:["Veracitor Lower Legs Front.png","Veracitor Lower Legs Side.png"]}]},
+ {name:"Gatekeeper", faction:"Illuminate", sub:"Appropriators", main:2500, note:"Appropriators ranged mech (AV4). The forehead horn is the shield generator (50 HP but AV4) — destroy it to permanently drop the pilot's shield. Pilot is 50% durable, unlike the Veracitor's.", parts:[
+   {name:"Main", hp:"main", av:4, dur:100, toMain:100, fatal:"instant", exdr:0, img:["Gatekeeper Main.png"]},
+   {name:"Shield Generator (horn)", hp:50, av:4, dur:0, toMain:0, fatal:false, exdr:100, img:["Gatekeeper Shield Generator Front.png","Gatekeeper Shield Generator Side.png"]},
+   {name:"Chassis", hp:1600, av:4, dur:80, toMain:75, fatal:"instant", cap:0, exdr:100, img:["Gatekeeper Chassis Front.png","Gatekeeper Chassis Side.png"]},
+   {name:"Carapace", hp:400, av:4, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Gatekeeper Carapace Front.png","Gatekeeper Carapace Side.png"]},
+   {name:"Rear Weakspot", hp:800, av:1, dur:80, toMain:100, fatal:"instant", cap:0, exdr:100, img:["Gatekeeper Rear Weakspot Rear.png","Gatekeeper Rear Weakspot Side.png"]},
+   {name:"Pilot Shield", hp:1300, av:2, dur:0, toMain:0, fatal:false, exdr:100, img:["Gatekeeper Shield Front.png","Gatekeeper Shield Side.png"]},
+   {name:"Pilot", hp:700, av:2, dur:50, toMain:0, fatal:"instant", exdr:100, img:["Gatekeeper Pilot.png"]},
+   {name:"Cockpit", hp:1200, av:4, dur:80, toMain:75, fatal:"instant", exdr:100, img:["Gatekeeper Cockpit Front.png","Gatekeeper Cockpit Side.png"]},
+   {name:"Cockpit Weakspot (rear)", hp:800, av:1, dur:80, toMain:100, fatal:"instant", exdr:100, img:["Gatekeeper Cockpit Weakspot.png"]},
+   {name:"Shoulder Armor", hp:200, av:4, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Gatekeeper Shoulders Armor Front.png","Gatekeeper Shoulders Armor Side.png"]},
+   {name:"Arm Armor", hp:200, av:4, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Gatekeeper Arms Armor Front.png","Gatekeeper Arms Armor Side.png"]},
+   {name:"Arm", hp:1600, av:3, dur:50, toMain:100, fatal:false, cap:0, exdr:100, img:["Gatekeeper Arms Front.png","Gatekeeper Arms Side.png"]},
+   {name:"Gun", hp:800, av:4, dur:0, toMain:0, fatal:false, exdr:100, img:["Gatekeeper Guns Front.png","Gatekeeper Guns Side.png"]},
+   {name:"Gun Weakspot", hp:800, av:2, dur:0, toMain:0, fatal:false, exdr:100, img:["Gatekeeper Gun Weakspots Front.png","Gatekeeper Gun Weakspots Side.png"]},
+   {name:"Leg Armor", hp:200, av:4, dur:0, toMain:20, fatal:false, cap:0, exdr:100, img:["Gatekeeper Leg Armor Front.png","Gatekeeper Leg Armor Side.png"]},
+   {name:"Hip", hp:800, av:3, dur:50, toMain:100, fatal:"instant", cap:0, exdr:100, img:["Gatekeeper Hips Front.png","Gatekeeper Hips Side.png"]},
+   {name:"Leg", hp:800, av:3, dur:50, toMain:100, fatal:"instant", cap:0, exdr:100, img:["Gatekeeper Legs Front.png","Gatekeeper Legs Side.png"]}]},
+ {name:"Leviathan", faction:"Illuminate", main:15000, note:"Flying warship. Destroying fins/tail exposes AV4 internals (flagged by blue flames). Turrets don't route to main but disarm it. All vertebrae/fins route 100% to main — the practical route is AT fire into any AV5 segment.", parts:[
+   {name:"Main (internals, exposed)", hp:"main", av:4, dur:0, toMain:100, fatal:"instant", exdr:0, img:["Leviathan Internals Bottom.png","Leviathan Internals Side.png"]},
+   {name:"Turret", hp:1500, av:4, dur:85, toMain:null, fatal:false, exdr:0, img:["Leviathan Turrets Bottom View.png","Leviathan Turrets Side View.png"]},
+   {name:"Front Vertebra", hp:7000, av:5, dur:0, toMain:100, fatal:false, exdr:35, img:["Leviathan Front Vertebrae Top View.png","Leviathan Front Vertebrae Side View.png"]},
+   {name:"Front Fin", hp:5500, av:5, dur:0, toMain:100, fatal:false, exdr:35, img:["Leviathan Front Fins Bottom View.png","Leviathan Front Fins Side View.png"]},
+   {name:"Warp Disc", hp:3000, av:5, dur:0, toMain:100, fatal:false, exdr:100, img:["Leviathan Warp Disc Bottom View.png","Leviathan Warp Disc Side View.png"]},
+   {name:"Forward-Middle Vertebra", hp:5500, av:5, dur:0, toMain:100, fatal:false, exdr:35, img:["Leviathan Forward-Middle Vertebrae Bottom View.png","Leviathan Forward-Middle Vertebrae Side View.png"]},
+   {name:"Forward-Middle Fin", hp:5000, av:5, dur:0, toMain:100, fatal:false, exdr:35, img:["Leviathan Forward-Middle Fins Bottom View.png","Leviathan Forward-Middle Fins Side View.png"]},
+   {name:"Rearward-Middle Vertebra", hp:5500, av:5, dur:0, toMain:100, fatal:false, exdr:35, img:["Leviathan Rearward-Middle Vertebrae Bottom View.png","Leviathan Rearward-Middle Vertebrae Side View.png"]},
+   {name:"Rearward-Middle Fin", hp:3900, av:5, dur:0, toMain:100, fatal:false, exdr:35, img:["Leviathan Rearward-Middle Fins Bottom View.png","Leviathan Rearward-Middle Fins Side View.png"]},
+   {name:"Rear Vertebra", hp:5000, av:5, dur:0, toMain:100, fatal:false, exdr:35, img:["Leviathan Rear Vertebrae Bottom View.png","Leviathan Rear Vertebrae Side View.png"]},
+   {name:"Rear Fin", hp:3000, av:5, dur:0, toMain:100, fatal:false, exdr:35, img:["Leviathan Rear Fins Bottom View.png","Leviathan Rear Fins Side View.png"]},
+   {name:"Tail", hp:3900, av:5, dur:0, toMain:100, fatal:false, exdr:35, img:["Leviathan Tail Bottom View.png","Leviathan Tail Side View.png"]}]},
+ {name:"Harvester", faction:"Illuminate", main:3000, parts:[
+   {name:"Main (body)", hp:"main", av:4, dur:70, toMain:100, fatal:"instant", exdr:0, img:["Harvester Main Health.png","Harvester Main Side.png"]},
+   {name:"Eye", hp:350, av:2, dur:0, toMain:120, fatal:false, cap:0, exdr:100, img:["Harvester Eye.png"]},
+   {name:"Shield Generator", hp:350, av:3, dur:0, toMain:10, fatal:false, exdr:100, img:["Harvester Shield Generators Front.png","Harvester Shield Generators Side.png"]},
+   {name:"Chassis", hp:2000, av:4, dur:75, toMain:100, fatal:"instant", exdr:0, img:["Harvester Chassis Front.png","Harvester Chassis Side.png"]},
+   {name:"Carapace", hp:800, av:4, dur:75, toMain:100, fatal:false, cap:0, exdr:100, img:["Harvester Carapace Front.png","Harvester Carapace Side.png"]},
+   {name:"Carapace Weakspot", hp:500, av:1, dur:80, toMain:100, fatal:false, cap:0, exdr:100, img:["Harvester Carapace Weakspots.png"]},
+   {name:"Hip Joint (left)", hp:1000, av:3, dur:70, toMain:45, fatal:"instant", exdr:100, img:["Harvester Left Hip Joint Front.png","Harvester Left Hip Joint Side.png"]},
+   {name:"Hip Joint (right/mid)", hp:1000, av:3, dur:70, toMain:60, fatal:"instant", exdr:100, img:["Harvester Right and Middle Hip Joints Front.png","Harvester Right and Middle Hip Joints Side.png"]},
+   {name:"Leg Armor (thigh/shin/foot)", hp:900, av:4, dur:75, toMain:30, fatal:false, exdr:100, img:["Harvester Shin Armor Front.png","Harvester Shin Armor Side.png"]},
+   {name:"Energy Shield", hp:1500, av:0, dur:0, toMain:null, fatal:false, exdr:0, img:["Harvester Shield.png"]}]}
+];
+
+// components: per shot; ap = [direct, slight, large, extreme]; explosive components ignore angle (always direct) and are reduced by ExDR
+// falloff = damage retained at [point blank, 25m, 50m, 75m, 100m+] — APPROXIMATE class-based estimates.
+// The wiki documents falloff as velocity/drag-based per projectile but publishes no per-weapon range tables.
+// Explosive components and 0-drag projectiles (Dominator, plasma) don't fall off; lasers/railgun/rockets effectively none.
+const FALLOFF = {
+  none:    [1,1,1,1,1],
+  low:     [1,0.97,0.94,0.91,0.88],   // heavy rifle rounds (8x60mm, 12.5mm)
+  medium:  [1,0.93,0.86,0.80,0.74],   // 5.5mm rifle rounds
+  pistol:  [1,0.85,0.72,0.62,0.53],   // 9x20mm sidearms
+  buckshot:[1,0.75,0.55,0.40,0.30]    // shotgun pellets
+};
+const WEAPONS = [
+ {name:"AR-23 Liberator", cat:"Primary", mag:45, rpm:640, comps:[{std:90, dur:22, ap:[2,2,2,0], fo:"medium"}]},
+ {name:"AR-23A Liberator Carbine", cat:"Primary", mag:45, rpm:920, comps:[{std:90, dur:22, ap:[2,2,2,0], fo:"medium"}]},
+ {name:"AR-23C Liberator Concussive", cat:"Primary", mag:60, rpm:400, comps:[{std:75, dur:35, ap:[2,2,2,2], fo:"medium"}]},
+ {name:"AR-23P Liberator Penetrator", cat:"Primary", mag:45, rpm:640, comps:[{std:65, dur:15, ap:[3,3,3,0], fo:"medium"}]},
+ {name:"AR-2 Coyote", cat:"Primary", mag:45, rpm:600, comps:[{std:75, dur:10, ap:[3,3,3,0], fo:"medium"}]},
+ {name:"AR-61 Tenderizer", cat:"Primary", mag:35, rpm:600, comps:[{std:105, dur:30, ap:[2,2,2,0], fo:"medium"}]},
+ {name:"AR-32 Pacifier", cat:"Primary", mag:40, rpm:700, comps:[{std:55, dur:10, ap:[3,3,3,0], fo:"medium"}]},
+ {name:"R-2 Amendment", cat:"Primary", mag:20, rpm:480, comps:[{std:200, dur:50, ap:[2,2,2,0], fo:"low"}]},
+ {name:"R-2124 Constitution", cat:"Primary", mag:5, rpm:60, comps:[{std:180, dur:50, ap:[3,3,3,0], fo:"low"}]},
+ {name:"SMG-37 Defender", cat:"Primary", mag:45, rpm:520, comps:[{std:110, dur:22, ap:[2,2,2,0], fo:"pistol"}]},
+ {name:"SMG-72 Pummeler", cat:"Primary", mag:45, rpm:475, comps:[{std:85, dur:17, ap:[2,2,2,0], fo:"pistol"}]},
+ {name:"SG-225 Breaker (all pellets)", cat:"Primary", mag:16, rpm:300, comps:[{std:330, dur:66, ap:[2,2,2,0], fo:"buckshot"}]},
+ {name:"SG-225SP Breaker Spray&Pray (all pellets)", cat:"Primary", mag:26, rpm:330, comps:[{std:240, dur:64, ap:[2,2,2,0], fo:"buckshot"}]},
+ {name:"SG-225IE Breaker Incendiary (all pellets)", cat:"Primary", mag:26, rpm:300, comps:[{std:240, dur:120, ap:[2,2,2,0], fo:"buckshot"}]},
+ {name:"SG-451 Cookout (all pellets)", cat:"Primary", mag:16, rpm:80, comps:[{std:320, dur:60, ap:[2,2,2,0], fo:"buckshot"}]},
+ {name:"SG-97 Sweeper (all flechettes)", cat:"Primary", mag:7, rpm:150, comps:[{std:504, dur:132, ap:[3,3,3,0], fo:"buckshot"}]},
+ {name:"SG-20 Halt", cat:"Primary", mag:16, rpm:80, modes:[
+   {name:"Flechette shells (all 11 hit)", comps:[{std:385, dur:110, ap:[3,3,3,0], fo:"buckshot"}]},
+   {name:"Stun shells — 6 dmg, applies Stun Large status", comps:[{std:6, dur:2, ap:[2,2,2,0], fo:"buckshot"}]}]},
+ {name:"DBS-2 Double Freedom", cat:"Primary", mag:2, rpm:650, modes:[
+   {name:"Semi — one barrel (all pellets)", comps:[{std:840, dur:420, ap:[3,3,3,0], fo:"buckshot"}]},
+   {name:"Volley — both barrels at once (all pellets)", mag:1, comps:[{std:1680, dur:840, ap:[3,3,3,0], fo:"buckshot"}]}]},
+ {name:"M90A Shotgun (all pellets)", cat:"Primary", mag:6, rpm:80, comps:[{std:605, dur:220, ap:[2,2,2,0], fo:"buckshot"}]},
+ {name:"StA-52 Assault Rifle", cat:"Primary", mag:56, rpm:790, comps:[{std:90, dur:22, ap:[2,2,2,0], fo:"medium"}]},
+ {name:"MA5C Assault Rifle", cat:"Primary", mag:32, rpm:640, comps:[{std:90, dur:16, ap:[3,3,3,0], fo:"medium"}]},
+ {name:"AR/GL-21 One-Two", cat:"Primary", mag:40, rpm:650, modes:[
+   {name:"Rifle (8mm)", comps:[{std:95, dur:24, ap:[2,2,2,0], fo:"medium"}]},
+   {name:"Underbarrel 40mm (same shell as GP-31)", rpm:20, mag:1, comps:[{std:250, dur:250, ap:[3,3,3,0], fo:"none"},{std:400, dur:400, ap:[3,3,3,3], explosive:true}]}]},
+ {name:"AR-59 Suppressor", cat:"Primary", mag:45, rpm:850, comps:[{std:80, dur:20, ap:[2,2,2,0], fo:"medium"}]},
+ {name:"R-72 Censor", cat:"Primary", mag:20, rpm:400, comps:[{std:165, dur:45, ap:[2,2,2,0], fo:"low"}]},
+ {name:"MP-98 Knight", cat:"Primary", mag:50, rpm:1380, comps:[{std:90, dur:18, ap:[2,2,2,0], fo:"pistol"}]},
+ {name:"SMG/FLAM-34 Stoker", cat:"Primary", mag:45, rpm:420, modes:[
+   {name:"12mm SMG", comps:[{std:130, dur:30, ap:[2,2,2,0], fo:"buckshot"}]},
+   {name:"Underbarrel flamethrower (sustained)", rpm:60, mag:8, continuous:"flame", ignitionRate:10, comps:[{std:150, dur:150, ap:[4,4,4,0], fo:"none", label:"Flame stream DPS"}]}]},
+ {name:"VG-70 Variable", cat:"Primary", mag:49, rpm:750, modes:[
+   {name:"Auto — 750 rpm", comps:[{std:85, dur:23, ap:[2,2,2,0], fo:"buckshot"}]},
+   {name:"Auto — 550 rpm", rpm:550, comps:[{std:85, dur:23, ap:[2,2,2,0], fo:"buckshot"}]},
+   {name:"Auto — 300 rpm", rpm:300, comps:[{std:85, dur:23, ap:[2,2,2,0], fo:"buckshot"}]},
+   {name:"Volley — all 7 barrels", rpm:100, comps:[{std:595, dur:161, ap:[2,2,2,0], fo:"buckshot"}]},
+   {name:"TOTAL — full 49-round dump", rpm:10, mag:1, comps:[{std:4165, dur:1127, ap:[2,2,2,0], fo:"buckshot"}]}]},
+ {name:"PLAS-39 Accelerator Rifle", cat:"Primary", mag:9, rpm:550, modes:[
+   {name:"Default charge (0.45s)", comps:[{std:250, dur:125, ap:[3,3,3,0], fo:"none"},{std:100, dur:100, ap:[3,3,3,3], explosive:true}]},
+   {name:"Full charge ×2.5 (0.9s)", rpm:65, comps:[{std:625, dur:312, ap:[3,3,3,0], fo:"none"},{std:100, dur:100, ap:[3,3,3,3], explosive:true}]}]},
+ {name:"StA-11 SMG", cat:"Primary", mag:48, rpm:1050, comps:[{std:90, dur:18, ap:[2,2,2,0], fo:"pistol"}]},
+ {name:"M7S SMG", cat:"Primary", mag:48, rpm:872, comps:[{std:90, dur:18, ap:[2,2,2,0], fo:"pistol"}]},
+ {name:"SMG-32 Reprimand", cat:"Primary", mag:25, rpm:490, comps:[{std:140, dur:32, ap:[3,3,3,0], fo:"pistol"}]},
+ {name:"SMG-203 Gallant", cat:"Primary", mag:50, rpm:1380, comps:[{std:65, dur:13, ap:[3,3,3,0], fo:"pistol"}]},
+ {name:"ARC-12 Blitzer (per arc, fires ~3)", cat:"Primary", mag:999, rpm:45, comps:[{std:50, dur:35, ap:[3,3,3,0], fo:"none"}]},
+ {name:"PLAS-15 Loyalist", cat:"Secondary", mag:7, rpm:130, modes:[
+   {name:"Uncharged", comps:[{std:150, dur:75, ap:[3,3,3,0], fo:"none"},{std:75, dur:75, ap:[3,3,3,3], explosive:true}]},
+   {name:"Charged", comps:[{std:150, dur:75, ap:[3,3,3,0], fo:"none"},{std:225, dur:225, ap:[3,3,3,3], explosive:true}]}]},
+ {name:"LAS-13 Trident (all 6 beams on target)", cat:"Primary", mag:10, rpm:300, comps:[{std:360, dur:36, ap:[2,2,2,0], fo:"none", label:"Six-beam burst"}]},
+ {name:"BR-14 Adjudicator", cat:"Primary", mag:30, rpm:550, comps:[{std:95, dur:23, ap:[3,3,3,1], fo:"low"}]},
+ {name:"LAS-16 Sickle", cat:"Primary", mag:87, rpm:750, comps:[{std:60, dur:6, ap:[2,2,2,0], fo:"none"}]},
+ {name:"LAS-5 Scythe", cat:"Primary", mag:8, rpm:60, beam:true, continuous:"beam", ignitionRate:1, comps:[{std:350, dur:70, ap:[2,2,2,0], fo:"none", label:"Beam DPS"}]},
+ {name:"LAS-17 Double-Edge Sickle", cat:"Primary", mag:175, rpm:700, modes:[
+   {name:"0–25% heat", comps:[{std:55, dur:5, ap:[2,2,2,0], fo:"none"}]},
+   {name:"26–90% heat", comps:[{std:70, dur:7, ap:[3,3,3,0], fo:"none"}]},
+   {name:"91%+ heat (burning you)", comps:[{std:70, dur:7, ap:[4,4,4,0], fo:"none"}]}]},
+ {name:"JAR-5 Dominator", cat:"Primary", mag:15, rpm:250, comps:[{std:275, dur:90, ap:[3,3,3,0], fo:"none"}]},
+ {name:"PLAS-1 Scorcher", cat:"Primary", mag:20, rpm:350, comps:[{std:100, dur:50, ap:[2,2,2,0], fo:"none"},{std:100, dur:100, ap:[3,3,3,3], explosive:true}]},
+ {name:"R-36 Eruptor (excl. shrapnel)", cat:"Primary", mag:5, rpm:32, comps:[{std:230, dur:115, ap:[4,4,4,0], fo:"none"},{std:225, dur:225, ap:[3,3,3,3], explosive:true}]},
+ {name:"CB-9 Exploding Crossbow", cat:"Primary", mag:5, rpm:50, comps:[{std:270, dur:50, ap:[3,3,3,0], fo:"low"},{std:350, dur:350, ap:[3,3,3,3], explosive:true}]},
+ {name:"SG-8 Punisher (all pellets)", cat:"Primary", mag:16, rpm:80, comps:[{std:405, dur:108, ap:[2,2,2,0], fo:"buckshot"}]},
+ {name:"SG-8S Slugger", cat:"Primary", mag:16, rpm:80, comps:[{std:330, dur:90, ap:[3,3,3,0], fo:"low"}]},
+ {name:"SG-8P Punisher Plasma", cat:"Primary", mag:10, rpm:80, comps:[{std:250, dur:125, ap:[3,3,3,0], fo:"none"},{std:100, dur:100, ap:[3,3,3,3], explosive:true}]},
+ {name:"R-63 Diligence", cat:"Primary", mag:25, rpm:350, comps:[{std:165, dur:45, ap:[2,2,2,0], fo:"low"}]},
+ {name:"R-63CS Diligence Counter Sniper", cat:"Primary", mag:15, rpm:350, comps:[{std:200, dur:50, ap:[3,3,3,0], fo:"low"}]},
+ {name:"R-6 Deadeye", cat:"Primary", mag:8, rpm:100, comps:[{std:300, dur:100, ap:[3,3,3,0], fo:"low"}]},
+ {name:"PLAS-101 Purifier", cat:"Primary", mag:15, rpm:45, modes:[
+   {name:"Uncharged", comps:[{std:200, dur:100, ap:[3,3,3,0], fo:"none"},{std:300, dur:300, ap:[3,3,3,3], explosive:true}]},
+   {name:"Fully charged", comps:[{std:400, dur:200, ap:[4,4,4,4], fo:"none"},{std:500, dur:500, ap:[4,4,4,4], explosive:true}]}]},
+ {name:"P-2 Peacemaker", cat:"Secondary", mag:15, rpm:900, comps:[{std:100, dur:32, ap:[2,2,2,0], fo:"pistol"}]},
+ {name:"P-19 Redeemer", cat:"Secondary", mag:31, rpm:1100, comps:[{std:70, dur:12, ap:[2,2,2,0], fo:"buckshot"}]},
+ {name:"P-92 Warrant (guided)", cat:"Secondary", mag:13, rpm:450, comps:[{std:80, dur:20, ap:[3,3,3,0], fo:"none"}]},
+ {name:"M6C/SOCOM Pistol", cat:"Secondary", mag:12, rpm:450, comps:[{std:125, dur:28, ap:[2,2,2,0], fo:"pistol"}]},
+ {name:"SG-22 Bushwhacker (all pellets)", cat:"Secondary", mag:3, rpm:650, comps:[{std:405, dur:108, ap:[2,2,2,0], fo:"buckshot"}]},
+ {name:"P-33 Missile Pistol", cat:"Secondary", mag:1, rpm:60, modes:[
+   {name:"Guided (locks center mass — won't hit weak points)", comps:[{std:1000, dur:1000, ap:[5,5,5,0], fo:"none"},{std:300, dur:300, ap:[3,3,3,3], explosive:true}]},
+   {name:"Non-Guided (free aim)", comps:[{std:1000, dur:1000, ap:[5,5,5,0], fo:"none"},{std:300, dur:300, ap:[3,3,3,3], explosive:true}]}]},
+ {name:"P-35 Re-Educator (projectile; gas DoT excluded)", cat:"Secondary", mag:6, rpm:110, comps:[{std:60, dur:10, ap:[4,4,3,0], fo:"pistol"}], note:"The projectile values are modeled directly. Its separate gas status deals 25 damage per tick at AP6; duration and tick count depend on status behavior and are not added as instant shot damage."},
+ {name:"P-113 Verdict", cat:"Secondary", mag:10, rpm:450, comps:[{std:140, dur:32, ap:[3,3,3,0], fo:"pistol"}]},
+ {name:"LAS-7 Dagger", cat:"Secondary", mag:6.67, rpm:60, beam:true, continuous:"beam", ignitionRate:1, comps:[{std:250, dur:50, ap:[2,2,2,0], fo:"none", label:"Beam DPS"}]},
+ {name:"LAS-58 Talon", cat:"Secondary", mag:7, rpm:750, comps:[{std:200, dur:20, ap:[3,3,3,0], fo:"none"}]},
+ {name:"GP-31 Grenade Pistol", cat:"Secondary", mag:1, rpm:35, comps:[{std:250, dur:250, ap:[3,3,3,0], fo:"none"},{std:400, dur:400, ap:[3,3,3,3], explosive:true}]},
+ {name:"P-4 Senator", cat:"Secondary", mag:6, rpm:200, comps:[{std:225, dur:75, ap:[4,4,4,0], fo:"pistol"}]},
+ {name:"P-69 Veto", cat:"Secondary", mag:12, rpm:750, comps:[{std:105, dur:35, ap:[3,3,3,0], fo:"none"}]},
+ {name:"M-105 Stalwart", cat:"Support", mag:250, rpm:1150, comps:[{std:90, dur:22, ap:[2,2,2,0], fo:"medium"}], modes:[
+   {name:"1150 rpm (high)", rpm:1150}, {name:"850 rpm (medium)", rpm:850}, {name:"700 rpm (low)", rpm:700}]},
+ {name:"MGX-42 Bullet Storm", cat:"Support", mag:300, rpm:1300, comps:[{std:100, dur:25, ap:[2,2,2,0], fo:"buckshot"}]},
+ {name:"MLS-4X Commando (per rocket)", cat:"Support", mag:4, rpm:30, comps:[{std:1100, dur:1100, ap:[6,6,6,3], fo:"none"},{std:150, dur:150, ap:[3,3,3,3], explosive:true}]},
+ {name:"ARC-3 Arc Thrower (per arc)", cat:"Support", mag:999, rpm:55, comps:[{std:250, dur:100, ap:[7,7,7,0], fo:"none"}]},
+ {name:"S-11 Speargun", cat:"Support", mag:1, rpm:15, comps:[{std:650, dur:275, ap:[5,5,5,5], fo:"none"}]},
+ {name:"GL-28 Belt-Fed Grenade Launcher", cat:"Support", mag:30, rpm:300, comps:[{std:0, dur:0, ap:[4,4,4,0], fo:"none"},{std:150, dur:150, ap:[4,4,4,4], explosive:true}]},
+ {name:"B/MD C4 Pack (per charge)", cat:"Support", mag:2, rpm:6, comps:[{std:2000, dur:2000, ap:[7,7,7,7], explosive:true}]},
+ {name:"B/FLAM-80 Cremator (sustained)", cat:"Support", mag:12, rpm:60, beam:true, continuous:"flame", ignitionRate:30, comps:[{std:225, dur:225, ap:[4,4,4,4], fo:"none", label:"Flame stream DPS"}]},
+ {name:"P-72 Crisper (sustained)", cat:"Secondary", mag:8, rpm:60, beam:true, continuous:"flame", ignitionRate:15, comps:[{std:150, dur:150, ap:[4,4,4,0], fo:"none", label:"Flame stream DPS"}]},
+ {name:"MG-43 Machine Gun", cat:"Support", mag:175, rpm:900, comps:[{std:90, dur:23, ap:[3,3,3,1], fo:"low"}], modes:[
+   {name:"900 rpm (high)", rpm:900}, {name:"760 rpm (medium)", rpm:760}, {name:"630 rpm (low)", rpm:630}]},
+ {name:"APW-1 Anti-Materiel Rifle", cat:"Support", mag:7, rpm:400, comps:[{std:450, dur:225, ap:[4,4,4,0], fo:"low"}]},
+ {name:"AC-8 Autocannon", cat:"Support", mag:10, rpm:190, modes:[
+   {name:"APHET", comps:[{std:325, dur:260, ap:[4,4,4,0], fo:"none"},{std:150, dur:150, ap:[3,3,3,3], explosive:true}]},
+   {name:"Flak — direct, no shrapnel", comps:[{std:150, dur:150, ap:[2,2,2,0], fo:"none"},{std:190, dur:190, ap:[3,3,3,3], explosive:true}]},
+   {name:"Flak — direct + ~25% shrapnel (8 of 30)", comps:[{std:150, dur:150, ap:[2,2,2,0], fo:"none"},{std:190, dur:190, ap:[3,3,3,3], explosive:true},{std:880, dur:280, ap:[3,3,2,0], fo:"none", label:"Shrapnel ×8"}]},
+   {name:"Flak — direct + ~50% shrapnel (15 of 30, huge part)", comps:[{std:150, dur:150, ap:[2,2,2,0], fo:"none"},{std:190, dur:190, ap:[3,3,3,3], explosive:true},{std:1650, dur:525, ap:[3,3,2,0], fo:"none", label:"Shrapnel ×15"}]}]},
+ {name:"MG-206 Heavy Machine Gun", cat:"Support", mag:100, rpm:750, comps:[{std:150, dur:35, ap:[4,4,4,0], fo:"low"}], modes:[
+   {name:"750 rpm (high)", rpm:750}, {name:"600 rpm (medium)", rpm:600}, {name:"450 rpm (low)", rpm:450}]},
+ {name:"LAS-98 Laser Cannon", cat:"Support", mag:12.5, rpm:60, beam:true, continuous:"beam", ignitionRate:1.5, comps:[{std:350, dur:200, ap:[4,4,4,4], fo:"none", label:"Beam DPS"}]},
+ {name:"GL-21 Grenade Launcher", cat:"Support", mag:10, rpm:160, comps:[{std:0, dur:0, ap:[4,4,4,0], fo:"none"},{std:400, dur:400, ap:[3,3,3,3], explosive:true}]},
+ {name:"RS-422 Railgun", cat:"Support", mag:1, rpm:30, modes:[
+   {name:"Safe (60% charge)", comps:[{std:600, dur:225, ap:[5,5,5,5], fo:"none"}]},
+   {name:"Unsafe ~75% charge", comps:[{std:1050, dur:394, ap:[5,5,5,5], fo:"none"}]},
+   {name:"Unsafe 90%+ charge (max)", comps:[{std:1500, dur:562, ap:[5,5,5,5], fo:"none"}]}]},
+ {name:"LAS-99 Quasar Cannon", cat:"Support", mag:1, rpm:10, comps:[{std:2000, dur:2000, ap:[6,6,6,3], fo:"none"},{std:150, dur:150, ap:[3,3,3,3], explosive:true}]},
+ {name:"GR-8 Recoilless Rifle", cat:"Support", mag:1, rpm:15, modes:[
+   {name:"HEAT shell", comps:[{std:3200, dur:3200, ap:[6,6,6,3], fo:"none"},{std:150, dur:150, ap:[3,3,3,3], explosive:true}]},
+   {name:"HE shell (programmable)", comps:[{std:750, dur:750, ap:[5,5,5,0], fo:"none"},{std:800, dur:800, ap:[4,4,4,4], explosive:true}]}]},
+ {name:"EAT-17 Expendable AT", cat:"Support", mag:1, rpm:10, comps:[{std:2000, dur:2000, ap:[6,6,6,3], fo:"none"},{std:150, dur:150, ap:[3,3,3,3], explosive:true}]},
+ {name:"FLAM-40 Flamethrower (sustained)", cat:"Support", mag:15, rpm:60, beam:true, continuous:"flame", ignitionRate:20, comps:[{std:150, dur:150, ap:[4,4,4,4], fo:"none", label:"Flame stream DPS"}]},
+ {name:"CQC-20 Breaching Hammer", cat:"Support", mag:1, rpm:30, modes:[
+   {name:"Charge attached (swing)", comps:[{std:300, dur:300, ap:[3,3,3,0], label:"Hammer head (melee)"},{std:2200, dur:2200, ap:[6,6,6,6], explosive:true, label:"Breaching charge (AP6)"}]},
+   {name:"No charge (bare hammer)", comps:[{std:300, dur:300, ap:[3,3,3,0], label:"Hammer head (melee)"}]}]},
+ {name:"B-100 Portable Hellbomb (inner blast)", cat:"Support", mag:1, rpm:1, activationDelay:10, cooldown:300, demo:60, comps:[{std:10000, dur:10000, ap:[10,10,10,10], explosive:true, label:"Hellbomb inner blast (10,000 damage, AP10)"}], note:"Models the full-damage inner blast at 0–17 m. From 17–25 m, blast damage falls from 9,999 to 0. Activation takes 10 seconds; base cooldown is 300 seconds. Demolition force is 60."},
+ {name:"MS-11 Solo Silo", cat:"Support", mag:1, rpm:5, comps:[{std:1500, dur:1500, ap:[9,9,9,9], explosive:true, label:"Impact explosion (AP9)"},{std:2500, dur:2500, ap:[7,7,7,7], explosive:true, label:"Main explosion (AP7)"}]},
+ {name:"EAT-411 Leveller", cat:"Support", mag:1, rpm:10, comps:[{std:1000, dur:1000, ap:[6,6,6,6], fo:"none"},{std:2500, dur:2500, ap:[6,6,6,6], explosive:true}]},
+ {name:"EAT-700 Expendable Napalm", cat:"Support", mag:1, rpm:10, comps:[{std:500, dur:500, ap:[3,3,3,0], fo:"none"},{std:250, dur:250, ap:[6,6,6,6], explosive:true}]},
+ {name:"PLAS-45 Epoch (fully charged)", cat:"Support", mag:3, rpm:30, comps:[{std:800, dur:400, ap:[5,5,5,5], fo:"none"},{std:800, dur:800, ap:[5,5,5,5], explosive:true}]}
+];
+
+// Stagger force per weapon (wiki damage table "stun" value; strongest component). null = not documented.
+const STAGGER = {
+ "AR-23 Liberator":15, "AR-23A Liberator Carbine":15, "AR-23C Liberator Concussive":35, "AR-23P Liberator Penetrator":10,
+ "AR-2 Coyote":12, "AR-61 Tenderizer":15, "AR-32 Pacifier":15, "R-2 Amendment":20, "R-2124 Constitution":20,
+ "SMG-37 Defender":10, "SMG-72 Pummeler":15, "SG-225 Breaker (all pellets)":35, "BR-14 Adjudicator":15, "LAS-16 Sickle":10,
+ "JAR-5 Dominator":35, "PLAS-1 Scorcher":20, "CB-9 Exploding Crossbow":30, "SG-8 Punisher (all pellets)":35,
+ "SG-8S Slugger":30, "SG-8P Punisher Plasma":20, "R-63 Diligence":15, "R-63CS Diligence Counter Sniper":20,
+ "R-6 Deadeye":30, "PLAS-101 Purifier":30, "P-2 Peacemaker":10, "P-113 Verdict":15, "P-4 Senator":20,
+ "M-105 Stalwart":15, "MG-43 Machine Gun":20, "APW-1 Anti-Materiel Rifle":25, "MG-206 Heavy Machine Gun":25,
+ "LAS-98 Laser Cannon":0, "LAS-5 Scythe":0, "LAS-7 Dagger":0,
+ "LAS-17 Double-Edge Sickle":10, "LAS-58 Talon":10, "GL-21 Grenade Launcher":30, "AC-8 Autocannon":40,
+ "RS-422 Railgun":35, "LAS-99 Quasar Cannon":50, "GR-8 Recoilless Rifle":50, "EAT-17 Expendable AT":50,
+ "EAT-700 Expendable Napalm":50, "PLAS-45 Epoch (fully charged)":35,
+ "R-36 Eruptor (excl. shrapnel)":35, "GP-31 Grenade Pistol":40, "FLAM-40 Flamethrower (sustained)":5,
+ "EAT-411 Leveller":100, "MS-11 Solo Silo":100, "B-100 Portable Hellbomb (inner blast)":50, "CQC-20 Breaching Hammer":null,
+ "SG-225SP Breaker Spray&Pray (all pellets)":3, "SG-225IE Breaker Incendiary (all pellets)":10,
+ "SG-451 Cookout (all pellets)":35, "SG-97 Sweeper (all flechettes)":20, "SG-20 Halt":20,
+ "DBS-2 Double Freedom":35, "M90A Shotgun (all pellets)":35, "StA-52 Assault Rifle":15,
+ "MA5C Assault Rifle":15, "AR/GL-21 One-Two":15, "StA-11 SMG":10, "M7S SMG":10, "SMG-32 Reprimand":15,
+ "SMG-203 Gallant":10, "ARC-12 Blitzer (per arc, fires ~3)":30, "PLAS-15 Loyalist":20,
+ "LAS-13 Trident (all 6 beams on target)":10, "P-19 Redeemer":10, "P-92 Warrant (guided)":15,
+ "M6C/SOCOM Pistol":15, "SG-22 Bushwhacker (all pellets)":15, "P-33 Missile Pistol":40,
+ "P-35 Re-Educator (projectile; gas DoT excluded)":1, "MGX-42 Bullet Storm":20, "MLS-4X Commando (per rocket)":40,
+ "ARC-3 Arc Thrower (per arc)":35, "S-11 Speargun":80, "GL-28 Belt-Fed Grenade Launcher":30,
+ "B/MD C4 Pack (per charge)":30, "B/FLAM-80 Cremator (sustained)":5, "P-72 Crisper (sustained)":5,
+ "AR-59 Suppressor":10, "R-72 Censor":20, "MP-98 Knight":10, "SMG/FLAM-34 Stoker":15,
+ "VG-70 Variable":10, "PLAS-39 Accelerator Rifle":20, "P-69 Veto":35
+};
+// Stagger threshold per enemy (infobox stagger_req). null = not documented / effectively unstaggerable.
+const STAGGER_REQ = {
+ "Charger":null, "Warrior":20, "Hive Guard":20, "Brood Commander":25, "Stalker":22, "Bile Titan":50,
+ "Hunter":15, "Bile Spewer":30, "Hulk (Scorcher)":40, "Devastator":30, "Rocket Devastator":30,
+ "Heavy Devastator":30, "Berserker":30, "Scout Strider":30, "Annihilator Tank":null, "Shredder Tank":null,
+ "Barrager Tank":null, "Gunship":null, "Dropship":null, "Factory Strider":null, "Voteless (Medium)":null,
+ "Overseer":35, "Harvester":40, "Veracitor":40, "Gatekeeper":null,
+ "Impaler":45, "Charger Behemoth":null, "Spore Charger":null, "Rupture Charger":null, "Dragonroach":38,
+ "Alpha Commander":25, "Alpha Warrior":25, "Scavenger":null, "Shrieker":null, "Nursing Spewer":30,
+ "Fleshmob":null, "Obtruder":null, "Watcher":null, "Elevated Overseer":30, "Crescent Overseer":35,
+ "Pouncer":1, "Bile Warrior":20, "Stingray":null, "Trooper":null, "Commissar":10,
+ "Bile Spitter":1, "Reinforced Scout Strider":30, "Rupture Warrior":20, "Spore Burst Warrior":20,
+ "Rupture Spewer":30, "Conflagration Devastator":30, "Radical":null, "Agitator":null, "Spore Burst Bile Titan":50,
+ "War Strider":40, "Cannon Turret":null, "Predator Stalker":22, "Predator Hunter":15,
+ "Leviathan":null, "Hive Lord":null, "Vox Engine":null
+};
+
+// Incendiary: fire status applied per hit (wiki damage table). Burn DoT = 100/s to MAIN HP only,
+// scaled by enemy fire multiplier, with an AP4 pen check vs main armor (65% if AV4, blocked if AV5+).
+const FIRE_PER_HIT = { "AR-2 Coyote":2, "LAS-98 Laser Cannon":1.5, "LAS-5 Scythe":1, "LAS-7 Dagger":1, "FLAM-40 Flamethrower (sustained)":20,
+ "SG-225IE Breaker Incendiary (all pellets)":7.2, "SG-451 Cookout (all pellets)":12,
+ "B/FLAM-80 Cremator (sustained)":30, "P-72 Crisper (sustained)":15, "SMG/FLAM-34 Stoker":10 };
+// Per enemy: m = fire damage multiplier (infobox), ig = [min, max] ignition thresholds where documented.
+const FIRE_DATA = {
+ "Charger":{m:1.5, ig:[8.5,null]}, "Charger Behemoth":{m:1.5, ig:[8.5,null]}, "Spore Charger":{m:1.5, ig:[8.5,null]},
+ "Rupture Charger":{m:1.5, ig:[8.5,null]}, "Impaler":{m:1.7, ig:[8.5,null]}, "Bile Titan":{m:1.7}, "Dragonroach":{m:1.7},
+ "Warrior":{m:0.8, ig:[2.1,3.3]}, "Alpha Warrior":{m:0.8, ig:[2.1,3.3]}, "Bile Warrior":{m:0.8, ig:[2.1,3.3]},
+ "Hive Guard":{m:0.8, ig:[2.1,3.3]}, "Brood Commander":{m:1, ig:[4.1,5.5]}, "Alpha Commander":{m:1, ig:[4.1,5.5]},
+ "Stalker":{m:1.25}, "Hunter":{m:0.7}, "Scavenger":{m:0.5}, "Pouncer":{m:0.5}, "Shrieker":{m:1},
+ "Bile Spewer":{m:1, ig:[5,6.5]}, "Nursing Spewer":{m:1, ig:[5,6.5]},
+ "Hulk (Scorcher)":{m:1.5, ig:[9,null]}, "Devastator":{m:1.25, ig:[6.2,8]}, "Rocket Devastator":{m:1.25, ig:[6.2,8]},
+ "Heavy Devastator":{m:1.25, ig:[6.2,8]}, "Berserker":{m:1.25}, "Scout Strider":{m:1},
+ "Annihilator Tank":{m:1.5}, "Shredder Tank":{m:1.5}, "Barrager Tank":{m:1.5}, "Factory Strider":{m:1.5},
+ "Trooper":{m:0.5}, "Commissar":{m:0.5}, "Bile Spitter":{m:0.5}, "Reinforced Scout Strider":{m:1},
+ "Rupture Warrior":{m:0.8}, "Spore Burst Warrior":{m:0.8}, "Rupture Spewer":{m:1, ig:[5,6.5]}, "Spore Burst Bile Titan":{m:1.7},
+ "Conflagration Devastator":{m:1.25, ig:[6.2,8]}, "Radical":{m:0.5}, "Agitator":{m:0.5},
+ "War Strider":{m:1.5}, "Predator Stalker":{m:1.25}, "Predator Hunter":{m:0.7}, "Hive Lord":{m:1}, "Vox Engine":{m:1.5},
+ "Voteless (Medium)":{m:0.75}, "Fleshmob":{m:1.8, ig:[4.5,null]}, "Harvester":{m:1.5}, "Veracitor":{m:1}, "Gatekeeper":{m:1}
+};
+
+// ============ CALC ============
+// AP > AV: 100% (red hitmarker); AP == AV: 65% (white hitmarker); AP < AV: ricochet.
+function penFactor(ap, av){ return ap > av ? 1 : (ap === av ? 0.65 : 0); }
+
+function damagePerShot(weapon, part, angleIdx, rangeIdx){
+  let total = 0, comps = [];
+  for(const c of weapon.comps){
+    const ap = c.explosive ? c.ap[0] : c.ap[angleIdx];
+    const pf = penFactor(ap, part.av);
+    const fo = c.explosive ? 1 : FALLOFF[c.fo || "none"][rangeIdx || 0];
+    let dmg = pf * fo * (c.std * (1 - part.dur/100) + c.dur * (part.dur/100));
+    if(c.explosive) dmg *= (1 - part.exdr/100);
+    dmg = Math.floor(dmg);  // game rounds damage dealt down
+    comps.push({explosive: !!c.explosive, ap, pf, dmg, label: c.label});
+    total += dmg;
+  }
+  return {total, comps};
+}
+
+function fmt(n){ return n % 1 === 0 ? n.toString() : n.toFixed(1); }
+
+function assess(enemy, part, weapon, angleIdx, rangeIdx){
+  const d = damagePerShot(weapon, part, angleIdx, rangeIdx);
+  const capped = part.cap !== 0; // wiki "Dmg Cap to Main": Yes (default) caps transfer at part HP; No lets overkill overflow into main
+  const toMainPerShot = part.hp === "main" ? d.total : (part.toMain === null ? 0 : d.total * part.toMain/100);
+  const routes = []; let info = null;
+  if(d.total > 0){
+    if(part.hp !== "main"){
+      const shots = Math.ceil(part.hp / d.total);
+      let label = "Destroy " + part.name + " (" + part.hp + " HP)";
+      let tag = part.fatal === "instant" ? "KILLS on destroy" : part.fatal === "downs" ? "BLEEDOUT kill (~few sec)" : "cripples only, no kill";
+      routes.push({label, shots, kills: !!part.fatal, tag});
+      // Main-HP drain through this part: only possible while the part still exists,
+      // and each shot's transfer is capped at remaining part HP unless the part overflows.
+      const partIsFatal = !!part.fatal;
+      if(toMainPerShot > 0 && !partIsFatal){
+        let ph = part.hp, mh = enemy.main, n = 0;
+        while(mh > 0 && ph > 0 && n < 9999){
+          n++;
+          const counted = capped ? Math.min(d.total, ph) : d.total;
+          mh -= counted * part.toMain/100;
+          ph -= d.total;
+        }
+        if(mh <= 0){
+          routes.push({label:"Deplete Main HP (" + enemy.main + ")", shots:n, kills:true, tag: fmt(toMainPerShot) + " dmg/shot to main" + (capped ? "" : " (overflows)")});
+        } else {
+          info = "Main HP can't be fully drained through this part — it breaks after " + Math.ceil(part.hp / d.total) + " shots, having sent only " + fmt(enemy.main - mh) + " of " + enemy.main + " to main (" + (capped ? "transfer capped at part HP" : "overflow part") + "). Switch aim after it pops.";
+        }
+      }
+    } else {
+      routes.push({label:"Deplete Main HP (" + enemy.main + ")", shots: Math.ceil(enemy.main / toMainPerShot), kills:true, tag: fmt(toMainPerShot) + " dmg/shot to main"});
+    }
+  }
+  return {d, toMainPerShot, routes, info};
+}
+
+// ============ DERIVED RANKING (pure helpers) ============
+const DATA_DATE = "2026-07-10";
+// gated (killable once someone else strips the armor) outranks blocked (never damageable)
+const OUTCOME_RANK = {immediate:0,bleedout:1,disable:2,gated:3,blocked:4};
+// Immediate and bleedout kills compete in the same tier: a bleedout that needs far
+// fewer shots should beat a slow main-HP grind. Bleedout adds a flat time penalty
+// (Charger constitution is 750 HP at 100/s ≈ 7.5s; most others are faster) so
+// near-ties still favor instant kills.
+const BLEEDOUT_DELAY_S = 5;
+const lethalTier = outcome => OUTCOME_RANK[outcome] <= 1 ? 0 : OUTCOME_RANK[outcome];
+
+// These targets do not exist as hittable zones on an intact enemy. The rule is
+// deliberately separate from the preserved source dataset/calculation core: it
+// describes target access, while assess() continues to describe damage once hit.
+const ACCESS_RULES = {
+  "Charger": {
+    "Inner Flesh (exposed)": {mode:"any",parts:["Torso Armor"],note:"Break a torso armor plate to expose the inner flesh."},
+    "Leg Flesh (exposed)": {mode:"any",parts:["Front Leg Armor","Rear Leg Armor"],note:"Break the armor on the same leg before shooting its exposed flesh."}
+  },
+  "Charger Behemoth": {
+    "Inner Flesh (exposed)": {mode:"any",parts:["Torso Armor"],note:"Break a torso armor plate to expose the inner flesh."},
+    "Leg Flesh (exposed)": {mode:"any",parts:["Front Leg Armor","Rear Leg Armor"],note:"Break the armor on the same leg before shooting its exposed flesh."}
+  },
+  "Spore Charger": {
+    "Inner Flesh (exposed)": {mode:"any",parts:["Torso Armor"],note:"Break a torso armor plate to expose the inner flesh."},
+    "Leg Flesh (exposed)": {mode:"any",parts:["Front Leg Armor","Rear Leg Armor"],note:"Break the armor on the same leg before shooting its exposed flesh."}
+  },
+  "Rupture Charger": {
+    "Inner Flesh (exposed)": {mode:"any",parts:["Torso Armor"],note:"Break a torso armor plate to expose the inner flesh."},
+    "Leg Flesh (exposed)": {mode:"any",parts:["Front Leg Armor","Rear Leg Armor"],note:"Break the armor on the same leg before shooting its exposed flesh."}
+  },
+  "Bile Titan": {
+    "Inner Flesh (exposed)": {mode:"any",parts:["Torso Armor"],note:"Break a torso armor plate to expose the inner flesh."},
+    "Underside (belly)": {mode:"all",parts:["Upper Bile Sac","Lower Bile Sac"],note:"Rupture both outer bile sacs to open the underlying belly health pool."},
+    "Leg Flesh": {mode:"any",parts:["Leg Armor"],note:"Break the armor on that leg before shooting the flesh beneath it."}
+  },
+  "Spore Burst Bile Titan": {
+    "Inner Flesh (exposed)": {mode:"any",parts:["Torso Armor"],note:"Break a torso armor plate to expose the inner flesh."},
+    "Leg Flesh": {mode:"any",parts:["Leg Armor"],note:"Break the armor on that leg before shooting the flesh beneath it."}
+  },
+  "Impaler": {
+    "Tentacle Flesh": {mode:"any",parts:["Tentacle Armor"],note:"Strip the tentacle armor before shooting the flesh beneath it."},
+    "Inner Flesh (exposed)": {mode:"any",parts:["Torso Armor"],note:"Break torso armor to expose the inner flesh."},
+    "Leg Flesh": {mode:"any",parts:["Leg Armor"],note:"Break the armor on that leg before shooting the flesh beneath it."}
+  },
+  "Hive Lord": {
+    "Inner Flesh (exposed)": {mode:"any",parts:["Dorsal Plate Armor","Sterna Plate Armor","Lower Sterna Plate"],note:"Break a plate covering the section you intend to attack."}
+  },
+  "Overseer": {"Torso (exposed)": {mode:"any",parts:["Chest Armor"],note:"Strip the chest's ablative armor before shooting the exposed torso."}},
+  "Elevated Overseer": {"Torso (exposed)": {mode:"any",parts:["Chest Armor"],note:"Strip the chest's ablative armor before shooting the exposed torso."}},
+  "Crescent Overseer": {"Torso (exposed)": {mode:"any",parts:["Chest Armor"],note:"Strip the chest's ablative armor before shooting the exposed torso."}},
+  "Harvester": {"Carapace Weakspot": {mode:"any",parts:["Carapace"],note:"Break the carapace first to uncover this internal weakspot."}},
+  "Agitator": {"Head (under helmet)": {mode:"any",parts:["Helmet"],note:"Shoot off the AV2 helmet before the one-shot headshot is available."}},
+  "Veracitor": {"Pilot": {mode:"any",parts:["Pilot Shield","Head (shield projector)"],note:"Drop the pilot's energy shield, or destroy the head to disable it permanently, before shooting the pilot."}},
+  "Gatekeeper": {"Pilot": {mode:"any",parts:["Pilot Shield","Shield Generator (horn)"],note:"Drop the pilot's energy shield, or destroy the shield-generator horn to disable it permanently, before shooting the pilot."}},
+  "Leviathan": {
+    "Main (internals, exposed)": {mode:"any",parts:["Front Fin","Forward-Middle Fin","Rearward-Middle Fin","Rear Fin","Tail"],note:"Destroy a fin or the tail to expose the internals behind that section."}
+  }
+};
+
+function accessRule(enemy,part){return ACCESS_RULES[enemy.name]?.[part.name]||null;}
+
+function resolveWeapon(base, modeIndex=0){
+  const index=base.modes?Math.max(0,Math.min(+modeIndex||0,base.modes.length-1)):0;
+  const mode=base.modes?base.modes[index]:null;
+  return {...base,comps:mode?.comps||base.comps,rpm:mode?.rpm||base.rpm,mag:mode?.mag||base.mag,continuous:mode?.continuous||base.continuous,ignitionRate:mode?.ignitionRate||base.ignitionRate,base,modeIndex:index,modeName:mode?.name||null,displayName:base.name+(mode?" — "+mode.name:"")};
+}
+
+function isContinuous(weapon){return !!(weapon.continuous||weapon.beam);}
+// Reload times (full reload from empty, seconds). Sources: measured table at
+// invadersfromplanet.space (Dec 2024 snapshot — reload animations are rarely rebalanced),
+// overridden by later patch notes where documented (MG-43 4.5, AC-8 ~4.5). Rounds-reload
+// shotguns use their full-tube time. Weapons newer than the table fall back to class estimates.
+// Single-shot weapons (mag 1) already encode their reload in their cycle rpm.
+const RELOAD_S = {
+  "AR-23 Liberator":3.0, "AR-23A Liberator Carbine":3.0, "AR-23C Liberator Concussive":3.0,
+  "AR-23P Liberator Penetrator":3.0, "AR-61 Tenderizer":3.3, "BR-14 Adjudicator":3.0,
+  "R-2124 Constitution":5.0, "R-63 Diligence":3.0, "R-63CS Diligence Counter Sniper":3.0,
+  "MP-98 Knight":2.5, "SMG-32 Reprimand":2.5, "SMG-37 Defender":2.8, "SMG-72 Pummeler":3.0,
+  "SG-8 Punisher (all pellets)":6.9, "SG-8S Slugger":6.9, "SG-20 Halt":6.9, "SG-451 Cookout (all pellets)":6.9,
+  "SG-225 Breaker (all pellets)":2.5, "SG-225SP Breaker Spray&Pray (all pellets)":3.0, "SG-225IE Breaker Incendiary (all pellets)":2.5,
+  "CB-9 Exploding Crossbow":3.3, "JAR-5 Dominator":3.8, "R-36 Eruptor (excl. shrapnel)":4.7,
+  "SG-8P Punisher Plasma":2.5, "LAS-5 Scythe":3.0, "LAS-16 Sickle":3.0, "PLAS-1 Scorcher":2.5, "PLAS-101 Purifier":2.5,
+  "SG-22 Bushwhacker (all pellets)":3.0, "P-2 Peacemaker":1.8, "P-19 Redeemer":2.1, "P-113 Verdict":2.0,
+  "GP-31 Grenade Pistol":2.0, "LAS-7 Dagger":2.3, "P-4 Senator":4.8, "PLAS-15 Loyalist":2.0,
+  "M-105 Stalwart":5.8, "MG-43 Machine Gun":4.5, "MG-206 Heavy Machine Gun":5.5,
+  "APW-1 Anti-Materiel Rifle":3.2, "GL-21 Grenade Launcher":3.5, "AC-8 Autocannon":4.5,
+  "LAS-98 Laser Cannon":5.0, "FLAM-40 Flamethrower (≈ per second)":3.9, "MGX-42 Bullet Storm":0, /* expendable — no reload */
+  // Animation-family analogies (no measured source exists for post-2024 weapons):
+  "DBS-2 Double Freedom":2.3,          // break-action, matches measured SG-88 Break-Action 2.3
+  "R-6 Deadeye":5.0,                    // lever/tube rounds reload, matches Constitution-class 5.0
+  "M90A Shotgun (all pellets)":5.4,     // 6 shells × ~0.9s/shell, Punisher-style rounds reload
+  "R-2 Amendment":3.0                   // standard rifle magazine, Diligence-class animation
+};
+function reloadTime(weapon){
+  const name=weapon.base?.name||weapon.name;
+  if(RELOAD_S[name]!=null)return RELOAD_S[name];
+  if((weapon.mag??1)<=1)return 0;                      // reload baked into cycle time
+  if(isContinuous(weapon))return 4;                    // heatsink / canister swap (est.)
+  return weapon.cat==="Support"?5:weapon.cat==="Secondary"?2:2.5; // class estimates
+}
+function firingTime(weapon,shots){
+  if(!Number.isFinite(shots))return Infinity;
+  if(weapon.activationDelay)return weapon.activationDelay+Math.max(0,shots-1)*(weapon.cooldown||0);
+  const base=isContinuous(weapon)?shots:Math.max(0,(shots-1)/(weapon.rpm/60));
+  const reloads=Math.max(0,Math.ceil(shots/Math.max(1,weapon.mag))-1);
+  return base+reloads*reloadTime(weapon);
+}
+
+function continuousBurnProfile(enemy,weapon){
+  if(!weapon.ignitionRate)return null;
+  const data=FIRE_DATA[enemy.name],threshold=data?.ig?.[1]??data?.ig?.[0];
+  if(!data||threshold==null)return null;
+  const mainAv=enemy.parts[0].av,penetration=penFactor(4,mainAv),dps=Math.floor(100*data.m*penetration);
+  return dps>0?{dps,delay:threshold/weapon.ignitionRate,threshold,rate:weapon.ignitionRate,multiplier:data.m}:null;
+}
+
+function continuousTime(required,directDps,burn){
+  if(required<=0)return 0;
+  if(!burn||burn.dps<=0)return directDps>0?required/directDps:Infinity;
+  const before=directDps*burn.delay;
+  if(before>=required)return required/directDps;
+  return burn.delay+(required-before)/(directDps+burn.dps);
+}
+
+function refineContinuousAssessment(enemy,part,weapon,raw){
+  if(!isContinuous(weapon))return raw;
+  const burn=continuousBurnProfile(enemy,weapon),routes=raw.routes.map(route=>{
+    let seconds=route.shots;
+    if(route.label.startsWith("Destroy ")&&part.hp!=="main")seconds=part.hp/raw.d.total;
+    else if(route.label.startsWith("Deplete Main HP"))seconds=continuousTime(enemy.main,raw.toMainPerShot,part.hp==="main"?burn:null);
+    return {...route,shots:Math.max(0,seconds)};
+  });
+  return {...raw,routes,continuous:{kind:weapon.continuous||"beam",streamDps:raw.d.total,burn}};
+}
+
+function compareEvaluations(a,b,includeIndex=true){
+  const aa=[lethalTier(a.outcome),a.rankTtk??a.ttk,a.shots??Infinity,OUTCOME_RANK[a.outcome],a.magazines??Infinity,includeIndex?a.partIndex??a.weaponIndex??0:0];
+  const bb=[lethalTier(b.outcome),b.rankTtk??b.ttk,b.shots??Infinity,OUTCOME_RANK[b.outcome],b.magazines??Infinity,includeIndex?b.partIndex??b.weaponIndex??0:0];
+  for(let i=0;i<aa.length;i++)if(aa[i]!==bb[i])return aa[i]-bb[i];
+  return 0;
+}
+
+function evaluateDirectPart(enemy,part,weapon,conditions={angle:0,range:0},partIndex=enemy.parts.indexOf(part)){
+  const raw=refineContinuousAssessment(enemy,part,weapon,assess(enemy,part,weapon,+conditions.angle||0,+conditions.range||0));
+  const lethal=raw.routes.filter(route=>route.kills).map(route=>({...route,outcome:part.fatal==="downs"&&route.label.startsWith("Destroy ")?"bleedout":"immediate"}));
+  const effectiveTtk=route=>firingTime(weapon,route.shots)+(route.outcome==="bleedout"?BLEEDOUT_DELAY_S:0);
+  lethal.sort((a,b)=>effectiveTtk(a)-effectiveTtk(b)||OUTCOME_RANK[a.outcome]-OUTCOME_RANK[b.outcome]||a.shots-b.shots);
+  const route=lethal[0]||raw.routes[0]||null;
+  const outcome=lethal[0]?.outcome||(raw.d.total>0?"disable":"blocked");
+  const shots=route?.shots??null;
+  // Displayed TTK is pure firing+reload time; the bleedout allowance only biases RANKING
+  // (rankTtk) so immediate kills win when times are close, per BLEEDOUT_DELAY_S.
+  const ttk=firingTime(weapon,shots);
+  const rankTtk=ttk+(outcome==="bleedout"?BLEEDOUT_DELAY_S:0);
+  const magazines=shots==null?null:Math.max(1,Math.ceil(shots/Math.max(1,weapon.mag)));
+  const bestPen=Math.max(0,...raw.d.comps.map(component=>component.pf));
+  return {enemy,part,partIndex,weapon,raw,outcome,route,shots,ttk,rankTtk,magazines,penetration:bestPen===1?"full":bestPen===.65?"partial":"blocked",partDamage:raw.d.total,mainDamage:raw.toMainPerShot};
+}
+
+function evaluateAccessStage(enemy,part,weapon,conditions){
+  const result=evaluateDirectPart(enemy,part,weapon,conditions),route=result.raw.routes.find(candidate=>candidate.label.startsWith("Destroy "))||null,shots=route?.shots??null;
+  return {...result,route,shots,ttk:firingTime(weapon,shots),magazines:shots==null?null:Math.max(1,Math.ceil(shots/Math.max(1,weapon.mag)))};
+}
+
+function evaluatePart(enemy,part,weapon,conditions={angle:0,range:0},partIndex=enemy.parts.indexOf(part)){
+  const target=evaluateDirectPart(enemy,part,weapon,conditions,partIndex),rule=accessRule(enemy,part);
+  if(!rule)return target;
+  const candidates=rule.parts.map(name=>enemy.parts.find(candidate=>candidate.name===name)).filter(Boolean).map(candidate=>evaluateAccessStage(enemy,candidate,weapon,conditions));
+  const breakable=candidates.filter(result=>result.raw.d.total>0&&Number.isFinite(result.shots));
+  const stages=rule.mode==="all"?candidates:(breakable.sort((a,b)=>firingTime(weapon,a.shots)-firingTime(weapon,b.shots)||a.shots-b.shots),breakable.slice(0,1));
+  const canOpen=rule.mode==="all"?candidates.length===rule.parts.length&&candidates.every(result=>result.raw.d.total>0&&Number.isFinite(result.shots)):stages.length>0;
+  const access={rule,required:rule.parts,stages,canOpen,note:rule.note};
+  // Even when this weapon cannot break the covering plate, keep the post-exposure
+  // numbers visible: the target is still viable if a teammate or another weapon
+  // strips the armor first. The "gated" outcome keeps it ranked below self-sufficient options.
+  if(!canOpen)return {...target,outcome:"gated",postBreakOutcome:target.outcome,access};
+  const setupShots=stages.reduce((sum,result)=>sum+result.shots,0),targetShots=target.shots;
+  if(targetShots==null)return {...target,access,setupShots,postBreakOutcome:target.outcome};
+  const shots=setupShots+targetShots,ttk=firingTime(weapon,shots),rankTtk=ttk+(target.outcome==="bleedout"?BLEEDOUT_DELAY_S:0),magazines=Math.max(1,Math.ceil(shots/Math.max(1,weapon.mag)));
+  const opening=stages.map(result=>result.part.name).join(rule.mode==="all"?" and ":" or ");
+  return {...target,shots,ttk,rankTtk,magazines,access,setupShots,targetShots,route:{...target.route,label:`Break ${opening}, then ${target.route?.label?.toLowerCase()||`attack ${part.name}`}`}};
+}
+
+function rankParts(enemy,weapon,conditions){
+  return enemy.parts.map((part,index)=>evaluatePart(enemy,part,weapon,conditions,index)).sort((a,b)=>compareEvaluations(a,b,true));
+}
+
+function rankWeapons(enemy,part,conditions){
+  return WEAPONS.map((base,weaponIndex)=>{
+    const candidates=(base.modes||[null]).map((_,modeIndex)=>({...evaluatePart(enemy,part,resolveWeapon(base,modeIndex),conditions,enemy.parts.indexOf(part)),base,weaponIndex,modeIndex}));
+    candidates.sort((a,b)=>compareEvaluations(a,b,false)||a.modeIndex-b.modeIndex);
+    return candidates[0];
+  }).sort((a,b)=>compareEvaluations(a,b,false)||a.weaponIndex-b.weaponIndex);
+}
+
+function countUnit(result,noun){const n=result.shots;const word=isContinuous(result.weapon)?"second":noun;return `${fmt(n)} ${word}${n===1?"":"s"}`;}
+function outcomeSummary(result){
+  if(result.outcome==="gated")return result.shots!=null?`${countUnit(result,"shot")} once exposed — this weapon can't break the covering armor itself`:"requires armor this weapon cannot break";
+  if(result.outcome==="blocked")return "no damage";
+  if(result.outcome==="disable")return result.shots==null?"— shots to disable":`${countUnit(result,"shot")} to disable`;
+  if(result.outcome==="bleedout")return `${countUnit(result,"shot")} plus bleedout`;
+  return `${countUnit(result,"shot")} to kill`;
+}
+
+function buildRecoveryAdvice(enemy,part,base,currentMode,conditions,currentEvaluation){
+  if(currentEvaluation.outcome==="immediate")return [];
+  const advice=[];
+  if(currentEvaluation.outcome==="gated")advice.push(`${part.name} is not exposed yet. ${currentEvaluation.access.note}`);
+  if(base.modes?.length>1){
+    const better=base.modes.map((_,index)=>evaluatePart(enemy,part,resolveWeapon(base,index),conditions)).filter(x=>x.weapon.modeIndex!==currentMode&&compareEvaluations(x,currentEvaluation,false)<0).sort((a,b)=>compareEvaluations(a,b,false))[0];
+    if(better)advice.push(`Switch to ${better.weapon.modeName}: ${outcomeSummary(better)}.`);
+  }
+  for(let angle=(+conditions.angle||0)-1;angle>=0;angle--){
+    const better=evaluatePart(enemy,part,resolveWeapon(base,currentMode),{...conditions,angle});
+    if(compareEvaluations(better,currentEvaluation,false)<0){advice.push(`Reduce the firing angle to ${ANGLE_SHORT[angle]}: ${outcomeSummary(better)}.`);break;}
+  }
+  for(let range=(+conditions.range||0)-1;range>=0;range--){
+    const better=evaluatePart(enemy,part,resolveWeapon(base,currentMode),{...conditions,range});
+    if(compareEvaluations(better,currentEvaluation,false)<0){advice.push(`Move to ${RANGE_SHORT[range]}: ${outcomeSummary(better)}.`);break;}
+  }
+  // Suggest alternatives only when they are genuinely better overall (same tier+TTK
+  // comparison as the rankings), not merely a "nicer" outcome class — an instant kill
+  // that takes 6x the shots is not an upgrade over a quick bleedout.
+  // Only suggest better SHOT PLACEMENT with the current weapon (plus mode/angle/range
+  // tweaks above) — never a different weapon; that's what Recommend → "Which weapon?" is for.
+  const alternate=rankParts(enemy,resolveWeapon(base,currentMode),conditions).find(x=>x.part!==part&&compareEvaluations(x,currentEvaluation,false)<0);
+  if(alternate)advice.push(`Aim for ${alternate.part.name}: ${outcomeSummary(alternate)}.`);
+  return advice.slice(0,3);
+}
+
+function formatShareSummary(payload){
+  if(!payload)return "Helldivers 2 Shot Placement Assessor";
+  if(payload.kind==="compare")return `${payload.enemy} — ${payload.weaponA} vs ${payload.weaponB}\n${payload.summary}\n${payload.conditions}\nData: ${DATA_DATE}`;
+  return `${payload.enemy} — ${payload.title}\n${payload.weapon}${payload.target?` → ${payload.target}`:""}\n${payload.metrics}\n${payload.conditions}\nData: ${DATA_DATE}`;
+}
+
+// ============ DOM APP ============
+const $=id=>document.getElementById(id);
+const STORAGE_KEY="hd2-shot-placement:v3",LEGACY_KEY="hd2-shot-placement:v2";
+const ANGLE_SHORT=["Direct","Slight angle","Large angle","Extreme angle"],RANGE_SHORT=["Point blank","~25 m","~50 m","~75 m","100 m+"];
+const FACTION_COLORS={Terminids:"#ffc000",Automatons:"#ff5f5f",Illuminate:"#ce6ff9"};
+const TERM_DEFS={AP:"Armor Penetration. AP equal to AV deals partial damage; higher AP deals full damage.",AV:"Armor Value. The target armor level checked against weapon AP.",Durability:"The percentage of damage that uses a weapon's durable-damage value.",ExDR:"Explosive damage resistance applied to explosive components.","Main HP":"The enemy's shared health pool. Depleting it kills the enemy.","Damage cap":"Limits transferred damage to the remaining health of a destructible part.",Bleedout:"A delayed death caused by destroying certain fatal parts.",Stagger:"Whether weapon stun force meets the enemy's stagger threshold.",TTK:"Estimated time to kill: firing time plus reload time when more than one magazine is needed. Bleedout kills show '+ bleedout' rather than adding its duration; rankings prefer immediate kills when times are close."};
+const comboControllers={};
+let appState={view:"recommend",intent:"aim",favoriteEnemies:[],favoriteWeapons:[],recentEnemies:[],recentWeapons:[],rankCategory:"All",showAllWeapons:false};
+let currentSharePayload=null,lastAimContext="",lastWeaponContext="",activeViewIndex=0,stickyObserver=null,toastTimer=null;
+
+function esc(value){return String(value??"").replace(/[&<>'"]/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[char]));}
+function term(label){const definition=TERM_DEFS[label];return `<span class="term-wrap"><button class="term-button" type="button" data-term="${esc(label)}" aria-label="${esc(label+': '+definition)}">${esc(label)}</button><span class="term-tip" role="tooltip">${esc(definition)}</span></span>`;}
+function outcomeLabel(outcome){return {immediate:"Immediate kill",bleedout:"Bleedout kill",disable:"Disables only",blocked:"No damage",gated:"Armor-gated"}[outcome];}
+function outcomeText(result){return outcomeSummary(result);}
+function formatTtk(result){return Number.isFinite(result.ttk)?`${fmt(result.ttk)}s${result.outcome==="bleedout"?" + bleedout":""}`:"—";}
+function formatShots(result){if(result.shots==null)return "—";return isContinuous(result.weapon)?`${fmt(result.shots)}s`:`${result.shots}`;}
+function penetrationLabel(result){const base=result.penetration==="full"?"Full":result.penetration==="partial"?"Partial (65%)":"Blocked";return result.outcome==="gated"?`${base} once exposed`:base;}
+function selectedText(select){return select.selectedOptions[0]?.textContent||"";}
+function selectByText(select,text){if(!text)return false;const aliases={"B-100 Portable Hellbomb (≈)":"B-100 Portable Hellbomb (inner blast)","B-100 Portable Hellbomb":"B-100 Portable Hellbomb (inner blast)","P-35 Re-Educator (gas)":"P-35 Re-Educator (projectile; gas DoT excluded)","LAS-13 Trident (all 4 beams on target)":"LAS-13 Trident (all 6 beams on target)","FLAM-40 Flamethrower (≈ per second)":"FLAM-40 Flamethrower (sustained)","B/FLAM-80 Cremator (≈ per second)":"B/FLAM-80 Cremator (sustained)","P-72 Crisper (≈ per second)":"P-72 Crisper (sustained)"},wanted=aliases[text]||text,option=[...select.options].find(x=>x.textContent===wanted);if(!option)return false;select.value=option.value;return true;}
+function fill(select,items,label){select.replaceChildren(...items.map((item,index)=>new Option(label(item),index)));}
+
+function weaponClass(w){
+  const n=w.name,X={"JAR-5 Dominator":"Special","SG-8P Punisher Plasma":"Energy-Based","CB-9 Exploding Crossbow":"Explosive","R-36 Eruptor (excl. shrapnel)":"Explosive","PLAS-15 Loyalist":"Special","P-72 Crisper (sustained)":"Special","SG-22 Bushwhacker (all pellets)":"Special","LAS-58 Talon":"Special","LAS-7 Dagger":"Special","GP-31 Grenade Pistol":"Special","P-35 Re-Educator (projectile; gas DoT excluded)":"Special","CQC-20 Breaching Hammer":"Melee"};
+  if(X[n])return X[n];if(w.cat==="Support"){if(/^(MG|M-105|MGX)/.test(n))return "Machine Guns";if(/^(EAT|GR-8|LAS-99|MLS|RS-422|S-11|PLAS-45|MS-11|B-100)/.test(n))return "Anti-Tank";if(/^(AC-8|GL-2|B\/MD)/.test(n))return "Explosive";return "Energy / Flame / Arc";}if(w.cat==="Secondary")return "Pistols";if(/^(AR|StA-52|MA5C|BR-14)/.test(n))return "Assault Rifles";if(/^R-/.test(n))return "Marksman Rifles";if(/^(SMG|MP-98|StA-11|M7S)/.test(n))return "Submachine Guns";if(/^(SG|DBS|M90A)/.test(n))return "Shotguns";if(/^(LAS|PLAS|ARC)/.test(n))return "Energy-Based";return "Special";
+}
+function fillEnemies(){
+  // Group by faction, then subfaction (Predator Strain, Appropriators, ...) within it.
+  // Filter chips stay faction-level (dataset.filter); the optgroup label carries the sub.
+  const groups={};
+  ENEMIES.forEach((enemy,index)=>{const key=enemy.faction+(enemy.sub?` — ${enemy.sub}`:"");(groups[key]=groups[key]||{faction:enemy.faction,items:[]}).items.push([enemy,index]);});
+  const keys=Object.keys(groups).sort((a,b)=>{const fa=groups[a].faction,fb=groups[b].faction;if(fa!==fb)return ENEMIES.findIndex(e=>e.faction===fa)-ENEMIES.findIndex(e=>e.faction===fb);return a.localeCompare(b);});
+  const nodes=keys.map(key=>{const group=document.createElement("optgroup");group.label=key;groups[key].items.forEach(([enemy,index])=>{const option=new Option(enemy.name,index);option.dataset.filter=groups[key].faction;option.style.color=FACTION_COLORS[groups[key].faction]||"#fff";group.append(option);});return group;});
+  $('enemy').replaceChildren(...nodes);
+}
+function fillWeapons(select){const nodes=[];for(const category of ["Primary","Secondary","Support"]){const classes={};WEAPONS.forEach((weapon,index)=>{if(weapon.cat===category)(classes[weaponClass(weapon)]=classes[weaponClass(weapon)]||[]).push([weapon,index]);});for(const cls of Object.keys(classes).sort()){const group=document.createElement("optgroup");group.label=category+" · "+cls;classes[cls].sort((a,b)=>a[0].name.localeCompare(b[0].name)).forEach(([weapon,index])=>{const option=new Option(weapon.name,index);option.dataset.filter=category;group.append(option);});nodes.push(group);}}select.replaceChildren(...nodes);}
+function fillParts(preferred){const enemy=ENEMIES[$('enemy').value],preferredPart=enemy.parts.find(part=>preferred===part.name||preferred?.startsWith(part.name+" (")||preferred?.startsWith(part.name+" ·"));fill($('part'),enemy.parts,part=>part.name+(accessRule(enemy,part)?" · BREAK ARMOR FIRST":"")+(part.hp==="main"?` (${enemy.main} HP — main pool, AV${part.av})`:` (${part.hp} HP, AV${part.av})`));if(preferredPart)$('part').value=enemy.parts.indexOf(preferredPart);else selectByText($('part'),preferred);}
+function fillMode(modeSelect,row,weaponSelect,preferred){const base=WEAPONS[weaponSelect.value];if(base.modes){fill(modeSelect,base.modes,mode=>mode.name);selectByText(modeSelect,preferred);row.dataset.available="true";}else{modeSelect.replaceChildren();row.dataset.available="false";} }
+
+function readStorage(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"null")||JSON.parse(localStorage.getItem(LEGACY_KEY)||"{}")||{};}catch{return {};}}
+function readInitialState(){const stored=readStorage(),next={...appState,...stored};try{const q=new URL(location.href).searchParams;const validView=["recommend","inspect","compare"],validIntent=["aim","weapon"];if(validView.includes(q.get("view")))next.view=q.get("view");if(validIntent.includes(q.get("intent")))next.intent=q.get("intent");for(const key of ["enemy","part","weapon","mode","weaponB","modeB","angle","range"])if(q.has(key))next[key]=q.get(key);}catch{}return next;}
+function collectState(){return {...appState,enemy:selectedText($('enemy')),part:selectedText($('part')),weapon:selectedText($('weapon')),mode:selectedText($('mode')),weaponB:selectedText($('weaponB')),modeB:selectedText($('modeB')),angle:$('angle').value,range:$('range').value};}
+function persist(){appState=collectState();try{localStorage.setItem(STORAGE_KEY,JSON.stringify(appState));}catch{}try{const url=new URL(location.href),state=collectState();for(const key of ["view","intent","enemy","part","weapon","mode","weaponB","modeB","angle","range"]){if(state[key])url.searchParams.set(key,state[key]);else url.searchParams.delete(key);}history.replaceState(null,"",url);}catch{}}
+function remember(kind,value){const key=kind==="enemy"?"recentEnemies":"recentWeapons",limit=kind==="enemy"?5:8;appState[key]=[value,...(appState[key]||[]).filter(x=>x!==value)].slice(0,limit);}
+
+function favoriteList(kind){return kind==="enemy"?appState.favoriteEnemies:appState.favoriteWeapons;}
+function enhanceSelect(select){
+  const field=select.closest('.field'),label=field.querySelector('label'),combo=document.createElement('div'),input=document.createElement('input'),panel=document.createElement('div'),filters=document.createElement('div'),list=document.createElement('div'),status=document.createElement('div');
+  const kind=select.id==="enemy"?"enemy":"weapon";combo.className='combo';input.className='combo-input';input.id=select.id+'Search';input.type='text';input.autocomplete='off';input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-expanded','false');panel.className='combo-panel';panel.hidden=true;filters.className='combo-filters';list.className='combo-list';list.id=select.id+'List';list.setAttribute('role','listbox');status.className='sr-only';status.setAttribute('aria-live','polite');input.setAttribute('aria-controls',list.id);label.htmlFor=input.id;panel.append(filters,list);combo.append(input,panel,status);select.after(combo);select.hidden=true;
+  let items=[],active=-1,activeFilter="All",rendered=[],typedQuery="";
+  // typedQuery tracks only what the user actually typed this session — the input is
+  // pre-filled with the current selection, and using THAT as a search query made
+  // faction filter chips appear broken (filtering "Automatons" by the text "Charger").
+  const rebuild=()=>{items=[...select.options].map(option=>({value:option.value,label:option.textContent,group:option.parentElement.tagName==="OPTGROUP"?option.parentElement.label:"",filter:option.dataset.filter||"All"}));input.value=selectedText(select);drawFilters();};
+  const drawFilters=()=>{const values=["All",...new Set(items.map(item=>item.filter))];filters.replaceChildren(...values.map(value=>{const button=document.createElement('button');button.type='button';button.className='filter-chip';button.textContent=value;button.setAttribute('aria-pressed',value===activeFilter?'true':'false');button.addEventListener('mousedown',event=>event.preventDefault());button.addEventListener('click',()=>{activeFilter=value;drawFilters();draw(typedQuery);});return button;}));};
+  const close=()=>{panel.hidden=true;input.setAttribute('aria-expanded','false');input.removeAttribute('aria-activedescendant');active=-1;};
+  const choose=item=>{select.value=item.value;input.value=item.label;close();select.dispatchEvent(new Event('change',{bubbles:true}));};
+  const draw=query=>{const q=query.trim().toLocaleLowerCase(),favorites=new Set(favoriteList(kind)),recents=new Set(kind==="enemy"?appState.recentEnemies:appState.recentWeapons);rendered=items.filter(item=>(activeFilter==="All"||item.filter===activeFilter)&&item.label.toLocaleLowerCase().includes(q)).sort((a,b)=>{const aw=favorites.has(a.label)?0:recents.has(a.label)?1:2,bw=favorites.has(b.label)?0:recents.has(b.label)?1:2;return aw-bw||a.group.localeCompare(b.group)||a.label.localeCompare(b.label);});list.replaceChildren();let previous="";rendered.forEach((item,index)=>{const group=favorites.has(item.label)?"★ Favorites":recents.has(item.label)?"Recent":item.group;if(group!==previous){const heading=document.createElement('div');heading.className='combo-group';heading.textContent=group;list.append(heading);previous=group;}const option=document.createElement('div');option.className='combo-option';option.id=select.id+'Option'+index;option.setAttribute('role','option');option.setAttribute('aria-selected',item.value===select.value?'true':'false');option.textContent=item.label;option.addEventListener('mousedown',event=>event.preventDefault());option.addEventListener('click',()=>choose(item));list.append(option);});if(!rendered.length){const empty=document.createElement('div');empty.className='combo-empty';empty.textContent='No matches in this filter';list.append(empty);}status.textContent=`${rendered.length} result${rendered.length===1?'':'s'}`;panel.hidden=false;input.setAttribute('aria-expanded','true');active=-1;};
+  const setActive=next=>{const options=[...list.querySelectorAll('[role="option"]')];if(!options.length)return;active=(next+options.length)%options.length;options.forEach((option,index)=>option.classList.toggle('active',index===active));input.setAttribute('aria-activedescendant',options[active].id);options[active].scrollIntoView({block:'nearest'});};
+  input.addEventListener('focus',()=>{typedQuery='';draw('');});input.addEventListener('input',()=>{typedQuery=input.value;draw(typedQuery);});input.addEventListener('blur',()=>setTimeout(()=>{close();typedQuery='';input.value=selectedText(select);},100));input.addEventListener('keydown',event=>{if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();if(panel.hidden)draw(typedQuery);setActive(active+(event.key==='ArrowDown'?1:-1));}else if(event.key==='Enter'&&active>=0){event.preventDefault();choose(rendered[active]);}else if(event.key==='Escape'){event.preventDefault();close();typedQuery='';input.value=selectedText(select);}});
+  comboControllers[select.id]={sync(){rebuild();input.value=selectedText(select);},open(){draw('')}};rebuild();
+}
+
+function conditions(){return {angle:+$('angle').value,range:+$('range').value};}
+function selectedEnemy(){return ENEMIES[$('enemy').value];}
+function selectedPart(){return selectedEnemy().parts[$('part').value];}
+function resolvedA(){return resolveWeapon(WEAPONS[$('weapon').value],+$('mode').value||0);}
+function resolvedB(){return resolveWeapon(WEAPONS[$('weaponB').value],+$('modeB').value||0);}
+function favoriteActive(kind,name){return favoriteList(kind).includes(name);}
+function updateFavoriteButtons(){document.querySelectorAll('.favorite-button').forEach(button=>{const target=button.dataset.favorite,kind=target==='enemy'?'enemy':'weapon',name=target==='enemy'?selectedText($('enemy')):selectedText($(target));const active=favoriteActive(kind,name);button.setAttribute('aria-pressed',active?'true':'false');button.textContent=active?'★':'☆';});}
+
+function metric(label,value){return `<div class="metric"><span>${esc(label)}</span><b>${esc(value)}</b></div>`;}
+function answerCard(result,title,eyebrow="Recommendation"){
+  const status=`<span class="status ${result.outcome}">${esc(outcomeLabel(result.outcome))}</span>`;
+  const access=result.access?`<div class="access-note ${result.access.canOpen?'setup':'blocked'}"><b>${result.access.canOpen?'Armor-break route':'Viable only after the armor is destroyed'}</b><span>${esc(result.access.note)}${!result.access.canOpen&&result.shots!=null?' This weapon cannot break the plate — figures below assume it is already destroyed (teammate, explosive, etc.).':''}${result.setupShots!=null?` Setup: ${fmt(result.setupShots)} ${isContinuous(result.weapon)?'seconds':'shots'}; target: ${fmt(result.targetShots)} ${isContinuous(result.weapon)?'seconds':'shots'}.`:''}</span></div>`:'';
+  const continuous=isContinuous(result.weapon),capacityLabel=result.weapon.continuous==='beam'?'Heat sinks':result.weapon.continuous==='flame'?'Canisters':'Magazines';
+  return `<article class="answer-card" id="primaryAnswer"><div class="answer-eyebrow">${esc(eyebrow)} · ${status}</div><h2 class="answer-title">${esc(title)}</h2><p class="answer-subtitle">${esc(result.route?.label||result.access?.note||'This shot has no calculated lethal route.')}</p>${access}<div class="metrics">${metric(continuous?'Contact time':'Total shots',formatShots(result))}${metric('TTK',formatTtk(result))}${metric(capacityLabel,result.magazines??'—')}${metric('Penetration',penetrationLabel(result))}</div></article>`;
+}
+function rankPartCard(result,index,selected){return `<button class="rank-card${selected?' selected':''}" type="button" data-part-index="${result.partIndex}"><span class="rank-number">${index+1}</span><span class="rank-main"><b>${esc(result.part.name)}</b><span>${esc(outcomeLabel(result.outcome))} · ${esc(penetrationLabel(result))}${result.access?(result.access.canOpen?' · Armor break first':' · Needs armor stripped by another weapon'):''}</span></span><span class="rank-value">${esc(formatShots(result))}<small>${esc(formatTtk(result))}</small></span></button>`;}
+function rankWeaponCard(result,index,selected){return `<button class="rank-card${selected?' selected':''}" type="button" data-weapon-index="${result.weaponIndex}" data-mode-index="${result.modeIndex}"><span class="rank-number">${index+1}</span><span class="rank-main"><b>${esc(result.base.name)}</b><span>${esc(result.modeName||result.base.cat)} · ${esc(outcomeLabel(result.outcome))}${result.access?' · Opens armor first':''}</span></span><span class="rank-value">${esc(formatShots(result))}<small>${esc(formatTtk(result))}</small></span></button>`;}
+function adviceHTML(items){return items.length?`<div class="advice"><h3>Try this instead</h3><ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul></div>`:"";}
+
+function imageView(file,index){const match=/ (Front|Side|Rear|Left|Right|Back)(?: \d+)?\.png$/i.exec(file.replace(/_/g,' '));return match?match[1]:`View ${index+1}`;}
+function localImage(file){return 'assets/anatomy/'+encodeURIComponent(file.replace(/\.png$/i,'.webp'));}
+function renderAnatomy(host,enemy,part){
+  const files=part.img||[];activeViewIndex=Math.min(activeViewIndex,Math.max(0,files.length-1));host.replaceChildren();if(!files.length){host.innerHTML='<div class="empty">No anatomy image is available for this part.</div>';return;}
+  const tabs=document.createElement('div');tabs.className='view-tabs';tabs.setAttribute('role','tablist');files.forEach((file,index)=>{const button=document.createElement('button');button.className='view-tab';button.type='button';button.setAttribute('role','tab');button.setAttribute('aria-selected',index===activeViewIndex?'true':'false');button.dataset.viewIndex=index;button.textContent=imageView(file,index);tabs.append(button);});
+  const frame=document.createElement('div');frame.className='anatomy-frame';const img=document.createElement('img'),fallback=document.createElement('div');img.src=localImage(files[activeViewIndex]);img.width=300;img.height=190;img.alt=`${enemy.name} ${part.name} — ${imageView(files[activeViewIndex],activeViewIndex).toLowerCase()} view`;fallback.className='image-fallback';fallback.hidden=true;fallback.textContent='Anatomy image unavailable';img.addEventListener('error',()=>{img.hidden=true;fallback.hidden=false;});frame.append(img,fallback);host.append(tabs,frame);
+}
+
+function buildTechnical(enemy,part,resolved,evaluation){
+  const r=evaluation.raw,base=resolved.base;const penBadge=component=>component.pf===1?`<span class="full">Full (AP${component.ap} &gt; AV${part.av})</span>`:component.pf===.65?`<span class="partial">Partial 65% (AP${component.ap} = AV${part.av})</span>`:`<span class="none">${component.explosive?'Blocked':'Ricochet'} (AP${component.ap} &lt; AV${part.av})</span>`;
+  let html='<div class="technical-body">';if(evaluation.access){html+=`<div class="pen">Target access</div><div class="stat"><span>${esc(evaluation.access.note)}</span><span>${evaluation.access.canOpen?'Required':'Blocked'}</span></div>`;evaluation.access.stages.forEach(stage=>html+=`<div class="stat"><span>Break ${esc(stage.part.name)}</span><span>${fmt(stage.shots)} ${isContinuous(resolved)?'seconds':'shots'}</span></div>`);}if(r.d.comps.length===1)html+=`<div class="pen">Penetration after exposure: ${penBadge(r.d.comps[0])}</div>`;else{html+='<div class="pen">Penetration after exposure by component</div>';r.d.comps.forEach(component=>{const label=component.label||(component.explosive?'Explosion':'Direct round');html+=`<div class="stat"><span>${esc(label)}</span><span>${penBadge(component)} · ${fmt(component.dmg)} dmg</span></div>`;});}
+  const force=STAGGER[base.name],required=STAGGER_REQ[enemy.name],hits=r.d.comps.some(component=>component.pf>0);let stagger;if(force==null||required==null)stagger=`force ${force??'?'} vs threshold ${required??'n/a'} — not documented`;else if(!hits)stagger='No hit; no stagger';else stagger=force>=required?`Staggers (${force} ≥ ${required})`:`No flinch (${force} < ${required})`;html+=`<div class="stat"><span>${term('Stagger')}</span><span>${esc(stagger)}</span></div>`;
+  const damageUnit=isContinuous(resolved)?'Damage/s':'Damage/shot';html+=`<div class="stat"><span>${damageUnit} to part</span><span>${fmt(r.d.total)}</span></div><div class="stat"><span>${damageUnit} to ${term('Main HP')}</span><span>${fmt(r.toMainPerShot)}</span></div>`;
+  if(r.continuous){html+=`<div class="stat"><span>Sustained contact damage</span><span>${fmt(r.continuous.streamDps)} DPS</span></div>`;if(r.continuous.burn)html+=`<div class="stat"><span>Estimated ignition → burn</span><span>${fmt(r.continuous.burn.delay)}s → ${r.continuous.burn.dps} main DPS</span></div>`;else if(resolved.ignitionRate)html+=`<div class="note">Burn damage is excluded because this enemy's ignition threshold or fire penetration is not documented.</div>`;}if(r.routes.length){html+='<div class="pen" style="margin-top:12px">Calculated routes</div>';const best=r.routes.filter(route=>route.kills).sort((a,b)=>a.shots-b.shots)[0];r.routes.forEach(route=>html+=`<div class="route${route===best?' best':''}"><span>${esc(route.label)}<span class="tag">${esc(route.tag)}</span></span><span class="shots">${fmt(route.shots)} ${isContinuous(resolved)?'seconds':'shots'}</span></div>`);}if(base.activationDelay)html+=`<div class="stat"><span>Activation countdown</span><span>${base.activationDelay}s</span></div>`;if(base.cooldown)html+=`<div class="stat"><span>Base cooldown</span><span>${base.cooldown}s</span></div>`;if(base.demo)html+=`<div class="stat"><span>Demolition force</span><span>${base.demo}</span></div>`;if(base.note)html+=`<div class="note">${esc(base.note)}</div>`;if(r.info)html+=`<div class="note warn">${esc(r.info)}</div>`;if(enemy.note)html+=`<div class="note">${esc(enemy.note)}</div>`;return html+'</div>';
+}
+function detailPanel(enemy,part,resolved,evaluation,advice=[]){const access=evaluation.access?`<div class="access-note ${evaluation.access.canOpen?'setup':'blocked'}"><b>${evaluation.access.canOpen?'Requires setup':'Cannot expose with this weapon'}</b><span>${esc(evaluation.access.note)}</span></div>`:'';return `<section class="panel"><div class="panel-heading"><div><h2>Selected target</h2><p>${esc(part.name)}</p></div><span class="status ${evaluation.outcome}">${esc(outcomeLabel(evaluation.outcome))}</span></div><div class="anatomy-layout"><div id="activeAnatomy"></div><div class="detail-summary"><h3>${esc(part.name)}</h3><p>AV${part.av} · ${part.hp==='main'?enemy.main+' HP (shared main pool)':part.hp+' part HP'} · ${part.dur}% durability</p>${access}${adviceHTML(advice)}<details class="technical"><summary>Detailed damage breakdown</summary>${buildTechnical(enemy,part,resolved,evaluation)}</details></div></div></section>`;}
+
+function recommendationContext(){return `${$('enemy').value}|${$('weapon').value}|${$('mode').value}|${$('angle').value}|${$('range').value}`;}
+function weaponContext(){return `${$('enemy').value}|${$('part').value}|${$('angle').value}|${$('range').value}|${appState.rankCategory}`;}
+function setPrimaryShare(result,title,target){currentSharePayload={kind:'result',enemy:result.enemy.name,title,weapon:result.weapon.displayName,target,metrics:`${formatShots(result)} ${isContinuous(result.weapon)?'contact time':'shots'} · ${formatTtk(result)} TTK · ${result.magazines??'—'} magazine(s)`,conditions:`${ANGLE_SHORT[conditions().angle]} · ${RANGE_SHORT[conditions().range]}`};}
+
+function renderRecommendAim(){
+  const enemy=selectedEnemy(),base=WEAPONS[$('weapon').value],resolved=resolvedA(),ranked=rankParts(enemy,resolved,conditions()),context=recommendationContext();if(context!==lastAimContext){$('part').value=ranked[0].partIndex;lastAimContext=context;activeViewIndex=0;}const selected=ranked.find(result=>result.partIndex===+$('part').value)||ranked[0],advice=buildRecoveryAdvice(enemy,selected.part,base,resolved.modeIndex,conditions(),selected);setPrimaryShare(ranked[0],`Aim for ${ranked[0].part.name}`,ranked[0].part.name);
+  $('recommendContent').innerHTML=answerCard(ranked[0],`Aim for ${ranked[0].part.name}`)+`<section class="panel"><div class="panel-heading"><div><h2>Ranked aim points</h2><p>Kill routes first; armor-break setup is included in total time and ammunition</p></div></div><div class="rank-grid">${ranked.map((result,index)=>rankPartCard(result,index,result.partIndex===selected.partIndex)).join('')}</div></section>`+detailPanel(enemy,selected.part,resolved,selected,advice);renderAnatomy($('activeAnatomy'),enemy,selected.part);setupSticky(`Aim for ${ranked[0].part.name}`,`${formatShots(ranked[0])} total shots · ${formatTtk(ranked[0])}`);
+}
+
+function renderRecommendWeapon(){
+  const enemy=selectedEnemy(),part=selectedPart(),all=rankWeapons(enemy,part,conditions()),categories=['All','Primary','Secondary','Support'],filtered=appState.rankCategory==='All'?all:all.filter(result=>result.base.cat===appState.rankCategory),ranked=filtered.length?filtered:all,context=weaponContext();if(context!==lastWeaponContext){$('weapon').value=ranked[0].weaponIndex;fillMode($('mode'),$('modeRow'),$('weapon'),ranked[0].modeName);$('mode').value=ranked[0].modeIndex;comboControllers.weapon.sync();lastWeaponContext=context;}const selected=all.find(result=>result.weaponIndex===+$('weapon').value&&result.modeIndex===(+$('mode').value||0))||ranked[0],limit=appState.showAllWeapons?ranked.length:12;setPrimaryShare(ranked[0],`Use ${ranked[0].base.name}`,part.name);
+  $('recommendContent').innerHTML=answerCard(ranked[0],`Use ${ranked[0].base.name}`,'Best weapon')+`<section class="panel"><div class="panel-heading"><div><h2>Ranked weapons</h2><p>Best available mode is selected per weapon</p></div></div><div class="rank-toolbar">${categories.map(category=>`<button class="filter-chip" type="button" data-rank-category="${category}" aria-pressed="${category===appState.rankCategory}">${category}</button>`).join('')}</div><div class="rank-grid">${ranked.slice(0,limit).map((result,index)=>rankWeaponCard(result,index,result.weaponIndex===selected.weaponIndex&&result.modeIndex===selected.modeIndex)).join('')}</div>${ranked.length>12?`<button class="action" type="button" id="toggleAllWeapons">${appState.showAllWeapons?'Show top 12':'Show all '+ranked.length}</button>`:''}</section>`+detailPanel(enemy,part,selected.weapon,selected);renderAnatomy($('activeAnatomy'),enemy,part);setupSticky(`Use ${ranked[0].base.name}`,`${formatShots(ranked[0])} shots · ${formatTtk(ranked[0])}`);
+}
+
+function renderInspect(){const enemy=selectedEnemy(),part=selectedPart(),base=WEAPONS[$('weapon').value],resolved=resolvedA(),evaluation=evaluatePart(enemy,part,resolved,conditions()),advice=buildRecoveryAdvice(enemy,part,base,resolved.modeIndex,conditions(),evaluation);setPrimaryShare(evaluation,`${outcomeLabel(evaluation.outcome)} through ${part.name}`,part.name);$('inspectContent').innerHTML=answerCard(evaluation,`${outcomeLabel(evaluation.outcome)} through ${part.name}`,'Shot assessment')+detailPanel(enemy,part,resolved,evaluation,advice);renderAnatomy($('activeAnatomy'),enemy,part);setupSticky(part.name,`${formatShots(evaluation)} shots · ${formatTtk(evaluation)}`);}
+
+function comparisonResult(a,b){const comparison=compareEvaluations(a,b,false);return comparison<0?'a':comparison>0?'b':'tie';}
+function compactCompareCard(result,label,winner){return `<article class="compare-weapon${winner?' winner':''}"><span class="answer-eyebrow">${esc(label)} ${winner?'· Winner':''}</span><h3>${esc(result.weapon.displayName)}</h3><p>${esc(result.part.name)} · ${esc(outcomeLabel(result.outcome))}</p><div class="metrics">${metric('Shots',formatShots(result))}${metric('TTK',formatTtk(result))}</div></article>`;}
+function renderCompare(){
+  const enemy=selectedEnemy(),a=resolvedA(),b=resolvedB(),rankA=rankParts(enemy,a,conditions()),rankB=rankParts(enemy,b,conditions()),overall=comparisonResult(rankA[0],rankB[0]),partIndex=+$('part').value,part=enemy.parts[partIndex],partA=evaluatePart(enemy,part,a,conditions(),partIndex),partB=evaluatePart(enemy,part,b,conditions(),partIndex);currentSharePayload={kind:'compare',enemy:enemy.name,weaponA:a.displayName,weaponB:b.displayName,summary:overall==='tie'?`Tie on best routes`:overall==='a'?`${a.displayName} wins via ${rankA[0].part.name}`:`${b.displayName} wins via ${rankB[0].part.name}`,conditions:`${ANGLE_SHORT[conditions().angle]} · ${RANGE_SHORT[conditions().range]}`};
+  const rows=enemy.parts.map((bodyPart,index)=>{const aa=evaluatePart(enemy,bodyPart,a,conditions(),index),bb=evaluatePart(enemy,bodyPart,b,conditions(),index),win=comparisonResult(aa,bb);return `<tr><td><button type="button" data-compare-part="${index}">${esc(bodyPart.name)}</button></td><td class="${win==='a'?'win-mark':win==='tie'?'tie-mark':''}">${esc(formatShots(aa))} · ${esc(formatTtk(aa))}${win==='a'?' · Wins':win==='tie'?' · Tie':''}</td><td class="${win==='b'?'win-mark':win==='tie'?'tie-mark':''}">${esc(formatShots(bb))} · ${esc(formatTtk(bb))}${win==='b'?' · Wins':win==='tie'?' · Tie':''}</td></tr>`;}).join('');
+  $('compareContent').innerHTML=`<section class="panel" id="primaryAnswer"><div class="panel-heading"><div><h2>Enemy-wide matchup</h2><p>${esc(currentSharePayload.summary)}</p></div></div><div class="comparison-summary">${compactCompareCard(rankA[0],'Weapon A',overall==='a')}${'<div class="versus">VS</div>'}${compactCompareCard(rankB[0],'Weapon B',overall==='b')}</div></section><section class="panel"><div class="panel-heading"><div><h2>Body-part comparison</h2><p>Select a row to inspect it</p></div></div><table class="comparison-table"><thead><tr><th>Target</th><th>${esc(a.base.name)}</th><th>${esc(b.base.name)}</th></tr></thead><tbody>${rows}</tbody></table></section><section class="panel"><div class="panel-heading"><div><h2>Selected target</h2><p>${esc(part.name)}</p></div></div><div class="anatomy-layout"><div id="activeAnatomy"></div><div><div class="comparison-summary">${compactCompareCard(partA,'Weapon A',comparisonResult(partA,partB)==='a')}${'<div class="versus">VS</div>'}${compactCompareCard(partB,'Weapon B',comparisonResult(partA,partB)==='b')}</div><details class="technical"><summary>Weapon A breakdown</summary>${buildTechnical(enemy,part,a,partA)}</details><details class="technical"><summary>Weapon B breakdown</summary>${buildTechnical(enemy,part,b,partB)}</details></div></div></section>`;renderAnatomy($('activeAnatomy'),enemy,part);setupSticky(overall==='tie'?'Weapons tie':overall==='a'?`${a.base.name} wins`:`${b.base.name} wins`,`${enemy.name} matchup`);
+}
+
+function updateControls(){
+  const recommend=appState.view==='recommend',inspect=appState.view==='inspect',compare=appState.view==='compare',aim=appState.intent==='aim';$('intentTabs').hidden=!recommend;$('partField').hidden=recommend&&aim;$('weaponField').hidden=recommend&&!aim;$('weaponBField').hidden=!compare;$('swapWeapons').hidden=!compare;$('modeRow').hidden=!(($('modeRow').dataset.available==='true')&&(inspect||compare||(recommend&&aim)));$('modeBRow').hidden=!(compare&&$('modeBRow').dataset.available==='true');$('controlsTitle').textContent='01 / '+(compare?'Compare weapons':inspect?'Inspect shot':'Build recommendation');document.querySelector('label[for="weaponSearch"]').textContent=compare?'Weapon A':'Weapon';document.querySelectorAll('.mode-tab').forEach(button=>button.setAttribute('aria-selected',button.dataset.view===appState.view?'true':'false'));document.querySelectorAll('.intent-tab').forEach(button=>button.setAttribute('aria-selected',button.dataset.intent===appState.intent?'true':'false'));for(const view of ['recommend','inspect','compare']){$(view+'Panel').hidden=appState.view!==view;$(view+'Tab').setAttribute('aria-selected',appState.view===view?'true':'false');}$('conditionsSummary').textContent=`${ANGLE_SHORT[conditions().angle]} · ${RANGE_SHORT[conditions().range]}`;updateFavoriteButtons();
+}
+function render(){
+  updateControls();
+  const activeContent=appState.view+'Content';
+  for(const id of ['recommendContent','inspectContent','compareContent'])if(id!==activeContent)$(id).replaceChildren();
+  if(appState.view==='recommend'){appState.intent==='aim'?renderRecommendAim():renderRecommendWeapon();}else if(appState.view==='inspect')renderInspect();else renderCompare();
+  persist();
+}
+
+function setupSticky(title,meta){$('stickyTitle').textContent=title;$('stickyMeta').textContent=meta;if(stickyObserver)stickyObserver.disconnect();$('stickyResult').hidden=true;const answer=$('primaryAnswer');if(!answer||!matchMedia('(max-width:560px)').matches||!('IntersectionObserver'in window))return;stickyObserver=new IntersectionObserver(entries=>{$('stickyResult').hidden=entries[0].isIntersecting;},{threshold:.15});stickyObserver.observe(answer);}
+function showToast(message){clearTimeout(toastTimer);$('toast').textContent=message;$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,2200);}
+async function copyText(text){
+  const area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.left='-9999px';document.body.append(area);area.select();area.setSelectionRange(0,area.value.length);let copied=false;
+  try{copied=document.execCommand('copy');}catch{}area.remove();if(copied)return true;
+  try{if(navigator.clipboard){await navigator.clipboard.writeText(text);return true;}}catch{}
+  showCopyFallback(text);return false;
+}
+function showCopyFallback(text){const dialog=$('copyFallback'),area=$('copyFallbackText');area.value=text;if(typeof dialog.showModal==='function')dialog.showModal();else dialog.setAttribute('open','');setTimeout(()=>{area.focus();area.select();},0);}
+function downloadResultCard(){const canvas=document.createElement('canvas');canvas.width=1200;canvas.height=630;const ctx=canvas.getContext('2d'),summary=formatShareSummary(currentSharePayload).split('\n');ctx.fillStyle='#0b0d10';ctx.fillRect(0,0,1200,630);ctx.fillStyle='#ffe10a';ctx.fillRect(70,70,10,490);ctx.font='700 28px Segoe UI';ctx.fillText('HELLDIVERS 2 · SHOT PLACEMENT ASSESSOR',110,115);ctx.fillStyle='#e2e6ec';ctx.font='800 54px Segoe UI';let y=205;summary.forEach((line,index)=>{ctx.font=index===0?'800 54px Segoe UI':'600 30px Segoe UI';const words=line.split(' ');let current='';for(const word of words){const test=current?current+' '+word:word;if(ctx.measureText(test).width>960){ctx.fillText(current,110,y);y+=48;current=word;}else current=test;}ctx.fillText(current,110,y);y+=index===0?74:48;});ctx.fillStyle='#a2acbb';ctx.font='24px Segoe UI';ctx.fillText('Firing-time estimate · Reloads and movement excluded',110,560);try{const link=document.createElement('a');link.download='hd2-shot-placement.png';link.href=canvas.toDataURL('image/png');link.click();}catch{showToast('Could not create card');}}
+
+function bindTabKeyboard(selector){const tabs=[...document.querySelectorAll(selector)];tabs.forEach((tab,index)=>tab.addEventListener('keydown',event=>{let next=null;if(event.key==='ArrowRight')next=(index+1)%tabs.length;else if(event.key==='ArrowLeft')next=(index-1+tabs.length)%tabs.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;if(next!==null){event.preventDefault();tabs[next].focus();tabs[next].click();}}));}
+
+function bindEvents(){
+  document.querySelectorAll('.mode-tab').forEach(button=>button.addEventListener('click',()=>{appState.view=button.dataset.view;activeViewIndex=0;render();}));document.querySelectorAll('.intent-tab').forEach(button=>button.addEventListener('click',()=>{appState.intent=button.dataset.intent;activeViewIndex=0;render();}));
+  bindTabKeyboard('.mode-tab');bindTabKeyboard('.intent-tab');
+  $('enemy').addEventListener('change',()=>{remember('enemy',selectedText($('enemy')));fillParts();comboControllers.enemy.sync();lastAimContext=lastWeaponContext='';activeViewIndex=0;render();});$('part').addEventListener('change',()=>{lastWeaponContext='';activeViewIndex=0;render();});
+  $('weapon').addEventListener('change',()=>{remember('weapon',selectedText($('weapon')));fillMode($('mode'),$('modeRow'),$('weapon'));comboControllers.weapon.sync();lastAimContext='';render();});$('weaponB').addEventListener('change',()=>{remember('weapon',selectedText($('weaponB')));fillMode($('modeB'),$('modeBRow'),$('weaponB'));comboControllers.weaponB.sync();render();});
+  [$('mode'),$('modeB'),$('angle'),$('range')].forEach(control=>control.addEventListener('change',()=>{lastAimContext=lastWeaponContext='';render();}));
+  document.querySelectorAll('.favorite-button').forEach(button=>button.addEventListener('click',()=>{const target=button.dataset.favorite,kind=target==='enemy'?'enemy':'weapon',name=target==='enemy'?selectedText($('enemy')):selectedText($(target)),key=kind==='enemy'?'favoriteEnemies':'favoriteWeapons',list=appState[key]||[];appState[key]=list.includes(name)?list.filter(item=>item!==name):[...list,name];comboControllers[target]?.sync();updateFavoriteButtons();persist();}));
+  $('swapWeapons').addEventListener('click',()=>{const weaponA=$('weapon').value,modeA=selectedText($('mode')),weaponB=$('weaponB').value,modeB=selectedText($('modeB'));$('weapon').value=weaponB;$('weaponB').value=weaponA;fillMode($('mode'),$('modeRow'),$('weapon'),modeB);fillMode($('modeB'),$('modeBRow'),$('weaponB'),modeA);comboControllers.weapon.sync();comboControllers.weaponB.sync();render();});
+  document.addEventListener('click',event=>{const partButton=event.target.closest('[data-part-index]');if(partButton){$('part').value=partButton.dataset.partIndex;activeViewIndex=0;render();return;}const weaponButton=event.target.closest('[data-weapon-index]');if(weaponButton){$('weapon').value=weaponButton.dataset.weaponIndex;fillMode($('mode'),$('modeRow'),$('weapon'));$('mode').value=weaponButton.dataset.modeIndex;comboControllers.weapon.sync();lastWeaponContext=weaponContext();render();return;}const comparePart=event.target.closest('[data-compare-part]');if(comparePart){$('part').value=comparePart.dataset.comparePart;activeViewIndex=0;render();return;}const view=event.target.closest('[data-view-index]');if(view){activeViewIndex=+view.dataset.viewIndex;render();return;}const category=event.target.closest('[data-rank-category]');if(category){appState.rankCategory=category.dataset.rankCategory;appState.showAllWeapons=false;lastWeaponContext='';render();return;}const termButton=event.target.closest('.term-button');if(termButton){termButton.closest('.term-wrap').classList.toggle('open');}});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('.term-wrap.open').forEach(node=>node.classList.remove('open'));});
+  $('copySummary').addEventListener('click',async()=>{if(await copyText(formatShareSummary(currentSharePayload)))showToast('Result copied');});$('copyLink').addEventListener('click',async()=>{persist();if(await copyText(location.href))showToast('Link copied');});$('downloadCard').addEventListener('click',downloadResultCard);$('closeCopyFallback').addEventListener('click',()=>$('copyFallback').close());
+}
+
+function initialize(){
+  fillEnemies();fillWeapons($('weapon'));fillWeapons($('weaponB'));appState=readInitialState();selectByText($('enemy'),appState.enemy);fillParts(appState.part);selectByText($('weapon'),appState.weapon);selectByText($('weaponB'),appState.weaponB)||($('weaponB').value=$('weapon').value==='0'?'1':'0');fillMode($('mode'),$('modeRow'),$('weapon'),appState.mode);fillMode($('modeB'),$('modeBRow'),$('weaponB'),appState.modeB);if([...$('angle').options].some(option=>option.value===String(appState.angle)))$('angle').value=appState.angle;if([...$('range').options].some(option=>option.value===String(appState.range)))$('range').value=appState.range;enhanceSelect($('enemy'));enhanceSelect($('weapon'));enhanceSelect($('weaponB'));remember('enemy',selectedText($('enemy')));remember('weapon',selectedText($('weapon')));$('glossary').innerHTML=Object.entries(TERM_DEFS).map(([name,definition])=>`<div><dt>${esc(name)}</dt><dd>${esc(definition)}</dd></div>`).join('');bindEvents();render();
+}
+initialize();
+
+</script>
+</body>
+</html>

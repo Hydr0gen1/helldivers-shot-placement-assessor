@@ -1,0 +1,92 @@
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="product-kicker">FIELD MANUAL // DAMAGE ANALYSIS</div><h1>Shot Placement Assessor</h1><p>Target selection and weapon effectiveness reference</p></div>
+    <div class="topbar-meta">
+      <div class="data-badge" id="dataBadge">DATASET // {{DATA_DATE}}</div>
+      <div class="global-actions" aria-label="Share and export">
+        <button class="action" id="copySummary" type="button">Copy</button>
+        <button class="action" id="copyLink" type="button">Share link</button>
+        <button class="action" id="downloadCard" type="button">Export PNG</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mode-tabs" role="tablist" aria-label="Tool mode">
+    <button class="mode-tab" id="recommendTab" role="tab" aria-controls="recommendPanel" aria-selected="true" data-view="recommend">Recommend</button>
+    <button class="mode-tab" id="inspectTab" role="tab" aria-controls="inspectPanel" aria-selected="false" data-view="inspect">Inspect</button>
+    <button class="mode-tab" id="compareTab" role="tab" aria-controls="comparePanel" aria-selected="false" data-view="compare">Compare</button>
+  </nav>
+
+  <div class="layout">
+    <aside class="controls" aria-label="Assessment controls">
+      <div class="controls-title" id="controlsTitle">01 / Build your recommendation</div>
+      <div class="intent-tabs" id="intentTabs" role="tablist" aria-label="Recommendation type">
+        <button class="intent-tab" role="tab" aria-selected="true" data-intent="aim">Where should I aim?</button>
+        <button class="intent-tab" role="tab" aria-selected="false" data-intent="weapon">Which weapon?</button>
+      </div>
+
+      <div class="field" id="enemyField">
+        <div class="field-label-row"><label for="enemy">Enemy</label></div>
+        <div class="field-control"><select id="enemy" class="native-source"></select><button class="icon-action favorite-button" type="button" data-favorite="enemy" aria-label="Favorite selected enemy" aria-pressed="false">☆</button></div>
+      </div>
+      <div class="field" id="partField">
+        <div class="field-label-row"><label for="part">Body part</label></div>
+        <div class="field-control no-action"><select id="part"></select></div>
+      </div>
+      <div class="field" id="weaponField">
+        <div class="field-label-row"><label for="weapon">Weapon A</label></div>
+        <div class="field-control"><select id="weapon" class="native-source"></select><button class="icon-action favorite-button" type="button" data-favorite="weapon" aria-label="Favorite selected weapon" aria-pressed="false">☆</button></div>
+      </div>
+      <div class="field" id="modeRow" hidden>
+        <div class="field-label-row"><label for="mode">Firing mode A</label></div>
+        <div class="field-control no-action"><select id="mode"></select></div>
+      </div>
+      <div class="field" id="weaponBField" hidden>
+        <div class="field-label-row"><label for="weaponB">Weapon B</label></div>
+        <div class="field-control"><select id="weaponB" class="native-source"></select><button class="icon-action favorite-button" type="button" data-favorite="weaponB" aria-label="Favorite comparison weapon" aria-pressed="false">☆</button></div>
+      </div>
+      <div class="field" id="modeBRow" hidden>
+        <div class="field-label-row"><label for="modeB">Firing mode B</label></div>
+        <div class="field-control no-action"><select id="modeB"></select></div>
+      </div>
+      <button class="swap-button" id="swapWeapons" type="button" hidden>Swap weapons</button>
+
+      <details class="conditions" id="conditions">
+        <summary>Combat conditions <span id="conditionsSummary">Direct · Point blank</span></summary>
+        <div class="conditions-body">
+          <div class="field"><div class="field-label-row"><label for="angle">Firing angle</label></div><div class="field-control no-action"><select id="angle"><option value="0">Direct (0–30°)</option><option value="1">Slight (30–60°)</option><option value="2">Large (60–80°)</option><option value="3">Extreme (80°+)</option></select></div></div>
+          <div class="field"><div class="field-label-row"><label for="range">Range</label></div><div class="field-control no-action"><select id="range"><option value="0">Point blank</option><option value="1">~25 m</option><option value="2">~50 m</option><option value="3">~75 m</option><option value="4">100 m+</option></select></div></div>
+        </div>
+      </details>
+    </aside>
+
+    <main class="content">
+      <section id="recommendPanel" role="tabpanel" aria-labelledby="recommendTab">
+        <div id="recommendContent" aria-live="polite"></div>
+      </section>
+      <section id="inspectPanel" role="tabpanel" aria-labelledby="inspectTab" hidden>
+        <div id="inspectContent" aria-live="polite"></div>
+      </section>
+      <section id="comparePanel" role="tabpanel" aria-labelledby="compareTab" hidden>
+        <div id="compareContent" aria-live="polite"></div>
+      </section>
+
+      <details class="panel help" id="helpPanel">
+        <summary>How to read the results</summary>
+        <dl class="glossary" id="glossary"></dl>
+        <p>Recommendations assume the enemy's armor is intact. Targets marked <strong>Break armor first</strong> are not initially hittable: the ranking adds the required plate or outer-layer destruction to the route's total shots, magazines, and firing-time estimate. If the selected weapon cannot open the target, that route is labeled armor-gated and ranked below directly accessible targets.</p>
+        <p>Time-to-kill estimates firing time only; reload animations and target movement are not modeled. Bleedout deaths are ranked below immediate kills because their delay is not documented precisely.</p>
+        <p>Game data: <a href="https://helldivers.wiki.gg" target="_blank" rel="noopener noreferrer">helldivers.wiki.gg</a>, retrieved {{DATA_DATE}}.</p>
+      </details>
+    </main>
+  </div>
+</div>
+
+<div class="sticky-result" id="stickyResult" hidden><div><b id="stickyTitle"></b><span id="stickyMeta"></span></div><a href="#primaryAnswer">Details</a></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<dialog class="copy-dialog" id="copyFallback" aria-labelledby="copyFallbackTitle">
+  <h2 id="copyFallbackTitle">Copy this text</h2>
+  <p>Your browser blocked automatic clipboard access. The result is selected below.</p>
+  <textarea id="copyFallbackText" readonly></textarea>
+  <button class="action" id="closeCopyFallback" type="button">Done</button>
+</dialog>
