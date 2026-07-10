@@ -16,16 +16,16 @@ Selections, favorites, and recent items stay on the device. The current result c
 python -m http.server 8765 --bind 127.0.0.1
 ```
 
-Then open `http://127.0.0.1:8765/shot-placement-assessor.html`.
+Then open `http://127.0.0.1:8765/index.html`.
 
 ## Refresh from the original assessor
 
 The builder preserves the original data/calculation section and replaces its UI shell:
 
 ```powershell
-python tools/build_assessor.py "C:\path\to\shot-placement-assessor.html"
+python tools/build_assessor.py "C:\path\to\source-assessor.html" --output index.html
 python tools/sync_images.py
-python tools/verify_project.py --original "C:\path\to\shot-placement-assessor.html"
+python tools/verify_project.py
 node tests/ranking.test.mjs
 ```
 

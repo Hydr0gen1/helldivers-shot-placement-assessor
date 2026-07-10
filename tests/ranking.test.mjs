@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import vm from "node:vm";
 
-const html = fs.readFileSync(new URL("../shot-placement-assessor.html", import.meta.url), "utf8");
+const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const script = html.match(/<script>([\s\S]*)<\/script>/)[1];
 const core = script.split("// ============ DERIVED RANKING", 1)[0];
 const derived = script.split("// ============ DERIVED RANKING", 2)[1].split("// ============ DOM APP", 1)[0];

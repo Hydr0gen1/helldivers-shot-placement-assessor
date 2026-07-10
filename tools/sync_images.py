@@ -98,7 +98,7 @@ def sync_one(filename: str, url: str, output_dir: Path, force: bool) -> tuple[st
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Download and optimize all anatomy images referenced by the assessor.")
-    parser.add_argument("html", type=Path, nargs="?", default=Path("shot-placement-assessor.html"))
+    parser.add_argument("html", type=Path, nargs="?", default=Path("index.html"))
     parser.add_argument("--output", type=Path, default=Path("assets/anatomy"))
     parser.add_argument("--workers", type=int, default=3)
     parser.add_argument("--force", action="store_true")
