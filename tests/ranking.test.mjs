@@ -8,13 +8,15 @@ const core = script.split("// ============ DERIVED RANKING", 1)[0];
 const derived = script.split("// ============ DERIVED RANKING", 2)[1].split("// ============ DOM APP", 1)[0];
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule};`, context);
+vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,STAGGER_REQ,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule};`, context);
 
-const {ENEMIES, WEAPONS, STAGGER, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule} = context.api;
+const {ENEMIES, WEAPONS, STAGGER, STAGGER_REQ, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule} = context.api;
 const enemy = name => ENEMIES.find(item => item.name === name);
 const weapon = name => WEAPONS.find(item => item.name === name);
 const part = (target, name) => target.parts.find(item => item.name === name);
 const conditions = {angle: 0, range: 0};
+assert.deepEqual([STAGGER_REQ.Scavenger,STAGGER_REQ.Trooper,STAGGER_REQ.Fleshmob],[10,10,45],"consolidated stagger table fills thresholds omitted from individual enemy pages");
+assert.equal(STAGGER_REQ.Charger,null,"undocumented thresholds remain unknown instead of being guessed");
 
 const portableHellbomb = weapon("B-100 Portable Hellbomb (inner blast)");
 assert.ok(portableHellbomb, "portable Hellbomb uses its current non-approximate name");

@@ -879,7 +879,8 @@ const STAGGER = {
  "AR-59 Suppressor":10, "R-72 Censor":20, "MP-98 Knight":10, "SMG/FLAM-34 Stoker":15,
  "VG-70 Variable":10, "PLAS-39 Accelerator Rifle":20, "P-69 Veto":35
 };
-// Stagger threshold per enemy (infobox stagger_req). null = not documented / effectively unstaggerable.
+// Stagger threshold per enemy. Values come from enemy infoboxes and the consolidated Status Effects table.
+// null means no numeric threshold is currently documented; it must not be treated as immunity or zero.
 const STAGGER_REQ = {
  "Charger":null, "Warrior":20, "Hive Guard":20, "Brood Commander":25, "Stalker":22, "Bile Titan":50,
  "Hunter":15, "Bile Spewer":30, "Hulk (Scorcher)":40, "Devastator":30, "Rocket Devastator":30,
@@ -887,9 +888,9 @@ const STAGGER_REQ = {
  "Barrager Tank":null, "Gunship":null, "Dropship":null, "Factory Strider":null, "Voteless (Medium)":null,
  "Overseer":35, "Harvester":40, "Veracitor":40, "Gatekeeper":null,
  "Impaler":45, "Charger Behemoth":null, "Spore Charger":null, "Rupture Charger":null, "Dragonroach":38,
- "Alpha Commander":25, "Alpha Warrior":25, "Scavenger":null, "Shrieker":null, "Nursing Spewer":30,
- "Fleshmob":null, "Obtruder":null, "Watcher":null, "Elevated Overseer":30, "Crescent Overseer":35,
- "Pouncer":1, "Bile Warrior":20, "Stingray":null, "Trooper":null, "Commissar":10,
+ "Alpha Commander":25, "Alpha Warrior":25, "Scavenger":10, "Shrieker":null, "Nursing Spewer":30,
+ "Fleshmob":45, "Obtruder":null, "Watcher":null, "Elevated Overseer":30, "Crescent Overseer":35,
+ "Pouncer":1, "Bile Warrior":20, "Stingray":null, "Trooper":10, "Commissar":10,
  "Bile Spitter":1, "Reinforced Scout Strider":30, "Rupture Warrior":20, "Spore Burst Warrior":20,
  "Rupture Spewer":30, "Conflagration Devastator":30, "Radical":null, "Agitator":null, "Spore Burst Bile Titan":50,
  "War Strider":40, "Cannon Turret":null, "Predator Stalker":22, "Predator Hunter":15,
@@ -1304,7 +1305,7 @@ function renderAnatomy(host,enemy,part){
 function buildTechnical(enemy,part,resolved,evaluation){
   const r=evaluation.raw,base=resolved.base;const penBadge=component=>component.pf===1?`<span class="full">Full (AP${component.ap} &gt; AV${part.av})</span>`:component.pf===.65?`<span class="partial">Partial 65% (AP${component.ap} = AV${part.av})</span>`:`<span class="none">${component.explosive?'Blocked':'Ricochet'} (AP${component.ap} &lt; AV${part.av})</span>`;
   let html='<div class="technical-body">';if(evaluation.access){html+=`<div class="pen">Target access</div><div class="stat"><span>${esc(evaluation.access.note)}</span><span>${evaluation.access.canOpen?'Required':'Blocked'}</span></div>`;evaluation.access.stages.forEach(stage=>html+=`<div class="stat"><span>Break ${esc(stage.part.name)}</span><span>${fmt(stage.shots)} ${isContinuous(resolved)?'seconds':'shots'}</span></div>`);}if(r.d.comps.length===1)html+=`<div class="pen">Penetration after exposure: ${penBadge(r.d.comps[0])}</div>`;else{html+='<div class="pen">Penetration after exposure by component</div>';r.d.comps.forEach(component=>{const label=component.label||(component.explosive?'Explosion':'Direct round');html+=`<div class="stat"><span>${esc(label)}</span><span>${penBadge(component)} · ${fmt(component.dmg)} dmg</span></div>`;});}
-  const force=STAGGER[base.name],required=STAGGER_REQ[enemy.name],hits=r.d.comps.some(component=>component.pf>0);let stagger;if(force==null||required==null)stagger=`force ${force??'?'} vs threshold ${required??'n/a'} — not documented`;else if(!hits)stagger='No hit; no stagger';else stagger=force>=required?`Staggers (${force} ≥ ${required})`:`No flinch (${force} < ${required})`;html+=`<div class="stat"><span>${term('Stagger')}</span><span>${esc(stagger)}</span></div>`;
+  const force=STAGGER[base.name],required=STAGGER_REQ[enemy.name],hits=r.d.comps.some(component=>component.pf>0);let stagger;if(force==null)stagger='Weapon stagger force not documented';else if(required==null)stagger=`Force ${force}; enemy threshold not documented`;else if(!hits)stagger='No hit; no stagger';else stagger=force>=required?`Staggers (${force} ≥ ${required})`:`No flinch (${force} < ${required})`;html+=`<div class="stat"><span>${term('Stagger')}</span><span>${esc(stagger)}</span></div>`;
   const damageUnit=isContinuous(resolved)?'Damage/s':'Damage/shot';html+=`<div class="stat"><span>${damageUnit} to part</span><span>${fmt(r.d.total)}</span></div><div class="stat"><span>${damageUnit} to ${term('Main HP')}</span><span>${fmt(r.toMainPerShot)}</span></div>`;
   if(r.continuous){html+=`<div class="stat"><span>Sustained contact damage</span><span>${fmt(r.continuous.streamDps)} DPS</span></div>`;if(r.continuous.burn)html+=`<div class="stat"><span>Estimated ignition → burn</span><span>${fmt(r.continuous.burn.delay)}s → ${r.continuous.burn.dps} main DPS</span></div>`;else if(resolved.ignitionRate)html+=`<div class="note">Burn damage is excluded because this enemy's ignition threshold or fire penetration is not documented.</div>`;}if(r.routes.length){html+='<div class="pen" style="margin-top:12px">Calculated routes</div>';const best=r.routes.filter(route=>route.kills).sort((a,b)=>a.shots-b.shots)[0];r.routes.forEach(route=>html+=`<div class="route${route===best?' best':''}"><span>${esc(route.label)}<span class="tag">${esc(route.tag)}</span></span><span class="shots">${fmt(route.shots)} ${isContinuous(resolved)?'seconds':'shots'}</span></div>`);}if(base.activationDelay)html+=`<div class="stat"><span>Activation countdown</span><span>${base.activationDelay}s</span></div>`;if(base.cooldown)html+=`<div class="stat"><span>Base cooldown</span><span>${base.cooldown}s</span></div>`;if(base.demo)html+=`<div class="stat"><span>Demolition force</span><span>${base.demo}</span></div>`;if(base.note)html+=`<div class="note">${esc(base.note)}</div>`;if(r.info)html+=`<div class="note warn">${esc(r.info)}</div>`;if(enemy.note)html+=`<div class="note">${esc(enemy.note)}</div>`;return html+'</div>';
 }
