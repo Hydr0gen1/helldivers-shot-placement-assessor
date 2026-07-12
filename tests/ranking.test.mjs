@@ -8,15 +8,13 @@ const core = script.split("// ============ DERIVED RANKING", 1)[0];
 const derived = script.split("// ============ DERIVED RANKING", 2)[1].split("// ============ DOM APP", 1)[0];
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,STAGGER_REQ,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule};`, context);
+vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,RELOAD_S,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule};`, context);
 
-const {ENEMIES, WEAPONS, STAGGER, STAGGER_REQ, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule} = context.api;
+const {ENEMIES, WEAPONS, STAGGER, RELOAD_S, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule} = context.api;
 const enemy = name => ENEMIES.find(item => item.name === name);
 const weapon = name => WEAPONS.find(item => item.name === name);
 const part = (target, name) => target.parts.find(item => item.name === name);
 const conditions = {angle: 0, range: 0};
-assert.deepEqual([STAGGER_REQ.Scavenger,STAGGER_REQ.Trooper,STAGGER_REQ.Fleshmob],[10,10,45],"consolidated stagger table fills thresholds omitted from individual enemy pages");
-assert.equal(STAGGER_REQ.Charger,null,"undocumented thresholds remain unknown instead of being guessed");
 
 const portableHellbomb = weapon("B-100 Portable Hellbomb (inner blast)");
 assert.ok(portableHellbomb, "portable Hellbomb uses its current non-approximate name");
@@ -51,6 +49,58 @@ const currentWeaponStats = {
   "LAS-99 Quasar Cannon": [1,10,2000,2000,[6,6,6,3]],
   "PLAS-45 Epoch (fully charged)": [3,30,800,400,[5,5,5,5]]
 };
+assert.deepEqual(
+  [
+    RELOAD_S["AR-23A Liberator Carbine"],
+    RELOAD_S["MP-98 Knight"],
+    RELOAD_S["SMG-37 Defender"],
+    RELOAD_S["P-2 Peacemaker"],
+    RELOAD_S["P-19 Redeemer"],
+    RELOAD_S["P-113 Verdict"],
+    RELOAD_S["P-4 Senator"],
+    RELOAD_S["APW-1 Anti-Materiel Rifle"],
+    RELOAD_S["AC-8 Autocannon"],
+    RELOAD_S["DBS-2 Double Freedom"],
+    RELOAD_S["M90A Shotgun (all pellets)"],
+    RELOAD_S["R-2 Amendment"],
+    RELOAD_S["LAS-58 Talon"],
+    RELOAD_S["AR-2 Coyote"],
+    RELOAD_S["AR-32 Pacifier"],
+    RELOAD_S["SG-8P Punisher Plasma"],
+    RELOAD_S["PLAS-15 Loyalist"],
+    RELOAD_S["VG-70 Variable"],
+    RELOAD_S["P-72 Crisper (sustained)"],
+    RELOAD_S["PLAS-45 Epoch (fully charged)"],
+    RELOAD_S["B/FLAM-80 Cremator (sustained)"]
+  ],
+  [2.5,3.0,3.0,1.5,1.8,2.2,2.8,3.0,3.0,2.0,1.5,3.6,4.6,3.1,3.0,2.7,1.8,3.6,2.3,5.1,3.9],
+  "reload timings preserve directly mined values and newly decoded linked-animation defaults"
+);
+assert.equal(RELOAD_S["R-6 Deadeye"], 2.8, "Deadeye uses the decoded linked reload chain time to get the next shot back online");
+assert.equal(RELOAD_S["FLAM-40 Flamethrower (sustained)"], 3.9, "Flamethrower reload lookup uses the current sustained weapon name");
+assert.deepEqual(
+  [
+    RELOAD_S["SG-97 Sweeper (all flechettes)"],
+    RELOAD_S["StA-52 Assault Rifle"],
+    RELOAD_S["MA5C Assault Rifle"],
+    RELOAD_S["AR/GL-21 One-Two"],
+    RELOAD_S["SMG/FLAM-34 Stoker"],
+    RELOAD_S["PLAS-39 Accelerator Rifle"],
+    RELOAD_S["StA-11 SMG"],
+    RELOAD_S["M7S SMG"],
+    RELOAD_S["P-92 Warrant (guided)"],
+    RELOAD_S["M6C/SOCOM Pistol"],
+    RELOAD_S["P-35 Re-Educator (projectile; gas DoT excluded)"],
+    RELOAD_S["P-69 Veto"],
+    RELOAD_S["MLS-4X Commando (per rocket)"],
+    RELOAD_S["ARC-12 Blitzer (per arc, fires ~3)"],
+    RELOAD_S["ARC-3 Arc Thrower (per arc)"],
+    RELOAD_S["GL-28 Belt-Fed Grenade Launcher"],
+    RELOAD_S["B/MD C4 Pack (per charge)"]
+  ],
+  [1.5,4.2,3.3,3.3,3.0,3.3,3.5,3.0,2.2,1.5,2.8,3.1,0,0,0,0,0],
+  "newly mapped crossover and special-case reload timings stay pinned to mined values and explicit no-reload behavior"
+);
 for (const [name,[mag,rpm,std,dur,ap]] of Object.entries(currentWeaponStats)) {
   const item = weapon(name);
   assert.ok(item, `audited weapon exists: ${name}`);

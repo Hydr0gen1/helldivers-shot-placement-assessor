@@ -18,7 +18,7 @@ def calculation_core(html: str) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Verify the deployable assessor and its local image bundle.")
-    parser.add_argument("html", type=Path, nargs="?", default=Path("index.html"))
+    parser.add_argument("html", type=Path, nargs="?", default=Path("shot-placement-assessor.html"))
     parser.add_argument("--original", type=Path)
     parser.add_argument("--assets", type=Path, default=Path("assets/anatomy"))
     args = parser.parse_args()

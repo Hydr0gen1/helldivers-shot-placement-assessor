@@ -1051,24 +1051,33 @@ function isContinuous(weapon){return !!(weapon.continuous||weapon.beam);}
 // shotguns use their full-tube time. Weapons newer than the table fall back to class estimates.
 // Single-shot weapons (mag 1) already encode their reload in their cycle rpm.
 const RELOAD_S = {
-  "AR-23 Liberator":3.0, "AR-23A Liberator Carbine":3.0, "AR-23C Liberator Concussive":3.0,
+  "AR-23 Liberator":3.0, "AR-23A Liberator Carbine":2.5, "AR-23C Liberator Concussive":3.0,
   "AR-23P Liberator Penetrator":3.0, "AR-61 Tenderizer":3.3, "BR-14 Adjudicator":3.0,
+  "StA-52 Assault Rifle":4.2, "MA5C Assault Rifle":3.3, "AR/GL-21 One-Two":3.3, "AR-59 Suppressor":3.0, "R-72 Censor":3.1,
+  "AR-2 Coyote":3.1, "AR-32 Pacifier":3.0,
   "R-2124 Constitution":5.0, "R-63 Diligence":3.0, "R-63CS Diligence Counter Sniper":3.0,
-  "MP-98 Knight":2.5, "SMG-32 Reprimand":2.5, "SMG-37 Defender":2.8, "SMG-72 Pummeler":3.0,
+  "MP-98 Knight":3.0, "SMG-32 Reprimand":2.5, "SMG-37 Defender":3.0, "SMG-72 Pummeler":3.0,
+  "SMG/FLAM-34 Stoker":3.0, "StA-11 SMG":3.5, "M7S SMG":3.0, "SMG-203 Gallant":3.0,
   "SG-8 Punisher (all pellets)":6.9, "SG-8S Slugger":6.9, "SG-20 Halt":6.9, "SG-451 Cookout (all pellets)":6.9,
+  "SG-97 Sweeper (all flechettes)":1.5,
   "SG-225 Breaker (all pellets)":2.5, "SG-225SP Breaker Spray&Pray (all pellets)":3.0, "SG-225IE Breaker Incendiary (all pellets)":2.5,
   "CB-9 Exploding Crossbow":3.3, "JAR-5 Dominator":3.8, "R-36 Eruptor (excl. shrapnel)":4.7,
-  "SG-8P Punisher Plasma":2.5, "LAS-5 Scythe":3.0, "LAS-16 Sickle":3.0, "PLAS-1 Scorcher":2.5, "PLAS-101 Purifier":2.5,
-  "SG-22 Bushwhacker (all pellets)":3.0, "P-2 Peacemaker":1.8, "P-19 Redeemer":2.1, "P-113 Verdict":2.0,
-  "GP-31 Grenade Pistol":2.0, "LAS-7 Dagger":2.3, "P-4 Senator":4.8, "PLAS-15 Loyalist":2.0,
+  "SG-8P Punisher Plasma":2.7, "LAS-5 Scythe":3.0, "LAS-13 Trident (all 6 beams on target)":3.7, "LAS-16 Sickle":3.0, "LAS-17 Double-Edge Sickle":3.0, "PLAS-1 Scorcher":2.5, "PLAS-101 Purifier":2.5,
+  "PLAS-39 Accelerator Rifle":3.3, "SG-22 Bushwhacker (all pellets)":3.0, "P-2 Peacemaker":1.5, "P-19 Redeemer":1.8, "P-113 Verdict":2.2,
+  "GP-31 Grenade Pistol":2.0, "LAS-7 Dagger":2.3, "P-4 Senator":2.8, "P-92 Warrant (guided)":2.2, "M6C/SOCOM Pistol":1.5, "P-35 Re-Educator (projectile; gas DoT excluded)":2.8, "P-69 Veto":3.1, "PLAS-15 Loyalist":1.8,
   "M-105 Stalwart":5.8, "MG-43 Machine Gun":4.5, "MG-206 Heavy Machine Gun":5.5,
-  "APW-1 Anti-Materiel Rifle":3.2, "GL-21 Grenade Launcher":3.5, "AC-8 Autocannon":4.5,
-  "LAS-98 Laser Cannon":5.0, "FLAM-40 Flamethrower (≈ per second)":3.9, "MGX-42 Bullet Storm":0, /* expendable — no reload */
-  // Animation-family analogies (no measured source exists for post-2024 weapons):
-  "DBS-2 Double Freedom":2.3,          // break-action, matches measured SG-88 Break-Action 2.3
-  "R-6 Deadeye":5.0,                    // lever/tube rounds reload, matches Constitution-class 5.0
-  "M90A Shotgun (all pellets)":5.4,     // 6 shells × ~0.9s/shell, Punisher-style rounds reload
-  "R-2 Amendment":3.0                   // standard rifle magazine, Diligence-class animation
+  "APW-1 Anti-Materiel Rifle":3.0, "GL-21 Grenade Launcher":3.5, "AC-8 Autocannon":3.0, "MLS-4X Commando (per rocket)":0, "ARC-3 Arc Thrower (per arc)":0, "GL-28 Belt-Fed Grenade Launcher":0, "B/MD C4 Pack (per charge)":0, "ARC-12 Blitzer (per arc, fires ~3)":0,
+  "LAS-98 Laser Cannon":5.0, "FLAM-40 Flamethrower (sustained)":3.9, "MGX-42 Bullet Storm":0, /* expendable — no reload */
+  // Linked reload abilities resolved from their default animation clip lengths:
+  "DBS-2 Double Freedom":2.0,          // direct WeaponReloadComponentData duration
+  "R-6 Deadeye":2.8,                    // linked lever-action chain decoded: ~2.83s to recover from empty and fire again; additional rounds are ~1.67s each
+  "M90A Shotgun (all pellets)":1.5,     // linked shotgun_nacho reload animation is a ~1.48s magazine reload
+  "R-2 Amendment":3.6,                  // linked battle_rifle_ceremonial reload animation is ~3.58s
+  "LAS-58 Talon":4.6,                   // linked energy_revolver reload animation is ~4.58s
+  "VG-70 Variable":3.6,                 // linked volley_gun reload animation is ~3.58s
+  "P-72 Crisper (sustained)":2.3,       // linked flamer_pistol reload animation is ~2.33s
+  "PLAS-45 Epoch (fully charged)":5.1,  // linked plasma_blaster reload animation is ~5.08s
+  "B/FLAM-80 Cremator (sustained)":3.9  // shared flamethrower-family reload animation is ~3.92s
 };
 function reloadTime(weapon){
   const name=weapon.base?.name||weapon.name;

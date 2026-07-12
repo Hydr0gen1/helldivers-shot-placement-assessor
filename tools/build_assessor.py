@@ -252,8 +252,8 @@ def build(source: Path, destination: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build the improved assessor while preserving its data and calculation core.")
-    parser.add_argument("source", type=Path, help="Path to the source assessor HTML")
-    parser.add_argument("--output", type=Path, default=Path("index.html"))
+    parser.add_argument("source", type=Path, help="Path to the original shot-placement-assessor.html")
+    parser.add_argument("--output", type=Path, default=Path("shot-placement-assessor.html"))
     args = parser.parse_args()
     build(args.source.resolve(), args.output.resolve())
     print(f"Built {args.output.resolve()}")
