@@ -8,9 +8,9 @@ const core = script.split("// ============ DERIVED RANKING", 1)[0];
 const derived = script.split("// ============ DERIVED RANKING", 2)[1].split("// ============ DOM APP", 1)[0];
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,RELOAD_S,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule};`, context);
+vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,RELOAD_S,blastFactor,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule};`, context);
 
-const {ENEMIES, WEAPONS, STAGGER, RELOAD_S, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule} = context.api;
+const {ENEMIES, WEAPONS, STAGGER, RELOAD_S, blastFactor, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule} = context.api;
 const enemy = name => ENEMIES.find(item => item.name === name);
 const weapon = name => WEAPONS.find(item => item.name === name);
 const part = (target, name) => target.parts.find(item => item.name === name);
@@ -25,6 +25,22 @@ assert.equal(portableHellbomb.demo, 60, "portable Hellbomb records demolition fo
 assert.equal(STAGGER[portableHellbomb.name], 50, "portable Hellbomb uses stagger force 50");
 assert.equal(firingTime(resolveWeapon(portableHellbomb), 1), 10, "portable Hellbomb TTK includes its ten-second activation countdown");
 assert.equal(firingTime(resolveWeapon(portableHellbomb), 2), 310, "additional portable Hellbomb uses include the documented base cooldown");
+
+const precisionStrike=weapon("Orbital Precision Strike");
+assert.ok(precisionStrike&&precisionStrike.cat==="Stratagem","Orbital Precision Strike is available as a stratagem");
+assert.deepEqual(Array.from(precisionStrike.comps[0].ap),[8,7,6,6],"OPS shell uses current Anti-Tank IV/III/II penetration");
+assert.deepEqual([precisionStrike.comps[0].std,precisionStrike.comps[1].std,precisionStrike.activationDelay,precisionStrike.cooldown],[4000,1500,4.45,90],"OPS uses current shell, explosion, call-in, and cooldown values");
+for(const [name,impact,explosion,delay,cooldown] of [
+  ["Orbital 120mm HE Barrage",3500,1200,7.45,180],
+  ["Orbital 380mm HE Barrage",4000,1500,8.45,240],
+  ["Orbital Walking Barrage",4000,1500,5.45,240]
+]){
+  const orbital=weapon(name),one=resolveWeapon(orbital,0),three=resolveWeapon(orbital,2);
+  assert.ok(orbital&&orbital.cat==="Stratagem",`${name} is available as a stratagem`);
+  assert.deepEqual([one.comps[0].std,one.comps[1].std,orbital.activationDelay,orbital.cooldown],[impact,explosion,delay,cooldown],`${name} one-shell mode uses current values`);
+  assert.equal(three.comps[0].std,impact*3,`${name} three-hit scenario scales impact damage explicitly`);
+  assert.equal(three.comps[1].std,explosion*3,`${name} three-hit scenario scales explosion damage explicitly`);
+}
 
 const currentWeaponStats = {
   "AR-23C Liberator Concussive": [60,400,75,35,[2,2,2,2]],
@@ -174,6 +190,13 @@ assert.ok(flameEvaluation.shots < warrior.main/flameEvaluation.raw.d.total,"burn
 const explosivePart = {...part(charger, "Head"), exdr:50};
 const explosiveWeapon = {name:"Explosion test",comps:[{std:100,dur:100,ap:[9,9,9,9],explosive:true}],mag:1,rpm:60};
 assert.equal(damagePerShot(explosiveWeapon, explosivePart, 0, 0).total, 50, "explosive resistance is retained");
+assert.equal(damagePerShot(explosiveWeapon, explosivePart, 0, 0, 2).total, 25, "mid-blast placement applies radial falloff before ExDR");
+const mixedBlastWeapon={name:"Mixed blast",comps:[{std:100,dur:100,ap:[9,9,9,9]},{std:100,dur:100,ap:[9,9,9,9],explosive:true}],mag:1,rpm:60};
+assert.equal(damagePerShot(mixedBlastWeapon, explosivePart, 0, 0, 1).comps[0].dmg,0,"splash does not include direct projectile damage");
+assert.equal(damagePerShot(mixedBlastWeapon, explosivePart, 0, 0, 1).comps[1].dmg,42,"inner splash combines estimated falloff and ExDR with game rounding");
+const hellbombComponent={std:10000,dur:10000,ap:[10,10,10,10],explosive:true,label:"Hellbomb inner blast"};
+assert.equal(blastFactor(hellbombComponent,1),1,"Hellbomb retains full damage through its verified inner radius");
+assert.equal(blastFactor(hellbombComponent,2),0.5,"Hellbomb uses its verified outer-zone falloff profile");
 
 const falloffWeapon = {name:"Falloff test",comps:[{std:100,dur:100,ap:[9,9,9,9],fo:"medium"}],mag:10,rpm:600};
 assert.ok(damagePerShot(falloffWeapon, part(warrior, "Main (body)"), 0, 4).total < damagePerShot(falloffWeapon, part(warrior, "Main (body)"), 0, 0).total, "range falloff reduces damage");

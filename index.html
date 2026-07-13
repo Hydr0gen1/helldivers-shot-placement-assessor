@@ -75,7 +75,7 @@ body{
 .layout{grid-template-columns:minmax(280px,318px) minmax(0,1fr);gap:22px}
 .controls{top:18px;border-radius:2px;border-color:var(--border);padding:0;background:var(--panel);box-shadow:none}.controls::before{content:"PARAMETERS";display:block;padding:9px 14px;border-bottom:1px solid var(--border);background:#0d1012;color:#6f787e;font:9px Consolas,"Courier New",monospace;letter-spacing:1.4px}.controls>*:not(.controls-title){margin-left:14px;margin-right:14px}.controls-title{padding:15px 14px 11px;margin:0!important;color:var(--text);font:600 11px Bahnschrift,"Arial Narrow",sans-serif;letter-spacing:1.3px;border-bottom:1px solid #202529}
 .intent-tabs{margin-top:12px;margin-bottom:18px;gap:0;border:1px solid var(--border)}.intent-tab{border:0;border-radius:0;background:#0f1214;padding:9px 7px;color:var(--dim);font-size:11px}.intent-tab+ .intent-tab{border-left:1px solid var(--border)}.intent-tab[aria-selected="true"]{background:var(--yellow-soft);color:var(--yellow);box-shadow:inset 0 -2px var(--yellow)}
-.field{margin-bottom:17px}.field-label-row{margin-bottom:7px}.field label,.field-label{font:10px Consolas,"Courier New",monospace;letter-spacing:1px;color:#7f898f}
+.field{margin-bottom:17px}.field-label-row{margin-bottom:7px}.field label,.field-label{font:10px Consolas,"Courier New",monospace;letter-spacing:1px;color:#7f898f}.field-hint{margin-top:7px;color:var(--dim);font-size:11px;line-height:1.45}
 select,.combo-input{min-height:40px;background:#0d1012;border:1px solid #30373c;border-radius:2px;padding:8px 10px;color:var(--text);font-size:13px;box-shadow:inset 0 1px #ffffff03}select:hover,.combo-input:hover{border-color:#465057}select:focus,.combo-input:focus{border-color:#8c822b}
 .icon-action{width:40px;min-width:40px;min-height:40px;border-radius:2px;background:#0d1012;border-color:#30373c;color:#778087}.icon-action[aria-pressed="true"]{background:#1d1c0d;color:var(--yellow);border-color:#776f24}.combo::after{font-size:10px;top:12px}
 .combo-panel{border-radius:2px;background:#111416;border-color:#3a4248;box-shadow:0 14px 40px #000b}.combo-filters{background:#0c0f11}.filter-chip{border-radius:1px;background:transparent;color:var(--dim);font:10px Consolas,"Courier New",monospace;text-transform:uppercase;letter-spacing:.4px}.filter-chip[aria-pressed="true"]{background:transparent;color:var(--yellow);border-color:#716a2a}.combo-option{border-radius:1px;font-size:12px}.combo-option:hover,.combo-option.active,.combo-option[aria-selected="true"]{background:#22282c}.combo-group{font-family:Consolas,"Courier New",monospace}
@@ -151,6 +151,7 @@ select,.combo-input{min-height:40px;background:#0d1012;border:1px solid #30373c;
         <div class="conditions-body">
           <div class="field"><div class="field-label-row"><label for="angle">Firing angle</label></div><div class="field-control no-action"><select id="angle"><option value="0">Direct (0–30°)</option><option value="1">Slight (30–60°)</option><option value="2">Large (60–80°)</option><option value="3">Extreme (80°+)</option></select></div></div>
           <div class="field"><div class="field-label-row"><label for="range">Range</label></div><div class="field-control no-action"><select id="range"><option value="0">Point blank</option><option value="1">~25 m</option><option value="2">~50 m</option><option value="3">~75 m</option><option value="4">100 m+</option></select></div></div>
+          <div class="field" id="blastField" hidden><div class="field-label-row"><label for="blast">Blast placement</label></div><div class="field-control no-action"><select id="blast"><option value="0">Direct impact · 100%</option><option value="1">Inner blast · ~85%</option><option value="2">Mid blast · ~50%</option><option value="3">Blast edge · ~15%</option></select></div><p class="field-hint" id="blastHint">Estimated falloff; direct projectile damage is excluded away from impact.</p></div>
         </div>
       </details>
     </aside>
@@ -170,7 +171,7 @@ select,.combo-input{min-height:40px;background:#0d1012;border:1px solid #30373c;
         <summary>How to read the results</summary>
         <dl class="glossary" id="glossary"></dl>
         <p>Recommendations assume the enemy's armor is intact. Targets marked <strong>Break armor first</strong> are not initially hittable: the ranking adds the required plate or outer-layer destruction to the route's total shots, magazines, and firing-time estimate. If the selected weapon cannot open the target, that route is labeled armor-gated and ranked below directly accessible targets.</p>
-        <p>Time-to-kill includes firing time and, when more than one magazine is needed, reload time (wiki-documented for some weapons, class estimates for the rest). Target movement is not modeled. Bleedout kills are marked "+ bleedout" instead of adding its duration to the number; rankings quietly prefer immediate kills when times are close (~5s).</p>
+        <p>Time-to-kill includes firing time and, when more than one magazine is needed, reload time (mined or documented where available). Target movement is not modeled. Bleedout kills are marked "+ bleedout" instead of adding an uncertain delay; rankings prefer immediate kills when times are close.</p>
         <p>Game data: <a href="https://helldivers.wiki.gg" target="_blank" rel="noopener noreferrer">helldivers.wiki.gg</a>, retrieved 2026-07-10.</p>
       </details>
     </main>
@@ -844,11 +845,28 @@ const WEAPONS = [
  {name:"CQC-20 Breaching Hammer", cat:"Support", mag:1, rpm:30, modes:[
    {name:"Charge attached (swing)", comps:[{std:300, dur:300, ap:[3,3,3,0], label:"Hammer head (melee)"},{std:2200, dur:2200, ap:[6,6,6,6], explosive:true, label:"Breaching charge (AP6)"}]},
    {name:"No charge (bare hammer)", comps:[{std:300, dur:300, ap:[3,3,3,0], label:"Hammer head (melee)"}]}]},
- {name:"B-100 Portable Hellbomb (inner blast)", cat:"Support", mag:1, rpm:1, activationDelay:10, cooldown:300, demo:60, comps:[{std:10000, dur:10000, ap:[10,10,10,10], explosive:true, label:"Hellbomb inner blast (10,000 damage, AP10)"}], note:"Models the full-damage inner blast at 0–17 m. From 17–25 m, blast damage falls from 9,999 to 0. Activation takes 10 seconds; base cooldown is 300 seconds. Demolition force is 60."},
+ {name:"B-100 Portable Hellbomb (inner blast)", cat:"Support", mag:1, rpm:1, activationDelay:10, cooldown:300, demo:60, blastKnown:true, comps:[{std:10000, dur:10000, ap:[10,10,10,10], explosive:true, label:"Hellbomb inner blast (10,000 damage, AP10)"}], note:"Models the full-damage inner blast at 0–17 m. From 17–25 m, blast damage falls from 9,999 to 0. Activation takes 10 seconds; base cooldown is 300 seconds. Demolition force is 60."},
  {name:"MS-11 Solo Silo", cat:"Support", mag:1, rpm:5, comps:[{std:1500, dur:1500, ap:[9,9,9,9], explosive:true, label:"Impact explosion (AP9)"},{std:2500, dur:2500, ap:[7,7,7,7], explosive:true, label:"Main explosion (AP7)"}]},
  {name:"EAT-411 Leveller", cat:"Support", mag:1, rpm:10, comps:[{std:1000, dur:1000, ap:[6,6,6,6], fo:"none"},{std:2500, dur:2500, ap:[6,6,6,6], explosive:true}]},
  {name:"EAT-700 Expendable Napalm", cat:"Support", mag:1, rpm:10, comps:[{std:500, dur:500, ap:[3,3,3,0], fo:"none"},{std:250, dur:250, ap:[6,6,6,6], explosive:true}]},
- {name:"PLAS-45 Epoch (fully charged)", cat:"Support", mag:3, rpm:30, comps:[{std:800, dur:400, ap:[5,5,5,5], fo:"none"},{std:800, dur:800, ap:[5,5,5,5], explosive:true}]}
+ {name:"PLAS-45 Epoch (fully charged)", cat:"Support", mag:3, rpm:30, comps:[{std:800, dur:400, ap:[5,5,5,5], fo:"none"},{std:800, dur:800, ap:[5,5,5,5], explosive:true}]},
+
+ // Orbital entries model damage to one selected body part. Barrage modes are
+ // explicit hit-count scenarios, not a claim that every shell in the pattern
+ // will strike the same enemy.
+ {name:"Orbital Precision Strike", cat:"Stratagem", mag:1, rpm:1, activationDelay:4.45, cooldown:90, demo:50, blastKnown:true, comps:[{std:4000,dur:4000,ap:[8,7,6,6],fo:"none",label:"380mm shell impact"},{std:1500,dur:1500,ap:[6,6,6,6],explosive:true,blast:[1,1,0.5,0.01],label:"380mm explosion (4–12 m)"}],note:"One shell. 4.45 s standard call-in, 90 s base cooldown. Explosion is full damage through 4 m and falls to zero at 12 m."},
+ {name:"Orbital 120mm HE Barrage", cat:"Stratagem", mag:1, rpm:1, activationDelay:7.45, cooldown:180, demo:50, blastKnown:true, modes:[
+   {name:"One shell hits",comps:[{std:3500,dur:3500,ap:[7,7,6,6],fo:"none",label:"120mm shell impact"},{std:1200,dur:1200,ap:[5,5,5,5],explosive:true,blast:[1,1,0.5,0.01],label:"120mm explosion (3.3–10 m)"}]},
+   {name:"Two shells hit",comps:[{std:7000,dur:7000,ap:[7,7,6,6],fo:"none",label:"120mm impacts ×2"},{std:2400,dur:2400,ap:[5,5,5,5],explosive:true,blast:[1,1,0.5,0.01],label:"120mm explosions ×2"}]},
+   {name:"Full three-shell salvo hits",comps:[{std:10500,dur:10500,ap:[7,7,6,6],fo:"none",label:"120mm impacts ×3"},{std:3600,dur:3600,ap:[5,5,5,5],explosive:true,blast:[1,1,0.5,0.01],label:"120mm explosions ×3"}]}],note:"Five salvos of three shells (15 total) across a 27 m bombardment area. Hit-count modes model only the shells that connect with the selected target."},
+ {name:"Orbital 380mm HE Barrage", cat:"Stratagem", mag:1, rpm:1, activationDelay:8.45, cooldown:240, demo:50, blastKnown:true, modes:[
+   {name:"One shell hits",comps:[{std:4000,dur:4000,ap:[8,7,6,6],fo:"none",label:"380mm shell impact"},{std:1500,dur:1500,ap:[6,6,6,6],explosive:true,blast:[1,1,0.5,0.01],label:"380mm explosion (4–12 m)"}]},
+   {name:"Two shells hit",comps:[{std:8000,dur:8000,ap:[8,7,6,6],fo:"none",label:"380mm impacts ×2"},{std:3000,dur:3000,ap:[6,6,6,6],explosive:true,blast:[1,1,0.5,0.01],label:"380mm explosions ×2"}]},
+   {name:"Full three-shell salvo hits",comps:[{std:12000,dur:12000,ap:[8,7,6,6],fo:"none",label:"380mm impacts ×3"},{std:4500,dur:4500,ap:[6,6,6,6],explosive:true,blast:[1,1,0.5,0.01],label:"380mm explosions ×3"}]}],note:"Five salvos of three shells (15 total) across a 36 m bombardment area. Hit-count modes model only the shells that connect with the selected target."},
+ {name:"Orbital Walking Barrage", cat:"Stratagem", mag:1, rpm:1, activationDelay:5.45, cooldown:240, demo:50, blastKnown:true, modes:[
+   {name:"One shell hits",comps:[{std:4000,dur:4000,ap:[8,7,6,6],fo:"none",label:"380mm shell impact"},{std:1500,dur:1500,ap:[6,6,6,6],explosive:true,blast:[1,1,0.5,0.01],label:"380mm explosion (4–12 m)"}]},
+   {name:"Two shells hit",comps:[{std:8000,dur:8000,ap:[8,7,6,6],fo:"none",label:"380mm impacts ×2"},{std:3000,dur:3000,ap:[6,6,6,6],explosive:true,blast:[1,1,0.5,0.01],label:"380mm explosions ×2"}]},
+   {name:"Full three-shell salvo hits",comps:[{std:12000,dur:12000,ap:[8,7,6,6],fo:"none",label:"380mm impacts ×3"},{std:4500,dur:4500,ap:[6,6,6,6],explosive:true,blast:[1,1,0.5,0.01],label:"380mm explosions ×3"}]}],note:"Five three-shell salvos march forward roughly 25 m per salvo (15 shells total). Hit-count modes model one target caught by a particular salvo."}
 ];
 
 // Stagger force per weapon (wiki damage table "stun" value; strongest component). null = not documented.
@@ -866,6 +884,7 @@ const STAGGER = {
  "EAT-700 Expendable Napalm":50, "PLAS-45 Epoch (fully charged)":35,
  "R-36 Eruptor (excl. shrapnel)":35, "GP-31 Grenade Pistol":40, "FLAM-40 Flamethrower (sustained)":5,
  "EAT-411 Leveller":100, "MS-11 Solo Silo":100, "B-100 Portable Hellbomb (inner blast)":50, "CQC-20 Breaching Hammer":null,
+ "Orbital Precision Strike":70, "Orbital 120mm HE Barrage":70, "Orbital 380mm HE Barrage":70, "Orbital Walking Barrage":70,
  "SG-225SP Breaker Spray&Pray (all pellets)":3, "SG-225IE Breaker Incendiary (all pellets)":10,
  "SG-451 Cookout (all pellets)":35, "SG-97 Sweeper (all flechettes)":20, "SG-20 Halt":20,
  "DBS-2 Double Freedom":35, "M90A Shotgun (all pellets)":35, "StA-52 Assault Rifle":15,
@@ -924,16 +943,30 @@ const FIRE_DATA = {
 // AP > AV: 100% (red hitmarker); AP == AV: 65% (white hitmarker); AP < AV: ricochet.
 function penFactor(ap, av){ return ap > av ? 1 : (ap === av ? 0.65 : 0); }
 
-function damagePerShot(weapon, part, angleIdx, rangeIdx){
+// Blast placement is normalized because many game records expose damage radii
+// without a trustworthy real-world distance for every projectile. 0 is a
+// direct impact; 1/2/3 represent the inner, middle, and edge of the blast.
+// Components may provide a verified four-point `blast` curve. Otherwise the
+// conservative shared estimate is used and identified as such in the UI.
+const DEFAULT_BLAST_CURVE = [1,0.85,0.5,0.15];
+function blastFactor(component, blastIdx){
+  if(!component.explosive)return blastIdx>0?0:1;
+  const verifiedHellbomb=component.label?.startsWith("Hellbomb")?[1,1,0.5,0.01]:null;
+  const curve=component.blast||verifiedHellbomb||DEFAULT_BLAST_CURVE;
+  return Math.max(0,Math.min(1,curve[Math.max(0,Math.min(3,blastIdx||0))]??1));
+}
+
+function damagePerShot(weapon, part, angleIdx, rangeIdx, blastIdx=0){
   let total = 0, comps = [];
   for(const c of weapon.comps){
     const ap = c.explosive ? c.ap[0] : c.ap[angleIdx];
     const pf = penFactor(ap, part.av);
     const fo = c.explosive ? 1 : FALLOFF[c.fo || "none"][rangeIdx || 0];
-    let dmg = pf * fo * (c.std * (1 - part.dur/100) + c.dur * (part.dur/100));
+    const blast = blastFactor(c,blastIdx);
+    let dmg = pf * fo * blast * (c.std * (1 - part.dur/100) + c.dur * (part.dur/100));
     if(c.explosive) dmg *= (1 - part.exdr/100);
     dmg = Math.floor(dmg);  // game rounds damage dealt down
-    comps.push({explosive: !!c.explosive, ap, pf, dmg, label: c.label});
+    comps.push({explosive: !!c.explosive, ap, pf, dmg, blast, label: c.label});
     total += dmg;
   }
   return {total, comps};
@@ -941,8 +974,8 @@ function damagePerShot(weapon, part, angleIdx, rangeIdx){
 
 function fmt(n){ return n % 1 === 0 ? n.toString() : n.toFixed(1); }
 
-function assess(enemy, part, weapon, angleIdx, rangeIdx){
-  const d = damagePerShot(weapon, part, angleIdx, rangeIdx);
+function assess(enemy, part, weapon, angleIdx, rangeIdx, blastIdx=0){
+  const d = damagePerShot(weapon, part, angleIdx, rangeIdx,blastIdx);
   const capped = part.cap !== 0; // wiki "Dmg Cap to Main": Yes (default) caps transfer at part HP; No lets overkill overflow into main
   const toMainPerShot = part.hp === "main" ? d.total : (part.toMain === null ? 0 : d.total * part.toMain/100);
   const routes = []; let info = null;
@@ -1129,7 +1162,7 @@ function compareEvaluations(a,b,includeIndex=true){
 }
 
 function evaluateDirectPart(enemy,part,weapon,conditions={angle:0,range:0},partIndex=enemy.parts.indexOf(part)){
-  const raw=refineContinuousAssessment(enemy,part,weapon,assess(enemy,part,weapon,+conditions.angle||0,+conditions.range||0));
+  const raw=refineContinuousAssessment(enemy,part,weapon,assess(enemy,part,weapon,+conditions.angle||0,+conditions.range||0,+conditions.blast||0));
   const lethal=raw.routes.filter(route=>route.kills).map(route=>({...route,outcome:part.fatal==="downs"&&route.label.startsWith("Destroy ")?"bleedout":"immediate"}));
   const effectiveTtk=route=>firingTime(weapon,route.shots)+(route.outcome==="bleedout"?BLEEDOUT_DELAY_S:0);
   lethal.sort((a,b)=>effectiveTtk(a)-effectiveTtk(b)||OUTCOME_RANK[a.outcome]-OUTCOME_RANK[b.outcome]||a.shots-b.shots);
@@ -1224,10 +1257,10 @@ function formatShareSummary(payload){
 
 // ============ DOM APP ============
 const $=id=>document.getElementById(id);
-const STORAGE_KEY="hd2-shot-placement:v3",LEGACY_KEY="hd2-shot-placement:v2";
-const ANGLE_SHORT=["Direct","Slight angle","Large angle","Extreme angle"],RANGE_SHORT=["Point blank","~25 m","~50 m","~75 m","100 m+"];
+const STORAGE_KEY="hd2-shot-placement:v4",LEGACY_KEYS=["hd2-shot-placement:v3","hd2-shot-placement:v2"];
+const ANGLE_SHORT=["Direct","Slight angle","Large angle","Extreme angle"],RANGE_SHORT=["Point blank","~25 m","~50 m","~75 m","100 m+"],BLAST_SHORT=["Direct impact","Inner blast","Mid blast","Blast edge"];
 const FACTION_COLORS={Terminids:"#ffc000",Automatons:"#ff5f5f",Illuminate:"#ce6ff9"};
-const TERM_DEFS={AP:"Armor Penetration. AP equal to AV deals partial damage; higher AP deals full damage.",AV:"Armor Value. The target armor level checked against weapon AP.",Durability:"The percentage of damage that uses a weapon's durable-damage value.",ExDR:"Explosive damage resistance applied to explosive components.","Main HP":"The enemy's shared health pool. Depleting it kills the enemy.","Damage cap":"Limits transferred damage to the remaining health of a destructible part.",Bleedout:"A delayed death caused by destroying certain fatal parts.",Stagger:"Whether weapon stun force meets the enemy's stagger threshold.",TTK:"Estimated time to kill: firing time plus reload time when more than one magazine is needed. Bleedout kills show '+ bleedout' rather than adding its duration; rankings prefer immediate kills when times are close."};
+const TERM_DEFS={AP:"Armor Penetration. AP equal to AV deals partial damage; higher AP deals full damage.",AV:"Armor Value. The target armor level checked against weapon AP.",Durability:"The percentage of damage that uses a weapon's durable-damage value.",ExDR:"Explosive damage resistance applied to explosive components.",Blast:"Placement within an explosion. Splash loses damage with distance and excludes the projectile's direct-hit component.","Main HP":"The enemy's shared health pool. Depleting it kills the enemy.","Damage cap":"Limits transferred damage to the remaining health of a destructible part.",Bleedout:"A delayed death caused by destroying certain fatal parts.",Stagger:"Whether weapon stun force meets the enemy's stagger threshold.",TTK:"Estimated time to kill: firing time plus reload time when more than one magazine is needed. Bleedout kills show '+ bleedout' rather than adding its duration; rankings prefer immediate kills when times are close."};
 const comboControllers={};
 let appState={view:"recommend",intent:"aim",favoriteEnemies:[],favoriteWeapons:[],recentEnemies:[],recentWeapons:[],rankCategory:"All",showAllWeapons:false};
 let currentSharePayload=null,lastAimContext="",lastWeaponContext="",activeViewIndex=0,stickyObserver=null,toastTimer=null;
@@ -1237,7 +1270,7 @@ function term(label){const definition=TERM_DEFS[label];return `<span class="term
 function outcomeLabel(outcome){return {immediate:"Immediate kill",bleedout:"Bleedout kill",disable:"Disables only",blocked:"No damage",gated:"Armor-gated"}[outcome];}
 function outcomeText(result){return outcomeSummary(result);}
 function formatTtk(result){return Number.isFinite(result.ttk)?`${fmt(result.ttk)}s${result.outcome==="bleedout"?" + bleedout":""}`:"—";}
-function formatShots(result){if(result.shots==null)return "—";return isContinuous(result.weapon)?`${fmt(result.shots)}s`:`${result.shots}`;}
+function formatShots(result){if(result.shots==null)return "—";if(result.weapon.base?.cat==="Stratagem")return `${fmt(result.shots)} use${result.shots===1?'':'s'}`;return isContinuous(result.weapon)?`${fmt(result.shots)}s`:`${result.shots}`;}
 function penetrationLabel(result){const base=result.penetration==="full"?"Full":result.penetration==="partial"?"Partial (65%)":"Blocked";return result.outcome==="gated"?`${base} once exposed`:base;}
 function selectedText(select){return select.selectedOptions[0]?.textContent||"";}
 function selectByText(select,text){if(!text)return false;const aliases={"B-100 Portable Hellbomb (≈)":"B-100 Portable Hellbomb (inner blast)","B-100 Portable Hellbomb":"B-100 Portable Hellbomb (inner blast)","P-35 Re-Educator (gas)":"P-35 Re-Educator (projectile; gas DoT excluded)","LAS-13 Trident (all 4 beams on target)":"LAS-13 Trident (all 6 beams on target)","FLAM-40 Flamethrower (≈ per second)":"FLAM-40 Flamethrower (sustained)","B/FLAM-80 Cremator (≈ per second)":"B/FLAM-80 Cremator (sustained)","P-72 Crisper (≈ per second)":"P-72 Crisper (sustained)"},wanted=aliases[text]||text,option=[...select.options].find(x=>x.textContent===wanted);if(!option)return false;select.value=option.value;return true;}
@@ -1245,25 +1278,23 @@ function fill(select,items,label){select.replaceChildren(...items.map((item,inde
 
 function weaponClass(w){
   const n=w.name,X={"JAR-5 Dominator":"Special","SG-8P Punisher Plasma":"Energy-Based","CB-9 Exploding Crossbow":"Explosive","R-36 Eruptor (excl. shrapnel)":"Explosive","PLAS-15 Loyalist":"Special","P-72 Crisper (sustained)":"Special","SG-22 Bushwhacker (all pellets)":"Special","LAS-58 Talon":"Special","LAS-7 Dagger":"Special","GP-31 Grenade Pistol":"Special","P-35 Re-Educator (projectile; gas DoT excluded)":"Special","CQC-20 Breaching Hammer":"Melee"};
-  if(X[n])return X[n];if(w.cat==="Support"){if(/^(MG|M-105|MGX)/.test(n))return "Machine Guns";if(/^(EAT|GR-8|LAS-99|MLS|RS-422|S-11|PLAS-45|MS-11|B-100)/.test(n))return "Anti-Tank";if(/^(AC-8|GL-2|B\/MD)/.test(n))return "Explosive";return "Energy / Flame / Arc";}if(w.cat==="Secondary")return "Pistols";if(/^(AR|StA-52|MA5C|BR-14)/.test(n))return "Assault Rifles";if(/^R-/.test(n))return "Marksman Rifles";if(/^(SMG|MP-98|StA-11|M7S)/.test(n))return "Submachine Guns";if(/^(SG|DBS|M90A)/.test(n))return "Shotguns";if(/^(LAS|PLAS|ARC)/.test(n))return "Energy-Based";return "Special";
+  if(w.cat==="Stratagem")return "Orbital";if(X[n])return X[n];if(w.cat==="Support"){if(/^(MG|M-105|MGX)/.test(n))return "Machine Guns";if(/^(EAT|GR-8|LAS-99|MLS|RS-422|S-11|PLAS-45|MS-11|B-100)/.test(n))return "Anti-Tank";if(/^(AC-8|GL-2|B\/MD)/.test(n))return "Explosive";return "Energy / Flame / Arc";}if(w.cat==="Secondary")return "Pistols";if(/^(AR|StA-52|MA5C|BR-14)/.test(n))return "Assault Rifles";if(/^R-/.test(n))return "Marksman Rifles";if(/^(SMG|MP-98|StA-11|M7S)/.test(n))return "Submachine Guns";if(/^(SG|DBS|M90A)/.test(n))return "Shotguns";if(/^(LAS|PLAS|ARC)/.test(n))return "Energy-Based";return "Special";
 }
 function fillEnemies(){
-  // Group by faction, then subfaction (Predator Strain, Appropriators, ...) within it.
-  // Filter chips stay faction-level (dataset.filter); the optgroup label carries the sub.
   const groups={};
   ENEMIES.forEach((enemy,index)=>{const key=enemy.faction+(enemy.sub?` — ${enemy.sub}`:"");(groups[key]=groups[key]||{faction:enemy.faction,items:[]}).items.push([enemy,index]);});
   const keys=Object.keys(groups).sort((a,b)=>{const fa=groups[a].faction,fb=groups[b].faction;if(fa!==fb)return ENEMIES.findIndex(e=>e.faction===fa)-ENEMIES.findIndex(e=>e.faction===fb);return a.localeCompare(b);});
   const nodes=keys.map(key=>{const group=document.createElement("optgroup");group.label=key;groups[key].items.forEach(([enemy,index])=>{const option=new Option(enemy.name,index);option.dataset.filter=groups[key].faction;option.style.color=FACTION_COLORS[groups[key].faction]||"#fff";group.append(option);});return group;});
   $('enemy').replaceChildren(...nodes);
 }
-function fillWeapons(select){const nodes=[];for(const category of ["Primary","Secondary","Support"]){const classes={};WEAPONS.forEach((weapon,index)=>{if(weapon.cat===category)(classes[weaponClass(weapon)]=classes[weaponClass(weapon)]||[]).push([weapon,index]);});for(const cls of Object.keys(classes).sort()){const group=document.createElement("optgroup");group.label=category+" · "+cls;classes[cls].sort((a,b)=>a[0].name.localeCompare(b[0].name)).forEach(([weapon,index])=>{const option=new Option(weapon.name,index);option.dataset.filter=category;group.append(option);});nodes.push(group);}}select.replaceChildren(...nodes);}
+function fillWeapons(select){const nodes=[];for(const category of ["Primary","Secondary","Support","Stratagem"]){const classes={};WEAPONS.forEach((weapon,index)=>{if(weapon.cat===category)(classes[weaponClass(weapon)]=classes[weaponClass(weapon)]||[]).push([weapon,index]);});for(const cls of Object.keys(classes).sort()){const group=document.createElement("optgroup");group.label=category+" · "+cls;classes[cls].sort((a,b)=>a[0].name.localeCompare(b[0].name)).forEach(([weapon,index])=>{const option=new Option(weapon.name,index);option.dataset.filter=category;group.append(option);});nodes.push(group);}}select.replaceChildren(...nodes);}
 function fillParts(preferred){const enemy=ENEMIES[$('enemy').value],preferredPart=enemy.parts.find(part=>preferred===part.name||preferred?.startsWith(part.name+" (")||preferred?.startsWith(part.name+" ·"));fill($('part'),enemy.parts,part=>part.name+(accessRule(enemy,part)?" · BREAK ARMOR FIRST":"")+(part.hp==="main"?` (${enemy.main} HP — main pool, AV${part.av})`:` (${part.hp} HP, AV${part.av})`));if(preferredPart)$('part').value=enemy.parts.indexOf(preferredPart);else selectByText($('part'),preferred);}
 function fillMode(modeSelect,row,weaponSelect,preferred){const base=WEAPONS[weaponSelect.value];if(base.modes){fill(modeSelect,base.modes,mode=>mode.name);selectByText(modeSelect,preferred);row.dataset.available="true";}else{modeSelect.replaceChildren();row.dataset.available="false";} }
 
-function readStorage(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"null")||JSON.parse(localStorage.getItem(LEGACY_KEY)||"{}")||{};}catch{return {};}}
-function readInitialState(){const stored=readStorage(),next={...appState,...stored};try{const q=new URL(location.href).searchParams;const validView=["recommend","inspect","compare"],validIntent=["aim","weapon"];if(validView.includes(q.get("view")))next.view=q.get("view");if(validIntent.includes(q.get("intent")))next.intent=q.get("intent");for(const key of ["enemy","part","weapon","mode","weaponB","modeB","angle","range"])if(q.has(key))next[key]=q.get(key);}catch{}return next;}
-function collectState(){return {...appState,enemy:selectedText($('enemy')),part:selectedText($('part')),weapon:selectedText($('weapon')),mode:selectedText($('mode')),weaponB:selectedText($('weaponB')),modeB:selectedText($('modeB')),angle:$('angle').value,range:$('range').value};}
-function persist(){appState=collectState();try{localStorage.setItem(STORAGE_KEY,JSON.stringify(appState));}catch{}try{const url=new URL(location.href),state=collectState();for(const key of ["view","intent","enemy","part","weapon","mode","weaponB","modeB","angle","range"]){if(state[key])url.searchParams.set(key,state[key]);else url.searchParams.delete(key);}history.replaceState(null,"",url);}catch{}}
+function readStorage(){try{const current=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(current)return current;for(const key of LEGACY_KEYS){const legacy=JSON.parse(localStorage.getItem(key)||"null");if(legacy)return legacy;}return {};}catch{return {};}}
+function readInitialState(){const stored=readStorage(),next={...appState,...stored};try{const q=new URL(location.href).searchParams;const validView=["recommend","inspect","compare"],validIntent=["aim","weapon"];if(validView.includes(q.get("view")))next.view=q.get("view");if(validIntent.includes(q.get("intent")))next.intent=q.get("intent");for(const key of ["enemy","part","weapon","mode","weaponB","modeB","angle","range","blast"])if(q.has(key))next[key]=q.get(key);}catch{}return next;}
+function collectState(){return {...appState,enemy:selectedText($('enemy')),part:selectedText($('part')),weapon:selectedText($('weapon')),mode:selectedText($('mode')),weaponB:selectedText($('weaponB')),modeB:selectedText($('modeB')),angle:$('angle').value,range:$('range').value,blast:$('blast').value};}
+function persist(){appState=collectState();try{localStorage.setItem(STORAGE_KEY,JSON.stringify(appState));}catch{}try{const url=new URL(location.href),state=collectState();for(const key of ["view","intent","enemy","part","weapon","mode","weaponB","modeB","angle","range","blast"]){if(state[key])url.searchParams.set(key,state[key]);else url.searchParams.delete(key);}history.replaceState(null,"",url);}catch{}}
 function remember(kind,value){const key=kind==="enemy"?"recentEnemies":"recentWeapons",limit=kind==="enemy"?5:8;appState[key]=[value,...(appState[key]||[]).filter(x=>x!==value)].slice(0,limit);}
 
 function favoriteList(kind){return kind==="enemy"?appState.favoriteEnemies:appState.favoriteWeapons;}
@@ -1271,9 +1302,6 @@ function enhanceSelect(select){
   const field=select.closest('.field'),label=field.querySelector('label'),combo=document.createElement('div'),input=document.createElement('input'),panel=document.createElement('div'),filters=document.createElement('div'),list=document.createElement('div'),status=document.createElement('div');
   const kind=select.id==="enemy"?"enemy":"weapon";combo.className='combo';input.className='combo-input';input.id=select.id+'Search';input.type='text';input.autocomplete='off';input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-expanded','false');panel.className='combo-panel';panel.hidden=true;filters.className='combo-filters';list.className='combo-list';list.id=select.id+'List';list.setAttribute('role','listbox');status.className='sr-only';status.setAttribute('aria-live','polite');input.setAttribute('aria-controls',list.id);label.htmlFor=input.id;panel.append(filters,list);combo.append(input,panel,status);select.after(combo);select.hidden=true;
   let items=[],active=-1,activeFilter="All",rendered=[],typedQuery="";
-  // typedQuery tracks only what the user actually typed this session — the input is
-  // pre-filled with the current selection, and using THAT as a search query made
-  // faction filter chips appear broken (filtering "Automatons" by the text "Charger").
   const rebuild=()=>{items=[...select.options].map(option=>({value:option.value,label:option.textContent,group:option.parentElement.tagName==="OPTGROUP"?option.parentElement.label:"",filter:option.dataset.filter||"All"}));input.value=selectedText(select);drawFilters();};
   const drawFilters=()=>{const values=["All",...new Set(items.map(item=>item.filter))];filters.replaceChildren(...values.map(value=>{const button=document.createElement('button');button.type='button';button.className='filter-chip';button.textContent=value;button.setAttribute('aria-pressed',value===activeFilter?'true':'false');button.addEventListener('mousedown',event=>event.preventDefault());button.addEventListener('click',()=>{activeFilter=value;drawFilters();draw(typedQuery);});return button;}));};
   const close=()=>{panel.hidden=true;input.setAttribute('aria-expanded','false');input.removeAttribute('aria-activedescendant');active=-1;};
@@ -1284,7 +1312,8 @@ function enhanceSelect(select){
   comboControllers[select.id]={sync(){rebuild();input.value=selectedText(select);},open(){draw('')}};rebuild();
 }
 
-function conditions(){return {angle:+$('angle').value,range:+$('range').value};}
+function conditions(){return {angle:+$('angle').value,range:+$('range').value,blast:+$('blast').value};}
+function hasExplosion(weapon){return !!weapon?.comps?.some(component=>component.explosive);}
 function selectedEnemy(){return ENEMIES[$('enemy').value];}
 function selectedPart(){return selectedEnemy().parts[$('part').value];}
 function resolvedA(){return resolveWeapon(WEAPONS[$('weapon').value],+$('mode').value||0);}
@@ -1296,7 +1325,7 @@ function metric(label,value){return `<div class="metric"><span>${esc(label)}</sp
 function answerCard(result,title,eyebrow="Recommendation"){
   const status=`<span class="status ${result.outcome}">${esc(outcomeLabel(result.outcome))}</span>`;
   const access=result.access?`<div class="access-note ${result.access.canOpen?'setup':'blocked'}"><b>${result.access.canOpen?'Armor-break route':'Viable only after the armor is destroyed'}</b><span>${esc(result.access.note)}${!result.access.canOpen&&result.shots!=null?' This weapon cannot break the plate — figures below assume it is already destroyed (teammate, explosive, etc.).':''}${result.setupShots!=null?` Setup: ${fmt(result.setupShots)} ${isContinuous(result.weapon)?'seconds':'shots'}; target: ${fmt(result.targetShots)} ${isContinuous(result.weapon)?'seconds':'shots'}.`:''}</span></div>`:'';
-  const continuous=isContinuous(result.weapon),capacityLabel=result.weapon.continuous==='beam'?'Heat sinks':result.weapon.continuous==='flame'?'Canisters':'Magazines';
+  const continuous=isContinuous(result.weapon),capacityLabel=result.weapon.base?.cat==='Stratagem'?'Uses':result.weapon.continuous==='beam'?'Heat sinks':result.weapon.continuous==='flame'?'Canisters':'Magazines';
   return `<article class="answer-card" id="primaryAnswer"><div class="answer-eyebrow">${esc(eyebrow)} · ${status}</div><h2 class="answer-title">${esc(title)}</h2><p class="answer-subtitle">${esc(result.route?.label||result.access?.note||'This shot has no calculated lethal route.')}</p>${access}<div class="metrics">${metric(continuous?'Contact time':'Total shots',formatShots(result))}${metric('TTK',formatTtk(result))}${metric(capacityLabel,result.magazines??'—')}${metric('Penetration',penetrationLabel(result))}</div></article>`;
 }
 function rankPartCard(result,index,selected){return `<button class="rank-card${selected?' selected':''}" type="button" data-part-index="${result.partIndex}"><span class="rank-number">${index+1}</span><span class="rank-main"><b>${esc(result.part.name)}</b><span>${esc(outcomeLabel(result.outcome))} · ${esc(penetrationLabel(result))}${result.access?(result.access.canOpen?' · Armor break first':' · Needs armor stripped by another weapon'):''}</span></span><span class="rank-value">${esc(formatShots(result))}<small>${esc(formatTtk(result))}</small></span></button>`;}
@@ -1320,9 +1349,9 @@ function buildTechnical(enemy,part,resolved,evaluation){
 }
 function detailPanel(enemy,part,resolved,evaluation,advice=[]){const access=evaluation.access?`<div class="access-note ${evaluation.access.canOpen?'setup':'blocked'}"><b>${evaluation.access.canOpen?'Requires setup':'Cannot expose with this weapon'}</b><span>${esc(evaluation.access.note)}</span></div>`:'';return `<section class="panel"><div class="panel-heading"><div><h2>Selected target</h2><p>${esc(part.name)}</p></div><span class="status ${evaluation.outcome}">${esc(outcomeLabel(evaluation.outcome))}</span></div><div class="anatomy-layout"><div id="activeAnatomy"></div><div class="detail-summary"><h3>${esc(part.name)}</h3><p>AV${part.av} · ${part.hp==='main'?enemy.main+' HP (shared main pool)':part.hp+' part HP'} · ${part.dur}% durability</p>${access}${adviceHTML(advice)}<details class="technical"><summary>Detailed damage breakdown</summary>${buildTechnical(enemy,part,resolved,evaluation)}</details></div></div></section>`;}
 
-function recommendationContext(){return `${$('enemy').value}|${$('weapon').value}|${$('mode').value}|${$('angle').value}|${$('range').value}`;}
-function weaponContext(){return `${$('enemy').value}|${$('part').value}|${$('angle').value}|${$('range').value}|${appState.rankCategory}`;}
-function setPrimaryShare(result,title,target){currentSharePayload={kind:'result',enemy:result.enemy.name,title,weapon:result.weapon.displayName,target,metrics:`${formatShots(result)} ${isContinuous(result.weapon)?'contact time':'shots'} · ${formatTtk(result)} TTK · ${result.magazines??'—'} magazine(s)`,conditions:`${ANGLE_SHORT[conditions().angle]} · ${RANGE_SHORT[conditions().range]}`};}
+function recommendationContext(){return `${$('enemy').value}|${$('weapon').value}|${$('mode').value}|${$('angle').value}|${$('range').value}|${$('blast').value}`;}
+function weaponContext(){return `${$('enemy').value}|${$('part').value}|${$('angle').value}|${$('range').value}|${$('blast').value}|${appState.rankCategory}`;}
+function setPrimaryShare(result,title,target){const c=conditions(),blast=hasExplosion(result.weapon)?` · ${BLAST_SHORT[c.blast]}`:'';currentSharePayload={kind:'result',enemy:result.enemy.name,title,weapon:result.weapon.displayName,target,metrics:`${formatShots(result)} ${isContinuous(result.weapon)?'contact time':'shots'} · ${formatTtk(result)} TTK · ${result.magazines??'—'} magazine(s)`,conditions:`${ANGLE_SHORT[c.angle]} · ${RANGE_SHORT[c.range]}${blast}`};}
 
 function renderRecommendAim(){
   const enemy=selectedEnemy(),base=WEAPONS[$('weapon').value],resolved=resolvedA(),ranked=rankParts(enemy,resolved,conditions()),context=recommendationContext();if(context!==lastAimContext){$('part').value=ranked[0].partIndex;lastAimContext=context;activeViewIndex=0;}const selected=ranked.find(result=>result.partIndex===+$('part').value)||ranked[0],advice=buildRecoveryAdvice(enemy,selected.part,base,resolved.modeIndex,conditions(),selected);setPrimaryShare(ranked[0],`Aim for ${ranked[0].part.name}`,ranked[0].part.name);
@@ -1330,7 +1359,9 @@ function renderRecommendAim(){
 }
 
 function renderRecommendWeapon(){
-  const enemy=selectedEnemy(),part=selectedPart(),all=rankWeapons(enemy,part,conditions()),categories=['All','Primary','Secondary','Support'],filtered=appState.rankCategory==='All'?all:all.filter(result=>result.base.cat===appState.rankCategory),ranked=filtered.length?filtered:all,context=weaponContext();if(context!==lastWeaponContext){$('weapon').value=ranked[0].weaponIndex;fillMode($('mode'),$('modeRow'),$('weapon'),ranked[0].modeName);$('mode').value=ranked[0].modeIndex;comboControllers.weapon.sync();lastWeaponContext=context;}const selected=all.find(result=>result.weaponIndex===+$('weapon').value&&result.modeIndex===(+$('mode').value||0))||ranked[0],limit=appState.showAllWeapons?ranked.length:12;setPrimaryShare(ranked[0],`Use ${ranked[0].base.name}`,part.name);
+  // Stratagems participate in the same deterministic ranking and can also be
+  // isolated when choosing an answer for a specific body part.
+  const enemy=selectedEnemy(),part=selectedPart(),all=rankWeapons(enemy,part,conditions()),categories=['All','Primary','Secondary','Support','Stratagem'],filtered=appState.rankCategory==='All'?all:all.filter(result=>result.base.cat===appState.rankCategory),ranked=filtered.length?filtered:all,context=weaponContext();if(context!==lastWeaponContext){$('weapon').value=ranked[0].weaponIndex;fillMode($('mode'),$('modeRow'),$('weapon'),ranked[0].modeName);$('mode').value=ranked[0].modeIndex;comboControllers.weapon.sync();lastWeaponContext=context;}const selected=all.find(result=>result.weaponIndex===+$('weapon').value&&result.modeIndex===(+$('mode').value||0))||ranked[0],limit=appState.showAllWeapons?ranked.length:12;setPrimaryShare(ranked[0],`Use ${ranked[0].base.name}`,part.name);
   $('recommendContent').innerHTML=answerCard(ranked[0],`Use ${ranked[0].base.name}`,'Best weapon')+`<section class="panel"><div class="panel-heading"><div><h2>Ranked weapons</h2><p>Best available mode is selected per weapon</p></div></div><div class="rank-toolbar">${categories.map(category=>`<button class="filter-chip" type="button" data-rank-category="${category}" aria-pressed="${category===appState.rankCategory}">${category}</button>`).join('')}</div><div class="rank-grid">${ranked.slice(0,limit).map((result,index)=>rankWeaponCard(result,index,result.weaponIndex===selected.weaponIndex&&result.modeIndex===selected.modeIndex)).join('')}</div>${ranked.length>12?`<button class="action" type="button" id="toggleAllWeapons">${appState.showAllWeapons?'Show top 12':'Show all '+ranked.length}</button>`:''}</section>`+detailPanel(enemy,part,selected.weapon,selected);renderAnatomy($('activeAnatomy'),enemy,part);setupSticky(`Use ${ranked[0].base.name}`,`${formatShots(ranked[0])} shots · ${formatTtk(ranked[0])}`);
 }
 
@@ -1339,13 +1370,14 @@ function renderInspect(){const enemy=selectedEnemy(),part=selectedPart(),base=WE
 function comparisonResult(a,b){const comparison=compareEvaluations(a,b,false);return comparison<0?'a':comparison>0?'b':'tie';}
 function compactCompareCard(result,label,winner){return `<article class="compare-weapon${winner?' winner':''}"><span class="answer-eyebrow">${esc(label)} ${winner?'· Winner':''}</span><h3>${esc(result.weapon.displayName)}</h3><p>${esc(result.part.name)} · ${esc(outcomeLabel(result.outcome))}</p><div class="metrics">${metric('Shots',formatShots(result))}${metric('TTK',formatTtk(result))}</div></article>`;}
 function renderCompare(){
-  const enemy=selectedEnemy(),a=resolvedA(),b=resolvedB(),rankA=rankParts(enemy,a,conditions()),rankB=rankParts(enemy,b,conditions()),overall=comparisonResult(rankA[0],rankB[0]),partIndex=+$('part').value,part=enemy.parts[partIndex],partA=evaluatePart(enemy,part,a,conditions(),partIndex),partB=evaluatePart(enemy,part,b,conditions(),partIndex);currentSharePayload={kind:'compare',enemy:enemy.name,weaponA:a.displayName,weaponB:b.displayName,summary:overall==='tie'?`Tie on best routes`:overall==='a'?`${a.displayName} wins via ${rankA[0].part.name}`:`${b.displayName} wins via ${rankB[0].part.name}`,conditions:`${ANGLE_SHORT[conditions().angle]} · ${RANGE_SHORT[conditions().range]}`};
+  const enemy=selectedEnemy(),a=resolvedA(),b=resolvedB(),rankA=rankParts(enemy,a,conditions()),rankB=rankParts(enemy,b,conditions()),overall=comparisonResult(rankA[0],rankB[0]),partIndex=+$('part').value,part=enemy.parts[partIndex],partA=evaluatePart(enemy,part,a,conditions(),partIndex),partB=evaluatePart(enemy,part,b,conditions(),partIndex),c=conditions(),blast=(hasExplosion(a)||hasExplosion(b))?` · ${BLAST_SHORT[c.blast]}`:'';currentSharePayload={kind:'compare',enemy:enemy.name,weaponA:a.displayName,weaponB:b.displayName,summary:overall==='tie'?`Tie on best routes`:overall==='a'?`${a.displayName} wins via ${rankA[0].part.name}`:`${b.displayName} wins via ${rankB[0].part.name}`,conditions:`${ANGLE_SHORT[c.angle]} · ${RANGE_SHORT[c.range]}${blast}`};
   const rows=enemy.parts.map((bodyPart,index)=>{const aa=evaluatePart(enemy,bodyPart,a,conditions(),index),bb=evaluatePart(enemy,bodyPart,b,conditions(),index),win=comparisonResult(aa,bb);return `<tr><td><button type="button" data-compare-part="${index}">${esc(bodyPart.name)}</button></td><td class="${win==='a'?'win-mark':win==='tie'?'tie-mark':''}">${esc(formatShots(aa))} · ${esc(formatTtk(aa))}${win==='a'?' · Wins':win==='tie'?' · Tie':''}</td><td class="${win==='b'?'win-mark':win==='tie'?'tie-mark':''}">${esc(formatShots(bb))} · ${esc(formatTtk(bb))}${win==='b'?' · Wins':win==='tie'?' · Tie':''}</td></tr>`;}).join('');
   $('compareContent').innerHTML=`<section class="panel" id="primaryAnswer"><div class="panel-heading"><div><h2>Enemy-wide matchup</h2><p>${esc(currentSharePayload.summary)}</p></div></div><div class="comparison-summary">${compactCompareCard(rankA[0],'Weapon A',overall==='a')}${'<div class="versus">VS</div>'}${compactCompareCard(rankB[0],'Weapon B',overall==='b')}</div></section><section class="panel"><div class="panel-heading"><div><h2>Body-part comparison</h2><p>Select a row to inspect it</p></div></div><table class="comparison-table"><thead><tr><th>Target</th><th>${esc(a.base.name)}</th><th>${esc(b.base.name)}</th></tr></thead><tbody>${rows}</tbody></table></section><section class="panel"><div class="panel-heading"><div><h2>Selected target</h2><p>${esc(part.name)}</p></div></div><div class="anatomy-layout"><div id="activeAnatomy"></div><div><div class="comparison-summary">${compactCompareCard(partA,'Weapon A',comparisonResult(partA,partB)==='a')}${'<div class="versus">VS</div>'}${compactCompareCard(partB,'Weapon B',comparisonResult(partA,partB)==='b')}</div><details class="technical"><summary>Weapon A breakdown</summary>${buildTechnical(enemy,part,a,partA)}</details><details class="technical"><summary>Weapon B breakdown</summary>${buildTechnical(enemy,part,b,partB)}</details></div></div></section>`;renderAnatomy($('activeAnatomy'),enemy,part);setupSticky(overall==='tie'?'Weapons tie':overall==='a'?`${a.base.name} wins`:`${b.base.name} wins`,`${enemy.name} matchup`);
 }
 
 function updateControls(){
   const recommend=appState.view==='recommend',inspect=appState.view==='inspect',compare=appState.view==='compare',aim=appState.intent==='aim';$('intentTabs').hidden=!recommend;$('partField').hidden=recommend&&aim;$('weaponField').hidden=recommend&&!aim;$('weaponBField').hidden=!compare;$('swapWeapons').hidden=!compare;$('modeRow').hidden=!(($('modeRow').dataset.available==='true')&&(inspect||compare||(recommend&&aim)));$('modeBRow').hidden=!(compare&&$('modeBRow').dataset.available==='true');$('controlsTitle').textContent='01 / '+(compare?'Compare weapons':inspect?'Inspect shot':'Build recommendation');document.querySelector('label[for="weaponSearch"]').textContent=compare?'Weapon A':'Weapon';document.querySelectorAll('.mode-tab').forEach(button=>button.setAttribute('aria-selected',button.dataset.view===appState.view?'true':'false'));document.querySelectorAll('.intent-tab').forEach(button=>button.setAttribute('aria-selected',button.dataset.intent===appState.intent?'true':'false'));for(const view of ['recommend','inspect','compare']){$(view+'Panel').hidden=appState.view!==view;$(view+'Tab').setAttribute('aria-selected',appState.view===view?'true':'false');}$('conditionsSummary').textContent=`${ANGLE_SHORT[conditions().angle]} · ${RANGE_SHORT[conditions().range]}`;updateFavoriteButtons();
+  const explosive=hasExplosion(resolvedA())||(compare&&hasExplosion(resolvedB())),c=conditions(),verified=resolvedA().base.blastKnown&&(!compare||!hasExplosion(resolvedB())||resolvedB().base.blastKnown);$('blastField').hidden=!explosive;$('conditionsSummary').textContent=`${ANGLE_SHORT[c.angle]} · ${RANGE_SHORT[c.range]}${explosive?` · ${BLAST_SHORT[c.blast]}`:''}`;$('blastHint').textContent=verified?'Verified inner and outer damage-radius profile.':'Estimated radial falloff; direct projectile damage is excluded away from impact.';$('blast').options[1].textContent=verified?'Inner blast · 100%':'Inner blast · ~85%';$('blast').options[3].textContent=verified?'Blast edge · ~1%':'Blast edge · ~15%';
 }
 function render(){
   updateControls();
@@ -1373,7 +1405,7 @@ function bindEvents(){
   bindTabKeyboard('.mode-tab');bindTabKeyboard('.intent-tab');
   $('enemy').addEventListener('change',()=>{remember('enemy',selectedText($('enemy')));fillParts();comboControllers.enemy.sync();lastAimContext=lastWeaponContext='';activeViewIndex=0;render();});$('part').addEventListener('change',()=>{lastWeaponContext='';activeViewIndex=0;render();});
   $('weapon').addEventListener('change',()=>{remember('weapon',selectedText($('weapon')));fillMode($('mode'),$('modeRow'),$('weapon'));comboControllers.weapon.sync();lastAimContext='';render();});$('weaponB').addEventListener('change',()=>{remember('weapon',selectedText($('weaponB')));fillMode($('modeB'),$('modeBRow'),$('weaponB'));comboControllers.weaponB.sync();render();});
-  [$('mode'),$('modeB'),$('angle'),$('range')].forEach(control=>control.addEventListener('change',()=>{lastAimContext=lastWeaponContext='';render();}));
+  [$('mode'),$('modeB'),$('angle'),$('range'),$('blast')].forEach(control=>control.addEventListener('change',()=>{lastAimContext=lastWeaponContext='';render();}));
   document.querySelectorAll('.favorite-button').forEach(button=>button.addEventListener('click',()=>{const target=button.dataset.favorite,kind=target==='enemy'?'enemy':'weapon',name=target==='enemy'?selectedText($('enemy')):selectedText($(target)),key=kind==='enemy'?'favoriteEnemies':'favoriteWeapons',list=appState[key]||[];appState[key]=list.includes(name)?list.filter(item=>item!==name):[...list,name];comboControllers[target]?.sync();updateFavoriteButtons();persist();}));
   $('swapWeapons').addEventListener('click',()=>{const weaponA=$('weapon').value,modeA=selectedText($('mode')),weaponB=$('weaponB').value,modeB=selectedText($('modeB'));$('weapon').value=weaponB;$('weaponB').value=weaponA;fillMode($('mode'),$('modeRow'),$('weapon'),modeB);fillMode($('modeB'),$('modeBRow'),$('weaponB'),modeA);comboControllers.weapon.sync();comboControllers.weaponB.sync();render();});
   document.addEventListener('click',event=>{const partButton=event.target.closest('[data-part-index]');if(partButton){$('part').value=partButton.dataset.partIndex;activeViewIndex=0;render();return;}const weaponButton=event.target.closest('[data-weapon-index]');if(weaponButton){$('weapon').value=weaponButton.dataset.weaponIndex;fillMode($('mode'),$('modeRow'),$('weapon'));$('mode').value=weaponButton.dataset.modeIndex;comboControllers.weapon.sync();lastWeaponContext=weaponContext();render();return;}const comparePart=event.target.closest('[data-compare-part]');if(comparePart){$('part').value=comparePart.dataset.comparePart;activeViewIndex=0;render();return;}const view=event.target.closest('[data-view-index]');if(view){activeViewIndex=+view.dataset.viewIndex;render();return;}const category=event.target.closest('[data-rank-category]');if(category){appState.rankCategory=category.dataset.rankCategory;appState.showAllWeapons=false;lastWeaponContext='';render();return;}const termButton=event.target.closest('.term-button');if(termButton){termButton.closest('.term-wrap').classList.toggle('open');}});
@@ -1382,7 +1414,7 @@ function bindEvents(){
 }
 
 function initialize(){
-  fillEnemies();fillWeapons($('weapon'));fillWeapons($('weaponB'));appState=readInitialState();selectByText($('enemy'),appState.enemy);fillParts(appState.part);selectByText($('weapon'),appState.weapon);selectByText($('weaponB'),appState.weaponB)||($('weaponB').value=$('weapon').value==='0'?'1':'0');fillMode($('mode'),$('modeRow'),$('weapon'),appState.mode);fillMode($('modeB'),$('modeBRow'),$('weaponB'),appState.modeB);if([...$('angle').options].some(option=>option.value===String(appState.angle)))$('angle').value=appState.angle;if([...$('range').options].some(option=>option.value===String(appState.range)))$('range').value=appState.range;enhanceSelect($('enemy'));enhanceSelect($('weapon'));enhanceSelect($('weaponB'));remember('enemy',selectedText($('enemy')));remember('weapon',selectedText($('weapon')));$('glossary').innerHTML=Object.entries(TERM_DEFS).map(([name,definition])=>`<div><dt>${esc(name)}</dt><dd>${esc(definition)}</dd></div>`).join('');bindEvents();render();
+  fillEnemies();fillWeapons($('weapon'));fillWeapons($('weaponB'));appState=readInitialState();selectByText($('enemy'),appState.enemy);fillParts(appState.part);selectByText($('weapon'),appState.weapon);selectByText($('weaponB'),appState.weaponB)||($('weaponB').value=$('weapon').value==='0'?'1':'0');fillMode($('mode'),$('modeRow'),$('weapon'),appState.mode);fillMode($('modeB'),$('modeBRow'),$('weaponB'),appState.modeB);if([...$('angle').options].some(option=>option.value===String(appState.angle)))$('angle').value=appState.angle;if([...$('range').options].some(option=>option.value===String(appState.range)))$('range').value=appState.range;if([...$('blast').options].some(option=>option.value===String(appState.blast)))$('blast').value=appState.blast;enhanceSelect($('enemy'));enhanceSelect($('weapon'));enhanceSelect($('weaponB'));remember('enemy',selectedText($('enemy')));remember('weapon',selectedText($('weapon')));$('glossary').innerHTML=Object.entries(TERM_DEFS).map(([name,definition])=>`<div><dt>${esc(name)}</dt><dd>${esc(definition)}</dd></div>`).join('');bindEvents();render();
 }
 initialize();
 
