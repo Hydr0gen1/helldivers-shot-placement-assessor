@@ -35,6 +35,16 @@ const orbitalTestPart={hp:"main",av:0,dur:100,exdr:0,toMain:100,fatal:"instant"}
 assert.equal(damagePerShot(precisionStrike,orbitalTestPart,0,0,0,4).total,1500,"orbital slider retains full explosion damage at the inner radius and excludes shell impact");
 assert.equal(damagePerShot(precisionStrike,orbitalTestPart,0,0,0,8).total,750,"orbital slider linearly falls off between inner and outer radii");
 assert.equal(damagePerShot(precisionStrike,orbitalTestPart,0,0,0,12).total,0,"orbital slider reaches zero damage at the outer radius");
+const bastionCannon=weapon("TD-220 Bastion Main Cannon");
+assert.ok(bastionCannon&&bastionCannon.cat==="Vehicle","Bastion main cannon is available as a vehicle-mounted weapon");
+assert.deepEqual([bastionCannon.mag,bastionCannon.rpm,bastionCannon.comps[0].std,bastionCannon.comps[1].std],[31,12,3500,750],"Bastion records its 31 shells, five-second cycle, projectile, and explosion damage");
+assert.deepEqual(Array.from(bastionCannon.comps[0].ap),[8,7,6,6],"Bastion projectile uses Anti-Tank IV/III/II penetration by angle");
+assert.deepEqual(Array.from(bastionCannon.comps[1].ap),[5,5,5,5],"Bastion explosion uses Anti-Tank I penetration");
+assert.deepEqual(Object.values(componentBlastRadius(bastionCannon.comps[1])),[3.3,10],"Bastion exposes its verified 3.3–10 m blast radius");
+assert.equal(firingTime(resolveWeapon(bastionCannon),2),5,"Bastion requires five seconds between cannon shots");
+assert.equal(STAGGER[bastionCannon.name],70,"Bastion uses the explosion's strongest stagger force");
+assert.equal(damagePerShot(bastionCannon,orbitalTestPart,0,0).total,4250,"Bastion direct hit combines projectile and explosion damage");
+assert.equal(damagePerShot(bastionCannon,orbitalTestPart,0,0,2).total,375,"Bastion mid-blast excludes projectile damage and applies verified explosion falloff");
 for(const [name,impact,explosion,delay,cooldown] of [
   ["Orbital 120mm HE Barrage",3500,1200,7.45,180],
   ["Orbital 380mm HE Barrage",4000,1500,8.45,240],
@@ -45,6 +55,9 @@ for(const [name,impact,explosion,delay,cooldown] of [
   assert.deepEqual([one.comps[0].std,one.comps[1].std,orbital.activationDelay,orbital.cooldown],[impact,explosion,delay,cooldown],`${name} one-shell mode uses current values`);
   assert.equal(three.comps[0].std,impact*3,`${name} three-hit scenario scales impact damage explicitly`);
   assert.equal(three.comps[1].std,explosion*3,`${name} three-hit scenario scales explosion damage explicitly`);
+  assert.deepEqual(Object.values(componentBlastRadius(three.comps[1])),Object.values(componentBlastRadius(one.comps[1])),`${name} multi-hit modes retain the slider blast radius`);
+  const outer=componentBlastRadius(three.comps[1]).outer;
+  assert.equal(damagePerShot(three,orbitalTestPart,0,0,0,outer).total,0,`${name} multi-hit blast reaches zero damage at the slider edge`);
 }
 
 for(const [name,damage,capacity,ap] of [

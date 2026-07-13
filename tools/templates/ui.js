@@ -49,7 +49,9 @@ function accessRule(enemy,part){return ACCESS_RULES[enemy.name]?.[part.name]||nu
 function resolveWeapon(base, modeIndex=0){
   const index=base.modes?Math.max(0,Math.min(+modeIndex||0,base.modes.length-1)):0;
   const mode=base.modes?base.modes[index]:null;
-  return {...base,comps:mode?.comps||base.comps,rpm:mode?.rpm||base.rpm,mag:mode?.mag||base.mag,continuous:mode?.continuous||base.continuous,ignitionRate:mode?.ignitionRate||base.ignitionRate,base,modeIndex:index,modeName:mode?.name||null,displayName:base.name+(mode?" — "+mode.name:"")};
+  const sourceComps=mode?.comps||base.comps,referenceComps=base.comps||base.modes?.[0]?.comps||[];
+  const comps=sourceComps?.map((component,componentIndex)=>{const ownRadius=componentBlastRadius(component),reference=referenceComps[componentIndex],radius=ownRadius||(reference?componentBlastRadius(reference):null);return radius&&!ownRadius?{...component,blastRadius:radius}:component;});
+  return {...base,comps,rpm:mode?.rpm||base.rpm,mag:mode?.mag||base.mag,continuous:mode?.continuous||base.continuous,ignitionRate:mode?.ignitionRate||base.ignitionRate,base,modeIndex:index,modeName:mode?.name||null,displayName:base.name+(mode?" — "+mode.name:"")};
 }
 
 function isContinuous(weapon){return !!(weapon.continuous||weapon.beam);}
@@ -202,6 +204,7 @@ function fill(select,items,label){select.replaceChildren(...items.map((item,inde
 
 function weaponClass(w){
   const n=w.name,X={"JAR-5 Dominator":"Special","SG-8P Punisher Plasma":"Energy-Based","CB-9 Exploding Crossbow":"Explosive","R-36 Eruptor (excl. shrapnel)":"Explosive","PLAS-15 Loyalist":"Special","P-72 Crisper (sustained)":"Special","SG-22 Bushwhacker (all pellets)":"Special","LAS-58 Talon":"Special","LAS-7 Dagger":"Special","GP-31 Grenade Pistol":"Special","P-35 Re-Educator (projectile; gas DoT excluded)":"Special","CQC-20 Breaching Hammer":"Melee"};
+  if(w.cat==="Vehicle")return "Mounted Weapons";
   if(w.cat==="Throwable")return "Grenades";
   if(w.cat==="Stratagem")return "Orbital";if(X[n])return X[n];if(w.cat==="Support"){if(/^(MG|M-105|MGX)/.test(n))return "Machine Guns";if(/^(EAT|GR-8|LAS-99|MLS|RS-422|S-11|PLAS-45|MS-11|B-100)/.test(n))return "Anti-Tank";if(/^(AC-8|GL-2|B\/MD)/.test(n))return "Explosive";return "Energy / Flame / Arc";}if(w.cat==="Secondary")return "Pistols";if(/^(AR|StA-52|MA5C|BR-14)/.test(n))return "Assault Rifles";if(/^R-/.test(n))return "Marksman Rifles";if(/^(SMG|MP-98|StA-11|M7S)/.test(n))return "Submachine Guns";if(/^(SG|DBS|M90A)/.test(n))return "Shotguns";if(/^(LAS|PLAS|ARC)/.test(n))return "Energy-Based";return "Special";
 }
@@ -212,7 +215,7 @@ function fillEnemies(){
   const nodes=keys.map(key=>{const group=document.createElement("optgroup");group.label=key;groups[key].items.forEach(([enemy,index])=>{const option=new Option(enemy.name,index);option.dataset.filter=groups[key].faction;option.style.color=FACTION_COLORS[groups[key].faction]||"#fff";group.append(option);});return group;});
   $('enemy').replaceChildren(...nodes);
 }
-function fillWeapons(select){const nodes=[];for(const category of ["Primary","Secondary","Support","Throwable","Stratagem"]){const classes={};WEAPONS.forEach((weapon,index)=>{if(weapon.cat===category)(classes[weaponClass(weapon)]=classes[weaponClass(weapon)]||[]).push([weapon,index]);});for(const cls of Object.keys(classes).sort()){const group=document.createElement("optgroup");group.label=category+" · "+cls;classes[cls].sort((a,b)=>a[0].name.localeCompare(b[0].name)).forEach(([weapon,index])=>{const option=new Option(weapon.name,index);option.dataset.filter=category;group.append(option);});nodes.push(group);}}select.replaceChildren(...nodes);}
+function fillWeapons(select){const nodes=[];for(const category of ["Primary","Secondary","Support","Throwable","Vehicle","Stratagem"]){const classes={};WEAPONS.forEach((weapon,index)=>{if(weapon.cat===category)(classes[weaponClass(weapon)]=classes[weaponClass(weapon)]||[]).push([weapon,index]);});for(const cls of Object.keys(classes).sort()){const group=document.createElement("optgroup");group.label=category+" · "+cls;classes[cls].sort((a,b)=>a[0].name.localeCompare(b[0].name)).forEach(([weapon,index])=>{const option=new Option(weapon.name,index);option.dataset.filter=category;group.append(option);});nodes.push(group);}}select.replaceChildren(...nodes);}
 function fillParts(preferred){const enemy=ENEMIES[$('enemy').value],preferredPart=enemy.parts.find(part=>preferred===part.name||preferred?.startsWith(part.name+" (")||preferred?.startsWith(part.name+" ·"));fill($('part'),enemy.parts,part=>part.name+(accessRule(enemy,part)?" · BREAK ARMOR FIRST":"")+(part.hp==="main"?` (${enemy.main} HP — main pool, AV${part.av})`:` (${part.hp} HP, AV${part.av})`));if(preferredPart)$('part').value=enemy.parts.indexOf(preferredPart);else selectByText($('part'),preferred);}
 function fillMode(modeSelect,row,weaponSelect,preferred){const base=WEAPONS[weaponSelect.value];if(base.modes){fill(modeSelect,base.modes,mode=>mode.name);selectByText(modeSelect,preferred);row.dataset.available="true";}else{modeSelect.replaceChildren();row.dataset.available="false";} }
 
@@ -238,7 +241,7 @@ function enhanceSelect(select){
 }
 
 function isOrbital(weapon){return weapon?.base?.cat==="Stratagem"||weapon?.cat==="Stratagem";}
-function orbitalRadius(weapon){const radii=(weapon?.comps||[]).map(componentBlastRadius).filter(Boolean);return radii.length?{inner:Math.max(...radii.map(radius=>radius.inner)),outer:Math.max(...radii.map(radius=>radius.outer))}:{inner:0,outer:0};}
+function orbitalRadius(weapon){const radii=(weapon?.comps||[]).map(componentBlastRadius).filter(radius=>Number.isFinite(radius?.inner)&&Number.isFinite(radius?.outer)&&radius.outer>0);return radii.length?{inner:Math.max(...radii.map(radius=>radius.inner)),outer:Math.max(...radii.map(radius=>radius.outer))}:{inner:0,outer:0};}
 function conditions(){const orbital=isOrbital(resolvedA())||appState.view==='compare'&&isOrbital(resolvedB());return {angle:+$('angle').value,range:orbital?0:+$('range').value,blast:orbital?0:+$('blast').value,blastDistance:orbital?+$('blastDistance').value:null,shrapnelHits:+$('shrapnelHits').value};}
 function hasExplosion(weapon){return !!weapon?.comps?.some(component=>component.explosive);}
 function selectedEnemy(){return ENEMIES[$('enemy').value];}
@@ -346,7 +349,7 @@ function bindEvents(){
   $('enemy').addEventListener('change',()=>{remember('enemy',selectedText($('enemy')));fillParts();comboControllers.enemy.sync();lastAimContext=lastWeaponContext='';activeViewIndex=0;render();});$('part').addEventListener('change',()=>{lastWeaponContext='';activeViewIndex=0;render();});
   $('weapon').addEventListener('change',()=>{remember('weapon',selectedText($('weapon')));fillMode($('mode'),$('modeRow'),$('weapon'));comboControllers.weapon.sync();lastAimContext='';render();});$('weaponB').addEventListener('change',()=>{remember('weapon',selectedText($('weaponB')));fillMode($('modeB'),$('modeBRow'),$('weaponB'));comboControllers.weaponB.sync();render();});
   [$('mode'),$('modeB'),$('angle'),$('range'),$('blast')].forEach(control=>control.addEventListener('change',()=>{lastAimContext=lastWeaponContext='';render();}));
-  let blastFrame=0;$('blastDistance').addEventListener('input',()=>{$('blastDistanceValue').textContent=fmt(+$('blastDistance').value)+' m';cancelAnimationFrame(blastFrame);blastFrame=requestAnimationFrame(()=>{lastAimContext=lastWeaponContext='';render();});});
+  let blastTimer=0;const renderBlastDistance=()=>{clearTimeout(blastTimer);lastAimContext=lastWeaponContext='';render();};$('blastDistance').addEventListener('input',()=>{const distance=+$('blastDistance').value;$('blastDistanceValue').textContent=fmt(distance)+' m';$('conditionsSummary').textContent=`${ANGLE_SHORT[+$('angle').value]} · ${fmt(distance)} m from impact`;clearTimeout(blastTimer);blastTimer=setTimeout(renderBlastDistance,80);});$('blastDistance').addEventListener('change',renderBlastDistance);
   let shrapnelFrame=0;$('shrapnelHits').addEventListener('input',()=>{$('shrapnelHitsValue').textContent=`${$('shrapnelHits').value} of ${$('shrapnelHits').max}`;cancelAnimationFrame(shrapnelFrame);shrapnelFrame=requestAnimationFrame(()=>{lastAimContext=lastWeaponContext='';render();});});
   document.querySelectorAll('.favorite-button').forEach(button=>button.addEventListener('click',()=>{const target=button.dataset.favorite,kind=target==='enemy'?'enemy':'weapon',name=target==='enemy'?selectedText($('enemy')):selectedText($(target)),key=kind==='enemy'?'favoriteEnemies':'favoriteWeapons',list=appState[key]||[];appState[key]=list.includes(name)?list.filter(item=>item!==name):[...list,name];comboControllers[target]?.sync();updateFavoriteButtons();persist();}));
   $('swapWeapons').addEventListener('click',()=>{const weaponA=$('weapon').value,modeA=selectedText($('mode')),weaponB=$('weaponB').value,modeB=selectedText($('modeB'));$('weapon').value=weaponB;$('weaponB').value=weaponA;fillMode($('mode'),$('modeRow'),$('weapon'),modeB);fillMode($('modeB'),$('modeBRow'),$('weaponB'),modeA);comboControllers.weapon.sync();comboControllers.weaponB.sync();render();});
