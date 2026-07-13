@@ -8,9 +8,9 @@ const core = script.split("// ============ DERIVED RANKING", 1)[0];
 const derived = script.split("// ============ DERIVED RANKING", 2)[1].split("// ============ DOM APP", 1)[0];
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,RELOAD_S,blastFactor,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule};`, context);
+vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,RELOAD_S,componentBlastRadius,blastFactor,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule};`, context);
 
-const {ENEMIES, WEAPONS, STAGGER, RELOAD_S, blastFactor, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule} = context.api;
+const {ENEMIES, WEAPONS, STAGGER, RELOAD_S, componentBlastRadius, blastFactor, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule} = context.api;
 const enemy = name => ENEMIES.find(item => item.name === name);
 const weapon = name => WEAPONS.find(item => item.name === name);
 const part = (target, name) => target.parts.find(item => item.name === name);
@@ -30,6 +30,11 @@ const precisionStrike=weapon("Orbital Precision Strike");
 assert.ok(precisionStrike&&precisionStrike.cat==="Stratagem","Orbital Precision Strike is available as a stratagem");
 assert.deepEqual(Array.from(precisionStrike.comps[0].ap),[8,7,6,6],"OPS shell uses current Anti-Tank IV/III/II penetration");
 assert.deepEqual([precisionStrike.comps[0].std,precisionStrike.comps[1].std,precisionStrike.activationDelay,precisionStrike.cooldown],[4000,1500,4.45,90],"OPS uses current shell, explosion, call-in, and cooldown values");
+assert.deepEqual(Object.values(componentBlastRadius(precisionStrike.comps[1])),[4,12],"OPS exposes its verified inner and outer blast radii");
+const orbitalTestPart={hp:"main",av:0,dur:100,exdr:0,toMain:100,fatal:"instant"};
+assert.equal(damagePerShot(precisionStrike,orbitalTestPart,0,0,0,4).total,1500,"orbital slider retains full explosion damage at the inner radius and excludes shell impact");
+assert.equal(damagePerShot(precisionStrike,orbitalTestPart,0,0,0,8).total,750,"orbital slider linearly falls off between inner and outer radii");
+assert.equal(damagePerShot(precisionStrike,orbitalTestPart,0,0,0,12).total,0,"orbital slider reaches zero damage at the outer radius");
 for(const [name,impact,explosion,delay,cooldown] of [
   ["Orbital 120mm HE Barrage",3500,1200,7.45,180],
   ["Orbital 380mm HE Barrage",4000,1500,8.45,240],
@@ -41,6 +46,27 @@ for(const [name,impact,explosion,delay,cooldown] of [
   assert.equal(three.comps[0].std,impact*3,`${name} three-hit scenario scales impact damage explicitly`);
   assert.equal(three.comps[1].std,explosion*3,`${name} three-hit scenario scales explosion damage explicitly`);
 }
+
+for(const [name,damage,capacity,ap] of [
+  ["G-12 High Explosive",800,5,4],
+  ["G-16 Impact",400,5,4],
+  ["G-48 Giga Grenade",2000,2,5]
+]){
+  const grenade=weapon(name);
+  assert.ok(grenade&&grenade.cat==="Throwable",`${name} is available in the Throwable category`);
+  assert.deepEqual([grenade.comps[0].std,grenade.mag,grenade.comps[0].ap[0]],[damage,capacity,ap],`${name} uses its documented explosion, capacity, and penetration`);
+  assert.ok(componentBlastRadius(grenade.comps[0])?.outer>0,`${name} exposes its documented blast radius`);
+}
+const frag=weapon("G-6 Frag"),fragmentTarget={hp:"main",av:0,dur:0,exdr:50,toMain:100,fatal:"instant"};
+assert.deepEqual([frag.comps[0].std,frag.comps[1].std,frag.maxShrapnel],[500,110,35],"Frag records its explosion, per-fragment damage, and 35-fragment payload");
+const fragThree=damagePerShot(frag,fragmentTarget,0,0,0,null,3);
+assert.equal(fragThree.comps[0].dmg,250,"Frag explosion is reduced by explosive resistance");
+assert.equal(fragThree.comps[1].dmg,330,"selected Frag fragments scale independently and ignore explosive resistance");
+assert.equal(damagePerShot(frag,fragmentTarget,0,0,2,null,3).comps[1].dmg,330,"shrapnel remains ballistic when the explosion is placed off-center");
+const thermite=weapon("G-123 Thermite"),thermiteTarget={hp:"main",av:0,dur:0,exdr:0,toMain:100,fatal:"instant"};
+const thermiteAssessment=assess({main:5000},thermiteTarget,thermite,0,0);
+assert.deepEqual([thermiteAssessment.d.total,thermiteAssessment.d.mainOnly,thermiteAssessment.toMainPerShot],[2000,975,2975],"Thermite separates its sticky burn from part damage while applying the full sequence to Main HP");
+assert.equal(firingTime(resolveWeapon(thermite),1),6.5,"Thermite TTK includes its 6.5-second attached burn and detonation delay");
 
 const currentWeaponStats = {
   "AR-23C Liberator Concussive": [60,400,75,35,[2,2,2,2]],
