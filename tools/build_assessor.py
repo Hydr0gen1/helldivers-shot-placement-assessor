@@ -215,13 +215,25 @@ renderImages();renderCalculation();saveState();
 TEMPLATE_DIR = Path(__file__).parent / "templates"
 STYLE = (TEMPLATE_DIR / "style.css").read_text(encoding="utf-8")
 BODY = (TEMPLATE_DIR / "body.html").read_text(encoding="utf-8")
-UI = (TEMPLATE_DIR / "ui.js").read_text(encoding="utf-8")
+UI_SOURCE = (TEMPLATE_DIR / "ui.js").read_text(encoding="utf-8")
+# Ranking/calculation helpers live in the preserved script block. The template
+# owns only the DOM application so rebuilding cannot duplicate or roll back
+# independently maintained calculation changes.
+UI = UI_SOURCE[UI_SOURCE.index("// ============ DOM APP ============"):]
 
 
 def build(source: Path, destination: Path) -> None:
     text = source.read_text(encoding="utf-8")
     script_start = text.index("<script>") + len("<script>")
-    ui_start = text.index("// ============ UI ============", script_start)
+    dom_marker = "// ============ DOM APP ============"
+    ui_start = text.find(dom_marker, script_start)
+    if ui_start < 0:
+        raise ValueError("Could not locate the generated UI marker in the source HTML")
+    # Repair output made by the short-lived duplicate-helper builder version.
+    derived_marker = "// ============ DERIVED RANKING (pure helpers) ============"
+    derived_positions = [match.start() for match in re.finditer(re.escape(derived_marker), text[script_start:ui_start])]
+    if len(derived_positions) > 1:
+        ui_start = script_start + derived_positions[-1]
     preserved = text[script_start:ui_start].rstrip()
     date_match = re.search(r"DATA \(helldivers\.wiki\.gg, (\d{4}-\d{2}-\d{2})\)", text)
     data_date = date_match.group(1) if date_match else "unknown"
@@ -252,8 +264,8 @@ def build(source: Path, destination: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build the improved assessor while preserving its data and calculation core.")
-    parser.add_argument("source", type=Path, help="Path to the source assessor HTML")
-    parser.add_argument("--output", type=Path, default=Path("index.html"))
+    parser.add_argument("source", type=Path, help="Path to the original shot-placement-assessor.html")
+    parser.add_argument("--output", type=Path, default=Path("shot-placement-assessor.html"))
     args = parser.parse_args()
     build(args.source.resolve(), args.output.resolve())
     print(f"Built {args.output.resolve()}")

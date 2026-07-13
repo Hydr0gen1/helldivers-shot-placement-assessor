@@ -56,6 +56,7 @@
         <div class="conditions-body">
           <div class="field"><div class="field-label-row"><label for="angle">Firing angle</label></div><div class="field-control no-action"><select id="angle"><option value="0">Direct (0–30°)</option><option value="1">Slight (30–60°)</option><option value="2">Large (60–80°)</option><option value="3">Extreme (80°+)</option></select></div></div>
           <div class="field"><div class="field-label-row"><label for="range">Range</label></div><div class="field-control no-action"><select id="range"><option value="0">Point blank</option><option value="1">~25 m</option><option value="2">~50 m</option><option value="3">~75 m</option><option value="4">100 m+</option></select></div></div>
+          <div class="field" id="blastField" hidden><div class="field-label-row"><label for="blast">Blast placement</label></div><div class="field-control no-action"><select id="blast"><option value="0">Direct impact · 100%</option><option value="1">Inner blast · ~85%</option><option value="2">Mid blast · ~50%</option><option value="3">Blast edge · ~15%</option></select></div><p class="field-hint" id="blastHint">Estimated falloff; direct projectile damage is excluded away from impact.</p></div>
         </div>
       </details>
     </aside>
@@ -75,7 +76,7 @@
         <summary>How to read the results</summary>
         <dl class="glossary" id="glossary"></dl>
         <p>Recommendations assume the enemy's armor is intact. Targets marked <strong>Break armor first</strong> are not initially hittable: the ranking adds the required plate or outer-layer destruction to the route's total shots, magazines, and firing-time estimate. If the selected weapon cannot open the target, that route is labeled armor-gated and ranked below directly accessible targets.</p>
-        <p>Time-to-kill estimates firing time only; reload animations and target movement are not modeled. Bleedout deaths are ranked below immediate kills because their delay is not documented precisely.</p>
+        <p>Time-to-kill includes firing time and, when more than one magazine is needed, reload time (mined or documented where available). Target movement is not modeled. Bleedout kills are marked "+ bleedout" instead of adding an uncertain delay; rankings prefer immediate kills when times are close.</p>
         <p>Game data: <a href="https://helldivers.wiki.gg" target="_blank" rel="noopener noreferrer">helldivers.wiki.gg</a>, retrieved {{DATA_DATE}}.</p>
       </details>
     </main>
