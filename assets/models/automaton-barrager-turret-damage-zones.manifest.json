@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "entity": "content/fac_cyborgs/turrets/cyborg_tank_turret_rocketlauncher/cyborg_tank_turret_rocketlauncher",
+  "displayName": "Barrager Tank Turret",
+  "gameObjectId": "0x108163bf",
+  "mappingConfidence": "verified-complete-actor-join",
+  "evidence": "HealthComponentData damageableZones[].actors matched collision node names or collider hashes; every hull matched exactly once.",
+  "source": {
+    "entitiesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-entity-components.json",
+      "sha256": "83285FDB1C0549D49A3FFEB7064FAF182C3CECCFD8866A1CAA190BC09E2B7ADB"
+    },
+    "collisionManifest": {
+      "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-collision-research.manifest.json",
+      "sha256": "F9E20E855B8FE1974E4F80B55BE4ADEA13C122CF2333DDFDE25A3EC96CD44295"
+    }
+  },
+  "mainHealth": 2100,
+  "defaultDamageableZone": {
+    "damage_multiplier": "DamageMultiplier_Normal",
+    "damage_multiplier_dps": "DamageMultiplier_Normal",
+    "projectile_durable_resistance": 1,
+    "armor": 5,
+    "armor_angle_check": true,
+    "max_armor": 0,
+    "health": 2100,
+    "constitution": 0,
+    "immortal": false,
+    "causes_downed_on_downed": false,
+    "causes_death_on_downed": false,
+    "causes_downed_on_death": false,
+    "causes_death_on_death": false,
+    "affects_main_health": 1,
+    "child_zones": [],
+    "kill_children_on_death": false,
+    "bleedout_enabled": false,
+    "affected_by_explosions": false,
+    "explosive_damage_percentage": 3.4028235e+38,
+    "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
+    "main_health_affect_capped_by_zone_health": true,
+    "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+  },
+  "zoneCount": 1,
+  "actorCount": 1,
+  "mappedActorCount": 1,
+  "unmatchedActorCount": 0,
+  "unmatchedActors": [],
+  "mappedColliderCount": 1,
+  "unmappedColliderCount": 5,
+  "unmappedColliderRecords": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "duplicateColliderAssignments": 0,
+  "zones": [
+    {
+      "zoneIndex": 0,
+      "zoneName": "0xab418822",
+      "zoneNameRaw": "0xab418822",
+      "zoneNameResolution": "raw-hash",
+      "actors": [
+        {
+          "actor": "0xf5e59381",
+          "recordIndex": 5,
+          "colliderHash": "f5e59381",
+          "nodeName": "hd2_collision_005_f5e59381",
+          "boneHash": "fc9b58d0",
+          "boneName": "pitch"
+        }
+      ],
+      "damage_multiplier": "DamageMultiplier_Normal",
+      "damage_multiplier_dps": "DamageMultiplier_Normal",
+      "projectile_durable_resistance": 1,
+      "armor": 3,
+      "armor_angle_check": true,
+      "max_armor": 0,
+      "health": 1500,
+      "constitution": 0,
+      "immortal": false,
+      "causes_downed_on_downed": false,
+      "causes_death_on_downed": false,
+      "causes_downed_on_death": false,
+      "causes_death_on_death": true,
+      "affects_main_health": 1.5,
+      "child_zones": [],
+      "kill_children_on_death": false,
+      "bleedout_enabled": false,
+      "affected_by_explosions": true,
+      "explosive_damage_percentage": 3.4028235e+38,
+      "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
+      "main_health_affect_capped_by_zone_health": true,
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+    }
+  ],
+  "colliders": [
+    {
+      "recordIndex": 5,
+      "colliderHash": "f5e59381",
+      "nodeName": "hd2_collision_005_f5e59381",
+      "boneHash": "fc9b58d0",
+      "boneName": "pitch",
+      "zoneIndex": 0,
+      "zoneName": "0xab418822",
+      "zoneNameRaw": "0xab418822",
+      "zoneNameResolution": "raw-hash",
+      "health": 1500,
+      "armor": 3,
+      "projectileDurableResistance": 1,
+      "affectsMainHealth": 1.5,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 3.4028235e+38,
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+    }
+  ]
+}

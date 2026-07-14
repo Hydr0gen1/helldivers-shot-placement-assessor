@@ -1,0 +1,14 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-shredder-turret-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 1,
+  "materials": {
+    "HD2 Mat m_tank_turret_autocannon materials/m_cyborg_tank_turret": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-shredder-turret-authentic-render-textures\\HD2-Mat-m_tank_turret_autocannon-materials\\m_cyborg_tank_turret-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-shredder-turret-authentic-render-textures\\HD2-Mat-m_tank_turret_autocannon-materials\\m_cyborg_tank_turret-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-shredder-turret-authentic-render-textures\\HD2-Mat-m_tank_turret_autocannon-materials\\m_cyborg_tank_turret-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-shredder-turret-authentic-render-textures\\HD2-Mat-m_tank_turret_autocannon-materials\\m_cyborg_tank_turret-normal.png"
+    }
+  },
+  "removedMeshCount": 1
+}

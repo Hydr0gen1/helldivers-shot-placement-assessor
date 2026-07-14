@@ -1,0 +1,526 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-more-enemy-extract\\content\\fac_illuminate\\vehicles\\illuminate_war_machine\\illuminate_war_machine.physics.main",
+      "sha256": "F04C7C1F9B2E493B3CA8BE9D6153D4BAF5A59F3822E6AF8D9D4BD6E3BA995168"
+    },
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-more-enemy-extract\\content\\fac_illuminate\\vehicles\\illuminate_war_machine\\illuminate_war_machine.unit.glb",
+      "sha256": "4D035267F978E0A022F1B2D6EDCAAC84BE9C3A5029E2B7785920B333F2190ADE"
+    },
+    "bonesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-more-enemy-extract\\content\\fac_illuminate\\vehicles\\illuminate_war_machine\\illuminate_war_machine.bones.json",
+      "sha256": "444726729854A96548180F1ADF2EFFE56FCF8DE45E362D106977C4B51580EC98"
+    },
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\leviathan-collision-research.glb",
+    "sha256": "03BC5539A4BC9D77830C1D89FE5973D6160A2EE06B41E2CA90F29CA048ECBCA7"
+  },
+  "hullCount": 19,
+  "physicsRecordCount": 19,
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 1926,
+  "triangleCount": 3192,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-transform",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 6,
+    "approximatedMaterialIndices": []
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "f22d027b00000000"
+    ],
+    "childUserDataHex": [
+      "f22d027b00000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 153,
+      "nodeName": "hd2_collision_000_c6597663",
+      "parentNodeIndex": 80,
+      "parentNodeName": "seg0_adjust",
+      "colliderHash": "c6597663",
+      "boneHash": "e9b8ff15",
+      "boneName": "seg0_adjust",
+      "vertices": 26,
+      "triangles": 48,
+      "localSize": [
+        8.496683,
+        8.496684,
+        1.917758
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 1,
+      "nodeIndex": 154,
+      "nodeName": "hd2_collision_001_568574e3",
+      "parentNodeIndex": 80,
+      "parentNodeName": "seg0_adjust",
+      "colliderHash": "568574e3",
+      "boneHash": "e9b8ff15",
+      "boneName": "seg0_adjust",
+      "vertices": 61,
+      "triangles": 114,
+      "localSize": [
+        12.783327,
+        19.5465,
+        8.722801
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 2,
+      "nodeIndex": 155,
+      "nodeName": "hd2_collision_002_d8af4506",
+      "parentNodeIndex": 80,
+      "parentNodeName": "seg0_adjust",
+      "colliderHash": "d8af4506",
+      "boneHash": "e9b8ff15",
+      "boneName": "seg0_adjust",
+      "vertices": 49,
+      "triangles": 86,
+      "localSize": [
+        14.577604,
+        17.586317,
+        4.960228
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 3
+    },
+    {
+      "recordIndex": 3,
+      "nodeIndex": 156,
+      "nodeName": "hd2_collision_003_7320fca3",
+      "parentNodeIndex": 80,
+      "parentNodeName": "seg0_adjust",
+      "colliderHash": "7320fca3",
+      "boneHash": "e9b8ff15",
+      "boneName": "seg0_adjust",
+      "vertices": 49,
+      "triangles": 86,
+      "localSize": [
+        14.576077,
+        17.576551,
+        4.96007
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 3
+    },
+    {
+      "recordIndex": 4,
+      "nodeIndex": 157,
+      "nodeName": "hd2_collision_004_6f16b93e",
+      "parentNodeIndex": 75,
+      "parentNodeName": "seg1_adjust",
+      "colliderHash": "6f16b93e",
+      "boneHash": "3e2ee4c1",
+      "boneName": "seg1_adjust",
+      "vertices": 28,
+      "triangles": 52,
+      "localSize": [
+        12.754727,
+        12.529374,
+        7.663843
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 5,
+      "nodeIndex": 158,
+      "nodeName": "hd2_collision_005_8eebeedd",
+      "parentNodeIndex": 75,
+      "parentNodeName": "seg1_adjust",
+      "colliderHash": "8eebeedd",
+      "boneHash": "3e2ee4c1",
+      "boneName": "seg1_adjust",
+      "vertices": 40,
+      "triangles": 72,
+      "localSize": [
+        11.981279,
+        10.1509,
+        4.10288
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 6,
+      "nodeIndex": 159,
+      "nodeName": "hd2_collision_006_03bf2ea0",
+      "parentNodeIndex": 75,
+      "parentNodeName": "seg1_adjust",
+      "colliderHash": "03bf2ea0",
+      "boneHash": "3e2ee4c1",
+      "boneName": "seg1_adjust",
+      "vertices": 40,
+      "triangles": 72,
+      "localSize": [
+        11.981348,
+        10.151045,
+        4.103284
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 7,
+      "nodeIndex": 160,
+      "nodeName": "hd2_collision_007_f4b7d5ca",
+      "parentNodeIndex": 70,
+      "parentNodeName": "seg2_adjust",
+      "colliderHash": "f4b7d5ca",
+      "boneHash": "98829f00",
+      "boneName": "seg2_adjust",
+      "vertices": 28,
+      "triangles": 52,
+      "localSize": [
+        11.526479,
+        10.679455,
+        6.715796
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 8,
+      "nodeIndex": 161,
+      "nodeName": "hd2_collision_008_dd53208d",
+      "parentNodeIndex": 70,
+      "parentNodeName": "seg2_adjust",
+      "colliderHash": "dd53208d",
+      "boneHash": "98829f00",
+      "boneName": "seg2_adjust",
+      "vertices": 36,
+      "triangles": 64,
+      "localSize": [
+        11.328571,
+        10.08313,
+        3.851992
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 9,
+      "nodeIndex": 162,
+      "nodeName": "hd2_collision_009_e9e90424",
+      "parentNodeIndex": 70,
+      "parentNodeName": "seg2_adjust",
+      "colliderHash": "e9e90424",
+      "boneHash": "98829f00",
+      "boneName": "seg2_adjust",
+      "vertices": 36,
+      "triangles": 64,
+      "localSize": [
+        11.276027,
+        10.228273,
+        3.851205
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 10,
+      "nodeIndex": 163,
+      "nodeName": "hd2_collision_010_750e1696",
+      "parentNodeIndex": 67,
+      "parentNodeName": "seg3_adjust",
+      "colliderHash": "750e1696",
+      "boneHash": "1fc641f6",
+      "boneName": "seg3_adjust",
+      "vertices": 28,
+      "triangles": 52,
+      "localSize": [
+        7.62533,
+        9.804271,
+        5.892407
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 11,
+      "nodeIndex": 164,
+      "nodeName": "hd2_collision_011_02a72e9d",
+      "parentNodeIndex": 67,
+      "parentNodeName": "seg3_adjust",
+      "colliderHash": "02a72e9d",
+      "boneHash": "1fc641f6",
+      "boneName": "seg3_adjust",
+      "vertices": 34,
+      "triangles": 60,
+      "localSize": [
+        9.843346,
+        8.7541,
+        3.353061
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 12,
+      "nodeIndex": 165,
+      "nodeName": "hd2_collision_012_da16193c",
+      "parentNodeIndex": 67,
+      "parentNodeName": "seg3_adjust",
+      "colliderHash": "da16193c",
+      "boneHash": "1fc641f6",
+      "boneName": "seg3_adjust",
+      "vertices": 34,
+      "triangles": 60,
+      "localSize": [
+        9.884631,
+        8.618814,
+        3.353735
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 13,
+      "nodeIndex": 166,
+      "nodeName": "hd2_collision_013_cc90682d",
+      "parentNodeIndex": 66,
+      "parentNodeName": "seg4_adjust",
+      "colliderHash": "cc90682d",
+      "boneHash": "7ce6544d",
+      "boneName": "seg4_adjust",
+      "vertices": 1018,
+      "triangles": 1548,
+      "localSize": [
+        13.932959,
+        26.298507,
+        3.899713
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpSphereShape",
+        "hknpCapsuleShape",
+        "hknpCapsuleShape",
+        "hknpCapsuleShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 7
+    },
+    {
+      "recordIndex": 14,
+      "nodeIndex": 167,
+      "nodeName": "hd2_collision_014_0d213aba",
+      "parentNodeIndex": 66,
+      "parentNodeName": "seg4_adjust",
+      "colliderHash": "0d213aba",
+      "boneHash": "7ce6544d",
+      "boneName": "seg4_adjust",
+      "vertices": 49,
+      "triangles": 86,
+      "localSize": [
+        9.213397,
+        10.842646,
+        2.461611
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 3
+    },
+    {
+      "recordIndex": 15,
+      "nodeIndex": 168,
+      "nodeName": "hd2_collision_015_1f02fa15",
+      "parentNodeIndex": 67,
+      "parentNodeName": "seg3_adjust",
+      "colliderHash": "1f02fa15",
+      "boneHash": "1fc641f6",
+      "boneName": "seg3_adjust",
+      "vertices": 92,
+      "triangles": 168,
+      "localSize": [
+        9.872596,
+        9.805153,
+        4.547657
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 4
+    },
+    {
+      "recordIndex": 16,
+      "nodeIndex": 169,
+      "nodeName": "hd2_collision_016_4d0ec52f",
+      "parentNodeIndex": 70,
+      "parentNodeName": "seg2_adjust",
+      "colliderHash": "4d0ec52f",
+      "boneHash": "98829f00",
+      "boneName": "seg2_adjust",
+      "vertices": 92,
+      "triangles": 168,
+      "localSize": [
+        10.009684,
+        9.306168,
+        5.07395
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 4
+    },
+    {
+      "recordIndex": 17,
+      "nodeIndex": 170,
+      "nodeName": "hd2_collision_017_ed78bda7",
+      "parentNodeIndex": 75,
+      "parentNodeName": "seg1_adjust",
+      "colliderHash": "ed78bda7",
+      "boneHash": "3e2ee4c1",
+      "boneName": "seg1_adjust",
+      "vertices": 92,
+      "triangles": 168,
+      "localSize": [
+        12.404626,
+        12.355545,
+        6.287181
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 4
+    },
+    {
+      "recordIndex": 18,
+      "nodeIndex": 171,
+      "nodeName": "hd2_collision_018_14231a1f",
+      "parentNodeIndex": 80,
+      "parentNodeName": "seg0_adjust",
+      "colliderHash": "14231a1f",
+      "boneHash": "e9b8ff15",
+      "boneName": "seg0_adjust",
+      "vertices": 94,
+      "triangles": 172,
+      "localSize": [
+        15.285167,
+        18.078527,
+        7.308287
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 4
+    }
+  ]
+}

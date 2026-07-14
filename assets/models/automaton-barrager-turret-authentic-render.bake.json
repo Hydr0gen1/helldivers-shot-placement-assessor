@@ -1,0 +1,20 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 2,
+  "materials": {
+    "HD2 Mat m_rocketlauncher materials/cyborg_tank_turret_rocke": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-authentic-render-textures\\HD2-Mat-m_rocketlauncher-materials\\cyborg_tank_turret_rocke-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-authentic-render-textures\\HD2-Mat-m_rocketlauncher-materials\\cyborg_tank_turret_rocke-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-authentic-render-textures\\HD2-Mat-m_rocketlauncher-materials\\cyborg_tank_turret_rocke-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-authentic-render-textures\\HD2-Mat-m_rocketlauncher-materials\\cyborg_tank_turret_rocke-normal.png"
+    },
+    "HD2 Mat m_rocketlauncher materials/cyborg_tank_turret_rocketlau": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-authentic-render-textures\\HD2-Mat-m_rocketlauncher-materials\\cyborg_tank_turret_rocketlau-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-authentic-render-textures\\HD2-Mat-m_rocketlauncher-materials\\cyborg_tank_turret_rocketlau-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-authentic-render-textures\\HD2-Mat-m_rocketlauncher-materials\\cyborg_tank_turret_rocketlau-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-authentic-render-textures\\HD2-Mat-m_rocketlauncher-materials\\cyborg_tank_turret_rocketlau-normal.png"
+    }
+  },
+  "removedMeshCount": 1
+}

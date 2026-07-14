@@ -1,0 +1,15 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\berserker-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 9,
+  "materials": {
+    "HD2 Mat m_cha_berserker_body 0x0f2496f7b71ea20f": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\berserker-authentic-render-textures\\HD2-Mat-m_cha_berserker_body-0x0f2496f7b71ea20f-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\berserker-authentic-render-textures\\HD2-Mat-m_cha_berserker_body-0x0f2496f7b71ea20f-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\berserker-authentic-render-textures\\HD2-Mat-m_cha_berserker_body-0x0f2496f7b71ea20f-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\berserker-authentic-render-textures\\HD2-Mat-m_cha_berserker_body-0x0f2496f7b71ea20f-normal.png"
+    }
+  },
+  "removedMeshCount": 13,
+  "removedAlternatePrimitiveCount": 0
+}

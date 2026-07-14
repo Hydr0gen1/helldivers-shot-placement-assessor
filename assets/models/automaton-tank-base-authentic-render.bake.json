@@ -1,0 +1,14 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-tank-base-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 7,
+  "materials": {
+    "HD2 Mat tank_body materials/m_tank_body": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-tank-base-authentic-render-textures\\HD2-Mat-tank_body-materials\\m_tank_body-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-tank-base-authentic-render-textures\\HD2-Mat-tank_body-materials\\m_tank_body-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-tank-base-authentic-render-textures\\HD2-Mat-tank_body-materials\\m_tank_body-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-tank-base-authentic-render-textures\\HD2-Mat-tank_body-materials\\m_tank_body-normal.png"
+    }
+  },
+  "removedMeshCount": 6
+}

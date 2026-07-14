@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "enemy": "Barrager Tank",
+  "assemblyConfidence": "verified-mount-component-join",
+  "sources": {
+    "tankUnitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-tanks-chargers-extract\\content\\fac_cyborgs\\vehicles\\cyborg_tank\\cyborg_tank.unit.glb",
+      "sha256": "824287B950C94026FAF6E3C2F7006EE498B9869FB0A3693C7936225BF14E5553"
+    },
+    "turretUnitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-tanks-chargers-extract\\content\\fac_cyborgs\\turrets\\cyborg_tank_turret_rocketlauncher\\cyborg_tank_turret_rocketlauncher.unit.glb",
+      "sha256": "A3089296AE6F43F7D6E158DA60547DA2BBCEAB61832009F105A1E1BD2881C4D6"
+    },
+    "authenticTurretGlb": {
+      "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-authentic-render.glb",
+      "sha256": "AE1F5303AD170ECFEA8C756EBD7366FACE8DB2BA715A09315CE41817A9C9B1F8"
+    }
+  },
+  "mounts": [
+    {
+      "id": "rocket-launcher-turret",
+      "label": "Rocket launcher turret",
+      "asset": "automaton-barrager-turret.glb",
+      "assetSha256": "AE1F5303AD170ECFEA8C756EBD7366FACE8DB2BA715A09315CE41817A9C9B1F8",
+      "attachNode": "attach_turret",
+      "mountEntity": "content/fac_cyborgs/turrets/cyborg_tank_turret_rocketlauncher/cyborg_tank_turret_rocketlauncher",
+      "unitResource": "content/fac_cyborgs/turrets/cyborg_tank_turret_rocketlauncher/cyborg_tank_turret_rocketlauncher",
+      "hitboxAsset": "automaton-barrager-turret-collision-research.glb",
+      "hitboxAssetSha256": "C0BE5DAC6360F4755A71CBA10D1ADAC21312584CE52C0964AA9F63EF8943C1D2",
+      "collisionManifest": "automaton-barrager-turret-collision-research.manifest.json",
+      "damageManifest": "automaton-barrager-turret-damage-zones.manifest.json",
+      "axisRootRotation": [
+        -0.70710678,
+        0,
+        0,
+        0.70710678
+      ]
+    }
+  ],
+  "authenticShaderBakes": [
+    "automaton-barrager-turret.glb"
+  ],
+  "viewerMaterialApproximations": {
+    "automaton-barrager-turret.glb": []
+  },
+  "notes": [
+    "The tank hull and turret resource are joined at the decoded attach_turret socket.",
+    "The mounted turret uses its exact decoded Havok collision geometry; no hand-authored hitbox proxy is used.",
+    "Health, armor, durability, and damage-zone assignments come from the mounted turret HealthComponent.",
+    "The visible turret is an intact Filediver accurate-shader bake; damaged and destroyed render variants are excluded.",
+    "Unassigned physics colliders remain visible as geometry but use the turret default damage zone only when selected as a mounted component."
+  ]
+}

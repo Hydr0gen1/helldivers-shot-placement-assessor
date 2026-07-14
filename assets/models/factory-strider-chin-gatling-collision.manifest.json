@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mount-physics\\0x48c91e42b9f16512.physics.main",
+      "sha256": "D94EB9D5EF55D19CAD6045ABCBDA2010F1B7F8AA4FBDC127FD66B4FD67166932"
+    },
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-large-enemy-extract\\combined_unit.combined.glb",
+      "sha256": "C491BFB195513A00FA0A26FC1DD1C2DE86E1C7173D94FE3D1AD3A7E92CACF88B"
+    },
+    "bonesJson": null,
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\chin-collision.glb",
+    "sha256": "D1426867A86B13CDE04BA6EC3171ACE6E940E70D979BA0AE960CA8C082FEAC20"
+  },
+  "hullCount": 2,
+  "physicsRecordCount": 2,
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 560,
+  "triangleCount": 840,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-transform",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 3,
+    "approximatedMaterialIndices": []
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "48c91e4200000000"
+    ],
+    "childUserDataHex": [
+      "48c91e4200000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 31,
+      "nodeName": "hd2_collision_000_d04c9ecf",
+      "parentNodeIndex": 0,
+      "parentNodeName": "StingrayEntityRoot",
+      "colliderHash": "d04c9ecf",
+      "boneHash": "4a182741",
+      "boneName": null,
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        1.28,
+        1.28,
+        1.497908
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 1,
+      "nodeIndex": 32,
+      "nodeName": "hd2_collision_001_1fd34729",
+      "parentNodeIndex": 16,
+      "parentNodeName": "pitch",
+      "colliderHash": "1fd34729",
+      "boneHash": "fc9b58d0",
+      "boneName": null,
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.629048,
+        1.982836,
+        0.629048
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    }
+  ],
+  "preparedOutput": {
+    "path": "factory-strider-chin-gatling-collision.manifest.json",
+    "hitboxAsset": "factory-strider-chin-gatling-hitboxes.glb",
+    "hitboxAssetSha256": "A7EF56150CC9A1A7C6ED177CBFB15F5F43F55843FC6193076BA38FBE522CF1F1"
+  }
+}

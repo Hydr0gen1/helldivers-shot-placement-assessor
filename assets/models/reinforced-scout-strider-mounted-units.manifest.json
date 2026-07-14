@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "enemy": "Reinforced Scout Strider",
+  "assemblyConfidence": "verified-mount-component-join",
+  "mounts": [
+    {
+      "id": "cannon",
+      "label": "Chin cannon",
+      "asset": "scout-strider-cannon-authentic-render.glb",
+      "assetSha256": "9E8802C854E07CBB5C6FE30EC2E2BBC8B791E4DA5C625A8AEBE156104A23F83F",
+      "attachNode": "gun_pitch",
+      "mountEntity": "0x2a346bf4552997e2",
+      "unitResource": "0x2a346bf4552997e2",
+      "hitboxAsset": "scout-strider-cannon-hitboxes.glb",
+      "hitboxAssetSha256": "79B631AEC65FABAC841C30ED642398E9D8E6BEB75EE1074C15DAA84517339B05",
+      "collisionManifest": "scout-strider-cannon-collision.manifest.json",
+      "damageManifest": "scout-strider-cannon-damage.manifest.json",
+      "axisRootRotation": [
+        -0.70710678,
+        0,
+        0,
+        0.70710678
+      ]
+    },
+    {
+      "id": "armored-driver",
+      "label": "Reinforced driver housing",
+      "asset": "reinforced-scout-strider-driver-authentic-render.glb",
+      "assetSha256": "725802AE2ABD2909A64D54E8C6AD2DABCCECB65CBCC2642983B57785A2F8F95B",
+      "attachNode": "turret",
+      "mountEntity": "0xd3cd6f0ca83bb51e",
+      "unitResource": "0xd3cd6f0ca83bb51e",
+      "hitboxAsset": "reinforced-scout-strider-driver-hitboxes.glb",
+      "hitboxAssetSha256": "98843E46E259FB3ABE09628107B524AB5645357048BB998F30567A36A7C0E99B",
+      "collisionManifest": "reinforced-scout-strider-driver-collision.manifest.json",
+      "damageManifest": "reinforced-scout-strider-driver-damage.manifest.json"
+    },
+    {
+      "id": "left-rockets",
+      "label": "Left rocket rail",
+      "asset": "reinforced-scout-strider-rockets-authentic-render.glb",
+      "assetSha256": "743C8A4BCDAF9F8C7B36E1D446564BBC3A824E4CF95A61513F9786952B9DA32D",
+      "attachNode": "rockets_left",
+      "mountEntity": "0xa8173fba5dec35c3",
+      "unitResource": "0xe5b14182b25f7f7d",
+      "hitboxAsset": "reinforced-scout-strider-rockets-hitboxes.glb",
+      "hitboxAssetSha256": "3811255A513B287964C995E096D07C22B4E991CAA5927C79B5E3E1879F1D2720",
+      "collisionManifest": "reinforced-scout-strider-rockets-collision.manifest.json",
+      "damageManifest": "reinforced-scout-strider-rockets-damage.manifest.json"
+    },
+    {
+      "id": "right-rockets",
+      "label": "Right rocket rail",
+      "asset": "reinforced-scout-strider-rockets-authentic-render.glb",
+      "assetSha256": "743C8A4BCDAF9F8C7B36E1D446564BBC3A824E4CF95A61513F9786952B9DA32D",
+      "attachNode": "rockets_right",
+      "mountEntity": "0x397fb7e4883af100",
+      "unitResource": "0xe5b14182b25f7f7d",
+      "hitboxAsset": "reinforced-scout-strider-rockets-hitboxes.glb",
+      "hitboxAssetSha256": "3811255A513B287964C995E096D07C22B4E991CAA5927C79B5E3E1879F1D2720",
+      "collisionManifest": "reinforced-scout-strider-rockets-collision.manifest.json",
+      "damageManifest": "reinforced-scout-strider-rockets-damage.manifest.json"
+    }
+  ],
+  "authenticShaderBakes": [
+    "reinforced-scout-strider-driver-authentic-render.glb",
+    "reinforced-scout-strider-rockets-authentic-render.glb",
+    "scout-strider-cannon-authentic-render.glb"
+  ],
+  "viewerMaterialApproximations": {
+    "scout-strider-cannon-authentic-render.glb": [],
+    "reinforced-scout-strider-driver-authentic-render.glb": [],
+    "reinforced-scout-strider-rockets-authentic-render.glb": []
+  },
+  "notes": [
+    "All child paths and sockets are decoded directly from MountComponentData.",
+    "The cannon, driver housing, and rocket rails use exact game Havok collision geometry and their own HealthComponents.",
+    "All visible child units use intact Filediver accurate-shader bakes; no destroyed variants or targeting proxies are included."
+  ]
+}

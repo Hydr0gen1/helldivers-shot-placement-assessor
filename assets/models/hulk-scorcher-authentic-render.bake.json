@@ -1,0 +1,14 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\hulk-scorcher-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 11,
+  "materials": {
+    "HD2 Mat m_lieutenant_assault materials/m_lieutenant_assault": {
+      "base-color": "C:\\Users\\judes\\Downloads\\hd2-more-enemy-extract\\hulk-bakes\\HD2-Mat-m_lieutenant_assault-materials\\m_lieutenant_assault-base-color.png",
+      "metallic": "C:\\Users\\judes\\Downloads\\hd2-more-enemy-extract\\hulk-bakes\\HD2-Mat-m_lieutenant_assault-materials\\m_lieutenant_assault-metallic.png",
+      "roughness": "C:\\Users\\judes\\Downloads\\hd2-more-enemy-extract\\hulk-bakes\\HD2-Mat-m_lieutenant_assault-materials\\m_lieutenant_assault-roughness.png",
+      "normal": "C:\\Users\\judes\\Downloads\\hd2-more-enemy-extract\\hulk-bakes\\HD2-Mat-m_lieutenant_assault-materials\\m_lieutenant_assault-normal.png"
+    }
+  },
+  "removedMeshCount": 9
+}

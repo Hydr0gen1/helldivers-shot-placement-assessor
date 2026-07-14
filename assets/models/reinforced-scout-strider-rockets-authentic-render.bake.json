@@ -1,0 +1,15 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\reinforced-scout-strider-rockets-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 12,
+  "materials": {
+    "HD2 Mat m_wep_scoutwalker_rocket 0xbb2325faa0867f64": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\reinforced-scout-strider-rockets-authentic-render-textures\\HD2-Mat-m_wep_scoutwalker_rocket-0xbb2325faa0867f64-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\reinforced-scout-strider-rockets-authentic-render-textures\\HD2-Mat-m_wep_scoutwalker_rocket-0xbb2325faa0867f64-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\reinforced-scout-strider-rockets-authentic-render-textures\\HD2-Mat-m_wep_scoutwalker_rocket-0xbb2325faa0867f64-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\reinforced-scout-strider-rockets-authentic-render-textures\\HD2-Mat-m_wep_scoutwalker_rocket-0xbb2325faa0867f64-normal.png"
+    }
+  },
+  "removedMeshCount": 0,
+  "removedAlternatePrimitiveCount": 0
+}

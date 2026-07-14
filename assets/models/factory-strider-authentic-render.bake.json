@@ -1,0 +1,20 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\factory-strider-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 24,
+  "materials": {
+    "HD2 Mat 0x5ab99a9d 0xf1f11ab7bfc891b2": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\factory-strider-authentic-render-textures\\HD2-Mat-0x5ab99a9d-0xf1f11ab7bfc891b2-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\factory-strider-authentic-render-textures\\HD2-Mat-0x5ab99a9d-0xf1f11ab7bfc891b2-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\factory-strider-authentic-render-textures\\HD2-Mat-0x5ab99a9d-0xf1f11ab7bfc891b2-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\factory-strider-authentic-render-textures\\HD2-Mat-0x5ab99a9d-0xf1f11ab7bfc891b2-normal.png"
+    },
+    "HD2 Mat 0xf26ba7ff 0xb64d2bc96edd5c8d": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\factory-strider-authentic-render-textures\\HD2-Mat-0xf26ba7ff-0xb64d2bc96edd5c8d-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\factory-strider-authentic-render-textures\\HD2-Mat-0xf26ba7ff-0xb64d2bc96edd5c8d-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\factory-strider-authentic-render-textures\\HD2-Mat-0xf26ba7ff-0xb64d2bc96edd5c8d-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\factory-strider-authentic-render-textures\\HD2-Mat-0xf26ba7ff-0xb64d2bc96edd5c8d-normal.png"
+    }
+  },
+  "removedMeshCount": 24
+}

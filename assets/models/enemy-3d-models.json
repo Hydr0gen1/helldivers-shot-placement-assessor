@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "models": {
+    "Hive Lord": {
+      "slug": "hive-lord",
+      "glb": "assets/models/hive-lord-collision-research.glb",
+      "collisionManifest": "assets/models/hive-lord-collision-research.manifest.json",
+      "damageManifest": "assets/models/hive-lord-damage-zones.manifest.json"
+    },
+    "Vox Engine": {
+      "slug": "vox-engine",
+      "glb": "assets/models/vox-engine-collision-research.glb",
+      "collisionManifest": "assets/models/vox-engine-collision-research.manifest.json",
+      "damageManifest": "assets/models/vox-engine-damage-zones.manifest.json"
+    },
+    "Dropship": {
+      "slug": "dropship",
+      "glb": "assets/models/dropship-collision-research.glb",
+      "collisionManifest": "assets/models/dropship-collision-research.manifest.json",
+      "damageManifest": "assets/models/dropship-damage-zones.manifest.json"
+    },
+    "Gunship": {
+      "slug": "gunship",
+      "glb": "assets/models/gunship-collision-research.glb",
+      "collisionManifest": "assets/models/gunship-collision-research.manifest.json",
+      "damageManifest": "assets/models/gunship-damage-zones.manifest.json"
+    },
+    "Bile Titan": {
+      "slug": "bile-titan",
+      "glb": "assets/models/bile-titan-collision-research.glb",
+      "collisionManifest": "assets/models/bile-titan-collision-research.manifest.json",
+      "damageManifest": "assets/models/bile-titan-damage-zones.manifest.json"
+    },
+    "Factory Strider": {
+      "slug": "factory-strider",
+      "glb": "assets/models/factory-strider-collision-research.glb",
+      "collisionManifest": "assets/models/factory-strider-collision-research.manifest.json",
+      "damageManifest": "assets/models/factory-strider-damage-zones.manifest.json",
+      "mountManifest": "assets/models/factory-strider-mounted-units.manifest.json"
+    },
+    "War Strider": {
+      "slug": "war-strider",
+      "glb": "assets/models/war-strider-collision-research.glb",
+      "collisionManifest": "assets/models/war-strider-collision-research.manifest.json",
+      "damageManifest": "assets/models/war-strider-damage-zones.manifest.json"
+    },
+    "Charger": {
+      "slug": "charger",
+      "glb": "assets/models/charger-collision-research.glb",
+      "collisionManifest": "assets/models/charger-collision-research.manifest.json",
+      "damageManifest": "assets/models/charger-damage-zones.manifest.json"
+    },
+    "Charger Behemoth": {
+      "slug": "charger-behemoth",
+      "glb": "assets/models/charger-behemoth-collision-research.glb",
+      "collisionManifest": "assets/models/charger-behemoth-collision-research.manifest.json",
+      "damageManifest": "assets/models/charger-behemoth-damage-zones.manifest.json"
+    },
+    "Spore Charger": {
+      "slug": "spore-charger",
+      "glb": "assets/models/spore-charger-collision-research.glb",
+      "collisionManifest": "assets/models/spore-charger-collision-research.manifest.json",
+      "damageManifest": "assets/models/spore-charger-damage-zones.manifest.json"
+    },
+    "Rupture Charger": {
+      "slug": "rupture-charger",
+      "glb": "assets/models/rupture-charger-collision-research.glb",
+      "collisionManifest": "assets/models/rupture-charger-collision-research.manifest.json",
+      "damageManifest": "assets/models/rupture-charger-damage-zones.manifest.json"
+    },
+    "Annihilator Tank": {
+      "slug": "annihilator-tank",
+      "assetSlug": "automaton-tank-base",
+      "glb": "assets/models/automaton-tank-base-collision-research.glb",
+      "collisionManifest": "assets/models/automaton-tank-base-collision-research.manifest.json",
+      "damageManifest": "assets/models/automaton-tank-base-damage-zones.manifest.json",
+      "renderGlb": "assets/models/automaton-tank-base-authentic-render.glb",
+      "mountManifest": "assets/models/annihilator-tank-mounted-units.manifest.json"
+    },
+    "Shredder Tank": {
+      "slug": "shredder-tank",
+      "assetSlug": "automaton-tank-base",
+      "glb": "assets/models/automaton-tank-base-collision-research.glb",
+      "collisionManifest": "assets/models/automaton-tank-base-collision-research.manifest.json",
+      "damageManifest": "assets/models/automaton-tank-base-damage-zones.manifest.json",
+      "renderGlb": "assets/models/automaton-tank-base-authentic-render.glb",
+      "mountManifest": "assets/models/shredder-tank-mounted-units.manifest.json"
+    },
+    "Barrager Tank": {
+      "slug": "barrager-tank",
+      "assetSlug": "automaton-tank-base",
+      "glb": "assets/models/automaton-tank-base-collision-research.glb",
+      "collisionManifest": "assets/models/automaton-tank-base-collision-research.manifest.json",
+      "damageManifest": "assets/models/automaton-tank-base-damage-zones.manifest.json",
+      "renderGlb": "assets/models/automaton-tank-base-authentic-render.glb",
+      "mountManifest": "assets/models/barrager-tank-mounted-units.manifest.json"
+    },
+    "Cannon Turret": {
+      "slug": "cannon-turret",
+      "assetSlug": "automaton-heavy-cannon-turret",
+      "glb": "assets/models/automaton-heavy-cannon-turret-collision-research.glb",
+      "renderGlb": "assets/models/automaton-heavy-cannon-turret-authentic-render.glb",
+      "collisionManifest": "assets/models/automaton-heavy-cannon-turret-collision-research.manifest.json",
+      "damageManifest": "assets/models/automaton-heavy-cannon-turret-damage-zones.manifest.json"
+    },
+    "Spore Burst Bile Titan": {
+      "slug": "spore-burst-bile-titan",
+      "glb": "assets/models/spore-burst-bile-titan-collision-research.glb",
+      "collisionManifest": "assets/models/spore-burst-bile-titan-collision-research.manifest.json",
+      "damageManifest": "assets/models/spore-burst-bile-titan-damage-zones.manifest.json"
+    },
+    "Dragonroach": {
+      "slug": "dragonroach",
+      "glb": "assets/models/dragonroach-collision-research.glb",
+      "collisionManifest": "assets/models/dragonroach-collision-research.manifest.json",
+      "damageManifest": "assets/models/dragonroach-damage-zones.manifest.json"
+    },
+    "Impaler": {
+      "slug": "impaler",
+      "glb": "assets/models/impaler-collision-research.glb",
+      "collisionManifest": "assets/models/impaler-collision-research.manifest.json",
+      "damageManifest": "assets/models/impaler-damage-zones.manifest.json"
+    },
+    "Harvester": {
+      "slug": "harvester",
+      "glb": "assets/models/harvester-collision-research.glb",
+      "collisionManifest": "assets/models/harvester-collision-research.manifest.json",
+      "damageManifest": "assets/models/harvester-damage-zones.manifest.json"
+    },
+    "Veracitor": {
+      "slug": "veracitor",
+      "glb": "assets/models/veracitor-collision-research.glb",
+      "collisionManifest": "assets/models/veracitor-collision-research.manifest.json",
+      "damageManifest": "assets/models/veracitor-damage-zones.manifest.json"
+    },
+    "Gatekeeper": {
+      "slug": "gatekeeper",
+      "glb": "assets/models/gatekeeper-collision-research.glb",
+      "collisionManifest": "assets/models/gatekeeper-collision-research.manifest.json",
+      "damageManifest": "assets/models/gatekeeper-damage-zones.manifest.json"
+    },
+    "Bile Spewer": {
+      "slug": "bile-spewer",
+      "glb": "assets/models/bile-spewer-collision-research.glb",
+      "collisionManifest": "assets/models/bile-spewer-collision-research.manifest.json",
+      "damageManifest": "assets/models/bile-spewer-damage-zones.manifest.json"
+    },
+    "Fleshmob": {
+      "slug": "fleshmob",
+      "glb": "assets/models/fleshmob-collision-research.glb",
+      "collisionManifest": "assets/models/fleshmob-collision-research.manifest.json",
+      "damageManifest": "assets/models/fleshmob-damage-zones.manifest.json"
+    },
+    "Leviathan": {
+      "slug": "leviathan",
+      "glb": "assets/models/leviathan-collision-research.glb",
+      "collisionManifest": "assets/models/leviathan-collision-research.manifest.json",
+      "damageManifest": "assets/models/leviathan-damage-zones.manifest.json"
+    },
+    "Hulk (Scorcher)": {
+      "slug": "hulk-scorcher",
+      "glb": "assets/models/hulk-scorcher-collision-research.glb",
+      "renderGlb": "assets/models/hulk-scorcher-authentic-render.glb",
+      "collisionManifest": "assets/models/hulk-scorcher-collision-research.manifest.json",
+      "damageManifest": "assets/models/hulk-scorcher-damage-zones.manifest.json"
+    },
+    "Devastator": {
+      "slug": "devastator",
+      "glb": "assets/models/devastator-collision-research.glb",
+      "renderGlb": "assets/models/devastator-authentic-render.glb",
+      "collisionManifest": "assets/models/devastator-collision-research.manifest.json",
+      "damageManifest": "assets/models/devastator-damage-zones.manifest.json",
+      "mountManifest": "assets/models/devastator-mounted-units.manifest.json"
+    },
+    "Heavy Devastator": {
+      "slug": "heavy-devastator",
+      "glb": "assets/models/heavy-devastator-collision-research.glb",
+      "renderGlb": "assets/models/heavy-devastator-authentic-render.glb",
+      "collisionManifest": "assets/models/heavy-devastator-collision-research.manifest.json",
+      "damageManifest": "assets/models/heavy-devastator-damage-zones.manifest.json",
+      "mountManifest": "assets/models/heavy-devastator-mounted-units.manifest.json"
+    },
+    "Rocket Devastator": {
+      "slug": "rocket-devastator",
+      "glb": "assets/models/rocket-devastator-collision-research.glb",
+      "renderGlb": "assets/models/rocket-devastator-authentic-render.glb",
+      "collisionManifest": "assets/models/rocket-devastator-collision-research.manifest.json",
+      "damageManifest": "assets/models/rocket-devastator-damage-zones.manifest.json",
+      "mountManifest": "assets/models/rocket-devastator-mounted-units.manifest.json"
+    },
+    "Scout Strider": {
+      "slug": "scout-strider",
+      "glb": "assets/models/scout-strider-collision-research.glb",
+      "renderGlb": "assets/models/scout-strider-authentic-render.glb",
+      "collisionManifest": "assets/models/scout-strider-collision-research.manifest.json",
+      "damageManifest": "assets/models/scout-strider-damage-zones.manifest.json",
+      "mountManifest": "assets/models/scout-strider-mounted-units.manifest.json"
+    },
+    "Reinforced Scout Strider": {
+      "slug": "reinforced-scout-strider",
+      "assetSlug": "scout-strider",
+      "glb": "assets/models/scout-strider-collision-research.glb",
+      "renderGlb": "assets/models/scout-strider-authentic-render.glb",
+      "collisionManifest": "assets/models/scout-strider-collision-research.manifest.json",
+      "damageManifest": "assets/models/reinforced-scout-strider-damage-zones.manifest.json",
+      "mountManifest": "assets/models/reinforced-scout-strider-mounted-units.manifest.json"
+    },
+    "Stalker": {
+      "slug": "stalker",
+      "glb": "assets/models/stalker-collision-research.glb",
+      "collisionManifest": "assets/models/stalker-collision-research.manifest.json",
+      "damageManifest": "assets/models/stalker-damage-zones.manifest.json"
+    },
+    "Shrieker": {
+      "slug": "shrieker",
+      "glb": "assets/models/shrieker-collision-research.glb",
+      "collisionManifest": "assets/models/shrieker-collision-research.manifest.json",
+      "damageManifest": "assets/models/shrieker-damage-zones.manifest.json"
+    },
+    "Overseer": {
+      "slug": "overseer",
+      "glb": "assets/models/overseer-collision-research.glb",
+      "collisionManifest": "assets/models/overseer-collision-research.manifest.json",
+      "damageManifest": "assets/models/overseer-damage-zones.manifest.json"
+    },
+    "Elevated Overseer": {
+      "slug": "elevated-overseer",
+      "glb": "assets/models/elevated-overseer-collision-research.glb",
+      "collisionManifest": "assets/models/elevated-overseer-collision-research.manifest.json",
+      "damageManifest": "assets/models/elevated-overseer-damage-zones.manifest.json"
+    },
+    "Crescent Overseer": {
+      "slug": "crescent-overseer",
+      "glb": "assets/models/crescent-overseer-collision-research.glb",
+      "collisionManifest": "assets/models/crescent-overseer-collision-research.manifest.json",
+      "damageManifest": "assets/models/crescent-overseer-damage-zones.manifest.json"
+    },
+    "Watcher": {
+      "slug": "watcher",
+      "glb": "assets/models/watcher-collision-research.glb",
+      "collisionManifest": "assets/models/watcher-collision-research.manifest.json",
+      "damageManifest": "assets/models/watcher-damage-zones.manifest.json"
+    },
+    "Stingray": {
+      "slug": "stingray",
+      "glb": "assets/models/stingray-collision-research.glb",
+      "collisionManifest": "assets/models/stingray-collision-research.manifest.json",
+      "damageManifest": "assets/models/stingray-damage-zones.manifest.json"
+    },
+    "Brood Commander": {
+      "slug": "brood-commander",
+      "glb": "assets/models/brood-commander-collision-research.glb",
+      "collisionManifest": "assets/models/brood-commander-collision-research.manifest.json",
+      "damageManifest": "assets/models/brood-commander-damage-zones.manifest.json"
+    },
+    "Alpha Commander": {
+      "slug": "alpha-commander",
+      "glb": "assets/models/alpha-commander-collision-research.glb",
+      "collisionManifest": "assets/models/alpha-commander-collision-research.manifest.json",
+      "damageManifest": "assets/models/alpha-commander-damage-zones.manifest.json"
+    }
+  }
+}

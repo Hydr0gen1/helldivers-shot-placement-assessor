@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\0xee00bfe8ff769f70.physics.main",
+      "sha256": "01893B53051C44C935EC27800389D96697EEA2D3C602DD33F54D4F12B39EC77A"
+    },
+    "ragdollProfile": null,
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\0xee00bfe8ff769f70.unit.glb",
+      "sha256": "9ECFA7CED4CE900BDDF2FDB6257DFDF1B2272C4BBB7FEF2A0F7353EF6F40291A"
+    },
+    "bonesJson": null,
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-driver-collision.glb",
+    "sha256": "501CC5D223EC2BA2B7C32BFC5D13BD81E21DF1C44FB4C26A0CFB4D07502D1CA0"
+  },
+  "hullCount": 1,
+  "physicsRecordCount": 4,
+  "basePhysicsHullCount": 1,
+  "ragdollHullCount": 0,
+  "ragdollMappingEvidence": null,
+  "unsupportedColliderCount": 3,
+  "unsupportedColliders": [
+    {
+      "recordIndex": 0,
+      "colliderHash": "69ef12cd",
+      "boneHash": "4a182741",
+      "propertyHash": "937a5a10",
+      "flags": 17,
+      "shapeTypes": [
+        "hknpCompressedMeshShape(multi-section)"
+      ]
+    },
+    {
+      "recordIndex": 1,
+      "colliderHash": "52b445f9",
+      "boneHash": "4a182741",
+      "propertyHash": "937a5a10",
+      "flags": 17,
+      "shapeTypes": [
+        "hknpCompressedMeshShape(multi-section)"
+      ]
+    },
+    {
+      "recordIndex": 2,
+      "colliderHash": "fed807e4",
+      "boneHash": "4a182741",
+      "propertyHash": "937a5a10",
+      "flags": 17,
+      "shapeTypes": [
+        "hknpCompressedMeshShape(multi-section)"
+      ]
+    }
+  ],
+  "vertexCount": 8,
+  "triangleCount": 12,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-or-ragdoll-body-shape",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 6,
+    "approximatedMaterialIndices": [
+      3
+    ]
+  },
+  "metadataSets": {
+    "shapeTags": [
+      0
+    ],
+    "destructionTags": [
+      0
+    ],
+    "shapeTagCodecInfo": [
+      0
+    ],
+    "rootUserDataHex": [
+      "ee00bfe800000000"
+    ],
+    "childUserDataHex": [
+      "ee00bfe800000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 3,
+      "nodeIndex": 44,
+      "nodeName": "hd2_collision_003_366711c8",
+      "parentNodeIndex": 0,
+      "parentNodeName": "StingrayEntityRoot",
+      "colliderHash": "366711c8",
+      "boneHash": "4a182741",
+      "boneName": null,
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        1.0,
+        0.771445,
+        0.086884
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCompressedMeshShape"
+      ],
+      "subshapeCount": 1
+    }
+  ]
+}

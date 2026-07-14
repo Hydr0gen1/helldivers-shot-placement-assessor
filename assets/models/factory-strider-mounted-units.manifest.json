@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "enemy": "Factory Strider",
+  "assemblyConfidence": "verified-mount-component-join",
+  "sources": {
+    "factoryUnitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-large-enemy-extract\\content\\fac_cyborgs\\vehicles\\cyborg_spawner\\cyborg_spawner.unit.glb",
+      "sha256": "9A9E8AC7E17EDF679E98DB1615C34AC00BB652E2376EC5E735D69CA4BE1C76AE"
+    },
+    "chinGunUnitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-large-enemy-extract\\combined_unit.combined.glb",
+      "sha256": "C491BFB195513A00FA0A26FC1DD1C2DE86E1C7173D94FE3D1AD3A7E92CACF88B"
+    },
+    "dorsalCannonUnitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\combined_unit.combined.glb",
+      "sha256": "CDC478FDC0D79C0B6EBF4C972913ADF72B05B28322C3795B1E119D0CFD312346"
+    },
+    "mountedHitboxSources": {
+      "chin": {
+        "collisionGlb": {
+          "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\chin-collision.glb",
+          "sha256": "D1426867A86B13CDE04BA6EC3171ACE6E940E70D979BA0AE960CA8C082FEAC20"
+        },
+        "collisionManifest": {
+          "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\chin-collision.manifest.json",
+          "sha256": "99854421DB957E5DFF1C804B98FD4360D9A42AA1DB1CD43371C7BD533023F1A1"
+        },
+        "damageManifest": {
+          "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\chin-damage.manifest.json",
+          "sha256": "30F8D11109FC0C4409136CC35763DC10AA64480E9C82AC3E8CFFE5A2C9F7233B"
+        }
+      },
+      "dorsal": {
+        "collisionGlb": {
+          "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\top-collision.glb",
+          "sha256": "2CF1A8A9EA5A37EC050D61D08DE9D90B7DF81AAD6D6CCDACEF628229EF49E59E"
+        },
+        "collisionManifest": {
+          "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\top-collision.manifest.json",
+          "sha256": "8775EDA6772331CC22F4D17816CD7F90FBF9C9454B009893F75DAE47A8353FD8"
+        },
+        "damageManifest": {
+          "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\top-damage.manifest.json",
+          "sha256": "68AD9451C55CDF9FA402F29D1DD108F0F482A6E286BBF42E022901A8860E59DD"
+        }
+      }
+    }
+  },
+  "mounts": [
+    {
+      "id": "left-chin-gatling",
+      "label": "Left chin gatling gun",
+      "asset": "factory-strider-chin-gatling.glb",
+      "attachNode": "Bone_8289f414",
+      "mountEntity": "0x3aafba89b53b0f63",
+      "unitResource": "0x48c91e42b9f16512",
+      "assetSha256": "9074035368550C35731F7363C286969B4B24AA0E5CA0FCAE4F47784E1530293E",
+      "hitboxAsset": "factory-strider-chin-gatling-hitboxes.glb",
+      "hitboxAssetSha256": "A7EF56150CC9A1A7C6ED177CBFB15F5F43F55843FC6193076BA38FBE522CF1F1",
+      "collisionManifest": "factory-strider-chin-gatling-collision.manifest.json",
+      "damageManifest": "factory-strider-chin-gatling-damage.manifest.json",
+      "viewerHitboxProxy": {
+        "mode": "comparative-box-proxy",
+        "confidence": "inferred-from-game-colliders",
+        "analogs": [
+          {
+            "enemy": "Gatekeeper",
+            "parts": "left/right gun covers",
+            "shape": "paired elongated convex boxes"
+          },
+          {
+            "enemy": "War Strider",
+            "parts": "turret damage actors",
+            "shape": "box"
+          }
+        ],
+        "records": {
+          "0": {
+            "label": "receiver",
+            "boxScale": [
+              0.55,
+              0.55,
+              0.6
+            ]
+          },
+          "1": {
+            "label": "barrel cluster",
+            "boxScale": [
+              0.65,
+              0.85,
+              0.65
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "right-chin-gatling",
+      "label": "Right chin gatling gun",
+      "asset": "factory-strider-chin-gatling.glb",
+      "attachNode": "Bone_8ca4818f",
+      "mountEntity": "0x390e6b3d2f26bd70",
+      "unitResource": "0x48c91e42b9f16512",
+      "assetSha256": "9074035368550C35731F7363C286969B4B24AA0E5CA0FCAE4F47784E1530293E",
+      "hitboxAsset": "factory-strider-chin-gatling-hitboxes.glb",
+      "hitboxAssetSha256": "A7EF56150CC9A1A7C6ED177CBFB15F5F43F55843FC6193076BA38FBE522CF1F1",
+      "collisionManifest": "factory-strider-chin-gatling-collision.manifest.json",
+      "damageManifest": "factory-strider-chin-gatling-damage.manifest.json",
+      "viewerHitboxProxy": {
+        "mode": "comparative-box-proxy",
+        "confidence": "inferred-from-game-colliders",
+        "analogs": [
+          {
+            "enemy": "Gatekeeper",
+            "parts": "left/right gun covers",
+            "shape": "paired elongated convex boxes"
+          },
+          {
+            "enemy": "War Strider",
+            "parts": "turret damage actors",
+            "shape": "box"
+          }
+        ],
+        "records": {
+          "0": {
+            "label": "receiver",
+            "boxScale": [
+              0.55,
+              0.55,
+              0.6
+            ]
+          },
+          "1": {
+            "label": "barrel cluster",
+            "boxScale": [
+              0.65,
+              0.85,
+              0.65
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "dorsal-cannon",
+      "label": "Dorsal cannon turret",
+      "asset": "factory-strider-dorsal-cannon.glb",
+      "attachNode": "attach_turret",
+      "mountEntity": "content/fac_cyborgs/turrets/cyborg_big_walker_turret_cannon/cyborg_big_walker_turret_cannon",
+      "unitResource": "content/fac_cyborgs/turrets/cyborg_big_walker_turret_cannon/cyborg_big_walker_turret_cannon",
+      "assetSha256": "193602A1D795BB324BDFE6D0336549F575D442AB75FFE98B74AE42988C882098",
+      "axisRootRotation": [
+        -0.70710678,
+        0,
+        0,
+        0.70710678
+      ],
+      "hitboxAsset": "factory-strider-dorsal-cannon-hitboxes.glb",
+      "hitboxAssetSha256": "95BA9E468BF1C71B23B5157B8A96A1EE7002C9577D34B4B384BE439F0F65FE77",
+      "collisionManifest": "factory-strider-dorsal-cannon-collision.manifest.json",
+      "damageManifest": "factory-strider-dorsal-cannon-damage.manifest.json",
+      "viewerHitboxProxy": {
+        "mode": "comparative-box-proxy",
+        "confidence": "inferred-from-game-colliders",
+        "analogs": [
+          {
+            "enemy": "War Strider",
+            "parts": "turret damage actors",
+            "shape": "box"
+          },
+          {
+            "enemy": "Gatekeeper",
+            "parts": "weapon cover and muzzle actors",
+            "shape": "elongated convex boxes"
+          }
+        ],
+        "records": {
+          "0": {
+            "label": "turret housing",
+            "renderNode": "g_turret_default",
+            "boxScale": [
+              0.9,
+              0.92,
+              0.9
+            ]
+          },
+          "1": {
+            "label": "barrel assembly",
+            "renderNode": "g_turret_gun",
+            "boxScale": [
+              0.45,
+              0.5,
+              0.88
+            ]
+          },
+          "2": {
+            "label": "rotating base",
+            "renderNode": "g_turret_default",
+            "boxScale": [
+              0.72,
+              0.24,
+              0.72
+            ],
+            "boxOffset": [
+              0.0,
+              -0.52,
+              0.0
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "viewerMaterialApproximations": {
+    "factory-strider-chin-gatling.glb": [],
+    "factory-strider-dorsal-cannon.glb": []
+  },
+  "authenticShaderBakes": [
+    "factory-strider-dorsal-cannon.glb"
+  ],
+  "notes": [
+    "Attachment nodes and child unit references come from decoded MountComponentData.",
+    "The two chin guns are separate instances of the same unit resource.",
+    "Mounted collision resources remain separate from the base-unit collision/damage manifest.",
+    "Mounted targeting uses comparative box proxies derived from verified Gatekeeper gun-cover and War Strider turret collider patterns; the underlying Havok resources remain preserved.",
+    "Unassigned mounted colliders use their HealthComponent default damageable zone.",
+    "Pass --dorsal-authentic-glb to preserve Filediver's reconstructed LUT/decal material."
+  ]
+}

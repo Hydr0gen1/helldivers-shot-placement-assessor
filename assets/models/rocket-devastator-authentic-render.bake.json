@@ -1,0 +1,33 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 1,
+  "materials": {
+    "HD2 Mat arm_shoulder 0x9185eca2a413d177": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-arm_shoulder-0x9185eca2a413d177-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-arm_shoulder-0x9185eca2a413d177-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-arm_shoulder-0x9185eca2a413d177-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-arm_shoulder-0x9185eca2a413d177-normal.png"
+    },
+    "HD2 Mat m_rocket_pods materials/m_soldier_rocket": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_rocket_pods-materials\\m_soldier_rocket-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_rocket_pods-materials\\m_soldier_rocket-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_rocket_pods-materials\\m_soldier_rocket-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_rocket_pods-materials\\m_soldier_rocket-normal.png"
+    },
+    "HD2 Mat m_rocket_pods_damaged materials/m_soldier_rocket": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_rocket_pods_damaged-materials\\m_soldier_rocket-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_rocket_pods_damaged-materials\\m_soldier_rocket-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_rocket_pods_damaged-materials\\m_soldier_rocket-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_rocket_pods_damaged-materials\\m_soldier_rocket-normal.png"
+    },
+    "HD2 Mat m_soldier_body 0x7f102aa40e9d1d7c": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_soldier_body-0x7f102aa40e9d1d7c-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_soldier_body-0x7f102aa40e9d1d7c-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_soldier_body-0x7f102aa40e9d1d7c-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\rocket-devastator-authentic-render-textures\\HD2-Mat-m_soldier_body-0x7f102aa40e9d1d7c-normal.png"
+    }
+  },
+  "removedMeshCount": 0,
+  "removedAlternatePrimitiveCount": 1
+}

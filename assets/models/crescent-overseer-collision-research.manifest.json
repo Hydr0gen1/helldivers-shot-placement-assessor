@@ -1,0 +1,1220 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\content\\fac_illuminate\\cha_beamer_champion\\cha_beamer_champion.physics.main",
+      "sha256": "A0485499D4587ACD044CE61D38153926E3665BEFA0216CEBD619F1392F07B890"
+    },
+    "ragdollProfile": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\content\\fac_illuminate\\cha_beamer_champion\\cha_beamer_champion.ragdoll_profile.main",
+      "sha256": "B2F635A8DEBDA003D9AA5E1B9B75667AC26FF24770AA01823A1FF25F86F804FA"
+    },
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\content\\fac_illuminate\\cha_beamer_champion\\cha_beamer_champion.unit.glb",
+      "sha256": "48B580B1221C09837A5482C661F259ABBEB7D3D2A5B3EE60B32D4F4052A7CD6D"
+    },
+    "bonesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\content\\fac_illuminate\\cha_beamer_champion\\cha_beamer_champion.bones.json",
+      "sha256": "C98714DB60A1A9293D0BDA73473525811C73E74C7E9CCEBBD475889BDAA00F5A"
+    },
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\crescent-overseer-collision-research.glb",
+    "sha256": "D512E8A9D2713328E8E9DD1B2945F9115B7069089672FCA344971A2BD5FC9EFD"
+  },
+  "hullCount": 50,
+  "physicsRecordCount": 50,
+  "basePhysicsHullCount": 29,
+  "ragdollHullCount": 21,
+  "ragdollMappingEvidence": "Exact hknpPhysicsSystemData::bodyCinfoWithAttachment shape ITEM and ragdoll-name ITEM references",
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 6862,
+  "triangleCount": 11068,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-or-ragdoll-body-shape",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 11,
+    "approximatedMaterialIndices": []
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      0,
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "e8f19a0a00000000",
+      "e8f19a0aa958e46d"
+    ],
+    "childUserDataHex": [
+      "e8f19a0a00000000",
+      "e8f19a0aa958e46d"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 136,
+      "nodeName": "hd2_collision_000_a3d491d1",
+      "parentNodeIndex": 30,
+      "parentNodeName": "root",
+      "colliderHash": "a3d491d1",
+      "boneHash": "bccf91e5",
+      "boneName": "root",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        2.0,
+        2.000001,
+        3.0
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 1,
+      "nodeIndex": 137,
+      "nodeName": "hd2_collision_001_70f8a04b",
+      "parentNodeIndex": 76,
+      "parentNodeName": "r_shoulder",
+      "colliderHash": "70f8a04b",
+      "boneHash": "1620b2ce",
+      "boneName": "r_shoulder",
+      "vertices": 108,
+      "triangles": 208,
+      "localSize": [
+        0.564313,
+        0.315131,
+        0.317301
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 2,
+      "nodeIndex": 138,
+      "nodeName": "hd2_collision_002_41ead984",
+      "parentNodeIndex": 77,
+      "parentNodeName": "r_elbow",
+      "colliderHash": "41ead984",
+      "boneHash": "31e34dac",
+      "boneName": "r_elbow",
+      "vertices": 41,
+      "triangles": 78,
+      "localSize": [
+        0.52695,
+        0.27754,
+        0.30488
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 3,
+      "nodeIndex": 139,
+      "nodeName": "hd2_collision_003_4d5ea652",
+      "parentNodeIndex": 59,
+      "parentNodeName": "shoulderpad",
+      "colliderHash": "4d5ea652",
+      "boneHash": "e2a4806e",
+      "boneName": null,
+      "vertices": 32,
+      "triangles": 60,
+      "localSize": [
+        0.387733,
+        0.342885,
+        0.421375
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 4,
+      "nodeIndex": 140,
+      "nodeName": "hd2_collision_004_80c29b0e",
+      "parentNodeIndex": 60,
+      "parentNodeName": "l_shoulder",
+      "colliderHash": "80c29b0e",
+      "boneHash": "03752c98",
+      "boneName": "l_shoulder",
+      "vertices": 52,
+      "triangles": 100,
+      "localSize": [
+        0.481214,
+        0.203912,
+        0.2785
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 5,
+      "nodeIndex": 141,
+      "nodeName": "hd2_collision_005_2432adff",
+      "parentNodeIndex": 61,
+      "parentNodeName": "l_elbow",
+      "colliderHash": "2432adff",
+      "boneHash": "1ca2cd66",
+      "boneName": "l_elbow",
+      "vertices": 41,
+      "triangles": 78,
+      "localSize": [
+        0.526951,
+        0.27754,
+        0.30488
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 6,
+      "nodeIndex": 142,
+      "nodeName": "hd2_collision_006_e07da4fd",
+      "parentNodeIndex": 45,
+      "parentNodeName": "r_leg",
+      "colliderHash": "e07da4fd",
+      "boneHash": "227d089d",
+      "boneName": "r_leg",
+      "vertices": 68,
+      "triangles": 132,
+      "localSize": [
+        0.802254,
+        0.333238,
+        0.385337
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 7,
+      "nodeIndex": 143,
+      "nodeName": "hd2_collision_007_052dd807",
+      "parentNodeIndex": 46,
+      "parentNodeName": "r_knee",
+      "colliderHash": "052dd807",
+      "boneHash": "3ac8154a",
+      "boneName": "r_knee",
+      "vertices": 60,
+      "triangles": 116,
+      "localSize": [
+        0.467515,
+        0.247238,
+        0.278654
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 8,
+      "nodeIndex": 144,
+      "nodeName": "hd2_collision_008_6e7ba67c",
+      "parentNodeIndex": 47,
+      "parentNodeName": "r_ankle",
+      "colliderHash": "6e7ba67c",
+      "boneHash": "176677a1",
+      "boneName": "r_ankle",
+      "vertices": 42,
+      "triangles": 80,
+      "localSize": [
+        0.350185,
+        0.16339,
+        0.169286
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 9,
+      "nodeIndex": 145,
+      "nodeName": "hd2_collision_009_9d972e0f",
+      "parentNodeIndex": 35,
+      "parentNodeName": "l_leg",
+      "colliderHash": "9d972e0f",
+      "boneHash": "21f90105",
+      "boneName": "l_leg",
+      "vertices": 71,
+      "triangles": 138,
+      "localSize": [
+        0.801987,
+        0.333062,
+        0.385164
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 10,
+      "nodeIndex": 146,
+      "nodeName": "hd2_collision_010_453367b0",
+      "parentNodeIndex": 36,
+      "parentNodeName": "l_knee",
+      "colliderHash": "453367b0",
+      "boneHash": "8fd2dfec",
+      "boneName": "l_knee",
+      "vertices": 59,
+      "triangles": 114,
+      "localSize": [
+        0.462409,
+        0.248109,
+        0.279511
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 11,
+      "nodeIndex": 147,
+      "nodeName": "hd2_collision_011_b7c6a1bd",
+      "parentNodeIndex": 37,
+      "parentNodeName": "l_ankle",
+      "colliderHash": "b7c6a1bd",
+      "boneHash": "00299bfb",
+      "boneName": "l_ankle",
+      "vertices": 42,
+      "triangles": 80,
+      "localSize": [
+        0.350185,
+        0.16339,
+        0.169286
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 12,
+      "nodeIndex": 148,
+      "nodeName": "hd2_collision_012_b9ad45f9",
+      "parentNodeIndex": 76,
+      "parentNodeName": "r_shoulder",
+      "colliderHash": "b9ad45f9",
+      "boneHash": "1620b2ce",
+      "boneName": "r_shoulder",
+      "vertices": 108,
+      "triangles": 208,
+      "localSize": [
+        0.564313,
+        0.315131,
+        0.317301
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 13,
+      "nodeIndex": 149,
+      "nodeName": "hd2_collision_013_ef9f15a7",
+      "parentNodeIndex": 77,
+      "parentNodeName": "r_elbow",
+      "colliderHash": "ef9f15a7",
+      "boneHash": "31e34dac",
+      "boneName": "r_elbow",
+      "vertices": 41,
+      "triangles": 78,
+      "localSize": [
+        0.52695,
+        0.27754,
+        0.30488
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 14,
+      "nodeIndex": 150,
+      "nodeName": "hd2_collision_014_bbe34fe1",
+      "parentNodeIndex": 59,
+      "parentNodeName": "shoulderpad",
+      "colliderHash": "bbe34fe1",
+      "boneHash": "e2a4806e",
+      "boneName": null,
+      "vertices": 32,
+      "triangles": 60,
+      "localSize": [
+        0.387733,
+        0.342885,
+        0.421375
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 15,
+      "nodeIndex": 151,
+      "nodeName": "hd2_collision_015_4eb6d074",
+      "parentNodeIndex": 60,
+      "parentNodeName": "l_shoulder",
+      "colliderHash": "4eb6d074",
+      "boneHash": "03752c98",
+      "boneName": "l_shoulder",
+      "vertices": 52,
+      "triangles": 100,
+      "localSize": [
+        0.481214,
+        0.203912,
+        0.2785
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 16,
+      "nodeIndex": 152,
+      "nodeName": "hd2_collision_016_8de24f59",
+      "parentNodeIndex": 61,
+      "parentNodeName": "l_elbow",
+      "colliderHash": "8de24f59",
+      "boneHash": "1ca2cd66",
+      "boneName": "l_elbow",
+      "vertices": 41,
+      "triangles": 78,
+      "localSize": [
+        0.526951,
+        0.27754,
+        0.30488
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 17,
+      "nodeIndex": 153,
+      "nodeName": "hd2_collision_017_981d9e0b",
+      "parentNodeIndex": 45,
+      "parentNodeName": "r_leg",
+      "colliderHash": "981d9e0b",
+      "boneHash": "227d089d",
+      "boneName": "r_leg",
+      "vertices": 68,
+      "triangles": 132,
+      "localSize": [
+        0.802254,
+        0.333238,
+        0.385337
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 18,
+      "nodeIndex": 154,
+      "nodeName": "hd2_collision_018_0dc727f3",
+      "parentNodeIndex": 46,
+      "parentNodeName": "r_knee",
+      "colliderHash": "0dc727f3",
+      "boneHash": "3ac8154a",
+      "boneName": "r_knee",
+      "vertices": 60,
+      "triangles": 116,
+      "localSize": [
+        0.467515,
+        0.247238,
+        0.278654
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 19,
+      "nodeIndex": 155,
+      "nodeName": "hd2_collision_019_096bed59",
+      "parentNodeIndex": 47,
+      "parentNodeName": "r_ankle",
+      "colliderHash": "096bed59",
+      "boneHash": "176677a1",
+      "boneName": "r_ankle",
+      "vertices": 42,
+      "triangles": 80,
+      "localSize": [
+        0.350185,
+        0.16339,
+        0.169286
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 20,
+      "nodeIndex": 156,
+      "nodeName": "hd2_collision_020_dba7048d",
+      "parentNodeIndex": 35,
+      "parentNodeName": "l_leg",
+      "colliderHash": "dba7048d",
+      "boneHash": "21f90105",
+      "boneName": "l_leg",
+      "vertices": 71,
+      "triangles": 138,
+      "localSize": [
+        0.801987,
+        0.333062,
+        0.385164
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 21,
+      "nodeIndex": 157,
+      "nodeName": "hd2_collision_021_e4101db3",
+      "parentNodeIndex": 36,
+      "parentNodeName": "l_knee",
+      "colliderHash": "e4101db3",
+      "boneHash": "8fd2dfec",
+      "boneName": "l_knee",
+      "vertices": 59,
+      "triangles": 114,
+      "localSize": [
+        0.462409,
+        0.248109,
+        0.279511
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 22,
+      "nodeIndex": 158,
+      "nodeName": "hd2_collision_022_3e732594",
+      "parentNodeIndex": 37,
+      "parentNodeName": "l_ankle",
+      "colliderHash": "3e732594",
+      "boneHash": "00299bfb",
+      "boneName": "l_ankle",
+      "vertices": 42,
+      "triangles": 80,
+      "localSize": [
+        0.350185,
+        0.16339,
+        0.169286
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 23,
+      "nodeIndex": 159,
+      "nodeName": "hd2_collision_023_1c6fb424",
+      "parentNodeIndex": 56,
+      "parentNodeName": "chest",
+      "colliderHash": "1c6fb424",
+      "boneHash": "37ef0820",
+      "boneName": "chest",
+      "vertices": 99,
+      "triangles": 194,
+      "localSize": [
+        0.64893,
+        0.432996,
+        0.63553
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 24,
+      "nodeIndex": 160,
+      "nodeName": "hd2_collision_024_f8516946",
+      "parentNodeIndex": 55,
+      "parentNodeName": "spine",
+      "colliderHash": "f8516946",
+      "boneHash": "4b9e7b38",
+      "boneName": "spine",
+      "vertices": 98,
+      "triangles": 192,
+      "localSize": [
+        0.553609,
+        0.416703,
+        0.530274
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 25,
+      "nodeIndex": 161,
+      "nodeName": "hd2_collision_025_6abb4949",
+      "parentNodeIndex": 34,
+      "parentNodeName": "pelvis",
+      "colliderHash": "6abb4949",
+      "boneHash": "d496621a",
+      "boneName": "pelvis",
+      "vertices": 82,
+      "triangles": 160,
+      "localSize": [
+        0.461972,
+        0.461973,
+        0.40875
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 26,
+      "nodeIndex": 162,
+      "nodeName": "hd2_collision_026_2fa870e5",
+      "parentNodeIndex": 56,
+      "parentNodeName": "chest",
+      "colliderHash": "2fa870e5",
+      "boneHash": "37ef0820",
+      "boneName": "chest",
+      "vertices": 99,
+      "triangles": 194,
+      "localSize": [
+        0.64893,
+        0.432996,
+        0.63553
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 27,
+      "nodeIndex": 163,
+      "nodeName": "hd2_collision_027_a3e171bb",
+      "parentNodeIndex": 55,
+      "parentNodeName": "spine",
+      "colliderHash": "a3e171bb",
+      "boneHash": "4b9e7b38",
+      "boneName": "spine",
+      "vertices": 98,
+      "triangles": 192,
+      "localSize": [
+        0.553609,
+        0.416703,
+        0.530274
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 28,
+      "nodeIndex": 164,
+      "nodeName": "hd2_collision_028_863a365c",
+      "parentNodeIndex": 34,
+      "parentNodeName": "pelvis",
+      "colliderHash": "863a365c",
+      "boneHash": "d496621a",
+      "boneName": "pelvis",
+      "vertices": 82,
+      "triangles": 160,
+      "localSize": [
+        0.461972,
+        0.461973,
+        0.40875
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 29,
+      "nodeIndex": 165,
+      "nodeName": "hd2_collision_029_9b115563",
+      "parentNodeIndex": 33,
+      "parentNodeName": "boss",
+      "colliderHash": "9b115563",
+      "boneHash": "9b115563",
+      "boneName": "boss",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.30175,
+        0.423009,
+        0.30175
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 30,
+      "nodeIndex": 166,
+      "nodeName": "hd2_collision_030_21f90105",
+      "parentNodeIndex": 35,
+      "parentNodeName": "l_leg",
+      "colliderHash": "21f90105",
+      "boneHash": "21f90105",
+      "boneName": "l_leg",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.807308,
+        0.186136,
+        0.186136
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 31,
+      "nodeIndex": 167,
+      "nodeName": "hd2_collision_031_227d089d",
+      "parentNodeIndex": 45,
+      "parentNodeName": "r_leg",
+      "colliderHash": "227d089d",
+      "boneHash": "227d089d",
+      "boneName": "r_leg",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.807307,
+        0.186004,
+        0.186004
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 32,
+      "nodeIndex": 168,
+      "nodeName": "hd2_collision_032_4b9e7b38",
+      "parentNodeIndex": 55,
+      "parentNodeName": "spine",
+      "colliderHash": "4b9e7b38",
+      "boneHash": "4b9e7b38",
+      "boneName": "spine",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.36,
+        0.359999,
+        0.367559
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 33,
+      "nodeIndex": 169,
+      "nodeName": "hd2_collision_033_8fd2dfec",
+      "parentNodeIndex": 36,
+      "parentNodeName": "l_knee",
+      "colliderHash": "8fd2dfec",
+      "boneHash": "8fd2dfec",
+      "boneName": "l_knee",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.635838,
+        0.147716,
+        0.147717
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 34,
+      "nodeIndex": 170,
+      "nodeName": "hd2_collision_034_3ac8154a",
+      "parentNodeIndex": 46,
+      "parentNodeName": "r_knee",
+      "colliderHash": "3ac8154a",
+      "boneHash": "3ac8154a",
+      "boneName": "r_knee",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.635838,
+        0.146107,
+        0.146107
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 35,
+      "nodeIndex": 171,
+      "nodeName": "hd2_collision_035_37ef0820",
+      "parentNodeIndex": 56,
+      "parentNodeName": "chest",
+      "colliderHash": "37ef0820",
+      "boneHash": "37ef0820",
+      "boneName": "chest",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.399428,
+        0.438252,
+        0.399428
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 36,
+      "nodeIndex": 172,
+      "nodeName": "hd2_collision_036_00299bfb",
+      "parentNodeIndex": 37,
+      "parentNodeName": "l_ankle",
+      "colliderHash": "00299bfb",
+      "boneHash": "00299bfb",
+      "boneName": "l_ankle",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.41224,
+        0.107595,
+        0.107595
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 37,
+      "nodeIndex": 173,
+      "nodeName": "hd2_collision_037_176677a1",
+      "parentNodeIndex": 47,
+      "parentNodeName": "r_ankle",
+      "colliderHash": "176677a1",
+      "boneHash": "176677a1",
+      "boneName": "r_ankle",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.41224,
+        0.107395,
+        0.107395
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 38,
+      "nodeIndex": 174,
+      "nodeName": "hd2_collision_038_78249836",
+      "parentNodeIndex": 58,
+      "parentNodeName": "l_collar",
+      "colliderHash": "78249836",
+      "boneHash": "78249836",
+      "boneName": "l_collar",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.239594,
+        0.227139,
+        0.227139
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 39,
+      "nodeIndex": 175,
+      "nodeName": "hd2_collision_039_e9ecca21",
+      "parentNodeIndex": 90,
+      "parentNodeName": "neck",
+      "colliderHash": "e9ecca21",
+      "boneHash": "e9ecca21",
+      "boneName": "neck",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.207717,
+        0.207717,
+        0.257165
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 40,
+      "nodeIndex": 176,
+      "nodeName": "hd2_collision_040_fdfb45ec",
+      "parentNodeIndex": 75,
+      "parentNodeName": "r_collar",
+      "colliderHash": "fdfb45ec",
+      "boneHash": "fdfb45ec",
+      "boneName": "r_collar",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.239594,
+        0.227161,
+        0.227161
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 41,
+      "nodeIndex": 177,
+      "nodeName": "hd2_collision_041_8eb19d6a",
+      "parentNodeIndex": 38,
+      "parentNodeName": "l_foot",
+      "colliderHash": "8eb19d6a",
+      "boneHash": "8eb19d6a",
+      "boneName": "l_foot",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        0.08,
+        0.203859,
+        0.157717
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpBoxShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 42,
+      "nodeIndex": 178,
+      "nodeName": "hd2_collision_042_46ddad11",
+      "parentNodeIndex": 48,
+      "parentNodeName": "r_foot",
+      "colliderHash": "46ddad11",
+      "boneHash": "46ddad11",
+      "boneName": "r_foot",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        0.08,
+        0.203859,
+        0.157717
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpBoxShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 43,
+      "nodeIndex": 179,
+      "nodeName": "hd2_collision_043_03752c98",
+      "parentNodeIndex": 60,
+      "parentNodeName": "l_shoulder",
+      "colliderHash": "03752c98",
+      "boneHash": "03752c98",
+      "boneName": "l_shoulder",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.422469,
+        0.147057,
+        0.147057
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 44,
+      "nodeIndex": 180,
+      "nodeName": "hd2_collision_044_8c5570c9",
+      "parentNodeIndex": 91,
+      "parentNodeName": "head",
+      "colliderHash": "8c5570c9",
+      "boneHash": "8c5570c9",
+      "boneName": "head",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.34,
+        0.238795,
+        0.238795
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 45,
+      "nodeIndex": 181,
+      "nodeName": "hd2_collision_045_1620b2ce",
+      "parentNodeIndex": 76,
+      "parentNodeName": "r_shoulder",
+      "colliderHash": "1620b2ce",
+      "boneHash": "1620b2ce",
+      "boneName": "r_shoulder",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.422467,
+        0.146187,
+        0.146187
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 46,
+      "nodeIndex": 182,
+      "nodeName": "hd2_collision_046_1ca2cd66",
+      "parentNodeIndex": 61,
+      "parentNodeName": "l_elbow",
+      "colliderHash": "1ca2cd66",
+      "boneHash": "1ca2cd66",
+      "boneName": "l_elbow",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.584824,
+        0.127705,
+        0.127705
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 47,
+      "nodeIndex": 183,
+      "nodeName": "hd2_collision_047_31e34dac",
+      "parentNodeIndex": 77,
+      "parentNodeName": "r_elbow",
+      "colliderHash": "31e34dac",
+      "boneHash": "31e34dac",
+      "boneName": "r_elbow",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.584825,
+        0.127698,
+        0.127698
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 48,
+      "nodeIndex": 184,
+      "nodeName": "hd2_collision_048_ddebd193",
+      "parentNodeIndex": 64,
+      "parentNodeName": "l_wrist",
+      "colliderHash": "ddebd193",
+      "boneHash": "ddebd193",
+      "boneName": "l_wrist",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        0.269731,
+        0.138943,
+        0.150948
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpBoxShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 49,
+      "nodeIndex": 185,
+      "nodeName": "hd2_collision_049_4ee7adb8",
+      "parentNodeIndex": 79,
+      "parentNodeName": "r_wrist",
+      "colliderHash": "4ee7adb8",
+      "boneHash": "4ee7adb8",
+      "boneName": "r_wrist",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        0.269712,
+        0.138938,
+        0.150948
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpBoxShape"
+      ],
+      "subshapeCount": 1
+    }
+  ]
+}

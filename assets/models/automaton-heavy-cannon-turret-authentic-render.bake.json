@@ -1,0 +1,14 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-heavy-cannon-turret-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 1,
+  "materials": {
+    "HD2 Mat tank_turret materials/m_tank_turret": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-heavy-cannon-turret-authentic-render-textures\\HD2-Mat-tank_turret-materials\\m_tank_turret-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-heavy-cannon-turret-authentic-render-textures\\HD2-Mat-tank_turret-materials\\m_tank_turret-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-heavy-cannon-turret-authentic-render-textures\\HD2-Mat-tank_turret-materials\\m_tank_turret-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-heavy-cannon-turret-authentic-render-textures\\HD2-Mat-tank_turret-materials\\m_tank_turret-normal.png"
+    }
+  },
+  "removedMeshCount": 1
+}

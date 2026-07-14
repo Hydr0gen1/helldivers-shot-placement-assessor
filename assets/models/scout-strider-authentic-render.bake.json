@@ -1,0 +1,21 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 4,
+  "materials": {
+    "HD2 Mat 0x0bf657d1 0xdd38377a3c62b619": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-authentic-render-textures\\HD2-Mat-0x0bf657d1-0xdd38377a3c62b619-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-authentic-render-textures\\HD2-Mat-0x0bf657d1-0xdd38377a3c62b619-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-authentic-render-textures\\HD2-Mat-0x0bf657d1-0xdd38377a3c62b619-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-authentic-render-textures\\HD2-Mat-0x0bf657d1-0xdd38377a3c62b619-normal.png"
+    },
+    "HD2 Mat 0x88ad3bca 0x7c58907b145658a2": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-authentic-render-textures\\HD2-Mat-0x88ad3bca-0x7c58907b145658a2-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-authentic-render-textures\\HD2-Mat-0x88ad3bca-0x7c58907b145658a2-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-authentic-render-textures\\HD2-Mat-0x88ad3bca-0x7c58907b145658a2-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-authentic-render-textures\\HD2-Mat-0x88ad3bca-0x7c58907b145658a2-normal.png"
+    }
+  },
+  "removedMeshCount": 3,
+  "removedAlternatePrimitiveCount": 0
+}

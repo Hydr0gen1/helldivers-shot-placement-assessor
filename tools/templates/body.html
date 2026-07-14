@@ -61,6 +61,13 @@
           <div class="field" id="shrapnelField" hidden><div class="field-label-row"><label for="shrapnelHits">Fragments hitting target</label><output id="shrapnelHitsValue" for="shrapnelHits">1 of 35</output></div><input id="shrapnelHits" class="blast-range" type="range" min="0" max="35" step="1" value="1"><div class="blast-scale" aria-hidden="true"><span>Explosion only</span><span>All fragments</span></div><p class="field-hint">Each fragment gets its own armor, angle, durability, and range check. Fragments are ballistic and ignore explosive resistance.</p></div>
         </div>
       </details>
+
+      <section class="targeting-3d-launch" id="targeting3dLaunch" hidden aria-labelledby="targeting3dLaunchTitle">
+        <span class="research-badge">GAME-DERIVED MAPPING</span>
+        <h2 id="targeting3dLaunchTitle">Game-derived damage model</h2>
+        <p id="targeting3dLaunchDescription">Inspect decoded collision geometry and its HealthComponent damage zones.</p>
+        <button class="action" id="openTargeting3d" type="button">Open 3D targeting</button>
+      </section>
     </aside>
 
     <main class="content">
@@ -92,4 +99,33 @@
   <p>Your browser blocked automatic clipboard access. The result is selected below.</p>
   <textarea id="copyFallbackText" readonly></textarea>
   <button class="action" id="closeCopyFallback" type="button">Done</button>
+</dialog>
+
+<dialog class="targeting-3d-dialog" id="targeting3dDialog" aria-labelledby="targeting3dTitle">
+  <div class="targeting-3d-shell">
+    <header class="targeting-3d-header">
+      <div>
+        <span class="research-badge" id="targeting3dBadge">GEOMETRY VERIFIED / DAMAGE ZONES VERIFIED</span>
+        <h2 id="targeting3dTitle">Enemy damage model</h2>
+        <p id="targeting3dSubtitle">Click a highlighted hull to inspect its game-derived damage zone. This preview does not yet alter shot recommendations.</p>
+      </div>
+      <button class="icon-action targeting-3d-close" id="closeTargeting3d" type="button" aria-label="Close 3D targeting">&#x2715;</button>
+    </header>
+    <div class="targeting-3d-toolbar" aria-label="3D view controls">
+      <button class="action" id="resetTargeting3d" type="button">Reset view</button>
+      <label class="targeting-3d-toggle" for="showTargeting3dHulls"><input id="showTargeting3dHulls" type="checkbox" checked> Show collision hulls</label>
+      <label class="targeting-3d-toggle" for="showTargeting3dGeometryOnly"><input id="showTargeting3dGeometryOnly" type="checkbox"> Show geometry-only hulls</label>
+      <span id="targeting3dStatus" role="status" aria-live="polite">Model not loaded</span>
+    </div>
+    <div class="targeting-3d-stage" id="targeting3dStage">
+      <div class="targeting-3d-loading" id="targeting3dLoading">Loading local model&hellip;</div>
+      <div class="targeting-3d-canvas" id="targeting3dCanvas" role="img" aria-label="Interactive enemy model with selectable collision hulls"></div>
+    </div>
+    <div class="targeting-3d-selection" id="targeting3dSelection">
+      <div><span>Selected hull</span><strong id="targeting3dCollider">None</strong></div>
+      <div><span>Damage zone</span><strong id="targeting3dBone">Select a hull</strong></div>
+      <div><span>Evidence</span><strong id="targeting3dEvidence">Exact HealthComponent actor join</strong></div>
+    </div>
+    <p class="targeting-3d-caveat" id="targeting3dCaveat">Collision actors map to decoded HealthComponent armor, HP, durability, explosion flags, and Main-health transfer. Armor-break state transitions still require behavioral tracing.</p>
+  </div>
 </dialog>

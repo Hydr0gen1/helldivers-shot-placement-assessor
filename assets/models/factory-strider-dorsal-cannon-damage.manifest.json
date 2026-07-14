@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "entity": "content/fac_cyborgs/turrets/cyborg_big_walker_turret_cannon/cyborg_big_walker_turret_cannon",
+  "displayName": "Factory Strider Dorsal Cannon",
+  "gameObjectId": "0x8ed281fe",
+  "mappingConfidence": "partial-actor-join",
+  "evidence": "HealthComponentData damageableZones[].actors matched collision node names or collider hashes; every hull matched exactly once.",
+  "source": {
+    "entitiesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-entity-components.json",
+      "sha256": "83285FDB1C0549D49A3FFEB7064FAF182C3CECCFD8866A1CAA190BC09E2B7ADB"
+    },
+    "collisionManifest": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\top-collision.manifest.json",
+      "sha256": "2FC44B1F6F78BC8285C91322B219719EC764297B7918344BA0BDD195E62E9268"
+    }
+  },
+  "mainHealth": 900,
+  "defaultDamageableZone": {
+    "damage_multiplier": "DamageMultiplier_Normal",
+    "damage_multiplier_dps": "DamageMultiplier_Normal",
+    "projectile_durable_resistance": 1,
+    "armor": 5,
+    "armor_angle_check": true,
+    "max_armor": 0,
+    "health": -1,
+    "constitution": 0,
+    "immortal": false,
+    "causes_downed_on_downed": false,
+    "causes_death_on_downed": false,
+    "causes_downed_on_death": false,
+    "causes_death_on_death": false,
+    "affects_main_health": 1,
+    "child_zones": [],
+    "kill_children_on_death": false,
+    "bleedout_enabled": false,
+    "affected_by_explosions": false,
+    "explosive_damage_percentage": 0.5,
+    "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
+    "main_health_affect_capped_by_zone_health": true,
+    "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+  },
+  "zoneCount": 1,
+  "actorCount": 2,
+  "mappedActorCount": 1,
+  "unmatchedActorCount": 1,
+  "unmatchedActors": [
+    {
+      "zoneIndex": 0,
+      "zoneName": "0xb7bf9226",
+      "actor": "c_base"
+    }
+  ],
+  "mappedColliderCount": 1,
+  "unmappedColliderCount": 2,
+  "unmappedColliderRecords": [
+    0,
+    2
+  ],
+  "duplicateColliderAssignments": 0,
+  "zones": [
+    {
+      "zoneIndex": 0,
+      "zoneName": "0xb7bf9226",
+      "zoneNameRaw": "0xb7bf9226",
+      "zoneNameResolution": "raw-hash",
+      "actors": [
+        {
+          "actor": "c_barrel",
+          "recordIndex": 1,
+          "colliderHash": "9851c382",
+          "nodeName": "hd2_collision_001_9851c382",
+          "boneHash": "866cc914",
+          "boneName": null
+        }
+      ],
+      "damage_multiplier": "DamageMultiplier_Normal",
+      "damage_multiplier_dps": "DamageMultiplier_Normal",
+      "projectile_durable_resistance": 1,
+      "armor": 5,
+      "armor_angle_check": true,
+      "max_armor": 0,
+      "health": -1,
+      "constitution": 0,
+      "immortal": false,
+      "causes_downed_on_downed": false,
+      "causes_death_on_downed": false,
+      "causes_downed_on_death": false,
+      "causes_death_on_death": true,
+      "affects_main_health": 1,
+      "child_zones": [],
+      "kill_children_on_death": false,
+      "bleedout_enabled": false,
+      "affected_by_explosions": false,
+      "explosive_damage_percentage": 3.4028235e+38,
+      "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
+      "main_health_affect_capped_by_zone_health": true,
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+    }
+  ],
+  "colliders": [
+    {
+      "recordIndex": 1,
+      "colliderHash": "9851c382",
+      "nodeName": "hd2_collision_001_9851c382",
+      "boneHash": "866cc914",
+      "boneName": null,
+      "zoneIndex": 0,
+      "zoneName": "0xb7bf9226",
+      "zoneNameRaw": "0xb7bf9226",
+      "zoneNameResolution": "raw-hash",
+      "health": -1,
+      "armor": 5,
+      "projectileDurableResistance": 1,
+      "affectsMainHealth": 1,
+      "affectedByExplosions": false,
+      "explosiveDamagePercentage": 3.4028235e+38,
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+    }
+  ],
+  "preparedOutput": {
+    "path": "factory-strider-dorsal-cannon-damage.manifest.json",
+    "hitboxAsset": "factory-strider-dorsal-cannon-hitboxes.glb",
+    "hitboxAssetSha256": "95BA9E468BF1C71B23B5157B8A96A1EE7002C9577D34B4B384BE439F0F65FE77"
+  }
+}

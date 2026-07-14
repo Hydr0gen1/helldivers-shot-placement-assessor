@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": null,
+    "ragdollProfile": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-aircraft-extract\\content\\fac_cyborgs\\vehicles\\cyborg_gunship\\cyborg_gunship.ragdoll_profile.main",
+      "sha256": "3C7D91B2FA74EE851C1E5AADB5B2FCC1BFB34C2A60CA553E53F559922217A61D"
+    },
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-aircraft-extract\\content\\fac_cyborgs\\vehicles\\cyborg_gunship\\cyborg_gunship.unit.glb",
+      "sha256": "39C0B9419E27711C5F8EBC8A151A69BDBB86128E9D67FDEEA2C27CCFA1C0D8A8"
+    },
+    "bonesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-aircraft-extract\\content\\fac_cyborgs\\vehicles\\cyborg_gunship\\cyborg_gunship.bones.json",
+      "sha256": "1AB39EECC00642268B24F398007F71F56AC24D56E70450BEE3D42661E985F3FF"
+    },
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\gunship-collision-research.glb",
+    "sha256": "F5881F8603DA373A213BBE349D266CDC6EFECDB420DA8E33F67260E98E14ADB1"
+  },
+  "hullCount": 5,
+  "physicsRecordCount": 5,
+  "basePhysicsHullCount": 0,
+  "ragdollHullCount": 5,
+  "ragdollMappingEvidence": "Exact hknpPhysicsSystemData::bodyCinfoWithAttachment shape ITEM and ragdoll-name ITEM references",
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 104,
+  "triangleCount": 188,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-or-ragdoll-body-shape",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 10,
+    "approximatedMaterialIndices": [
+      1,
+      3
+    ]
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      0
+    ],
+    "rootUserDataHex": [
+      "282eb766c1ffa6a1"
+    ],
+    "childUserDataHex": [
+      "282eb766c1ffa6a1"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 96,
+      "nodeName": "hd2_collision_000_9b115563",
+      "parentNodeIndex": 16,
+      "parentNodeName": "boss",
+      "colliderHash": "9b115563",
+      "boneHash": "9b115563",
+      "boneName": "boss",
+      "vertices": 72,
+      "triangles": 140,
+      "localSize": [
+        4.025833,
+        11.83397,
+        2.909855
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCompressedMeshShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 1,
+      "nodeIndex": 97,
+      "nodeName": "hd2_collision_001_909e2173",
+      "parentNodeIndex": 29,
+      "parentNodeName": "l_back_engine_roll",
+      "colliderHash": "909e2173",
+      "boneHash": "909e2173",
+      "boneName": "l_back_engine_roll",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        2.502763,
+        1.415632,
+        0.960743
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpBoxShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 2,
+      "nodeIndex": 98,
+      "nodeName": "hd2_collision_002_aff1f7e1",
+      "parentNodeIndex": 40,
+      "parentNodeName": "l_front_engine_roll",
+      "colliderHash": "aff1f7e1",
+      "boneHash": "aff1f7e1",
+      "boneName": "l_front_engine_roll",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        3.562695,
+        2.613791,
+        1.233517
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpBoxShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 3,
+      "nodeIndex": 99,
+      "nodeName": "hd2_collision_003_cba8d993",
+      "parentNodeIndex": 18,
+      "parentNodeName": "r_back_engine_roll",
+      "colliderHash": "cba8d993",
+      "boneHash": "cba8d993",
+      "boneName": "r_back_engine_roll",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        2.571204,
+        1.487005,
+        0.958878
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpBoxShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 4,
+      "nodeIndex": 100,
+      "nodeName": "hd2_collision_004_131928ea",
+      "parentNodeIndex": 51,
+      "parentNodeName": "r_front_engine_roll",
+      "colliderHash": "131928ea",
+      "boneHash": "131928ea",
+      "boneName": "r_front_engine_roll",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        3.502066,
+        2.584909,
+        1.183813
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpBoxShape"
+      ],
+      "subshapeCount": 1
+    }
+  ]
+}

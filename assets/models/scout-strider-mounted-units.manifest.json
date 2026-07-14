@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "enemy": "Scout Strider",
+  "assemblyConfidence": "verified-mount-component-join",
+  "mounts": [
+    {
+      "id": "cannon",
+      "label": "Chin cannon",
+      "asset": "scout-strider-cannon-authentic-render.glb",
+      "assetSha256": "9E8802C854E07CBB5C6FE30EC2E2BBC8B791E4DA5C625A8AEBE156104A23F83F",
+      "attachNode": "gun_pitch",
+      "mountEntity": "0x2a346bf4552997e2",
+      "unitResource": "0x2a346bf4552997e2",
+      "hitboxAsset": "scout-strider-cannon-hitboxes.glb",
+      "hitboxAssetSha256": "79B631AEC65FABAC841C30ED642398E9D8E6BEB75EE1074C15DAA84517339B05",
+      "collisionManifest": "scout-strider-cannon-collision.manifest.json",
+      "damageManifest": "scout-strider-cannon-damage.manifest.json",
+      "axisRootRotation": [
+        -0.70710678,
+        0,
+        0,
+        0.70710678
+      ]
+    },
+    {
+      "id": "driver",
+      "label": "Scout Strider driver housing",
+      "asset": "scout-strider-driver-authentic-render.glb",
+      "assetSha256": "7D4BEE508FB2A1C4421D65F13F872A3DDE5DE4B6030B1A39ED0002B05C552945",
+      "attachNode": "turret",
+      "mountEntity": "0xee00bfe8ff769f70",
+      "unitResource": "0xee00bfe8ff769f70",
+      "hitboxAsset": "scout-strider-driver-hitboxes.glb",
+      "hitboxAssetSha256": "9AD412753F18909DFD8A67E5AC5567062F7C1CE6B3285A424188F32198CE234D",
+      "collisionManifest": "scout-strider-driver-collision.manifest.json",
+      "damageManifest": "scout-strider-driver-damage.manifest.json"
+    }
+  ],
+  "authenticShaderBakes": [
+    "scout-strider-cannon-authentic-render.glb",
+    "scout-strider-driver-authentic-render.glb"
+  ],
+  "viewerMaterialApproximations": {
+    "scout-strider-cannon-authentic-render.glb": [],
+    "scout-strider-driver-authentic-render.glb": []
+  },
+  "notes": [
+    "All child paths and sockets are decoded directly from MountComponentData.",
+    "The cannon, driver housing, and rocket rails use exact game Havok collision geometry and their own HealthComponents.",
+    "All visible child units use intact Filediver accurate-shader bakes; no destroyed variants or targeting proxies are included."
+  ]
+}

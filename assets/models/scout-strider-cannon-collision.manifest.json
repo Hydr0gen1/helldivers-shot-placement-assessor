@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\0x2a346bf4552997e2.physics.main",
+      "sha256": "1F1ECE11A6BB12184D7B4C6CCA6546AF52E7CE81B30235970ADB3EBBD6D2DAA3"
+    },
+    "ragdollProfile": null,
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\0x2a346bf4552997e2.unit.glb",
+      "sha256": "1F637EE63D25DD2C4C8A48CB03A3F3314AEAD2427D4C27D1170C681B67782D35"
+    },
+    "bonesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\0x2a346bf4552997e2.bones.json",
+      "sha256": "A389A91B9DE2661C6D044F53AE3133B7E5CFCF46BDEC8401C20231F9BB9EA79F"
+    },
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\scout-strider-cannon-collision.glb",
+    "sha256": "1FD5F0204A51CCF087FAE59F174734E21538C2AD30B690D53DB6161F858F74FC"
+  },
+  "hullCount": 1,
+  "physicsRecordCount": 1,
+  "basePhysicsHullCount": 1,
+  "ragdollHullCount": 0,
+  "ragdollMappingEvidence": null,
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 8,
+  "triangleCount": 12,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-or-ragdoll-body-shape",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 6,
+    "approximatedMaterialIndices": [
+      1
+    ]
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "2a346bf400000000"
+    ],
+    "childUserDataHex": [
+      "2a346bf400000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 25,
+      "nodeName": "hd2_collision_000_373e5b64",
+      "parentNodeIndex": 11,
+      "parentNodeName": "root",
+      "colliderHash": "373e5b64",
+      "boneHash": "bccf91e5",
+      "boneName": "root",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        0.28,
+        1.35,
+        0.13
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpBoxShape"
+      ],
+      "subshapeCount": 1
+    }
+  ]
+}

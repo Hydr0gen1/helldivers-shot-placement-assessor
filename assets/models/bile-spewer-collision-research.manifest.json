@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-more-enemy-extract\\content\\fac_bugs\\cha_boomer\\cha_boomer.physics.main",
+      "sha256": "6A8D05417D6541D08917A623B3655A8383BB1A0A87722D8E498A537CAE855C77"
+    },
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-more-enemy-extract\\content\\fac_bugs\\cha_boomer\\cha_boomer.unit.glb",
+      "sha256": "37B7EDA66F6CAA4ED408660C54A97BA4293511788DD6951E0D61D4D747C93CC5"
+    },
+    "bonesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-more-enemy-extract\\content\\fac_bugs\\cha_boomer\\cha_boomer.bones.json",
+      "sha256": "86A1A64FB00881E063553DD99FD3B1ADE2565D2BE12016A6A64A03399185BEAB"
+    },
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\bile-spewer-collision-research.glb",
+    "sha256": "D8BA3DF794F2F07DFAF81E5D546642125C80B12F948D70159B635A863BC23B7F"
+  },
+  "hullCount": 5,
+  "physicsRecordCount": 5,
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 482,
+  "triangleCount": 756,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-transform",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 4,
+    "approximatedMaterialIndices": []
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "36aa99cc00000000"
+    ],
+    "childUserDataHex": [
+      "36aa99cc00000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 117,
+      "nodeName": "hd2_collision_000_a3d491d1",
+      "parentNodeIndex": 32,
+      "parentNodeName": "root",
+      "colliderHash": "a3d491d1",
+      "boneHash": "bccf91e5",
+      "boneName": "root",
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        3.263003,
+        4.599703,
+        3.263003
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 1,
+      "nodeIndex": 118,
+      "nodeName": "hd2_collision_001_4ea4da87",
+      "parentNodeIndex": 74,
+      "parentNodeName": "yaw",
+      "colliderHash": "4ea4da87",
+      "boneHash": "09a026f5",
+      "boneName": "yaw",
+      "vertices": 126,
+      "triangles": 196,
+      "localSize": [
+        0.457049,
+        0.462864,
+        0.456732
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpSphereShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 2,
+      "nodeIndex": 119,
+      "nodeName": "hd2_collision_002_573a0652",
+      "parentNodeIndex": 54,
+      "parentNodeName": "lower_spine3",
+      "colliderHash": "573a0652",
+      "boneHash": "1c5f3be4",
+      "boneName": "lower_spine3",
+      "vertices": 28,
+      "triangles": 52,
+      "localSize": [
+        1.357512,
+        1.568538,
+        1.012208
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 3,
+      "nodeIndex": 120,
+      "nodeName": "hd2_collision_003_312d55bb",
+      "parentNodeIndex": 52,
+      "parentNodeName": "lower_spine2",
+      "colliderHash": "312d55bb",
+      "boneHash": "0e835875",
+      "boneName": "lower_spine2",
+      "vertices": 28,
+      "triangles": 52,
+      "localSize": [
+        1.937076,
+        2.034473,
+        0.764176
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 4,
+      "nodeIndex": 121,
+      "nodeName": "hd2_collision_004_bc01b5fd",
+      "parentNodeIndex": 50,
+      "parentNodeName": "lower_spine1",
+      "colliderHash": "bc01b5fd",
+      "boneHash": "0f0196b3",
+      "boneName": "lower_spine1",
+      "vertices": 20,
+      "triangles": 36,
+      "localSize": [
+        1.702074,
+        1.746061,
+        0.795676
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    }
+  ]
+}

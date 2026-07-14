@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "enemy": "Devastator",
+  "assemblyConfidence": "verified-mount-component-join",
+  "sources": {
+    "devastator-standard-rifle.glb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_standard_rifle\\soldier_standard_rifle.unit.glb",
+      "sha256": "51F7EF7CF630E4867DFCE2E69E3B1CD4DCE07E6D6948451455BC446C5CE63E77"
+    },
+    "heavy-devastator-machinegun.glb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_machinegun\\soldier_machinegun.unit.glb",
+      "sha256": "52F33877C261F1F874B35A080E1363F85B91D4E018F9BADE9AD0CB41AF179E2F"
+    },
+    "heavy-devastator-shield.glb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_shield\\soldier_shield.unit.glb",
+      "sha256": "3698547B92CC14EAC6835D6F442541AF345F670B40211796D4107F5E0E65F8BE"
+    }
+  },
+  "mounts": [
+    {
+      "id": "standard-rifle",
+      "label": "Fusion assault gun",
+      "asset": "devastator-standard-rifle.glb",
+      "assetSha256": "E7805E02271B52D6642674729DC8E1F1DC2DB4F46A6DF2796EF2D6C30D588A7C",
+      "attachNode": "attach_r_hand",
+      "mountEntity": "content/fac_cyborgs/equipment/weapons/soldier_standard_rifle/soldier_standard_rifle",
+      "unitResource": "content/fac_cyborgs/equipment/weapons/soldier_standard_rifle/soldier_standard_rifle"
+    }
+  ],
+  "authenticShaderBakes": [],
+  "viewerMaterialApproximations": {
+    "devastator-standard-rifle.glb": [
+      0,
+      2
+    ],
+    "heavy-devastator-machinegun.glb": [
+      2
+    ],
+    "heavy-devastator-shield.glb": [
+      2
+    ]
+  },
+  "notes": [
+    "Mounted equipment paths and sockets come directly from the enemy MountComponentData.",
+    "The Heavy Devastator shield uses its separate exact Havok collision and HealthComponent; no proxy geometry is substituted.",
+    "Hand-held guns have no HealthComponent and are render-only equipment, not selectable damage zones."
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "status": "verified-damage-zone-mapping",
+  "researchDate": "2026-07-13",
+  "enemy": {
+    "id": "Bile Titan",
+    "logicalArchiveId": "fac59cae01035deb",
+    "resourceIdHex": "9e2e17f2ccccafdd",
+    "resourceIdDecimal": "11398074038506794973",
+    "friendlyPath": "content/fac_bugs/cha_strider/cha_strider"
+  },
+  "game": {
+    "version": "release/01.006.301",
+    "buildId": 18653,
+    "commit": "2777dec0d45d243a11770",
+    "buildTimestamp": "2026-07-02 21:18:08"
+  },
+  "tools": {
+    "blender": "4.3.2",
+    "hd2SdkCommunityEdition": {
+      "version": "3.9.3",
+      "releaseZipSha256": "97F190DAAA8649692F8F1D59084F4B447CBA5AF2BF3F0717FDFC97BD86762519"
+    },
+    "filediver": {
+      "version": "0.7.35",
+      "sourceCommit": "6f713e744a40d71f00fa55d33120e63aaf8115d7"
+    }
+  },
+  "verifiedTopology": {
+    "meshCount": 30,
+    "cullingBoxMeshCount": 21,
+    "renderLodMeshCount": 9,
+    "glbVisualSectionCount": 39,
+    "transformCount": 175,
+    "boneCount": 71,
+    "physicsFormat": "hknpCompoundShape",
+    "collisionShapeCount": 54,
+    "allShapesLinkedToTransforms": true,
+    "allShapesLinkedToSkeletonBones": true,
+    "repeatedLegsRemainDistinct": true,
+    "shapeProperty": "keyframed",
+    "shapeFlags": 17,
+    "embeddedHavokVersion": "20190100",
+    "uniformShapeTag": 65535,
+    "uniformDestructionTag": 65535,
+    "uniformShapeTagCodecInfo": 4294967295,
+    "uniformRootAndChildUserDataHex": "9e2e17f200000000",
+    "convexGeometryRecoverable": true,
+    "gameplayMeaningEncodedPerShape": false,
+    "gameplayMeaningRecoveredFromHealthComponentActors": true
+  },
+  "extractedArtifactEvidence": {
+    "unitGlb": {
+      "bytes": 39559804,
+      "sha256": "26D2868AE87319BC1774919C5B24238CDE6EC95434FA36B5DC2692D883B0B541",
+      "committed": false
+    },
+    "physics": {
+      "bytes": 444284,
+      "sha256": "2012F5CAA1A22623159BCE5B31C6DC2C7F9C8EC072FA047BC5F6A6BB459C28AC",
+      "committed": false
+    },
+    "bonesJson": {
+      "bytes": 4673,
+      "sha256": "E4E750A5140198C6901331DAE0C3952A53417F2C1C13EF99CF01635927BA447E",
+      "committed": false
+    }
+  },
+  "requiredSemanticLinks": {
+    "collisionToDamagePool": true,
+    "armorAndDurability": true,
+    "armorBreakAccessState": false,
+    "damageCapsAndMainTransfer": true,
+    "explosionFlagsAndExvm": true
+  },
+  "verifiedDamageZoneMapping": {
+    "entity": "content/fac_bugs/cha_strider/cha_strider",
+    "mainHealth": 6500,
+    "zoneCount": 26,
+    "actorCount": 54,
+    "mappedColliderCount": 54,
+    "unmappedColliderCount": 0,
+    "duplicateColliderAssignments": 0,
+    "confidence": "verified-exact-actor-join",
+    "artifact": "assets/models/bile-titan-damage-zones.manifest.json",
+    "generatedEntitiesSha256": "EFBF19C1B8F80C4C7E24FD0A77A2092E39DEA685FF42C8ED46E5763BD232421C"
+  },
+  "runtime3dEnabled": true,
+  "fallback": "existing-2d-anatomy-and-explosion-exposure-profiles"
+}

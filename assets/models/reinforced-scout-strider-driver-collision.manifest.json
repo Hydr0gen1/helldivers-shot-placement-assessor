@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\0xd3cd6f0ca83bb51e.physics.main",
+      "sha256": "3E5F61176C47C198BAABD5B1B33019CF73CBF2FE7BED55AC981198D0F9E09DF1"
+    },
+    "ragdollProfile": null,
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\0xd3cd6f0ca83bb51e.unit.glb",
+      "sha256": "A79A94921BED4C94524FD801D04621F8B1F8B0CBC17CAA393530C461386A5795"
+    },
+    "bonesJson": null,
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\reinforced-scout-strider-driver-collision.glb",
+    "sha256": "9AF90302FD7AC40A775A7D1BDFF0CCB32CA54CCD08B704817F68B552026C309F"
+  },
+  "hullCount": 1,
+  "physicsRecordCount": 1,
+  "basePhysicsHullCount": 1,
+  "ragdollHullCount": 0,
+  "ragdollMappingEvidence": null,
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 32,
+  "triangleCount": 60,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-or-ragdoll-body-shape",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 6,
+    "approximatedMaterialIndices": [
+      0
+    ]
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "d3cd6f0c00000000"
+    ],
+    "childUserDataHex": [
+      "d3cd6f0c00000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 37,
+      "nodeName": "hd2_collision_000_69ef12cd",
+      "parentNodeIndex": 0,
+      "parentNodeName": "StingrayEntityRoot",
+      "colliderHash": "69ef12cd",
+      "boneHash": "4a182741",
+      "boneName": null,
+      "vertices": 32,
+      "triangles": 60,
+      "localSize": [
+        1.11264,
+        1.42522,
+        1.138863
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCompressedMeshShape"
+      ],
+      "subshapeCount": 1
+    }
+  ]
+}

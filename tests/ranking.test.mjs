@@ -8,9 +8,9 @@ const core = script.split("// ============ DERIVED RANKING", 1)[0];
 const derived = script.split("// ============ DERIVED RANKING", 2)[1].split("// ============ DOM APP", 1)[0];
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,RELOAD_S,componentBlastRadius,blastFactor,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule};`, context);
+vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,RELOAD_S,componentBlastRadius,blastFactor,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule,evaluateOrbitalExposure};`, context);
 
-const {ENEMIES, WEAPONS, STAGGER, RELOAD_S, componentBlastRadius, blastFactor, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule} = context.api;
+const {ENEMIES, WEAPONS, STAGGER, RELOAD_S, componentBlastRadius, blastFactor, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule, evaluateOrbitalExposure} = context.api;
 const enemy = name => ENEMIES.find(item => item.name === name);
 const weapon = name => WEAPONS.find(item => item.name === name);
 const part = (target, name) => target.parts.find(item => item.name === name);
@@ -35,6 +35,11 @@ const orbitalTestPart={hp:"main",av:0,dur:100,exdr:0,toMain:100,fatal:"instant"}
 assert.equal(damagePerShot(precisionStrike,orbitalTestPart,0,0,0,4).total,1500,"orbital slider retains full explosion damage at the inner radius and excludes shell impact");
 assert.equal(damagePerShot(precisionStrike,orbitalTestPart,0,0,0,8).total,750,"orbital slider linearly falls off between inner and outer radii");
 assert.equal(damagePerShot(precisionStrike,orbitalTestPart,0,0,0,12).total,0,"orbital slider reaches zero damage at the outer radius");
+const titanBlast=enemy("Bile Titan"),resolvedPrecision=resolveWeapon(precisionStrike),nearTitan=evaluateOrbitalExposure(titanBlast,resolvedPrecision,{angle:0,blastDistance:.01}),edgeTitan=evaluateOrbitalExposure(titanBlast,resolvedPrecision,{angle:0,blastDistance:6});
+assert.equal(nearTitan.mainDamage,7650,"OPS inner blast uses the documented Bile Titan profile of four legs, two torso plates, both sacs, underside, and head");
+assert.equal(nearTitan.shots,1,"OPS can one-shot a Bile Titan without a direct projectile hit");
+assert.ok(edgeTitan.shots>1,"OPS Bile Titan one-shot tolerance ends before six meters");
+assert.equal(nearTitan.blastExposure.affected.length,10,"Bile Titan blast exposure counts documented repeated zones instead of dataset rows");
 const bastionCannon=weapon("TD-220 Bastion Main Cannon");
 assert.ok(bastionCannon&&bastionCannon.cat==="Vehicle","Bastion main cannon is available as a vehicle-mounted weapon");
 assert.deepEqual([bastionCannon.mag,bastionCannon.rpm,bastionCannon.comps[0].std,bastionCannon.comps[1].std],[31,12,3500,750],"Bastion records its 31 shells, five-second cycle, projectile, and explosion damage");

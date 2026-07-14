@@ -1,0 +1,26 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 1,
+  "materials": {
+    "HD2 Mat arm_shoulder 0x9185eca2a413d177": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-arm_shoulder-0x9185eca2a413d177-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-arm_shoulder-0x9185eca2a413d177-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-arm_shoulder-0x9185eca2a413d177-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-arm_shoulder-0x9185eca2a413d177-normal.png"
+    },
+    "HD2 Mat m_soldier_backpack_hmg 0x6983ba4ed61be1aa": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-m_soldier_backpack_hmg-0x6983ba4ed61be1aa-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-m_soldier_backpack_hmg-0x6983ba4ed61be1aa-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-m_soldier_backpack_hmg-0x6983ba4ed61be1aa-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-m_soldier_backpack_hmg-0x6983ba4ed61be1aa-normal.png"
+    },
+    "HD2 Mat m_soldier_body 0x7f102aa40e9d1d7c": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-m_soldier_body-0x7f102aa40e9d1d7c-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-m_soldier_body-0x7f102aa40e9d1d7c-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-m_soldier_body-0x7f102aa40e9d1d7c-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\heavy-devastator-authentic-render-textures\\HD2-Mat-m_soldier_body-0x7f102aa40e9d1d7c-normal.png"
+    }
+  },
+  "removedMeshCount": 0
+}

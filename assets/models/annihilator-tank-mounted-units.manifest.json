@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "enemy": "Annihilator Tank",
+  "assemblyConfidence": "verified-mount-component-join",
+  "sources": {
+    "tankUnitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-tanks-chargers-extract\\content\\fac_cyborgs\\vehicles\\cyborg_tank\\cyborg_tank.unit.glb",
+      "sha256": "824287B950C94026FAF6E3C2F7006EE498B9869FB0A3693C7936225BF14E5553"
+    },
+    "turretUnitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-tanks-chargers-extract\\content\\fac_cyborgs\\turrets\\cyborg_tank_turret_cannon\\cyborg_tank_turret_cannon.unit.glb",
+      "sha256": "152B29E71EDC01770FA428C0B281BD3E1A4DEEA1B87EE9746003CB93D100BDF4"
+    },
+    "authenticTurretGlb": {
+      "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-heavy-cannon-turret-authentic-render.glb",
+      "sha256": "915F08B4F778D61920DA21F6E2B973051FF213D9E132B8BB414B1DCF292CEDD0"
+    }
+  },
+  "mounts": [
+    {
+      "id": "heavy-cannon-turret",
+      "label": "Heavy cannon turret",
+      "asset": "automaton-heavy-cannon-turret.glb",
+      "assetSha256": "915F08B4F778D61920DA21F6E2B973051FF213D9E132B8BB414B1DCF292CEDD0",
+      "attachNode": "attach_turret",
+      "mountEntity": "content/fac_cyborgs/turrets/cyborg_tank_turret_cannon/cyborg_tank_turret_heavycannon",
+      "unitResource": "content/fac_cyborgs/turrets/cyborg_tank_turret_cannon/cyborg_tank_turret_cannon",
+      "hitboxAsset": "automaton-heavy-cannon-turret-collision-research.glb",
+      "hitboxAssetSha256": "E84F0B1825AE31E032C167D9D4E9DC4AD8E6C014C5416302461B93166262C34F",
+      "collisionManifest": "automaton-heavy-cannon-turret-collision-research.manifest.json",
+      "damageManifest": "automaton-heavy-cannon-turret-damage-zones.manifest.json",
+      "axisRootRotation": [
+        -0.70710678,
+        0,
+        0,
+        0.70710678
+      ]
+    }
+  ],
+  "authenticShaderBakes": [
+    "automaton-heavy-cannon-turret.glb"
+  ],
+  "viewerMaterialApproximations": {
+    "automaton-heavy-cannon-turret.glb": []
+  },
+  "notes": [
+    "The tank hull and turret resource are joined at the decoded attach_turret socket.",
+    "The mounted turret uses its exact decoded Havok collision geometry; no hand-authored hitbox proxy is used.",
+    "Health, armor, durability, and damage-zone assignments come from the mounted turret HealthComponent.",
+    "The visible turret is an intact Filediver accurate-shader bake; damaged and destroyed render variants are excluded.",
+    "Unassigned physics colliders remain visible as geometry but use the turret default damage zone only when selected as a mounted component."
+  ]
+}

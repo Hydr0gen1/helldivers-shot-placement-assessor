@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\0xe5b14182b25f7f7d.physics.main",
+      "sha256": "E6E151FB50D0FD2FDBCD004ADFE011852C79FFE6D44380A5AEB37B48CDB06A7F"
+    },
+    "ragdollProfile": null,
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\0xe5b14182b25f7f7d.unit.glb",
+      "sha256": "DFBA60C273C1E57D2D96303D4B7798B15DC29FF583CAFB7C519B4A87FEBF30F1"
+    },
+    "bonesJson": null,
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\reinforced-scout-strider-rockets-collision.glb",
+    "sha256": "1F241D32B781A12F57C9014C5A5F0FF90062A7817C20CA12C4B7F97ACEF6D7BA"
+  },
+  "hullCount": 3,
+  "physicsRecordCount": 3,
+  "basePhysicsHullCount": 3,
+  "ragdollHullCount": 0,
+  "ragdollMappingEvidence": null,
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 604,
+  "triangleCount": 920,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-or-ragdoll-body-shape",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 6,
+    "approximatedMaterialIndices": [
+      2
+    ]
+  },
+  "metadataSets": {
+    "shapeTags": [
+      0,
+      65535
+    ],
+    "destructionTags": [
+      0,
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      0,
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "e5b1418200000000"
+    ],
+    "childUserDataHex": [
+      "e5b1418200000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 40,
+      "nodeName": "hd2_collision_000_a3d491d1",
+      "parentNodeIndex": 13,
+      "parentNodeName": "collision",
+      "colliderHash": "a3d491d1",
+      "boneHash": "a3d491d1",
+      "boneName": null,
+      "vertices": 44,
+      "triangles": 80,
+      "localSize": [
+        0.38835,
+        1.246431,
+        0.252884
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 1,
+      "nodeIndex": 41,
+      "nodeName": "hd2_collision_001_b7737a1f",
+      "parentNodeIndex": 16,
+      "parentNodeName": "c_upper_rocket",
+      "colliderHash": "b7737a1f",
+      "boneHash": "b7737a1f",
+      "boneName": null,
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.131967,
+        1.074913,
+        0.131967
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 2,
+      "nodeIndex": 42,
+      "nodeName": "hd2_collision_002_43d15acf",
+      "parentNodeIndex": 17,
+      "parentNodeName": "c_lower_rocket",
+      "colliderHash": "43d15acf",
+      "boneHash": "43d15acf",
+      "boneName": null,
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        0.131967,
+        1.074912,
+        0.131967
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    }
+  ]
+}

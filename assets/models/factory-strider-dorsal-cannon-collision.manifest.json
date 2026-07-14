@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mount-physics\\content\\fac_cyborgs\\turrets\\cyborg_big_walker_turret_cannon\\cyborg_big_walker_turret_cannon.physics.main",
+      "sha256": "30F8909D146EDB2FFCF5154F19F4DE031B3715ABF5EE752D252D7A99F6D618F9"
+    },
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\combined_unit.combined.glb",
+      "sha256": "CDC478FDC0D79C0B6EBF4C972913ADF72B05B28322C3795B1E119D0CFD312346"
+    },
+    "bonesJson": null,
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\top-collision.glb",
+    "sha256": "2CF1A8A9EA5A37EC050D61D08DE9D90B7DF81AAD6D6CCDACEF628229EF49E59E"
+  },
+  "hullCount": 3,
+  "physicsRecordCount": 3,
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 848,
+  "triangleCount": 1272,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-transform",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 6,
+    "approximatedMaterialIndices": [
+      0
+    ]
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "843d18d400000000"
+    ],
+    "childUserDataHex": [
+      "843d18d400000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 31,
+      "nodeName": "hd2_collision_000_42066955",
+      "parentNodeIndex": 15,
+      "parentNodeName": "yaw",
+      "colliderHash": "42066955",
+      "boneHash": "09a026f5",
+      "boneName": null,
+      "vertices": 280,
+      "triangles": 420,
+      "localSize": [
+        5.0,
+        3.000001,
+        3.000001
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 1,
+      "nodeIndex": 32,
+      "nodeName": "hd2_collision_001_9851c382",
+      "parentNodeIndex": 17,
+      "parentNodeName": "barrel",
+      "colliderHash": "9851c382",
+      "boneHash": "866cc914",
+      "boneName": null,
+      "vertices": 560,
+      "triangles": 840,
+      "localSize": [
+        3.711901,
+        0.543874,
+        0.340001
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpCapsuleShape",
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 2,
+      "nodeIndex": 33,
+      "nodeName": "hd2_collision_002_76128f44",
+      "parentNodeIndex": 16,
+      "parentNodeName": "pitch",
+      "colliderHash": "76128f44",
+      "boneHash": "fc9b58d0",
+      "boneName": null,
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        0.98625,
+        0.717373,
+        0.749178
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpBoxShape"
+      ],
+      "subshapeCount": 1
+    }
+  ],
+  "preparedOutput": {
+    "path": "factory-strider-dorsal-cannon-collision.manifest.json",
+    "hitboxAsset": "factory-strider-dorsal-cannon-hitboxes.glb",
+    "hitboxAssetSha256": "95BA9E468BF1C71B23B5157B8A96A1EE7002C9577D34B4B384BE439F0F65FE77"
+  }
+}

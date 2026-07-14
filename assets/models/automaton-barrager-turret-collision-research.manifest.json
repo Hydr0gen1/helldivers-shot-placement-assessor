@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-13",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-tanks-chargers-extract\\content\\fac_cyborgs\\turrets\\cyborg_tank_turret_rocketlauncher\\cyborg_tank_turret_rocketlauncher.physics.main",
+      "sha256": "C4DD8DFCFF0305FE36221C3D4AEFD32ED35DE447F3F5DFB416AB429037475291"
+    },
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-tanks-chargers-extract\\content\\fac_cyborgs\\turrets\\cyborg_tank_turret_rocketlauncher\\cyborg_tank_turret_rocketlauncher.unit.glb",
+      "sha256": "A3089296AE6F43F7D6E158DA60547DA2BBCEAB61832009F105A1E1BD2881C4D6"
+    },
+    "bonesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-tanks-chargers-extract\\content\\fac_cyborgs\\turrets\\cyborg_tank_turret_rocketlauncher\\cyborg_tank_turret_rocketlauncher.bones.json",
+      "sha256": "1E8004D40F41400189896107D630A33212FB616A06DDC5C9E45EFB222A5093AB"
+    },
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\automaton-barrager-turret-collision-research.glb",
+    "sha256": "C0BE5DAC6360F4755A71CBA10D1ADAC21312584CE52C0964AA9F63EF8943C1D2"
+  },
+  "hullCount": 6,
+  "physicsRecordCount": 6,
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 72,
+  "triangleCount": 120,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-transform",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 6,
+    "approximatedMaterialIndices": [
+      2
+    ]
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "5d142c3a00000000"
+    ],
+    "childUserDataHex": [
+      "5d142c3a00000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 47,
+      "nodeName": "hd2_collision_000_d24266a4",
+      "parentNodeIndex": 16,
+      "parentNodeName": "yaw",
+      "colliderHash": "d24266a4",
+      "boneHash": "09a026f5",
+      "boneName": "yaw",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        3.907293,
+        4.766321,
+        1.037688
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 1,
+      "nodeIndex": 48,
+      "nodeName": "hd2_collision_001_e846a867",
+      "parentNodeIndex": 17,
+      "parentNodeName": "pitch",
+      "colliderHash": "e846a867",
+      "boneHash": "fc9b58d0",
+      "boneName": "pitch",
+      "vertices": 16,
+      "triangles": 28,
+      "localSize": [
+        3.774189,
+        5.667659,
+        1.388015
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 2,
+      "nodeIndex": 49,
+      "nodeName": "hd2_collision_002_ec501fc5",
+      "parentNodeIndex": 16,
+      "parentNodeName": "yaw",
+      "colliderHash": "ec501fc5",
+      "boneHash": "09a026f5",
+      "boneName": "yaw",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        3.907293,
+        4.766321,
+        1.037688
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 3,
+      "nodeIndex": 50,
+      "nodeName": "hd2_collision_003_e5476964",
+      "parentNodeIndex": 17,
+      "parentNodeName": "pitch",
+      "colliderHash": "e5476964",
+      "boneHash": "fc9b58d0",
+      "boneName": "pitch",
+      "vertices": 16,
+      "triangles": 28,
+      "localSize": [
+        3.774189,
+        5.667659,
+        1.388015
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 4,
+      "nodeIndex": 51,
+      "nodeName": "hd2_collision_004_8f390957",
+      "parentNodeIndex": 17,
+      "parentNodeName": "pitch",
+      "colliderHash": "8f390957",
+      "boneHash": "fc9b58d0",
+      "boneName": "pitch",
+      "vertices": 8,
+      "triangles": 12,
+      "localSize": [
+        3.86322,
+        2.403583,
+        1.656723
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    },
+    {
+      "recordIndex": 5,
+      "nodeIndex": 52,
+      "nodeName": "hd2_collision_005_f5e59381",
+      "parentNodeIndex": 17,
+      "parentNodeName": "pitch",
+      "colliderHash": "f5e59381",
+      "boneHash": "fc9b58d0",
+      "boneName": "pitch",
+      "vertices": 16,
+      "triangles": 28,
+      "localSize": [
+        3.612718,
+        5.77001,
+        1.268862
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 1
+    }
+  ]
+}

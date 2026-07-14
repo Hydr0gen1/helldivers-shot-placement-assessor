@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "entity": "0xd3cd6f0ca83bb51e",
+  "displayName": "Reinforced Scout Strider driver",
+  "gameObjectId": "0x399def85",
+  "mappingConfidence": "verified-complete-actor-join",
+  "evidence": "HealthComponentData damageableZones[].actors matched collision node names or collider hashes. Layered assignments are preserved when the game data explicitly places one collider actor in multiple damage pools.",
+  "source": {
+    "entitiesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-entity-components.json",
+      "sha256": "83285FDB1C0549D49A3FFEB7064FAF182C3CECCFD8866A1CAA190BC09E2B7ADB"
+    },
+    "collisionManifest": {
+      "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\reinforced-scout-strider-driver-collision.manifest.json",
+      "sha256": "729C338A58E6EA50FCD9FDCD5D23BE27108ED7D3EEF835C8C6FBF715EE9BB9D5"
+    }
+  },
+  "mainHealth": 400,
+  "defaultDamageableZone": {
+    "damage_multiplier": "DamageMultiplier_Normal",
+    "damage_multiplier_dps": "DamageMultiplier_Normal",
+    "projectile_durable_resistance": 0.4,
+    "armor": 4,
+    "armor_angle_check": true,
+    "max_armor": 0,
+    "health": -1,
+    "constitution": 0,
+    "immortal": false,
+    "causes_downed_on_downed": false,
+    "causes_death_on_downed": false,
+    "causes_downed_on_death": false,
+    "causes_death_on_death": false,
+    "affects_main_health": 1,
+    "child_zones": [],
+    "kill_children_on_death": false,
+    "bleedout_enabled": false,
+    "affected_by_explosions": false,
+    "explosive_damage_percentage": 3.4028235e+38,
+    "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
+    "main_health_affect_capped_by_zone_health": true,
+    "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+  },
+  "zoneCount": 0,
+  "actorCount": 0,
+  "mappedActorCount": 0,
+  "unmatchedActorCount": 0,
+  "unmatchedActors": [],
+  "mappedColliderCount": 0,
+  "unmappedColliderCount": 1,
+  "unmappedColliderRecords": [
+    0
+  ],
+  "layeredColliderCount": 0,
+  "layeredColliderRecords": [],
+  "duplicateColliderAssignments": 0,
+  "zones": [],
+  "colliders": []
+}
