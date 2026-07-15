@@ -103,6 +103,10 @@ fallbacks; those proxies never replace or masquerade as exact mappings.
   Overlapping verified assignments remain layered instead of being flattened.
 - Predator Stalker: its entity resolves to the verified Stalker unit geometry,
   but one actor in the predator-specific HealthComponent has no matching hull.
+  Its distinct appearance is no longer inherited from the base Stalker render:
+  the two exact `MaterialSwapComponentData` resources (`m_stalker1` and the
+  wing slot `0x1b07df56`) are embedded in a dedicated browser GLB, with their
+  source hashes recorded in `predator-stalker-render.manifest.json`.
 - Voteless (Medium): four HealthComponent actors do not resolve to a collider
   in the decoded base physics or ragdoll resources. `l_hand`, `r_hand`,
   `l_foot`, and `r_foot` are skeleton nodes, but the exact V2 ragdoll body list

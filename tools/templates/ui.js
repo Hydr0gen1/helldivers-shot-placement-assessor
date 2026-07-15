@@ -228,7 +228,7 @@ const TARGETING_3D_MODELS={
   "Rocket Devastator":{slug:"rocket-devastator",renderGlb:"assets/models/rocket-devastator-authentic-render.glb",mountManifest:"assets/models/rocket-devastator-mounted-units.manifest.json",cameraVector:[0,.04,-1.05]},
   "Scout Strider":{slug:"scout-strider",renderGlb:"assets/models/scout-strider-authentic-render.glb",mountManifest:"assets/models/scout-strider-mounted-units.manifest.json",cameraVector:[0,.08,-1.12]},
   "Reinforced Scout Strider":{slug:"reinforced-scout-strider",assetSlug:"scout-strider",damageSlug:"reinforced-scout-strider",renderGlb:"assets/models/scout-strider-authentic-render.glb",mountManifest:"assets/models/reinforced-scout-strider-mounted-units.manifest.json",cameraVector:[0,.08,-1.12]},
-  "Stalker":{slug:"stalker",cameraVector:[0,.06,-1.1]},
+  "Stalker":{slug:"stalker",assetVersion:"ragdoll-body-pose-2",cameraVector:[0,.06,-1.1]},
   "Shrieker":{slug:"shrieker",cameraVector:[0,.08,-1.12]},
   "Overseer":{slug:"overseer",cameraVector:[0,.04,-1.06]},
   "Elevated Overseer":{slug:"elevated-overseer",cameraVector:[0,.04,-1.06]},
@@ -245,7 +245,7 @@ const TARGETING_3D_MODELS={
   "Hive Guard":{slug:"hive-guard",cameraVector:[0,.05,-1.05]},
   "Hunter":{slug:"hunter",cameraVector:[0,.05,-1.08]},
   "Predator Hunter":{slug:"predator-hunter",cameraVector:[0,.05,-1.08]},
-  "Predator Stalker":{slug:"predator-stalker",assetSlug:"stalker",damageSlug:"predator-stalker",cameraVector:[0,.06,-1.1]},
+  "Predator Stalker":{slug:"predator-stalker",assetSlug:"stalker",damageSlug:"predator-stalker",assetVersion:"ragdoll-body-pose-2",renderGlb:"assets/models/predator-stalker-authentic-render.glb",renderVersion:"verified-material-swap-1",cameraVector:[0,.06,-1.1]},
   "Scavenger":{slug:"scavenger",cameraVector:[0,.04,-1.05]},
   "Pouncer":{slug:"pouncer",cameraVector:[0,.04,-1.05]},
   "Bile Spitter":{slug:"bile-spitter",cameraVector:[0,.04,-1.05]},
@@ -703,10 +703,10 @@ async function initializeTargeting3d(enemyName=selectedEnemy().name){
   try{
     const {THREE,GLTFLoader,OrbitControls}=await loadTargeting3dBundle(),probe=document.createElement('canvas');if(!probe.getContext('webgl2')&&!probe.getContext('webgl'))throw new Error('WebGL is unavailable; use the 2D anatomy view instead.');
     const host=$('targeting3dCanvas'),renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.setClearColor(0x111416,1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;host.replaceChildren(renderer.domElement);const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(36,1,.05,500);camera.up.set(0,1,0);const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.08;controls.screenSpacePanning=true;scene.add(new THREE.HemisphereLight(0xe0e8ea,0x51483b,3.3));const key=new THREE.DirectionalLight(0xffffff,4.2);key.position.set(-8,10,-14);scene.add(key);const fill=new THREE.DirectionalLight(0xb9d3e2,2.1);fill.position.set(10,2,-8);scene.add(fill);targeting3d.renderer=renderer;targeting3d.scene=scene;targeting3d.camera=camera;targeting3d.controls=controls;
-    const collisionBase=`assets/models/${entry.assetSlug||entry.slug}`,damageBase=`assets/models/${entry.damageSlug||entry.slug}`,paths={glb:`${collisionBase}-collision-research.glb`,collision:`${collisionBase}-collision-research.manifest.json`,damage:`${damageBase}-damage-zones.manifest.json`};status.textContent=`Loading ${enemyName} model`;
+    const collisionBase=`assets/models/${entry.assetSlug||entry.slug}`,damageBase=`assets/models/${entry.damageSlug||entry.slug}`,assetVersion=entry.assetVersion?`?v=${encodeURIComponent(entry.assetVersion)}`:'',renderVersion=entry.renderVersion?`?v=${encodeURIComponent(entry.renderVersion)}`:'',paths={glb:`${collisionBase}-collision-research.glb${assetVersion}`,collision:`${collisionBase}-collision-research.manifest.json`,damage:`${damageBase}-damage-zones.manifest.json`};status.textContent=`Loading ${enemyName} model`;
     const [gltf,authenticRender,manifest,damageManifest]=await Promise.all([
       loadTargeting3dGlb(GLTFLoader,paths.glb,event=>{if(event.total)status.textContent=`Loading model · ${Math.round(event.loaded/event.total*100)}%`;}),
-      entry.renderGlb?loadTargeting3dGlb(GLTFLoader,entry.renderGlb):Promise.resolve(null),
+      entry.renderGlb?loadTargeting3dGlb(GLTFLoader,`${entry.renderGlb}${renderVersion}`):Promise.resolve(null),
       fetch(paths.collision,{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('Could not load collision evidence manifest');return response.json();}),
       fetch(paths.damage,{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('Could not load damage-zone mapping manifest');return response.json();})
     ]);

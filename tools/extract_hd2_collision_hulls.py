@@ -55,6 +55,8 @@ class Hull:
     havok_version: str
     shape_types: list[str]
     subshape_count: int
+    ragdoll_body_position: tuple[float, float, float, float] | None = None
+    ragdoll_body_orientation: tuple[float, float, float, float] | None = None
 
 
 class UnsupportedShapeError(ValueError):
@@ -670,7 +672,7 @@ def decode_ragdoll_profile(path: Path, first_record_index: int) -> tuple[list[Hu
     if body_item.length < 1 or body_bytes % body_item.length:
         raise ValueError("Ragdoll body table has an invalid stride")
     body_stride = body_bytes // body_item.length
-    if body_stride < 28:
+    if body_stride < 80:
         raise ValueError(f"Ragdoll body stride {body_stride} is too small")
 
     concrete_names = {
@@ -736,6 +738,15 @@ def decode_ragdoll_profile(path: Path, first_record_index: int) -> tuple[list[Hu
         bone_name = serialized_name.removeprefix("ragdoll_")
         bone_hash = murmur32(bone_name.encode("utf-8"))
         bone_names[bone_hash] = bone_name
+        body_position = struct.unpack_from("<4f", data, body_offset + 48)
+        body_orientation = struct.unpack_from("<4f", data, body_offset + 64)
+        if not all(math.isfinite(value) for value in (*body_position, *body_orientation)):
+            raise ValueError(f"Ragdoll body {body_index} has a non-finite initial pose")
+        if abs(body_position[3] - 1) > 1e-4:
+            raise ValueError(f"Ragdoll body {body_index} has invalid position padding {body_position[3]}")
+        orientation_length = math.sqrt(sum(value * value for value in body_orientation))
+        if abs(orientation_length - 1) > 1e-3:
+            raise ValueError(f"Ragdoll body {body_index} has a non-unit orientation")
         candidates = geometry_items(
             items,
             type_names,
@@ -804,6 +815,8 @@ def decode_ragdoll_profile(path: Path, first_record_index: int) -> tuple[list[Hu
                 havok_version=havok_version,
                 shape_types=[shape_name],
                 subshape_count=1,
+                ragdoll_body_position=body_position,
+                ragdoll_body_orientation=body_orientation,
             )
         )
     if len(seen_shape_items) != body_item.length:
@@ -967,6 +980,83 @@ def load_bone_names(path: Path | None) -> dict[int, str]:
     return {int(key, 16): value for key, value in names.items()}
 
 
+def matrix_multiply(left: list[list[float]], right: list[list[float]]) -> list[list[float]]:
+    return [
+        [sum(left[row][inner] * right[inner][column] for inner in range(4)) for column in range(4)]
+        for row in range(4)
+    ]
+
+
+def quaternion_matrix(quaternion: Iterable[float]) -> list[list[float]]:
+    x, y, z, w = quaternion
+    length = math.sqrt(x * x + y * y + z * z + w * w)
+    if not length:
+        raise ValueError("Cannot build a matrix from a zero quaternion")
+    x, y, z, w = x / length, y / length, z / length, w / length
+    return [
+        [1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w), 0],
+        [2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w), 0],
+        [2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y), 0],
+        [0, 0, 0, 1],
+    ]
+
+
+def node_local_matrix(node: dict[str, Any]) -> list[list[float]]:
+    if "matrix" in node:
+        values = node["matrix"]
+        if len(values) != 16:
+            raise ValueError(f"Node {node.get('name', '<unnamed>')} has an invalid matrix")
+        return [[float(values[column * 4 + row]) for column in range(4)] for row in range(4)]
+    matrix = quaternion_matrix(node.get("rotation", [0, 0, 0, 1]))
+    scale = node.get("scale", [1, 1, 1])
+    for row in range(3):
+        for column in range(3):
+            matrix[row][column] *= scale[column]
+    translation = node.get("translation", [0, 0, 0])
+    for axis in range(3):
+        matrix[axis][3] = translation[axis]
+    return matrix
+
+
+def inverse_affine_matrix(matrix: list[list[float]]) -> list[list[float]]:
+    a, b, c = matrix[0][:3]
+    d, e, f = matrix[1][:3]
+    g, h, i = matrix[2][:3]
+    determinant = a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
+    if abs(determinant) < 1e-10:
+        raise ValueError("Cannot invert a singular node transform")
+    inverse = [
+        [(e * i - f * h) / determinant, (c * h - b * i) / determinant, (b * f - c * e) / determinant, 0],
+        [(f * g - d * i) / determinant, (a * i - c * g) / determinant, (c * d - a * f) / determinant, 0],
+        [(d * h - e * g) / determinant, (b * g - a * h) / determinant, (a * e - b * d) / determinant, 0],
+        [0, 0, 0, 1],
+    ]
+    translation = [matrix[axis][3] for axis in range(3)]
+    for row in range(3):
+        inverse[row][3] = -sum(inverse[row][column] * translation[column] for column in range(3))
+    return inverse
+
+
+def gltf_column_major(matrix: list[list[float]]) -> list[float]:
+    return [matrix[row][column] for column in range(4) for row in range(4)]
+
+
+def ragdoll_body_gltf_matrix(hull: Hull) -> list[list[float]]:
+    if hull.ragdoll_body_position is None or hull.ragdoll_body_orientation is None:
+        raise ValueError("Ragdoll hull is missing its decoded body pose")
+    x, y, z, _ = hull.ragdoll_body_position
+    qx, qy, qz, qw = hull.ragdoll_body_orientation
+    # Filediver converts Stingray/Havok vectors from (x, y, z) to glTF's
+    # (x, z, -y). Quaternion vector components follow the same basis change.
+    # hknpBodyCinfo stores the inverse (world-to-body) orientation, so invert
+    # the unit quaternion before using it as the body's glTF node transform.
+    # Without that inversion, asymmetric leg and claw convexes pivot away from
+    # their render mesh even though their decoded origins remain exact.
+    matrix = quaternion_matrix((-qx, -qz, qy, qw))
+    matrix[0][3], matrix[1][3], matrix[2][3] = x, z, -y
+    return matrix
+
+
 def inject_hulls(
     document: dict[str, Any],
     binary: bytearray,
@@ -980,6 +1070,21 @@ def inject_hulls(
         hashed = node_hash(node.get("name", ""))
         if hashed is not None:
             node_by_hash.setdefault(hashed, index)
+    parent_by_node = {
+        child: parent_index
+        for parent_index, parent in enumerate(nodes)
+        for child in parent.get("children", [])
+    }
+    world_matrix_cache: dict[int, list[list[float]]] = {}
+
+    def world_matrix(node_index: int) -> list[list[float]]:
+        if node_index in world_matrix_cache:
+            return world_matrix_cache[node_index]
+        local = node_local_matrix(nodes[node_index])
+        parent_index = parent_by_node.get(node_index)
+        result = matrix_multiply(world_matrix(parent_index), local) if parent_index is not None else local
+        world_matrix_cache[node_index] = result
+        return result
 
     material_index = len(document.setdefault("materials", []))
     document["materials"].append(
@@ -1063,6 +1168,30 @@ def inject_hulls(
             "name": f"hd2_collision_{hull.record_index:03d}_{hull.collider_hash:08x}",
             "mesh": mesh_index,
         }
+        ragdoll_transform = None
+        if hull.ragdoll_body_position is not None:
+            decoded_world = ragdoll_body_gltf_matrix(hull)
+            parent_world = world_matrix(parent_index)
+            position_error = math.sqrt(
+                sum((decoded_world[axis][3] - parent_world[axis][3]) ** 2 for axis in range(3))
+            )
+            if position_error > 0.01:
+                raise ValueError(
+                    f"Ragdoll body {hull.record_index} pose is {position_error:.4f} m from "
+                    f"its matched GLB bone {parent.get('name')}"
+                )
+            local_transform = matrix_multiply(inverse_affine_matrix(parent_world), decoded_world)
+            node["matrix"] = gltf_column_major(local_transform)
+            ragdoll_transform = {
+                "sourcePosition": [round(value, 7) for value in hull.ragdoll_body_position],
+                "sourceOrientation": [round(value, 7) for value in hull.ragdoll_body_orientation],
+                "coordinateConversion": (
+                    "inverse Havok body orientation, then (x,y,z) to glTF (x,z,-y)"
+                ),
+                "bonePositionError": round(position_error, 8),
+                "boneLocalMatrix": [round(value, 8) for value in node["matrix"]],
+                "evidence": "Decoded hknp body initial pose joined to the exact named skeleton bone",
+            }
         nodes.append(node)
         parent.setdefault("children", []).append(node_index)
         bone_name = bone_names.get(hull.bone_hash)
@@ -1101,6 +1230,7 @@ def inject_hulls(
                 "gameplayDamagePool": None,
                 "shapeTypes": hull.shape_types,
                 "subshapeCount": hull.subshape_count,
+                **({"ragdollBodyTransform": ragdoll_transform} if ragdoll_transform else {}),
             }
         )
 
@@ -1190,16 +1320,17 @@ def main() -> None:
         "basePhysicsHullCount": len(hulls) - len(ragdoll_hulls),
         "ragdollHullCount": len(ragdoll_hulls),
         "ragdollMappingEvidence": (
-            "Exact hknpPhysicsSystemData::bodyCinfoWithAttachment shape ITEM and ragdoll-name ITEM references"
+            "Exact hknpPhysicsSystemData::bodyCinfoWithAttachment shape/name references and decoded initial body poses"
             if ragdoll_hulls
             else None
         ),
+        "decodedRagdollBodyTransformCount": len(ragdoll_hulls),
         "unsupportedColliderCount": len(unsupported),
         "unsupportedColliders": unsupported,
         "vertexCount": sum(len(hull.vertices) for hull in hulls),
         "triangleCount": sum(len(hull.triangles) for hull in hulls),
         "geometryConfidence": "verified",
-        "vertexSpace": "skeleton-bone-local-with-compound-instance-or-ragdoll-body-shape",
+        "vertexSpace": "base bone-local or ragdoll-body-local with decoded initial body transform",
         "gameplayMappingConfidence": "unverified",
         "renderMaterials": {
             "mode": "neutral-stripped" if args.strip_textures else "embedded-game-materials",

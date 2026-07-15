@@ -218,6 +218,26 @@ def main() -> None:
                         raise AssertionError(
                             f"{enemy} capsule collider {collider.get('recordIndex')} has a collapsed radius"
                         )
+            if enemy in {"Stalker", "Predator Stalker"}:
+                transformed = [
+                    collider for collider in colliders if collider.get("ragdollBodyTransform")
+                ]
+                nodes_by_name = {
+                    node.get("name"): node for node in model_document.get("nodes", [])
+                }
+                if (
+                    manifest.get("decodedRagdollBodyTransformCount") != 41
+                    or len(transformed) != 41
+                    or any(
+                        collider["ragdollBodyTransform"].get("bonePositionError", 1) > 0.01
+                        or not str(
+                            collider["ragdollBodyTransform"].get("coordinateConversion", "")
+                        ).startswith("inverse Havok body orientation")
+                        or "matrix" not in nodes_by_name.get(collider.get("nodeName"), {})
+                        for collider in transformed
+                    )
+                ):
+                    raise AssertionError(f"{enemy} lost its decoded inverse ragdoll body poses")
         expected_capsules = {
             "Hunter": 20,
             "Stalker": 30,
@@ -332,6 +352,35 @@ def main() -> None:
             raise AssertionError(f"{enemy} lost its intact authentic shader bake: {alternate_meshes}")
         if enemy in {"Vox Engine", "War Strider"}:
             assert_nonblank_base_color(models_root / filename)
+
+    predator_render_path = models_root / "predator-stalker-authentic-render.glb"
+    predator_render_manifest_path = models_root / "predator-stalker-render.manifest.json"
+    if models["Predator Stalker"].get("renderGlb") != (
+        "assets/models/predator-stalker-authentic-render.glb"
+    ):
+        raise AssertionError("Predator Stalker is not wired to its verified variant render")
+    predator_render = glb_json(predator_render_path)
+    predator_evidence = json.loads(predator_render_manifest_path.read_text(encoding="utf-8"))
+    expected_variant_materials = {"0x04233981fa5eac49", "0xc3296e9a9f06a5a6"}
+    expected_variant_images = {
+        "0x032bceb39b083398",
+        "0x5b7926860c55c911",
+        "0xcd80f2f90e95e977",
+    }
+    render_hash = hashlib.sha256(predator_render_path.read_bytes()).hexdigest().upper()
+    if (
+        predator_evidence.get("variantEvidence") != "verified-material-swap-component"
+        or predator_evidence.get("entity") != "0xd1e990baf22d5a52"
+        or len(predator_evidence.get("swaps", [])) != 2
+        or predator_evidence.get("output", {}).get("sha256") != render_hash
+        or not expected_variant_materials.issubset(
+            {material.get("name") for material in predator_render.get("materials", [])}
+        )
+        or not expected_variant_images.issubset(
+            {image.get("name") for image in predator_render.get("images", [])}
+        )
+    ):
+        raise AssertionError("Predator Stalker lost its verified material-swap render evidence")
 
     automaton_vehicle_mounts = {
         "Vox Engine": {

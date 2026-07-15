@@ -322,7 +322,8 @@
       "damageSlug": "predator-stalker",
       "glb": "assets/models/stalker-collision-research.glb",
       "collisionManifest": "assets/models/stalker-collision-research.manifest.json",
-      "damageManifest": "assets/models/predator-stalker-damage-zones.manifest.json"
+      "damageManifest": "assets/models/predator-stalker-damage-zones.manifest.json",
+      "renderGlb": "assets/models/predator-stalker-authentic-render.glb"
     },
     "Scavenger": {
       "slug": "scavenger",

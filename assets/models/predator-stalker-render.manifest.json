@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "variant": "Predator Stalker",
+  "entity": "0xd1e990baf22d5a52",
+  "variantEvidence": "verified-material-swap-component",
+  "sourceUnit": {
+    "path": "C:\\Users\\judes\\Downloads\\hd2-next-enemy-extract\\content\\fac_bugs\\cha_stalker\\cha_stalker.unit.glb",
+    "sha256": "B07F3B89D8EA19993D52823AF565C8D2DD97CDE272666199EA0E5302F2E9B7B1"
+  },
+  "swaps": [
+    {
+      "slot": "m_stalker1",
+      "materialIndex": 1,
+      "path": "C:\\Users\\judes\\Downloads\\hd2-stalker-variant-extract\\0x04233981fa5eac49.material.glb",
+      "sha256": "BB1BF023CD860A541E849555D4426B6A2097C5ED3652B6EE19C5B49ABA7C8E8D",
+      "material": "0x04233981fa5eac49",
+      "importedImages": [
+        "0x032bceb39b083398",
+        "0x5b7926860c55c911"
+      ]
+    },
+    {
+      "slot": "0x1b07df56",
+      "materialIndex": 2,
+      "path": "C:\\Users\\judes\\Downloads\\hd2-stalker-variant-extract\\0xc3296e9a9f06a5a6.material.glb",
+      "sha256": "9F01376FC1C8EBBEB36E6CB4FE96B17147A2D5291251628393F8BB715725C43D",
+      "material": "0xc3296e9a9f06a5a6",
+      "importedImages": [
+        "0xcd80f2f90e95e977"
+      ]
+    }
+  ],
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\predator-stalker-authentic-render.glb",
+    "sha256": "4AA822CFC8C5856A4E45C2653407215A42F4496A34B8C1472FDEAC20B441EA64"
+  },
+  "materialCount": 5,
+  "textureCount": 5,
+  "embeddedImages": [
+    "0xf37a4e756300ab32",
+    "0x12493460d5030916",
+    "0x032bceb39b083398",
+    "0x5b7926860c55c911",
+    "0xcd80f2f90e95e977"
+  ]
+}
