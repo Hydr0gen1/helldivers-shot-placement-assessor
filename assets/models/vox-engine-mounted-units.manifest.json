@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-14",
+  "enemy": "Vox Engine",
+  "assemblyConfidence": "verified-mount-component-join",
+  "sources": {
+    "parentUnitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-vox-engine-extract\\content\\fac_cyborgs\\vehicles\\cyborg_siege_engine\\cyborg_siege_engine.unit.glb",
+      "sha256": "EB9065FECB1CD73D2CD3D7425A72049E58FC2FC8171733C518BC0B6196C25CC2"
+    }
+  },
+  "mounts": [
+    {
+      "id": "left-minigun",
+      "label": "Left minigun",
+      "asset": "vox-engine-minigun.glb",
+      "assetSha256": "B1008AC4C8051D67D907854467E671AA4118E4E02FF0F07E1BA58C12F7283DDF",
+      "attachNode": "l_gattling_socket1",
+      "mountEntity": "0xf2881f5807348116",
+      "unitResource": "0x48c91e42b9f16512",
+      "hitboxAsset": "vox-engine-gatling-hitboxes.glb",
+      "hitboxAssetSha256": "6F64EA6B9C67949EAE1BD4C78BBE3FBD785198BD1066FE5802C4C0A521BACEC5",
+      "collisionManifest": "vox-engine-gatling-collision.manifest.json",
+      "damageManifest": "vox-engine-left-gatling-damage.manifest.json"
+    },
+    {
+      "id": "right-minigun",
+      "label": "Right minigun",
+      "asset": "vox-engine-minigun.glb",
+      "assetSha256": "B1008AC4C8051D67D907854467E671AA4118E4E02FF0F07E1BA58C12F7283DDF",
+      "attachNode": "r_gattling_socket1",
+      "mountEntity": "0x356de4a7808ef3e3",
+      "unitResource": "0x48c91e42b9f16512",
+      "hitboxAsset": "vox-engine-gatling-hitboxes.glb",
+      "hitboxAssetSha256": "6F64EA6B9C67949EAE1BD4C78BBE3FBD785198BD1066FE5802C4C0A521BACEC5",
+      "collisionManifest": "vox-engine-gatling-collision.manifest.json",
+      "damageManifest": "vox-engine-right-gatling-damage.manifest.json"
+    },
+    {
+      "id": "left-side-cannon",
+      "label": "Left side cannon",
+      "asset": "vox-engine-side-cannon.glb",
+      "assetSha256": "F96EE81781F862FA7ACD641B0124082AEC62A4339EBD162BED03D9110792FE4B",
+      "attachNode": "l_cannon_socket",
+      "mountEntity": "0x611ba777783b08a2",
+      "unitResource": "content/fac_cyborgs/turrets/cyborg_big_walker_turret_cannon/cyborg_big_walker_turret_cannon",
+      "hitboxAsset": "vox-engine-heavy-cannon-hitboxes.glb",
+      "hitboxAssetSha256": "1B8EE2334A19E7C5747F9869BA5502A2BDBB50647FA3B3FA5DC1B62A4AC23C0E",
+      "collisionManifest": "vox-engine-heavy-cannon-collision.manifest.json",
+      "damageManifest": "vox-engine-heavy-cannon-damage.manifest.json",
+      "axisRootRotation": [
+        -0.70710678,
+        0,
+        0,
+        0.70710678
+      ]
+    },
+    {
+      "id": "right-side-cannon",
+      "label": "Right side cannon",
+      "asset": "vox-engine-side-cannon.glb",
+      "assetSha256": "F96EE81781F862FA7ACD641B0124082AEC62A4339EBD162BED03D9110792FE4B",
+      "attachNode": "r_cannon_socket",
+      "mountEntity": "0x611ba777783b08a2",
+      "unitResource": "content/fac_cyborgs/turrets/cyborg_big_walker_turret_cannon/cyborg_big_walker_turret_cannon",
+      "hitboxAsset": "vox-engine-heavy-cannon-hitboxes.glb",
+      "hitboxAssetSha256": "1B8EE2334A19E7C5747F9869BA5502A2BDBB50647FA3B3FA5DC1B62A4AC23C0E",
+      "collisionManifest": "vox-engine-heavy-cannon-collision.manifest.json",
+      "damageManifest": "vox-engine-heavy-cannon-damage.manifest.json",
+      "axisRootRotation": [
+        -0.70710678,
+        0,
+        0,
+        0.70710678
+      ]
+    }
+  ],
+  "authenticShaderBakes": [
+    "vox-engine-side-cannon.glb"
+  ],
+  "filediverEmbeddedMaterials": [
+    "vox-engine-minigun.glb"
+  ],
+  "viewerMaterialApproximations": {},
+  "notes": [
+    "Attachment sockets, child entities, and unit resources come from decoded MountComponentData.",
+    "Mounted hitboxes are exact decoded Havok collision geometry; no targeting proxy is substituted.",
+    "Visible mounted units are intact Filediver accurate-shader bakes.",
+    "Unassigned colliders use the mounted HealthComponent default damageable zone."
+  ]
+}

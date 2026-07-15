@@ -1553,12 +1553,12 @@ const orbitalRecommendationCache=new Map();
 const TARGETING_3D_DEFAULT_UNITS_PER_METER=1;
 const TARGETING_3D_MODELS={
   "Hive Lord":{slug:"hive-lord",cameraVector:[-1.45,.28,-.45]},
-  "Vox Engine":{slug:"vox-engine",cameraVector:[-.72,.34,-1.3]},
-  "Dropship":{slug:"dropship",cameraVector:[-.5,.28,-.9]},
-  "Gunship":{slug:"gunship",cameraVector:[-.5,.28,-.9]},
+  "Vox Engine":{slug:"vox-engine",renderGlb:"assets/models/vox-engine-authentic-render.glb",mountManifest:"assets/models/vox-engine-mounted-units.manifest.json",cameraVector:[-.72,.34,-1.3]},
+  "Dropship":{slug:"dropship",renderGlb:"assets/models/dropship-authentic-render.glb",cameraVector:[-.5,.28,-.9]},
+  "Gunship":{slug:"gunship",renderGlb:"assets/models/gunship-authentic-render.glb",cameraVector:[-.5,.28,-.9]},
   "Bile Titan":{slug:"bile-titan"},
   "Factory Strider":{slug:"factory-strider",renderGlb:"assets/models/factory-strider-authentic-render.glb",cameraVector:[-.45,.14,-.95],mountManifest:"assets/models/factory-strider-mounted-units.manifest.json"},
-  "War Strider":{slug:"war-strider"},
+  "War Strider":{slug:"war-strider",renderGlb:"assets/models/war-strider-authentic-render.glb",mountManifest:"assets/models/war-strider-mounted-units.manifest.json"},
   "Charger":{slug:"charger"},
   "Charger Behemoth":{slug:"charger-behemoth"},
   "Spore Charger":{slug:"spore-charger"},
@@ -1606,11 +1606,11 @@ const TARGETING_3D_MODELS={
   "Nursing Spewer":{slug:"nursing-spewer",cameraVector:[0,.05,-1.15]},
   "Rupture Spewer":{slug:"rupture-spewer",cameraVector:[0,.05,-1.15]},
   "Berserker":{slug:"berserker",renderGlb:"assets/models/berserker-authentic-render.glb",cameraVector:[0,.04,-1.05]},
-  "Trooper":{slug:"trooper",cameraVector:[0,.04,-1.05]},
-  "Commissar":{slug:"commissar",cameraVector:[0,.04,-1.05]},
+  "Trooper":{slug:"trooper",renderGlb:"assets/models/trooper-authentic-render.glb",cameraVector:[0,.04,-1.05]},
+  "Commissar":{slug:"commissar",renderGlb:"assets/models/commissar-authentic-render.glb",cameraVector:[0,.04,-1.05]},
   "Conflagration Devastator":{slug:"conflagration-devastator",assetSlug:"devastator",damageSlug:"conflagration-devastator",renderGlb:"assets/models/devastator-authentic-render.glb",mountManifest:"assets/models/conflagration-devastator-mounted-units.manifest.json",cameraVector:[0,.04,-1.05]},
-  "Agitator":{slug:"agitator",cameraVector:[0,.04,-1.05]},
-  "Radical":{slug:"radical",cameraVector:[0,.04,-1.05]},
+  "Agitator":{slug:"agitator",renderGlb:"assets/models/agitator-authentic-render.glb",cameraVector:[0,.04,-1.05]},
+  "Radical":{slug:"radical",renderGlb:"assets/models/agitator-authentic-render.glb",cameraVector:[0,.04,-1.05]},
   "Voteless (Medium)":{slug:"voteless-medium",cameraVector:[0,.04,-1.05]},
   "Obtruder":{slug:"obtruder",cameraVector:[0,.06,-1.1]}
 };
@@ -1899,8 +1899,8 @@ function regenerateTargeting3dBarrage(){
 function setTargeting3dMode(mode){
   targeting3d.mode=mode;const simulate=mode==='simulate',hasCoarsePointer=matchMedia('(any-pointer: coarse)').matches;
   $('targeting3dInspectMode').setAttribute('aria-selected',String(!simulate));$('targeting3dSimulateMode').setAttribute('aria-selected',String(simulate));$('targeting3dSimulatorControls').hidden=!simulate;$('targeting3dSelection').hidden=simulate;$('targeting3dSplashResults').hidden=!simulate;$('targeting3dCrosshair').hidden=!simulate;$('targeting3dAimReadout').hidden=!simulate;$('placeTargeting3dImpact').hidden=!simulate;$('targeting3dCanvas').classList.toggle('simulating',simulate);if(targeting3d.gridGroup)targeting3d.gridGroup.visible=simulate&&$('showTargeting3dGrid').checked;
-  if(targeting3d.controls&&globalThis.HD2Three){const {THREE}=globalThis.HD2Three;targeting3d.controls.mouseButtons.LEFT=simulate?null:THREE.MOUSE.ROTATE;targeting3d.controls.mouseButtons.RIGHT=THREE.MOUSE.ROTATE;targeting3d.controls.mouseButtons.MIDDLE=THREE.MOUSE.DOLLY;targeting3d.controls.touches.ONE=simulate?null:THREE.TOUCH.ROTATE;targeting3d.controls.touches.TWO=simulate?(THREE.TOUCH.DOLLY_ROTATE??THREE.TOUCH.DOLLY_PAN):THREE.TOUCH.DOLLY_PAN;}
-  if(simulate){fillTargeting3dWeapons();updateTargeting3dWeapon();$('targeting3dSubtitle').textContent=hasCoarsePointer?'Use two fingers to orbit or pinch, then place the fixed-reticle impact.':'Mouse: aim normally, right-drag to orbit, wheel to zoom. Trackpad: one finger aims, two-finger drag orbits, and pinch zooms.';if(hasCoarsePointer)updateTargeting3dAim(targeting3dPointerHit(0,0,true));}else{$('targeting3dSubtitle').textContent='Click a highlighted hull to inspect its game-derived damage zone.';targeting3d.hulls.forEach(hull=>{if(hull!==targeting3d.selected)hull.material=hull.userData.hd2NormalMaterial;});}
+  if(targeting3d.controls&&globalThis.HD2Three){const {THREE}=globalThis.HD2Three;targeting3d.controls.enableRotate=true;targeting3d.controls.mouseButtons.LEFT=THREE.MOUSE.ROTATE;targeting3d.controls.mouseButtons.RIGHT=THREE.MOUSE.ROTATE;targeting3d.controls.mouseButtons.MIDDLE=THREE.MOUSE.DOLLY;targeting3d.controls.touches.ONE=simulate?null:THREE.TOUCH.ROTATE;targeting3d.controls.touches.TWO=simulate?(THREE.TOUCH.DOLLY_ROTATE??THREE.TOUCH.DOLLY_PAN):THREE.TOUCH.DOLLY_PAN;}
+  if(simulate){fillTargeting3dWeapons();updateTargeting3dWeapon();$('targeting3dSubtitle').textContent=hasCoarsePointer?'Use two fingers to orbit or pinch, then place the fixed-reticle impact.':'Click to place; left-drag or right-drag to orbit. Trackpad: one finger aims, two-finger drag orbits, and pinch zooms.';if(hasCoarsePointer)updateTargeting3dAim(targeting3dPointerHit(0,0,true));}else{$('targeting3dSubtitle').textContent='Click a highlighted hull to inspect it; drag or right-drag to orbit.';targeting3d.hulls.forEach(hull=>{if(hull!==targeting3d.selected)hull.material=hull.userData.hd2NormalMaterial;});}
 }
 
 async function estimateTargeting3dBarrage(){

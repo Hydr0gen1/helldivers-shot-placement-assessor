@@ -1,0 +1,33 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 8,
+  "materials": {
+    "HD2 Mat 0x3b7b7951 0xc87ca3bd43e0a508": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x3b7b7951-0xc87ca3bd43e0a508-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x3b7b7951-0xc87ca3bd43e0a508-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x3b7b7951-0xc87ca3bd43e0a508-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x3b7b7951-0xc87ca3bd43e0a508-normal.png"
+    },
+    "HD2 Mat 0x42f3dda4 0xb15047e9b55473d7": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x42f3dda4-0xb15047e9b55473d7-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x42f3dda4-0xb15047e9b55473d7-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x42f3dda4-0xb15047e9b55473d7-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x42f3dda4-0xb15047e9b55473d7-normal.png"
+    },
+    "HD2 Mat 0x85c1d030 0xb64d2bc96edd5c8d": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x85c1d030-0xb64d2bc96edd5c8d-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x85c1d030-0xb64d2bc96edd5c8d-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x85c1d030-0xb64d2bc96edd5c8d-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x85c1d030-0xb64d2bc96edd5c8d-normal.png"
+    },
+    "HD2 Mat 0x88ad3bca 0xf6b666aa9188c83c": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x88ad3bca-0xf6b666aa9188c83c-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x88ad3bca-0xf6b666aa9188c83c-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x88ad3bca-0xf6b666aa9188c83c-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-authentic-render-textures\\HD2-Mat-0x88ad3bca-0xf6b666aa9188c83c-normal.png"
+    }
+  },
+  "removedMeshCount": 7,
+  "removedAlternatePrimitiveCount": 0
+}

@@ -1,0 +1,21 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\dropship-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 8,
+  "materials": {
+    "HD2 Mat m_dropship materials/m_dropship": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\dropship-authentic-render-textures\\HD2-Mat-m_dropship-materials\\m_dropship-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\dropship-authentic-render-textures\\HD2-Mat-m_dropship-materials\\m_dropship-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\dropship-authentic-render-textures\\HD2-Mat-m_dropship-materials\\m_dropship-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\dropship-authentic-render-textures\\HD2-Mat-m_dropship-materials\\m_dropship-normal.png"
+    },
+    "HD2 Mat m_trims 0x8efda4801318c4e7": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\dropship-authentic-render-textures\\HD2-Mat-m_trims-0x8efda4801318c4e7-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\dropship-authentic-render-textures\\HD2-Mat-m_trims-0x8efda4801318c4e7-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\dropship-authentic-render-textures\\HD2-Mat-m_trims-0x8efda4801318c4e7-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\dropship-authentic-render-textures\\HD2-Mat-m_trims-0x8efda4801318c4e7-normal.png"
+    }
+  },
+  "removedMeshCount": 5,
+  "removedAlternatePrimitiveCount": 0
+}

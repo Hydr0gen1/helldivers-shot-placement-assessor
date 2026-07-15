@@ -1,0 +1,15 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\commissar-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 4,
+  "materials": {
+    "HD2 Mat m_conscript materials/m_conscript": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\commissar-authentic-render-textures\\HD2-Mat-m_conscript-materials\\m_conscript-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\commissar-authentic-render-textures\\HD2-Mat-m_conscript-materials\\m_conscript-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\commissar-authentic-render-textures\\HD2-Mat-m_conscript-materials\\m_conscript-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\commissar-authentic-render-textures\\HD2-Mat-m_conscript-materials\\m_conscript-normal.png"
+    }
+  },
+  "removedMeshCount": 1,
+  "removedAlternatePrimitiveCount": 0
+}

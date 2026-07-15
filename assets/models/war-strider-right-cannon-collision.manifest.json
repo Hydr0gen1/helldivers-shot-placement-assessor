@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-14",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-automaton-audit-extract\\0x9ab036439f74c115.physics.main",
+      "sha256": "6118E9326404BAFEE37C031ABBBCF7BFFC38371DA4E07AA5FA2442A3A6C55012"
+    },
+    "ragdollProfile": null,
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-automaton-audit-extract\\0x9ab036439f74c115.unit.glb",
+      "sha256": "883BC599E2DD3A9DAF2F84EE914874E1049A8B8CE4D3E40DDC93215F3F5BAE85"
+    },
+    "bonesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-automaton-audit-extract\\0x9ab036439f74c115.bones.json",
+      "sha256": "A216860616588ED3DA386582DC8FFCA8C6D37C511FC94A28352EC7F055F52054"
+    },
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\Downloads\\hd2-automaton-audit-extract\\war-right-collision.glb",
+    "sha256": "57F3FADDA76C9A6851302101FDCC6F6B3A2C3FEBC89717D057CFE1E1B3316FAB"
+  },
+  "hullCount": 1,
+  "physicsRecordCount": 1,
+  "basePhysicsHullCount": 1,
+  "ragdollHullCount": 0,
+  "ragdollMappingEvidence": null,
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 430,
+  "triangleCount": 652,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-or-ragdoll-body-shape",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 6,
+    "approximatedMaterialIndices": [
+      0
+    ],
+    "hiddenAlternateNodeNames": [
+      "g_body gun_damaged"
+    ]
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "9ab0364300000000"
+    ],
+    "childUserDataHex": [
+      "9ab0364300000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 35,
+      "nodeName": "hd2_collision_000_cae4ee78",
+      "parentNodeIndex": 11,
+      "parentNodeName": "yaw",
+      "colliderHash": "cae4ee78",
+      "boneHash": "09a026f5",
+      "boneName": "yaw",
+      "vertices": 430,
+      "triangles": 652,
+      "localSize": [
+        1.285789,
+        3.484465,
+        0.854376
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpSphereShape",
+        "hknpBoxShape",
+        "hknpBoxShape",
+        "hknpBoxShape",
+        "hknpCapsuleShape"
+      ],
+      "subshapeCount": 5
+    }
+  ],
+  "preparedOutput": {
+    "path": "war-strider-right-cannon-collision.manifest.json",
+    "hitboxAsset": "war-strider-right-cannon-hitboxes.glb",
+    "hitboxAssetSha256": "236D14C2E8D11CC9411C6032F119A21DE9AEACC7FABCE3BEE2329E80D71B1609"
+  }
+}

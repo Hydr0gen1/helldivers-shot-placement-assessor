@@ -13,19 +13,23 @@
       "slug": "vox-engine",
       "glb": "assets/models/vox-engine-collision-research.glb",
       "collisionManifest": "assets/models/vox-engine-collision-research.manifest.json",
-      "damageManifest": "assets/models/vox-engine-damage-zones.manifest.json"
+      "damageManifest": "assets/models/vox-engine-damage-zones.manifest.json",
+      "renderGlb": "assets/models/vox-engine-authentic-render.glb",
+      "mountManifest": "assets/models/vox-engine-mounted-units.manifest.json"
     },
     "Dropship": {
       "slug": "dropship",
       "glb": "assets/models/dropship-collision-research.glb",
       "collisionManifest": "assets/models/dropship-collision-research.manifest.json",
-      "damageManifest": "assets/models/dropship-damage-zones.manifest.json"
+      "damageManifest": "assets/models/dropship-damage-zones.manifest.json",
+      "renderGlb": "assets/models/dropship-authentic-render.glb"
     },
     "Gunship": {
       "slug": "gunship",
       "glb": "assets/models/gunship-collision-research.glb",
       "collisionManifest": "assets/models/gunship-collision-research.manifest.json",
-      "damageManifest": "assets/models/gunship-damage-zones.manifest.json"
+      "damageManifest": "assets/models/gunship-damage-zones.manifest.json",
+      "renderGlb": "assets/models/gunship-authentic-render.glb"
     },
     "Bile Titan": {
       "slug": "bile-titan",
@@ -44,7 +48,9 @@
       "slug": "war-strider",
       "glb": "assets/models/war-strider-collision-research.glb",
       "collisionManifest": "assets/models/war-strider-collision-research.manifest.json",
-      "damageManifest": "assets/models/war-strider-damage-zones.manifest.json"
+      "damageManifest": "assets/models/war-strider-damage-zones.manifest.json",
+      "renderGlb": "assets/models/war-strider-authentic-render.glb",
+      "mountManifest": "assets/models/war-strider-mounted-units.manifest.json"
     },
     "Charger": {
       "slug": "charger",
@@ -359,13 +365,15 @@
       "slug": "trooper",
       "glb": "assets/models/trooper-collision-research.glb",
       "collisionManifest": "assets/models/trooper-collision-research.manifest.json",
-      "damageManifest": "assets/models/trooper-damage-zones.manifest.json"
+      "damageManifest": "assets/models/trooper-damage-zones.manifest.json",
+      "renderGlb": "assets/models/trooper-authentic-render.glb"
     },
     "Commissar": {
       "slug": "commissar",
       "glb": "assets/models/commissar-collision-research.glb",
       "collisionManifest": "assets/models/commissar-collision-research.manifest.json",
-      "damageManifest": "assets/models/commissar-damage-zones.manifest.json"
+      "damageManifest": "assets/models/commissar-damage-zones.manifest.json",
+      "renderGlb": "assets/models/commissar-authentic-render.glb"
     },
     "Conflagration Devastator": {
       "slug": "conflagration-devastator",
@@ -381,13 +389,15 @@
       "slug": "agitator",
       "glb": "assets/models/agitator-collision-research.glb",
       "collisionManifest": "assets/models/agitator-collision-research.manifest.json",
-      "damageManifest": "assets/models/agitator-damage-zones.manifest.json"
+      "damageManifest": "assets/models/agitator-damage-zones.manifest.json",
+      "renderGlb": "assets/models/agitator-authentic-render.glb"
     },
     "Radical": {
       "slug": "radical",
       "glb": "assets/models/radical-collision-research.glb",
       "collisionManifest": "assets/models/radical-collision-research.manifest.json",
-      "damageManifest": "assets/models/radical-damage-zones.manifest.json"
+      "damageManifest": "assets/models/radical-damage-zones.manifest.json",
+      "renderGlb": "assets/models/agitator-authentic-render.glb"
     },
     "Voteless (Medium)": {
       "slug": "voteless-medium",

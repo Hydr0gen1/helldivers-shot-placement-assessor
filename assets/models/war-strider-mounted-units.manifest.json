@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-14",
+  "enemy": "War Strider",
+  "assemblyConfidence": "verified-mount-component-join",
+  "sources": {
+    "parentUnitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-large-enemy-extract\\content\\fac_cyborgs\\vehicles\\cyborg_assault_walker\\cyborg_assault_walker.unit.glb",
+      "sha256": "9D03104AB086559514840D3C46609A587FAAA7F3E10108DC7ED687988C0818C6"
+    }
+  },
+  "mounts": [
+    {
+      "id": "left-cannon",
+      "label": "Left cannon",
+      "asset": "war-strider-left-cannon.glb",
+      "assetSha256": "5C99F859DECFFCD19EC2E9DA73BA7DE48476221B3F359014C860E9DF84492180",
+      "attachNode": "attach_left_gun",
+      "mountEntity": "0x8372619b2702d743",
+      "unitResource": "0x8372619b2702d743",
+      "hitboxAsset": "war-strider-left-cannon-hitboxes.glb",
+      "hitboxAssetSha256": "B9BE7D1F62CF6A50904279396FC52EF5714A5797F790034D6E7C8BB57279C832",
+      "collisionManifest": "war-strider-left-cannon-collision.manifest.json",
+      "damageManifest": "war-strider-left-cannon-damage.manifest.json",
+      "axisRootRotation": [
+        -0.70710678,
+        0,
+        0,
+        0.70710678
+      ]
+    },
+    {
+      "id": "right-cannon",
+      "label": "Right cannon",
+      "asset": "war-strider-right-cannon.glb",
+      "assetSha256": "8688E9B4DB28F6FA203A930971D0E03AF4D59715164FB440FB05511799CC8986",
+      "attachNode": "attach_right_gun",
+      "mountEntity": "0x9ab036439f74c115",
+      "unitResource": "0x9ab036439f74c115",
+      "hitboxAsset": "war-strider-right-cannon-hitboxes.glb",
+      "hitboxAssetSha256": "236D14C2E8D11CC9411C6032F119A21DE9AEACC7FABCE3BEE2329E80D71B1609",
+      "collisionManifest": "war-strider-right-cannon-collision.manifest.json",
+      "damageManifest": "war-strider-right-cannon-damage.manifest.json",
+      "axisRootRotation": [
+        -0.70710678,
+        0,
+        0,
+        0.70710678
+      ]
+    }
+  ],
+  "authenticShaderBakes": [
+    "war-strider-left-cannon.glb",
+    "war-strider-right-cannon.glb"
+  ],
+  "filediverEmbeddedMaterials": [],
+  "viewerMaterialApproximations": {},
+  "notes": [
+    "Attachment sockets, child entities, and unit resources come from decoded MountComponentData.",
+    "Mounted hitboxes are exact decoded Havok collision geometry; no targeting proxy is substituted.",
+    "Visible mounted units are intact Filediver accurate-shader bakes.",
+    "Unassigned colliders use the mounted HealthComponent default damageable zone."
+  ]
+}

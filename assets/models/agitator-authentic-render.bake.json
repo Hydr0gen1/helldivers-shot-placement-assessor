@@ -1,0 +1,21 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\agitator-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 5,
+  "materials": {
+    "HD2 Mat 0xb951f826 0x1c6594b46b25e000": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\agitator-authentic-render-textures\\HD2-Mat-0xb951f826-0x1c6594b46b25e000-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\agitator-authentic-render-textures\\HD2-Mat-0xb951f826-0x1c6594b46b25e000-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\agitator-authentic-render-textures\\HD2-Mat-0xb951f826-0x1c6594b46b25e000-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\agitator-authentic-render-textures\\HD2-Mat-0xb951f826-0x1c6594b46b25e000-normal.png"
+    },
+    "HD2 Mat cy_metal 0x41f3e71162afbe9e": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\agitator-authentic-render-textures\\HD2-Mat-cy_metal-0x41f3e71162afbe9e-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\agitator-authentic-render-textures\\HD2-Mat-cy_metal-0x41f3e71162afbe9e-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\agitator-authentic-render-textures\\HD2-Mat-cy_metal-0x41f3e71162afbe9e-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\agitator-authentic-render-textures\\HD2-Mat-cy_metal-0x41f3e71162afbe9e-normal.png"
+    }
+  },
+  "removedMeshCount": 7,
+  "removedAlternatePrimitiveCount": 0
+}

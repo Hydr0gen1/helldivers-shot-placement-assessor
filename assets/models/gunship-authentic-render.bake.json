@@ -1,0 +1,21 @@
+{
+  "output": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\gunship-authentic-render.glb",
+  "textureSize": 1024,
+  "visibleMeshCount": 6,
+  "materials": {
+    "HD2 Mat m_gunship materials/m_gunship_body": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\gunship-authentic-render-textures\\HD2-Mat-m_gunship-materials\\m_gunship_body-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\gunship-authentic-render-textures\\HD2-Mat-m_gunship-materials\\m_gunship_body-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\gunship-authentic-render-textures\\HD2-Mat-m_gunship-materials\\m_gunship_body-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\gunship-authentic-render-textures\\HD2-Mat-m_gunship-materials\\m_gunship_body-normal.png"
+    },
+    "HD2 Mat m_gunship_mg materials/m_gunship_mg": {
+      "base-color": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\gunship-authentic-render-textures\\HD2-Mat-m_gunship_mg-materials\\m_gunship_mg-base-color.png",
+      "metallic": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\gunship-authentic-render-textures\\HD2-Mat-m_gunship_mg-materials\\m_gunship_mg-metallic.png",
+      "roughness": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\gunship-authentic-render-textures\\HD2-Mat-m_gunship_mg-materials\\m_gunship_mg-roughness.png",
+      "normal": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\gunship-authentic-render-textures\\HD2-Mat-m_gunship_mg-materials\\m_gunship_mg-normal.png"
+    }
+  },
+  "removedMeshCount": 5,
+  "removedAlternatePrimitiveCount": 0
+}

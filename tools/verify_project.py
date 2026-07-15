@@ -209,6 +209,78 @@ def main() -> None:
         total_hulls += len(colliders)
         total_mapped += len(mapped)
 
+    automaton_authentic_renders = {
+        "Vox Engine": "vox-engine-authentic-render.glb",
+        "War Strider": "war-strider-authentic-render.glb",
+        "Dropship": "dropship-authentic-render.glb",
+        "Gunship": "gunship-authentic-render.glb",
+        "Trooper": "trooper-authentic-render.glb",
+        "Commissar": "commissar-authentic-render.glb",
+        "Agitator": "agitator-authentic-render.glb",
+        "Radical": "agitator-authentic-render.glb",
+    }
+    for enemy, filename in automaton_authentic_renders.items():
+        if models[enemy].get("renderGlb") != f"assets/models/{filename}":
+            raise AssertionError(f"{enemy} is not wired to its authentic Automaton render")
+        render = glb_json(models_root / filename)
+        baked = [
+            material
+            for material in render.get("materials", [])
+            if material.get("extras", {}).get("hd2BrowserMaterial") == "filediver-accurate-shader-bake"
+        ]
+        alternate_meshes = [
+            node.get("name", "")
+            for node in render.get("nodes", [])
+            if "mesh" in node
+            and any(token in node.get("name", "").lower() for token in ("damaged", "destroyed"))
+        ]
+        if not baked or len(render.get("images", [])) < 3 or alternate_meshes:
+            raise AssertionError(f"{enemy} lost its intact authentic shader bake: {alternate_meshes}")
+
+    automaton_vehicle_mounts = {
+        "Vox Engine": {
+            "manifest": "vox-engine-mounted-units.manifest.json",
+            "sockets": {"l_gattling_socket1", "r_gattling_socket1", "l_cannon_socket", "r_cannon_socket"},
+            "healthArmor": {(300, 3), (3500, 4)},
+            "hullCount": 10,
+        },
+        "War Strider": {
+            "manifest": "war-strider-mounted-units.manifest.json",
+            "sockets": {"attach_left_gun", "attach_right_gun"},
+            "healthArmor": {(500, 4)},
+            "hullCount": 2,
+        },
+    }
+    for enemy, expected in automaton_vehicle_mounts.items():
+        if models[enemy].get("mountManifest") != f"assets/models/{expected['manifest']}":
+            raise AssertionError(f"{enemy} mounted-unit catalog wiring is missing")
+        assembly = json.loads((models_root / expected["manifest"]).read_text(encoding="utf-8"))
+        mounts = assembly.get("mounts", [])
+        if (
+            assembly.get("assemblyConfidence") != "verified-mount-component-join"
+            or {mount.get("attachNode") for mount in mounts} != expected["sockets"]
+        ):
+            raise AssertionError(f"{enemy} mounted-unit sockets changed unexpectedly")
+        hull_count = 0
+        observed_health_armor = set()
+        for mount in mounts:
+            render_path = models_root / mount["asset"]
+            hitbox_path = models_root / mount["hitboxAsset"]
+            if hashlib.sha256(render_path.read_bytes()).hexdigest() != mount.get("assetSha256", "").lower():
+                raise AssertionError(f"{enemy} mounted render revision is stale: {mount.get('id')}")
+            if hashlib.sha256(hitbox_path.read_bytes()).hexdigest() != mount.get("hitboxAssetSha256", "").lower():
+                raise AssertionError(f"{enemy} mounted hitbox revision is stale: {mount.get('id')}")
+            collision = json.loads((models_root / mount["collisionManifest"]).read_text(encoding="utf-8"))
+            damage = json.loads((models_root / mount["damageManifest"]).read_text(encoding="utf-8"))
+            if collision.get("geometryConfidence") != "verified" or mount.get("viewerHitboxProxy"):
+                raise AssertionError(f"{enemy} must use exact mounted collision geometry: {mount.get('id')}")
+            if damage.get("interactionCoverage") != "verified-exact-zone-coverage":
+                raise AssertionError(f"{enemy} mounted damage coverage is incomplete: {mount.get('id')}")
+            hull_count += collision.get("hullCount", 0)
+            observed_health_armor.add((damage.get("mainHealth"), damage.get("defaultDamageableZone", {}).get("armor")))
+        if hull_count != expected["hullCount"] or observed_health_armor != expected["healthArmor"]:
+            raise AssertionError(f"{enemy} mounted weapon evidence changed unexpectedly")
+
     expanded_enemy_expectations = {
         "Hive Lord": (91, 56, 150000, "partial-actor-join", 10),
         "Vox Engine": (39, 30, 9000, "partial-layered-actor-join", 1),
