@@ -1048,11 +1048,10 @@ def ragdoll_body_gltf_matrix(hull: Hull) -> list[list[float]]:
     qx, qy, qz, qw = hull.ragdoll_body_orientation
     # Filediver converts Stingray/Havok vectors from (x, y, z) to glTF's
     # (x, z, -y). Quaternion vector components follow the same basis change.
-    # hknpBodyCinfo stores the inverse (world-to-body) orientation, so invert
-    # the unit quaternion before using it as the body's glTF node transform.
-    # Without that inversion, asymmetric leg and claw convexes pivot away from
-    # their render mesh even though their decoded origins remain exact.
-    matrix = quaternion_matrix((-qx, -qz, qy, qw))
+    # The body orientation is shape-to-world. Its direct converted rotation
+    # aligns elongated leg/claw shapes with the next skeleton bone; treating it
+    # as world-to-body visibly mirrors those hulls away from the render pose.
+    matrix = quaternion_matrix((qx, qz, -qy, qw))
     matrix[0][3], matrix[1][3], matrix[2][3] = x, z, -y
     return matrix
 
@@ -1065,6 +1064,7 @@ def inject_hulls(
 ) -> list[dict[str, Any]]:
     bone_names = bone_names or {}
     nodes = document.setdefault("nodes", [])
+    source_node_count = len(nodes)
     node_by_hash: dict[int, int] = {}
     for index, node in enumerate(nodes):
         hashed = node_hash(node.get("name", ""))
@@ -1163,6 +1163,10 @@ def inject_hulls(
                 ],
             }
         )
+        sizes = [
+            max(vertex[axis] for vertex in hull.vertices) - min(vertex[axis] for vertex in hull.vertices)
+            for axis in range(3)
+        ]
         node_index = len(nodes)
         node = {
             "name": f"hd2_collision_{hull.record_index:03d}_{hull.collider_hash:08x}",
@@ -1182,13 +1186,43 @@ def inject_hulls(
                 )
             local_transform = matrix_multiply(inverse_affine_matrix(parent_world), decoded_world)
             node["matrix"] = gltf_column_major(local_transform)
+            bone_name = bone_names.get(hull.bone_hash)
+            axis_alignment = None
+            if bone_name and any(token in bone_name for token in ("leg", "claw")):
+                longest_axis = max(range(3), key=sizes.__getitem__)
+                body_axis = [decoded_world[row][longest_axis] for row in range(3)]
+                child_directions = []
+                for child_index in parent.get("children", []):
+                    if child_index >= source_node_count:
+                        continue
+                    child_world = world_matrix(child_index)
+                    direction = [
+                        child_world[axis][3] - parent_world[axis][3]
+                        for axis in range(3)
+                    ]
+                    length = math.sqrt(sum(value * value for value in direction))
+                    if length > 0.02:
+                        child_directions.append([value / length for value in direction])
+                if child_directions:
+                    axis_alignment = max(
+                        abs(sum(body_axis[axis] * direction[axis] for axis in range(3)))
+                        for direction in child_directions
+                    )
+                    if axis_alignment < 0.75:
+                        raise ValueError(
+                            f"Ragdoll body {hull.record_index} {bone_name} axis alignment "
+                            f"{axis_alignment:.4f} does not match its skeleton limb direction"
+                        )
             ragdoll_transform = {
                 "sourcePosition": [round(value, 7) for value in hull.ragdoll_body_position],
                 "sourceOrientation": [round(value, 7) for value in hull.ragdoll_body_orientation],
-                "coordinateConversion": (
-                    "inverse Havok body orientation, then (x,y,z) to glTF (x,z,-y)"
-                ),
+                "coordinateConversion": "Havok body orientation (x,y,z) to glTF (x,z,-y)",
                 "bonePositionError": round(position_error, 8),
+                **(
+                    {"boneAxisAlignment": round(axis_alignment, 8)}
+                    if axis_alignment is not None
+                    else {}
+                ),
                 "boneLocalMatrix": [round(value, 8) for value in node["matrix"]],
                 "evidence": "Decoded hknp body initial pose joined to the exact named skeleton bone",
             }
@@ -1209,10 +1243,6 @@ def inject_hulls(
             "shapeTypes": hull.shape_types,
             "subshapeCount": hull.subshape_count,
         }
-        sizes = [
-            max(vertex[axis] for vertex in hull.vertices) - min(vertex[axis] for vertex in hull.vertices)
-            for axis in range(3)
-        ]
         manifest_entries.append(
             {
                 "recordIndex": hull.record_index,

@@ -232,12 +232,23 @@ def main() -> None:
                         collider["ragdollBodyTransform"].get("bonePositionError", 1) > 0.01
                         or not str(
                             collider["ragdollBodyTransform"].get("coordinateConversion", "")
-                        ).startswith("inverse Havok body orientation")
+                        ).startswith("Havok body orientation")
                         or "matrix" not in nodes_by_name.get(collider.get("nodeName"), {})
                         for collider in transformed
                     )
                 ):
-                    raise AssertionError(f"{enemy} lost its decoded inverse ragdoll body poses")
+                    raise AssertionError(f"{enemy} lost its decoded ragdoll body poses")
+                articulated_limbs = [
+                    collider
+                    for collider in transformed
+                    if any(token in collider.get("boneName", "") for token in ("leg", "claw"))
+                    and "boneAxisAlignment" in collider["ragdollBodyTransform"]
+                ]
+                if not articulated_limbs or any(
+                    collider["ragdollBodyTransform"]["boneAxisAlignment"] < 0.75
+                    for collider in articulated_limbs
+                ):
+                    raise AssertionError(f"{enemy} limb hulls are not aligned to their skeleton bones")
         expected_capsules = {
             "Hunter": 20,
             "Stalker": 30,
