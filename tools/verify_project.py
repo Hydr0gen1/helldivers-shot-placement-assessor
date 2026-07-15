@@ -76,6 +76,8 @@ def main() -> None:
         'id="targeting3dTimeline"',
         'id="targeting3dGridOpacity"',
         "THREE.TOUCH.DOLLY_ROTATE",
+        "touches.ONE=simulate?THREE.TOUCH.PAN:THREE.TOUCH.ROTATE",
+        "screenSpacePanning=false",
         "function targeting3dWheelLooksLikeTrackpad",
         "orbitTargeting3dFromTrackpad",
         "@media(any-pointer:fine)",
