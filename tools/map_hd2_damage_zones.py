@@ -190,6 +190,7 @@ def main() -> None:
         raw_name = info["zone_name"]
         name, resolution = resolved_zone_name(raw_name)
         zone_colliders = []
+        matched_zone_actors: set[str] = set()
         for actor in zone.get("actors", []):
             aliases = actor_aliases(actor)
             matches_by_record: dict[int, dict[str, Any]] = {}
@@ -207,6 +208,7 @@ def main() -> None:
                 unmatched_actors.append({"zoneIndex": zone_index, "zoneName": name, "actor": actor})
                 continue
             matched_actor_count += 1
+            matched_zone_actors.add(actor)
             for record_index, collider in sorted(matches_by_record.items()):
                 assigned_zones = assignments.setdefault(record_index, [])
                 if assigned_zones and zone_index not in assigned_zones and not args.allow_layered_colliders:
@@ -232,6 +234,9 @@ def main() -> None:
                 "zoneName": name,
                 "zoneNameRaw": raw_name,
                 "zoneNameResolution": resolution,
+                "actorReferenceCount": len(zone.get("actors", [])),
+                "mappedActorReferenceCount": len(matched_zone_actors),
+                "unmatchedActorReferenceCount": len(zone.get("actors", [])) - len(matched_zone_actors),
                 "actors": zone_colliders,
                 **zone_info_subset(info),
             }
@@ -297,6 +302,26 @@ def main() -> None:
         mapping_confidence = "verified-layered-actor-join"
     else:
         mapping_confidence = "verified-complete-actor-join"
+    uncovered_damage_zones = [
+        {
+            "zoneIndex": zone["zoneIndex"],
+            "zoneName": zone["zoneName"],
+            "zoneNameRaw": zone["zoneNameRaw"],
+            "actorReferenceCount": zone["actorReferenceCount"],
+        }
+        for zone in zones
+        if zone["actorReferenceCount"] and not zone["actors"]
+    ]
+    redundant_unmatched_actors = [
+        actor
+        for actor in unmatched_actors
+        if zones[actor["zoneIndex"]]["actors"]
+    ]
+    interaction_coverage = (
+        "verified-exact-zone-coverage"
+        if not uncovered_damage_zones
+        else "partial-zone-coverage"
+    )
     result = {
         "schemaVersion": 1,
         "entity": args.entity,
@@ -325,6 +350,11 @@ def main() -> None:
         "mappedActorCount": matched_actor_count,
         "unmatchedActorCount": len(unmatched_actors),
         "unmatchedActors": unmatched_actors,
+        "redundantUnmatchedActorCount": len(redundant_unmatched_actors),
+        "redundantUnmatchedActors": redundant_unmatched_actors,
+        "interactionCoverage": interaction_coverage,
+        "uncoveredDamageZoneCount": len(uncovered_damage_zones),
+        "uncoveredDamageZones": uncovered_damage_zones,
         "mappedColliderCount": len(collider_map),
         "unmappedColliderCount": len(missing),
         "unmappedColliderRecords": missing,

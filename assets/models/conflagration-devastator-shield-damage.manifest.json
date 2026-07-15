@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "entity": "content/fac_cyborgs/equipment/weapons/soldier_shield/soldier_shield_ivory_legion",
+  "displayName": "Conflagration Devastator Shield",
+  "gameObjectId": "0x4137a718",
+  "mappingConfidence": "verified-complete-actor-join",
+  "evidence": "HealthComponentData damageableZones[].actors matched collision node names or collider hashes. Layered assignments are preserved when the game data explicitly places one collider actor in multiple damage pools.",
+  "source": {
+    "entitiesJson": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-entity-components.json",
+      "sha256": "83285FDB1C0549D49A3FFEB7064FAF182C3CECCFD8866A1CAA190BC09E2B7ADB"
+    },
+    "collisionManifest": {
+      "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\conflagration-devastator-shield-collision.manifest.json",
+      "sha256": "CA8178CF1ECC4FBA581D81A9DBD33E551DB4A68D4028AFD41C43192E34DCD652"
+    }
+  },
+  "mainHealth": 800,
+  "defaultDamageableZone": {
+    "damage_multiplier": "DamageMultiplier_Normal",
+    "damage_multiplier_dps": "DamageMultiplier_Normal",
+    "projectile_durable_resistance": 0.7,
+    "armor": 4,
+    "armor_angle_check": true,
+    "max_armor": 0,
+    "health": -1,
+    "constitution": 0,
+    "immortal": false,
+    "causes_downed_on_downed": false,
+    "causes_death_on_downed": false,
+    "causes_downed_on_death": false,
+    "causes_death_on_death": false,
+    "affects_main_health": 1,
+    "child_zones": [],
+    "kill_children_on_death": false,
+    "bleedout_enabled": false,
+    "affected_by_explosions": false,
+    "explosive_damage_percentage": 3.4028235e+38,
+    "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
+    "main_health_affect_capped_by_zone_health": true,
+    "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+  },
+  "zoneCount": 1,
+  "actorCount": 1,
+  "mappedActorCount": 1,
+  "unmatchedActorCount": 0,
+  "unmatchedActors": [],
+  "mappedColliderCount": 1,
+  "unmappedColliderCount": 1,
+  "unmappedColliderRecords": [
+    1
+  ],
+  "layeredColliderCount": 0,
+  "layeredColliderRecords": [],
+  "duplicateColliderAssignments": 0,
+  "zones": [
+    {
+      "zoneIndex": 0,
+      "zoneName": "main",
+      "zoneNameRaw": "main",
+      "zoneNameResolution": "filediver-dictionary",
+      "actors": [
+        {
+          "actor": "c_collision",
+          "recordIndex": 0,
+          "colliderHash": "cae4ee78",
+          "nodeName": "hd2_collision_000_cae4ee78",
+          "boneHash": "a3d491d1",
+          "boneName": null
+        }
+      ],
+      "damage_multiplier": "DamageMultiplier_Normal",
+      "damage_multiplier_dps": "DamageMultiplier_Normal",
+      "projectile_durable_resistance": 0.7,
+      "armor": 4,
+      "armor_angle_check": true,
+      "max_armor": 0,
+      "health": 800,
+      "constitution": 0,
+      "immortal": false,
+      "causes_downed_on_downed": false,
+      "causes_death_on_downed": false,
+      "causes_downed_on_death": false,
+      "causes_death_on_death": false,
+      "affects_main_health": 1,
+      "child_zones": [],
+      "kill_children_on_death": false,
+      "bleedout_enabled": false,
+      "affected_by_explosions": false,
+      "explosive_damage_percentage": 3.4028235e+38,
+      "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
+      "main_health_affect_capped_by_zone_health": true,
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+    }
+  ],
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "colliderHash": "cae4ee78",
+      "nodeName": "hd2_collision_000_cae4ee78",
+      "boneHash": "a3d491d1",
+      "boneName": null,
+      "zoneIndex": 0,
+      "zoneName": "main",
+      "zoneNameRaw": "main",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 800,
+      "armor": 4,
+      "projectileDurableResistance": 0.7,
+      "affectsMainHealth": 1,
+      "affectedByExplosions": false,
+      "explosiveDamagePercentage": 3.4028235e+38,
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 0,
+          "zoneName": "main",
+          "zoneNameRaw": "main",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 800,
+          "armor": 4,
+          "projectileDurableResistance": 0.7,
+          "affectsMainHealth": 1,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
+    }
+  ]
+}

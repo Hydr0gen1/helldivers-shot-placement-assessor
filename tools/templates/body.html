@@ -65,8 +65,8 @@
       <section class="targeting-3d-launch" id="targeting3dLaunch" hidden aria-labelledby="targeting3dLaunchTitle">
         <span class="research-badge">GAME-DERIVED MAPPING</span>
         <h2 id="targeting3dLaunchTitle">Game-derived damage model</h2>
-        <p id="targeting3dLaunchDescription">Inspect decoded collision geometry and its HealthComponent damage zones.</p>
-        <button class="action" id="openTargeting3d" type="button">Open 3D targeting</button>
+        <p id="targeting3dLaunchDescription">Inspect decoded damage zones or place explosive impacts on game-derived collision geometry.</p>
+        <button class="action" id="openTargeting3d" type="button">Open 3D simulator</button>
       </section>
     </aside>
 
@@ -111,21 +111,51 @@
       </div>
       <button class="icon-action targeting-3d-close" id="closeTargeting3d" type="button" aria-label="Close 3D targeting">&#x2715;</button>
     </header>
+    <div class="targeting-3d-mode-tabs" role="tablist" aria-label="3D viewer mode">
+      <button id="targeting3dInspectMode" type="button" role="tab" aria-selected="true">Inspect damage model</button>
+      <button id="targeting3dSimulateMode" type="button" role="tab" aria-selected="false">Simulate splash damage</button>
+    </div>
     <div class="targeting-3d-toolbar" aria-label="3D view controls">
       <button class="action" id="resetTargeting3d" type="button">Reset view</button>
       <label class="targeting-3d-toggle" for="showTargeting3dHulls"><input id="showTargeting3dHulls" type="checkbox" checked> Show collision hulls</label>
       <label class="targeting-3d-toggle" for="showTargeting3dGeometryOnly"><input id="showTargeting3dGeometryOnly" type="checkbox"> Show geometry-only hulls</label>
+      <label class="targeting-3d-toggle" for="showTargeting3dGrid"><input id="showTargeting3dGrid" type="checkbox" checked> Distance rings</label>
+      <label class="targeting-3d-toggle" for="showTargeting3dLabels"><input id="showTargeting3dLabels" type="checkbox" checked> Ring labels</label>
+      <label class="targeting-3d-toggle grid-opacity" for="targeting3dGridOpacity">Grid opacity <input id="targeting3dGridOpacity" type="range" min="20" max="100" value="70" aria-label="Targeting grid opacity"></label>
       <span id="targeting3dStatus" role="status" aria-live="polite">Model not loaded</span>
     </div>
-    <div class="targeting-3d-stage" id="targeting3dStage">
-      <div class="targeting-3d-loading" id="targeting3dLoading">Loading local model&hellip;</div>
-      <div class="targeting-3d-canvas" id="targeting3dCanvas" role="img" aria-label="Interactive enemy model with selectable collision hulls"></div>
+    <div class="targeting-3d-workspace">
+      <div class="targeting-3d-stage" id="targeting3dStage">
+        <div class="targeting-3d-loading" id="targeting3dLoading">Loading local model&hellip;</div>
+        <div class="targeting-3d-canvas" id="targeting3dCanvas" role="img" tabindex="0" aria-label="Interactive enemy model with selectable collision hulls"></div>
+        <div class="targeting-crosshair" id="targeting3dCrosshair" hidden aria-hidden="true"><i></i></div>
+        <div class="targeting-aim-readout" id="targeting3dAimReadout" hidden>Move over the model or ground to aim</div>
+        <button class="action targeting-place-button" id="placeTargeting3dImpact" type="button" hidden>Place impact</button>
+      </div>
+      <aside class="targeting-simulator-controls" id="targeting3dSimulatorControls" hidden aria-label="Splash simulation controls">
+        <div class="simulator-field"><label for="targeting3dWeapon">Explosive weapon</label><select id="targeting3dWeapon"></select></div>
+        <div class="simulator-field"><label for="targeting3dDelivery">Impact pattern</label><select id="targeting3dDelivery"><option value="single">Single impact</option><option value="generated">Generated barrage</option><option value="manual">Manual impacts</option></select></div>
+        <div class="simulator-field" id="targeting3dSeedField" hidden><label for="targeting3dSeed">Pattern seed</label><div class="seed-row"><input id="targeting3dSeed" type="number" min="1" step="1" value="1"><button class="action" id="rerollTargeting3d" type="button">Reroll</button></div></div>
+        <div class="simulator-field" id="targeting3dHeadingField" hidden><label for="targeting3dHeading">Walking direction</label><input id="targeting3dHeading" type="range" min="0" max="359" value="0"><output id="targeting3dHeadingValue" for="targeting3dHeading">0&deg;</output></div>
+        <fieldset class="simulator-upgrades" id="targeting3dUpgrades" hidden><legend>Ship modules</legend><label><input id="targeting3dMoreGuns" type="checkbox"> More Guns</label><label><input id="targeting3dAtmospheric" type="checkbox"> Atmospheric Monitoring</label><label><input id="targeting3dHighDensity" type="checkbox"> High-Density Explosives</label></fieldset>
+        <div class="simulator-actions"><button class="action" id="undoTargeting3dImpact" type="button">Undo</button><button class="action" id="clearTargeting3dImpacts" type="button">Clear</button><button class="action" id="estimateTargeting3dBarrage" type="button" hidden>Estimate 200 patterns</button></div>
+        <div class="barrage-playback" id="targeting3dPlayback" hidden><div><button class="action" id="playTargeting3dBarrage" type="button">Play</button><button class="action" id="pauseTargeting3dBarrage" type="button">Pause</button><button class="action" id="restartTargeting3dBarrage" type="button">Restart</button></div><label for="targeting3dTimeline">Timeline <output id="targeting3dTimelineValue" for="targeting3dTimeline">0.0 s</output></label><input id="targeting3dTimeline" type="range" min="0" max="1" step="0.05" value="1"></div>
+        <div class="simulator-measurements" aria-live="polite"><div><span>Ground offset</span><strong id="targeting3dGroundDistance">&mdash;</strong></div><div><span>Nearest hull</span><strong id="targeting3dHullDistance">&mdash;</strong></div><small>Ground offset uses the target footprint center. Damage uses exact 3D hull distance.</small></div>
+      </aside>
     </div>
     <div class="targeting-3d-selection" id="targeting3dSelection">
       <div><span>Selected hull</span><strong id="targeting3dCollider">None</strong></div>
       <div><span>Damage zone</span><strong id="targeting3dBone">Select a hull</strong></div>
       <div><span>Evidence</span><strong id="targeting3dEvidence">Exact HealthComponent actor join</strong></div>
     </div>
+    <section class="targeting-splash-results" id="targeting3dSplashResults" hidden aria-labelledby="targeting3dSplashTitle">
+      <div class="splash-result-heading"><div><span class="research-badge">GEOMETRY-BASED ESTIMATE</span><h3 id="targeting3dSplashTitle">Place an impact to simulate damage</h3></div><label for="targeting3dPolicy">Result view <select id="targeting3dPolicy"><option value="primary">Primary</option><option value="conservative">Conservative</option><option value="raw">Raw overlap</option></select></label></div>
+      <div class="splash-summary" id="targeting3dSplashSummary"></div>
+      <div class="splash-range" id="targeting3dSplashRange"></div>
+      <details open><summary>Affected damage zones</summary><div class="splash-zone-list" id="targeting3dSplashZones"></div></details>
+      <details><summary>Impact timeline</summary><div class="splash-event-list" id="targeting3dSplashEvents"></div></details>
+      <div class="splash-estimate" id="targeting3dBarrageEstimate" hidden></div>
+    </section>
     <p class="targeting-3d-caveat" id="targeting3dCaveat">Collision actors map to decoded HealthComponent armor, HP, durability, explosion flags, and Main-health transfer. Armor-break state transitions still require behavioral tracing.</p>
   </div>
 </dialog>

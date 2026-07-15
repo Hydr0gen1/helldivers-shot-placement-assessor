@@ -56,6 +56,24 @@
       "actor": "r_shoulderplate"
     }
   ],
+  "redundantUnmatchedActorCount": 0,
+  "redundantUnmatchedActors": [],
+  "interactionCoverage": "complete-with-evidence-labeled-proxies",
+  "uncoveredDamageZoneCount": 2,
+  "uncoveredDamageZones": [
+    {
+      "zoneIndex": 4,
+      "zoneName": "0x751749f3",
+      "zoneNameRaw": "0x751749f3",
+      "actorReferenceCount": 1
+    },
+    {
+      "zoneIndex": 5,
+      "zoneName": "0x09e4cf01",
+      "zoneNameRaw": "0x09e4cf01",
+      "actorReferenceCount": 1
+    }
+  ],
   "mappedColliderCount": 18,
   "unmappedColliderCount": 3,
   "unmappedColliderRecords": [
@@ -72,6 +90,9 @@
       "zoneName": "head",
       "zoneNameRaw": "head",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "head",
@@ -110,6 +131,9 @@
       "zoneName": "chest_left",
       "zoneNameRaw": "chest_left",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "chest",
@@ -148,6 +172,9 @@
       "zoneName": "boss",
       "zoneNameRaw": "boss",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "boss",
@@ -186,6 +213,9 @@
       "zoneName": "pelvis",
       "zoneNameRaw": "pelvis",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "pelvis",
@@ -224,6 +254,9 @@
       "zoneName": "0x751749f3",
       "zoneNameRaw": "0x751749f3",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 0,
+      "unmatchedActorReferenceCount": 1,
       "actors": [],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
@@ -253,6 +286,9 @@
       "zoneName": "0x09e4cf01",
       "zoneNameRaw": "0x09e4cf01",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 0,
+      "unmatchedActorReferenceCount": 1,
       "actors": [],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
@@ -282,6 +318,9 @@
       "zoneName": "right_arm",
       "zoneNameRaw": "right_arm",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 3,
+      "mappedActorReferenceCount": 3,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "r_collar",
@@ -336,6 +375,9 @@
       "zoneName": "left_arm",
       "zoneNameRaw": "left_arm",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 3,
+      "mappedActorReferenceCount": 3,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "l_collar",
@@ -390,6 +432,9 @@
       "zoneName": "right_leg",
       "zoneNameRaw": "right_leg",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 4,
+      "mappedActorReferenceCount": 4,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "r_leg",
@@ -452,6 +497,9 @@
       "zoneName": "left_leg",
       "zoneNameRaw": "left_leg",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 4,
+      "mappedActorReferenceCount": 4,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "l_leg",
@@ -1105,5 +1153,50 @@
         }
       ]
     }
-  ]
+  ],
+  "viewerDamageZoneProxies": {
+    "schemaVersion": 1,
+    "mode": "comparative-box-proxy",
+    "confidence": "inferred-from-game-colliders",
+    "evidence": "Berserker uses the same named shoulderplate bones as Devastator, Heavy Devastator, and Rocket Devastator. All three verified Automaton resources use identical 0.435137 x 0.395236 x 0.377271 shoulderplate colliders.",
+    "analogs": [
+      "Devastator",
+      "Heavy Devastator",
+      "Rocket Devastator"
+    ],
+    "boxes": [
+      {
+        "id": "left-shoulderplate",
+        "actor": "l_shoulderplate",
+        "zoneIndex": 4,
+        "anchorNode": "l_shoulderplate",
+        "boxSize": [
+          0.435137,
+          0.395236,
+          0.377271
+        ],
+        "label": "left shoulderplate"
+      },
+      {
+        "id": "right-shoulderplate",
+        "actor": "r_shoulderplate",
+        "zoneIndex": 5,
+        "anchorNode": "r_shoulderplate",
+        "boxSize": [
+          0.435137,
+          0.395236,
+          0.377271
+        ],
+        "label": "right shoulderplate"
+      }
+    ],
+    "colliders": []
+  },
+  "proxyCoveredDamageZoneCount": 2,
+  "proxyCoveredDamageZones": [
+    4,
+    5
+  ],
+  "remainingUncoveredDamageZoneCount": 0,
+  "remainingUncoveredDamageZones": []
 }

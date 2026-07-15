@@ -51,6 +51,17 @@
       "actor": "c_head"
     }
   ],
+  "redundantUnmatchedActorCount": 1,
+  "redundantUnmatchedActors": [
+    {
+      "zoneIndex": 24,
+      "zoneName": "head",
+      "actor": "c_head"
+    }
+  ],
+  "interactionCoverage": "verified-exact-zone-coverage",
+  "uncoveredDamageZoneCount": 0,
+  "uncoveredDamageZones": [],
   "mappedColliderCount": 30,
   "unmappedColliderCount": 9,
   "unmappedColliderRecords": [
@@ -80,6 +91,9 @@
       "zoneName": "torso",
       "zoneNameRaw": "torso",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "c_body",
@@ -118,6 +132,9 @@
       "zoneName": "left_speaker",
       "zoneNameRaw": "left_speaker",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "c_left_speaker",
@@ -156,6 +173,9 @@
       "zoneName": "right_speaker",
       "zoneNameRaw": "right_speaker",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "c_right_speaker",
@@ -194,6 +214,9 @@
       "zoneName": "0x12b34128",
       "zoneNameRaw": "0x12b34128",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x83a87c14",
@@ -232,6 +255,9 @@
       "zoneName": "0xc6b9b755",
       "zoneNameRaw": "0xc6b9b755",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xea2cdc68",
@@ -270,6 +296,9 @@
       "zoneName": "0x43352704",
       "zoneNameRaw": "0x43352704",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xf69836a2",
@@ -308,6 +337,9 @@
       "zoneName": "0x4dcce705",
       "zoneNameRaw": "0x4dcce705",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x76a151fa",
@@ -346,6 +378,9 @@
       "zoneName": "0x93b569a7",
       "zoneNameRaw": "0x93b569a7",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x115ff032",
@@ -384,6 +419,9 @@
       "zoneName": "0xc34084cc",
       "zoneNameRaw": "0xc34084cc",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x178dd05f",
@@ -422,6 +460,9 @@
       "zoneName": "0xb84c18c6",
       "zoneNameRaw": "0xb84c18c6",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 2,
+      "mappedActorReferenceCount": 2,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x192a5fc0",
@@ -468,6 +509,9 @@
       "zoneName": "0x0b7572c2",
       "zoneNameRaw": "0x0b7572c2",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 2,
+      "mappedActorReferenceCount": 2,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x640c7900",
@@ -514,6 +558,9 @@
       "zoneName": "0x6a656d73",
       "zoneNameRaw": "0x6a656d73",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 2,
+      "mappedActorReferenceCount": 2,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x796c1669",
@@ -560,6 +607,9 @@
       "zoneName": "0xb9d9a25d",
       "zoneNameRaw": "0xb9d9a25d",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 2,
+      "mappedActorReferenceCount": 2,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x12405733",
@@ -606,6 +656,9 @@
       "zoneName": "vent_back_bar",
       "zoneNameRaw": "vent_back_bar",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xb9d11f27",
@@ -644,6 +697,9 @@
       "zoneName": "0xfc4e1ac7",
       "zoneNameRaw": "0xfc4e1ac7",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x06d3a09f",
@@ -682,6 +738,9 @@
       "zoneName": "0x329da32c",
       "zoneNameRaw": "0x329da32c",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x5f73479b",
@@ -720,6 +779,9 @@
       "zoneName": "0x138b0aaa",
       "zoneNameRaw": "0x138b0aaa",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xced0c164",
@@ -758,6 +820,9 @@
       "zoneName": "vent_sarcophagus",
       "zoneNameRaw": "vent_sarcophagus",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xc63eb872",
@@ -796,6 +861,9 @@
       "zoneName": "vent_under",
       "zoneNameRaw": "vent_under",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x1e46022c",
@@ -834,6 +902,9 @@
       "zoneName": "0x60284a21",
       "zoneNameRaw": "0x60284a21",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x0cf6cae9",
@@ -872,6 +943,9 @@
       "zoneName": "0x924c5ea2",
       "zoneNameRaw": "0x924c5ea2",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xcd2b35bb",
@@ -910,6 +984,9 @@
       "zoneName": "0xf32f319b",
       "zoneNameRaw": "0xf32f319b",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xb8104616",
@@ -948,6 +1025,9 @@
       "zoneName": "left_rocket",
       "zoneNameRaw": "left_rocket",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "c_left_rocket",
@@ -986,6 +1066,9 @@
       "zoneName": "right_rocket",
       "zoneNameRaw": "right_rocket",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "c_right_rocket",
@@ -1024,6 +1107,9 @@
       "zoneName": "head",
       "zoneNameRaw": "head",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 9,
+      "mappedActorReferenceCount": 8,
+      "unmatchedActorReferenceCount": 1,
       "actors": [
         {
           "actor": "0x77ad5805",
@@ -1118,6 +1204,9 @@
       "zoneName": "tracks",
       "zoneNameRaw": "tracks",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 0,
+      "mappedActorReferenceCount": 0,
+      "unmatchedActorReferenceCount": 0,
       "actors": [],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",

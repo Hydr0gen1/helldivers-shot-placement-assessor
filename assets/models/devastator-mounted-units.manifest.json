@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "extractionDate": "2026-07-13",
+  "extractionDate": "2026-07-14",
   "enemy": "Devastator",
   "assemblyConfidence": "verified-mount-component-join",
   "sources": {
@@ -15,6 +15,10 @@
     "heavy-devastator-shield.glb": {
       "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_shield\\soldier_shield.unit.glb",
       "sha256": "3698547B92CC14EAC6835D6F442541AF345F670B40211796D4107F5E0E65F8BE"
+    },
+    "conflagration-devastator-shield.glb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_shield\\soldier_shield_ivory_legion.unit.glb",
+      "sha256": "51A39E8476815D63DC9FE2028C53E107D7093726B13E8900BC76095503B6A300"
     }
   },
   "mounts": [
@@ -22,7 +26,7 @@
       "id": "standard-rifle",
       "label": "Fusion assault gun",
       "asset": "devastator-standard-rifle.glb",
-      "assetSha256": "E7805E02271B52D6642674729DC8E1F1DC2DB4F46A6DF2796EF2D6C30D588A7C",
+      "assetSha256": "6651694EF1BC0069FCB0EB91F1331EF13352ED688E4B856EDDC7BEE5A81A079D",
       "attachNode": "attach_r_hand",
       "mountEntity": "content/fac_cyborgs/equipment/weapons/soldier_standard_rifle/soldier_standard_rifle",
       "unitResource": "content/fac_cyborgs/equipment/weapons/soldier_standard_rifle/soldier_standard_rifle"
@@ -39,11 +43,14 @@
     ],
     "heavy-devastator-shield.glb": [
       2
+    ],
+    "conflagration-devastator-shield.glb": [
+      2
     ]
   },
   "notes": [
     "Mounted equipment paths and sockets come directly from the enemy MountComponentData.",
-    "The Heavy Devastator shield uses its separate exact Havok collision and HealthComponent; no proxy geometry is substituted.",
+    "The Heavy and Conflagration Devastator shields use their separate exact Havok collision and HealthComponents; no proxy geometry is substituted.",
     "Hand-held guns have no HealthComponent and are render-only equipment, not selectable damage zones."
   ]
 }

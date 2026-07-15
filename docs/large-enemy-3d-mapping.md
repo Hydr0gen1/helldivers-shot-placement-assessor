@@ -1,17 +1,32 @@
-# Large-enemy 3D damage mapping
+# Enemy 3D damage mapping
 
 The large-enemy rollout uses the same evidence chain as the Bile Titan: decoded
 Havok shapes are attached to their skeleton bones, then HealthComponent actor
-identifiers are joined to collider or bone hashes. No manually authored boxes
-or inferred anatomy are substituted.
+identifiers are joined to collider or bone hashes. Exact joins remain the
+default. Three otherwise unrepresented zones use explicitly labeled viewer
+fallbacks; those proxies never replace or masquerade as exact mappings.
 
 | Enemy | Physics hulls | Damage-mapped hulls | Health actors unresolved | Status |
 | --- | ---: | ---: | ---: | --- |
-| Hive Lord | 91 | 56 | 10 | Partial; 47 base hulls plus 44 articulated ragdoll bodies |
-| Vox Engine | 39 | 30 | 1 | Partial layered map; six colliders are explicitly assigned to two pools |
+| Hive Lord | 91 | 56 | 10 | Every damage zone has exact hull coverage; ten redundant actor references remain unresolved |
+| Vox Engine | 39 | 30 | 1 | Every damage zone has exact layered hull coverage; six colliders are assigned to two pools |
 | Dropship | 18 | 6 | 0 | Complete actor coverage; 12 non-damage structural colliders |
 | Gunship | 5 | 5 | 0 | Complete actor coverage |
 | Bile Titan | 54 | 54 | 0 | Complete |
+| Warrior | 26 | 21 | 0 | Complete actor coverage; 24 articulated ragdoll bodies |
+| Alpha Warrior | 26 | 21 | 0 | Complete actor coverage; variant HealthComponent retained |
+| Bile Warrior | 26 | 21 | 0 | Complete actor coverage; acid variant HealthComponent retained |
+| Rupture Warrior | 27 | 21 | 0 | Complete actor coverage; three base and 24 ragdoll hulls |
+| Spore Burst Warrior | 26 | 21 | 0 | Complete actor coverage; gloom variant HealthComponent retained |
+| Hive Guard | 24 | 20 | 1 | Every damage zone has exact layered hull coverage; one redundant actor remains unresolved |
+| Hunter | 27 | 21 | 0 | Complete actor coverage; 26 articulated ragdoll bodies |
+| Predator Hunter | 27 | 21 | 0 | Complete actor coverage; predator variant HealthComponent retained |
+| Predator Stalker | 48 | 46 | 1 | Every damage zone has an exact hull; verified Stalker geometry with the predator map |
+| Scavenger | 25 | 7 | 0 | Complete layered actor coverage; 18 non-damage ragdoll colliders |
+| Pouncer | 31 | 7 | 0 | Complete layered actor coverage; 24 non-damage ragdoll colliders |
+| Bile Spitter | 25 | 7 | 0 | Complete layered actor coverage; 18 non-damage ragdoll colliders |
+| Nursing Spewer | 29 | 20 | 0 | Complete actor coverage; five base and 24 ragdoll hulls |
+| Rupture Spewer | 30 | 20 | 0 | Complete actor coverage; six base and 24 ragdoll hulls |
 | Charger | 50 | 45 | 0 | Complete actor coverage; five non-damage physics colliders |
 | Charger Behemoth | 50 | 45 | 0 | Complete actor coverage; five non-damage physics colliders |
 | Spore Charger | 61 | 57 | 0 | Complete actor coverage; four non-damage physics colliders |
@@ -25,8 +40,8 @@ or inferred anatomy are substituted.
 | Impaler | 47 | 46 | 0 | Complete actor coverage; one non-damage physics collider |
 | Veracitor | 58 | 58 | 0 | Complete |
 | Gatekeeper | 57 | 57 | 0 | Complete |
-| Bile Spewer | 5 | 4 | 16 | Partial; intact render and four exact body colliders |
-| Fleshmob | 11 | 10 | 8 | Partial; one non-damage physics collider |
+| Bile Spewer | 29 | 20 | 0 | Complete; five base hulls plus 24 articulated ragdoll bodies |
+| Fleshmob | 39 | 18 | 0 | Complete actor coverage; 11 base hulls plus 28 articulated ragdoll bodies |
 | Leviathan | 19 | 14 | 0 | Complete actor coverage; five non-damage physics colliders |
 | Hulk (Scorcher) | 21 | 16 | 0 | Complete; 16 articulated ragdoll bodies joined by exact ITEM references |
 | Brood Commander | 26 | 21 | 0 | Complete; 24 articulated ragdoll bodies plus two base colliders |
@@ -34,20 +49,28 @@ or inferred anatomy are substituted.
 | Devastator | 23 | 22 | 0 | Complete; exact body/ragdoll join plus mounted rifle |
 | Heavy Devastator | 25 + 2 shield | 23 + 1 shield | 0 | Complete; separate 800-HP AV4 shield at decoded hand socket |
 | Rocket Devastator | 29 | 28 | 0 | Complete; pods, rack, and 64-bit shared mesh vertices decoded |
+| Berserker | 21 + 2 proxies | 18 + 2 proxies | 2 | Complete viewer zone coverage; shoulder boxes are comparative proxies from three verified Devastator variants |
+| Trooper | 22 | 21 | 0 | Complete actor coverage; exact base/ragdoll join |
+| Commissar | 22 | 21 | 0 | Complete actor coverage; commander HealthComponent retained |
+| Conflagration Devastator | 23 + 2 shield | 22 + 1 shield | 0 | Complete; exact right-hand rifle and independently damageable left-hand shield |
+| Agitator | 39 | 27 | 0 | Complete layered actor coverage; elite-rusher geometry and exact variant HealthComponent |
+| Radical | 39 | 27 | 0 | Complete layered actor coverage; exact rusher HealthComponent |
 | Scout Strider | 30 + 2 child | 10 + default child zones | 0 | Complete; cannon and driver housing mounted at decoded sockets |
 | Reinforced Scout Strider | 30 + 8 child instances | 10 + 6 rocket hulls | 0 | Complete; armored driver and two independently destructible rocket rails |
-| Stalker | 48 | 46 | 1 | Partial; one HealthComponent actor has no decoded collider |
+| Stalker | 48 | 46 | 1 | Every damage zone has an exact hull; one redundant actor reference has no collider |
 | Shrieker | 37 | 25 | 0 | Complete actor coverage; 12 non-damage flight colliders |
 | Overseer | 50 | 48 | 0 | Complete actor coverage |
 | Elevated Overseer | 51 | 49 | 0 | Complete actor coverage |
 | Crescent Overseer | 50 | 48 | 0 | Complete actor coverage |
 | Watcher | 8 | 6 | 0 | Complete actor coverage |
-| Stingray | 10 | 9 | 1 | Partial ragdoll-only collision source |
-| Factory Strider | 61 | 60 | 10 | Partial |
-| War Strider | 15 | 15 | 12 | Partial |
-| Harvester | 37 | 36 | 1 | Partial |
+| Stingray | 10 | 9 + 1 proxy | 1 | Complete viewer zone coverage; the sole unassigned central hull is an explicitly inferred front-body proxy |
+| Voteless (Medium) | 18 | 10 | 4 | Every damage zone has exact hull coverage; four redundant distal-limb references remain unresolved |
+| Obtruder | 8 | 6 | 0 | Complete actor coverage; hashed unit resource decoded directly |
+| Factory Strider | 61 | 60 | 10 | Every damage zone has exact hull coverage; ten raw actor aliases remain unresolved |
+| War Strider | 36 | 24 | 0 | Complete actor coverage; 15 base hulls plus 21 articulated ragdoll bodies |
+| Harvester | 37 | 36 + 1 proxy | 1 | Complete viewer zone coverage; the sole unassigned front-sized hull is an explicitly inferred body-front proxy |
 
-## Unresolved actor references
+## Residual actor references and zone coverage
 
 - Hive Lord: `upper_jaw`, seven third-stage jaw bones, and the second upper and
   lower crown bones exist in the skeleton and HealthComponent actor list but
@@ -59,42 +82,81 @@ or inferred anatomy are substituted.
   actors do resolve the head geometry. Six of those child colliders are also
   explicitly present in their own vent, fog-light, or sarcophagus damage pool;
   both assignments are retained as a layered actor map rather than flattened.
+  The separate sarcophagus ragdoll has no HealthComponent or exact actor join
+  back to `c_head`, so it is not substituted.
 - Factory Strider: `0x78770d10`, `0x2372fd7e`, `0x0dd564c8`,
   `0xcbfdcaca`, `0x01362b8e`, `0x05c8b908`, `0x79883d49`,
-  `0x046d20a7`, `0xe6cfad4e`, and `0xb93d83eb`.
-- War Strider: `l_ankle`, `l_hip`, `l_leg_shield`, `r_leg_shield`,
-  `r_ankle`, `r_hip`, `turret`, `l_hardpoint_yaw`, `r_hardpoint_yaw`,
-  `yaw`, `l_rocketpod`, and `r_rocketpod`.
-- Harvester: `c_body_front`.
-- Bile Spewer: the base-unit physics resource does not contain the head or
-  articulated leg actors referenced by its HealthComponent.
-- Fleshmob: eight HealthComponent actor references are not present in the
-  decoded base-unit physics resource.
+  `0x046d20a7`, `0xe6cfad4e`, and `0xb93d83eb`. Adding the unit's exact
+  19-body ragdoll profile produces 80 total physics hulls but none of these ten
+  actor identities, so the body map remains partial.
+- Harvester: `c_body_front` is a skeleton node without a hash-matched collider.
+  The exact ten-body ragdoll profile was also decoded and does not contain it.
+  The base resource has one unassigned front-sized hull (`43a3844e`) and this is
+  exposed as an inferred viewer proxy, not an exact actor join.
 - Stalker and Stingray: one actor in each HealthComponent has no matching base
-  or ragdoll collider. Both remain explicitly partial.
+  or ragdoll collider. Stalker's missing `spine_lower_2` and Stingray's missing
+  `front_body` both exist as skeleton nodes only; Stingray has no separate base
+  physics resource. Stalker's zone already has seven exact mapped hulls.
+  Stingray's sole unassigned central `boss` hull (`9b115563`) is exposed as an
+  inferred viewer proxy for its otherwise uncovered front-body zone.
+- Hive Guard: `neck` exists in the ragdoll skeleton but has no body-info shape.
+  Overlapping verified assignments remain layered instead of being flattened.
+- Predator Stalker: its entity resolves to the verified Stalker unit geometry,
+  but one actor in the predator-specific HealthComponent has no matching hull.
+- Voteless (Medium): four HealthComponent actors do not resolve to a collider
+  in the decoded base physics or ragdoll resources. `l_hand`, `r_hand`,
+  `l_foot`, and `r_foot` are skeleton nodes, but the exact V2 ragdoll body list
+  stops at the elbows and knees; the V3 variant has the same limitation.
 - Berserker research recovers 21 exact hulls and 18 mapped body hulls, but its
-  separately mounted chainsaw unit currently exports an armature without its
-  render geometry. The incomplete assembly is withheld from the viewer.
+  two shoulder actors remain unresolved. The viewer adds rectangular proxies
+  at the exact shoulderplate bones using the identical collider dimensions
+  found on Devastator, Heavy Devastator, and Rocket Devastator; these remain
+  comparative rather than exact. Its separately mounted chainsaw unit
+  currently exports an armature without its render geometry, so that incomplete
+  child assembly is withheld from the viewer. The Iron Fleet variant's exact
+  physics and ragdoll resources were also tested and likewise contain no
+  `l_shoulderplate` or `r_shoulderplate` body shapes.
 
 These references are retained in the damage manifests with their zone identity.
-The viewer labels the affected models as partial and does not synthesize missing
-geometry. Mounted child units and entity-level collision construction are the
-next research targets for closing these gaps.
+Seven models already had exact hull coverage for every damage zone despite the
+extra unresolved references. Berserker, Harvester, and Stingray now have
+complete viewer interaction coverage through evidence-labeled fallbacks. The
+viewer and verifier keep exact actor coverage, exact zone coverage, and proxy
+zone coverage as separate claims.
+
+## Resolved actor references
+
+The 2026-07-14 archive re-audit recovered three exact ragdoll profiles that had
+not been included in the earlier batch build:
+
+- Bile Spewer: 24 articulated bodies resolve the head and all 15 leg actors,
+  eliminating 16 unmatched HealthComponent references.
+- Fleshmob: 28 articulated bodies resolve all eight elbow and hand actors.
+- War Strider: 21 articulated bodies resolve both legs, both shields, the
+  turret hierarchy, and both rocket pods.
+
+These joins use serialized `bodyCinfoWithAttachment` shape and `ragdoll_*` bone
+references from each enemy's own unit. No render-mesh or comparative proxies
+were used.
 
 ## Layered damage actors
 
-The Vox Engine is the first decoded unit in this rollout whose
-`HealthComponentData` deliberately lists the same collider actor in more than
-one damageable zone. The mapper requires `--allow-layered-colliders` for this
-case and records a `zoneStack` on each affected hull. The viewer identifies the
-overlap and displays every game-derived pool. It does not infer runtime damage
-ordering or choose a single authoritative pool.
+Vox Engine, Hive Guard, Scavenger, Pouncer, Bile Spitter, Agitator, and Radical
+contain `HealthComponentData` that deliberately lists the same collider actor
+in more than one damageable zone. The mapper requires
+`--allow-layered-colliders` for these cases and records a `zoneStack` on each
+affected hull. The viewer identifies the overlap and displays every game-derived
+pool. It does not infer runtime damage ordering or choose a single authoritative
+pool.
 
 ## Articulated ragdoll collision sources
 
-Hive Lord, Hulk, Brood Commander, Alpha Commander, Devastators, Scout Strider,
-Stalker, Shrieker, Watcher, and the Overseer family split their combat collision data
-between the base `.physics.main` resource and `.ragdoll_profile.main`. The
+Hive Lord, Hulk, Brood Commander, Alpha Commander, Warriors, Hive Guard,
+Hunters, Stalkers, Scavengers, Spewers, Fleshmob, Berserker, Troopers,
+Devastators, War Strider, Scout Strider, Shrieker, Watcher, Voteless, Obtruder,
+and the Overseer family
+split their combat collision data between the base `.physics.main` resource and
+`.ragdoll_profile.main`. The
 ragdoll decoder follows each serialized
 `hknpPhysicsSystemData::bodyCinfoWithAttachment` shape ITEM reference and its
 paired `ragdoll_*` name ITEM reference. Those names resolve directly to unit

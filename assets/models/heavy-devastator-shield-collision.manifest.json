@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "extractionDate": "2026-07-13",
+  "extractionDate": "2026-07-14",
   "source": {
     "physics": {
       "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_shield\\soldier_shield.physics.main",
@@ -37,7 +37,8 @@
     "embeddedImageCount": 6,
     "approximatedMaterialIndices": [
       2
-    ]
+    ],
+    "hiddenAlternateNodeNames": []
   },
   "metadataSets": {
     "shapeTags": [

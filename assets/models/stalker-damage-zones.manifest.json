@@ -51,6 +51,17 @@
       "actor": "spine_lower_2"
     }
   ],
+  "redundantUnmatchedActorCount": 1,
+  "redundantUnmatchedActors": [
+    {
+      "zoneIndex": 6,
+      "zoneName": "0x3f9284ea",
+      "actor": "spine_lower_2"
+    }
+  ],
+  "interactionCoverage": "verified-exact-zone-coverage",
+  "uncoveredDamageZoneCount": 0,
+  "uncoveredDamageZones": [],
   "mappedColliderCount": 46,
   "unmappedColliderCount": 2,
   "unmappedColliderRecords": [
@@ -66,6 +77,9 @@
       "zoneName": "0x98648f08",
       "zoneNameRaw": "0x98648f08",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 3,
+      "mappedActorReferenceCount": 3,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "l_back_leg_1",
@@ -120,6 +134,9 @@
       "zoneName": "0x5c06dea6",
       "zoneNameRaw": "0x5c06dea6",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 3,
+      "mappedActorReferenceCount": 3,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "l_front_leg_1",
@@ -174,6 +191,9 @@
       "zoneName": "0xf0db5413",
       "zoneNameRaw": "0xf0db5413",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 3,
+      "mappedActorReferenceCount": 3,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "r_front_leg_1",
@@ -228,6 +248,9 @@
       "zoneName": "0x749ba73c",
       "zoneNameRaw": "0x749ba73c",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 3,
+      "mappedActorReferenceCount": 3,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "r_back_leg_1",
@@ -282,6 +305,9 @@
       "zoneName": "r_claw",
       "zoneNameRaw": "r_claw",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 4,
+      "mappedActorReferenceCount": 4,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "r_claw_1",
@@ -344,6 +370,9 @@
       "zoneName": "l_claw",
       "zoneNameRaw": "l_claw",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 4,
+      "mappedActorReferenceCount": 4,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "l_claw_1",
@@ -406,6 +435,9 @@
       "zoneName": "0x3f9284ea",
       "zoneNameRaw": "0x3f9284ea",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 8,
+      "mappedActorReferenceCount": 7,
+      "unmatchedActorReferenceCount": 1,
       "actors": [
         {
           "actor": "spine_lower_1",
@@ -492,6 +524,9 @@
       "zoneName": "0xe04e064e",
       "zoneNameRaw": "0xe04e064e",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "head",
@@ -530,6 +565,9 @@
       "zoneName": "0x67c8e6fc",
       "zoneNameRaw": "0x67c8e6fc",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 6,
+      "mappedActorReferenceCount": 6,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xfabc1fdf",
@@ -608,6 +646,9 @@
       "zoneName": "wings",
       "zoneNameRaw": "wings",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 12,
+      "mappedActorReferenceCount": 12,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "l_front_wing1",

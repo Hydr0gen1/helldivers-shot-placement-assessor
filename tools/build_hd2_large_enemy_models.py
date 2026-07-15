@@ -188,12 +188,83 @@ ENEMIES = (
         True,
         None,
     ),
+    # Small and medium enemy rollout. Each entry keeps its own HealthComponent
+    # mapping even when several variants share a skeleton or base render unit.
+    (
+        "warrior",
+        "Warrior",
+        "content/fac_bugs/cha_warrior/cha_warrior_tier_2",
+        True,
+        True,
+        "content/fac_bugs/cha_warrior/cha_warrior",
+    ),
+    (
+        "alpha-warrior",
+        "Alpha Warrior",
+        "content/fac_bugs/cha_warrior/cha_warrior_tier_2_guard",
+        True,
+        True,
+        "content/fac_bugs/cha_warrior/cha_warrior",
+    ),
+    ("bile-warrior", "Bile Warrior", "content/fac_bugs/cha_warrior_acid/cha_warrior_acid", True, True, None),
+    ("rupture-warrior", "Rupture Warrior", "content/fac_bugs/cha_warrior_burrower/cha_warrior_burrower", True, True, None),
+    (
+        "spore-burst-warrior",
+        "Spore Burst Warrior",
+        "content/fac_bugs/cha_warrior/cha_warrior_gloom",
+        True,
+        True,
+        "content/fac_bugs/cha_warrior/cha_warrior_gloom_tier_1",
+    ),
+    ("hive-guard", "Hive Guard", "content/fac_bugs/cha_warrior_plus/cha_warrior_plus", True, True, None),
+    (
+        "hunter",
+        "Hunter",
+        "content/fac_bugs/cha_hunter/cha_hunter_tier_2",
+        True,
+        True,
+        "content/fac_bugs/cha_hunter/cha_hunter",
+    ),
+    ("predator-hunter", "Predator Hunter", "content/fac_bugs/cha_hunter/cha_hunter_tier_3", True, True, "content/fac_bugs/cha_hunter/cha_hunter_tier3"),
+    (
+        "scavenger",
+        "Scavenger",
+        "content/fac_bugs/cha_scavenger/cha_scavenger_tier_1",
+        True,
+        True,
+        "content/fac_bugs/cha_scavenger/cha_scavenger",
+    ),
+    ("pouncer", "Pouncer", "content/fac_bugs/cha_scavenger_predator/cha_scavenger_predator", True, True, None),
+    ("bile-spitter", "Bile Spitter", "content/fac_bugs/cha_scavenger_spitter/cha_scavenger_spitter", True, True, None),
+    ("nursing-spewer", "Nursing Spewer", "content/fac_bugs/cha_boomer_nurser/cha_boomer_nurser", True, True, None),
+    ("rupture-spewer", "Rupture Spewer", "content/fac_bugs/cha_boomer_burrower/cha_boomer_burrower", True, True, None),
+    (
+        "trooper",
+        "Trooper",
+        "content/fac_cyborgs/cha_conscript/cha_conscript_base",
+        True,
+        True,
+        "content/fac_cyborgs/cha_conscript/cha_conscript",
+    ),
+    ("commissar", "Commissar", "content/fac_cyborgs/cha_conscript_commander/cha_conscript_commander", True, True, None),
+    (
+        "agitator",
+        "Agitator",
+        "content/fac_cyborgs/cha_cyborg_elite/cha_cyborg_elite",
+        True,
+        True,
+        "content/fac_cyborgs/cha_cyborg_elite/cha_cyborg_elite_rusher",
+    ),
+    ("radical", "Radical", "content/fac_cyborgs/cha_cyborg_elite/cha_cyborg_elite_rusher", True, True, None),
+    ("voteless-medium", "Voteless (Medium)", "content/fac_illuminate/cha_corrupted/cha_corrupted_v2", True, True, None),
+    ("obtruder", "Obtruder", "0x34dfd23365472e9e", True, True, None),
 )
 
 RAGDOLL_COLLISION_ENEMIES = {
     "hive-lord",
     "dropship",
     "gunship",
+    "war-strider",
     "hulk-scorcher",
     "brood-commander",
     "alpha-commander",
@@ -203,18 +274,58 @@ RAGDOLL_COLLISION_ENEMIES = {
     "scout-strider",
     "berserker",
     "stalker",
+    "bile-spewer",
+    "fleshmob",
     "shrieker",
     "overseer",
     "elevated-overseer",
     "crescent-overseer",
     "watcher",
     "stingray",
+    "warrior",
+    "alpha-warrior",
+    "bile-warrior",
+    "rupture-warrior",
+    "spore-burst-warrior",
+    "hive-guard",
+    "hunter",
+    "predator-hunter",
+    "scavenger",
+    "pouncer",
+    "bile-spitter",
+    "nursing-spewer",
+    "rupture-spewer",
+    "trooper",
+    "commissar",
+    "agitator",
+    "radical",
+    "voteless-medium",
+    "obtruder",
 }
 RAGDOLL_ONLY_ENEMIES = {"dropship", "gunship", "stingray"}
-LAYERED_COLLISION_ENEMIES = {"vox-engine"}
+LAYERED_COLLISION_ENEMIES = {
+    "vox-engine",
+    "hive-guard",
+    "scavenger",
+    "pouncer",
+    "bile-spitter",
+    "agitator",
+    "radical",
+}
 BONES_SOURCE_OVERRIDES = {
     "heavy-devastator": "content/fac_cyborgs/cha_soldier/cha_soldier.bones.json",
     "rocket-devastator": "content/fac_cyborgs/cha_soldier/cha_soldier.bones.json",
+    "warrior": "content/fac_bugs/cha_warrior/cha_warrior.bones.json",
+    "alpha-warrior": "content/fac_bugs/cha_warrior/cha_warrior.bones.json",
+    "spore-burst-warrior": "content/fac_bugs/cha_warrior/cha_warrior.bones.json",
+    "hunter": "content/fac_bugs/cha_hunter/cha_hunter.bones.json",
+    "predator-hunter": "content/fac_bugs/cha_hunter/cha_hunter.bones.json",
+    "scavenger": "content/fac_bugs/cha_scavenger/cha_scavenger.bones.json",
+    "trooper": "content/fac_cyborgs/cha_conscript/cha_conscript.bones.json",
+    "commissar": "content/fac_cyborgs/cha_conscript/cha_conscript.bones.json",
+    "agitator": "content/fac_cyborgs/cha_cyborg_elite/cha_cyborg_elite.bones.json",
+    "radical": "content/fac_cyborgs/cha_cyborg_elite/cha_cyborg_elite.bones.json",
+    "voteless-medium": "content/fac_illuminate/cha_corrupted/cha_corrupted.bones.json",
 }
 
 
@@ -296,6 +407,19 @@ def main() -> None:
         if slug in LAYERED_COLLISION_ENEMIES:
             map_command.append("--allow-layered-colliders")
         run(map_command)
+        if slug in {"berserker", "harvester", "stingray"}:
+            run(
+                [
+                    sys.executable,
+                    str(tools / "apply_hd2_damage_zone_proxies.py"),
+                    "--slug",
+                    slug,
+                    "--collision-manifest",
+                    str(collision_manifest),
+                    "--damage-manifest",
+                    str(output_root / f"{slug}-damage-zones.manifest.json"),
+                ]
+            )
 
 
 if __name__ == "__main__":

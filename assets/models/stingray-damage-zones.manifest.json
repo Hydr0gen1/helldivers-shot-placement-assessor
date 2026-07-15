@@ -51,6 +51,18 @@
       "actor": "front_body"
     }
   ],
+  "redundantUnmatchedActorCount": 0,
+  "redundantUnmatchedActors": [],
+  "interactionCoverage": "complete-with-evidence-labeled-proxies",
+  "uncoveredDamageZoneCount": 1,
+  "uncoveredDamageZones": [
+    {
+      "zoneIndex": 1,
+      "zoneName": "front_body",
+      "zoneNameRaw": "front_body",
+      "actorReferenceCount": 1
+    }
+  ],
   "mappedColliderCount": 9,
   "unmappedColliderCount": 1,
   "unmappedColliderRecords": [
@@ -65,6 +77,9 @@
       "zoneName": "back_body",
       "zoneNameRaw": "back_body",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "back_body",
@@ -103,6 +118,9 @@
       "zoneName": "front_body",
       "zoneNameRaw": "front_body",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 0,
+      "unmatchedActorReferenceCount": 1,
       "actors": [],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
@@ -132,6 +150,9 @@
       "zoneName": "l_wing",
       "zoneNameRaw": "l_wing",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 3,
+      "mappedActorReferenceCount": 3,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "l_wing",
@@ -186,6 +207,9 @@
       "zoneName": "r_wing",
       "zoneNameRaw": "r_wing",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 3,
+      "mappedActorReferenceCount": 3,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "r_wing",
@@ -240,6 +264,9 @@
       "zoneName": "l_weapon_bay",
       "zoneNameRaw": "l_weapon_bay",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "l_weapon_bay",
@@ -278,6 +305,9 @@
       "zoneName": "r_weapon_bay",
       "zoneNameRaw": "r_weapon_bay",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "r_weapon_bay",
@@ -610,5 +640,29 @@
         }
       ]
     }
-  ]
+  ],
+  "viewerDamageZoneProxies": {
+    "schemaVersion": 1,
+    "mode": "local-unassigned-collider-proxy",
+    "confidence": "inferred-single-candidate-game-collider",
+    "evidence": "The Stingray ragdoll resource has one unassigned central boss hull and one HealthComponent front-body zone without a hull. The actor hash itself is absent, so the association is intentionally labeled inferred.",
+    "analogs": [],
+    "boxes": [],
+    "colliders": [
+      {
+        "id": "front-body",
+        "actor": "front_body",
+        "zoneIndex": 1,
+        "recordIndex": 0,
+        "expectedColliderHash": "9b115563",
+        "label": "front body"
+      }
+    ]
+  },
+  "proxyCoveredDamageZoneCount": 1,
+  "proxyCoveredDamageZones": [
+    1
+  ],
+  "remainingUncoveredDamageZoneCount": 0,
+  "remainingUncoveredDamageZones": []
 }

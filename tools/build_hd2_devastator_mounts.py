@@ -27,6 +27,8 @@ from extract_hd2_collision_hulls import (
 STANDARD_RIFLE = "content/fac_cyborgs/equipment/weapons/soldier_standard_rifle/soldier_standard_rifle"
 MACHINEGUN = "content/fac_cyborgs/equipment/weapons/soldier_machinegun/soldier_machinegun"
 SHIELD = "content/fac_cyborgs/equipment/weapons/soldier_shield/soldier_shield"
+SHIELD_IVORY = "content/fac_cyborgs/equipment/weapons/soldier_shield/soldier_shield_ivory_legion"
+CONFLAGRATION_GUN = "0x0db407ede5603524"
 
 
 def parse_args() -> argparse.Namespace:
@@ -69,6 +71,7 @@ def main() -> None:
         "devastator-standard-rifle.glb": source_path(extract_root, STANDARD_RIFLE, ".unit.glb"),
         "heavy-devastator-machinegun.glb": source_path(extract_root, MACHINEGUN, ".unit.glb"),
         "heavy-devastator-shield.glb": source_path(extract_root, SHIELD, ".unit.glb"),
+        "conflagration-devastator-shield.glb": source_path(extract_root, SHIELD_IVORY, ".unit.glb"),
     }
     approximations = {
         name: prepare_unit(source, output_root / name)
@@ -120,6 +123,52 @@ def main() -> None:
         "preparedDate": date.today().isoformat(),
     }
     write_glb(hitbox_asset, hitbox_document, hitbox_binary)
+
+    conflagration_shield_collision = output_root / "conflagration-devastator-shield-collision.glb"
+    conflagration_shield_collision_manifest = output_root / "conflagration-devastator-shield-collision.manifest.json"
+    conflagration_shield_damage_manifest = output_root / "conflagration-devastator-shield-damage.manifest.json"
+    run(
+        [
+            sys.executable,
+            str(tools / "extract_hd2_collision_hulls.py"),
+            "--physics",
+            str(source_path(extract_root, SHIELD_IVORY, ".physics.main")),
+            "--unit-glb",
+            str(source_path(extract_root, SHIELD_IVORY, ".unit.glb")),
+            "--output",
+            str(conflagration_shield_collision),
+            "--manifest",
+            str(conflagration_shield_collision_manifest),
+            "--expected-hulls",
+            "2",
+        ]
+    )
+    run(
+        [
+            sys.executable,
+            str(tools / "map_hd2_damage_zones.py"),
+            "--entities-json",
+            str(entities_json),
+            "--collision-manifest",
+            str(conflagration_shield_collision_manifest),
+            "--output",
+            str(conflagration_shield_damage_manifest),
+            "--entity",
+            SHIELD_IVORY,
+            "--display-name",
+            "Conflagration Devastator Shield",
+            "--allow-unassigned-colliders",
+        ]
+    )
+    conflagration_hitbox_asset = output_root / "conflagration-devastator-shield-hitboxes.glb"
+    conflagration_hitbox_document, conflagration_hitbox_binary = read_glb(conflagration_shield_collision)
+    conflagration_hitbox_binary = strip_texture_payloads(conflagration_hitbox_document, conflagration_hitbox_binary)
+    conflagration_hitbox_document.setdefault("asset", {}).setdefault("extras", {})["hd2MountedHitboxes"] = {
+        "sourcePath": str(conflagration_shield_collision),
+        "sourceSha256": sha256(conflagration_shield_collision),
+        "preparedDate": date.today().isoformat(),
+    }
+    write_glb(conflagration_hitbox_asset, conflagration_hitbox_document, conflagration_hitbox_binary)
 
     common_sources = {
         name: {"path": str(path), "sha256": sha256(path)}
@@ -181,6 +230,33 @@ def main() -> None:
                 }
             ],
         },
+        "conflagration-devastator-mounted-units.manifest.json": {
+            "enemy": "Conflagration Devastator",
+            "mounts": [
+                {
+                    "id": "incendiary-rifle",
+                    "label": "Incendiary fusion assault gun",
+                    "asset": "devastator-standard-rifle.glb",
+                    "assetSha256": sha256(output_root / "devastator-standard-rifle.glb"),
+                    "attachNode": "attach_r_hand",
+                    "mountEntity": CONFLAGRATION_GUN,
+                    "unitResource": STANDARD_RIFLE,
+                },
+                {
+                    "id": "shield",
+                    "label": "Incineration Corps ballistic shield",
+                    "asset": "conflagration-devastator-shield.glb",
+                    "assetSha256": sha256(output_root / "conflagration-devastator-shield.glb"),
+                    "attachNode": "attach_l_hand",
+                    "mountEntity": SHIELD_IVORY,
+                    "unitResource": SHIELD_IVORY,
+                    "hitboxAsset": conflagration_hitbox_asset.name,
+                    "hitboxAssetSha256": sha256(conflagration_hitbox_asset),
+                    "collisionManifest": conflagration_shield_collision_manifest.name,
+                    "damageManifest": conflagration_shield_damage_manifest.name,
+                },
+            ],
+        },
     }
     for filename, body in manifests.items():
         payload = {
@@ -194,13 +270,13 @@ def main() -> None:
             "viewerMaterialApproximations": approximations,
             "notes": [
                 "Mounted equipment paths and sockets come directly from the enemy MountComponentData.",
-                "The Heavy Devastator shield uses its separate exact Havok collision and HealthComponent; no proxy geometry is substituted.",
+                "The Heavy and Conflagration Devastator shields use their separate exact Havok collision and HealthComponents; no proxy geometry is substituted.",
                 "Hand-held guns have no HealthComponent and are render-only equipment, not selectable damage zones.",
             ],
         }
         (output_root / filename).write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
-    print("Prepared three verified Devastator mounted-equipment assemblies")
+    print("Prepared four verified Devastator mounted-equipment assemblies")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,7 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "defaultUnitsPerMeter": 1,
+  "unitsNote": "Decoded collision and render exports are displayed at one game geometry unit per meter unless a model entry explicitly overrides unitsPerMeter.",
   "models": {
     "Hive Lord": {
       "slug": "hive-lord",
@@ -243,6 +245,7 @@
     },
     "Stingray": {
       "slug": "stingray",
+      "cameraPadding": 1.42,
       "glb": "assets/models/stingray-collision-research.glb",
       "collisionManifest": "assets/models/stingray-collision-research.manifest.json",
       "damageManifest": "assets/models/stingray-damage-zones.manifest.json"
@@ -258,6 +261,145 @@
       "glb": "assets/models/alpha-commander-collision-research.glb",
       "collisionManifest": "assets/models/alpha-commander-collision-research.manifest.json",
       "damageManifest": "assets/models/alpha-commander-damage-zones.manifest.json"
+    },
+    "Warrior": {
+      "slug": "warrior",
+      "glb": "assets/models/warrior-collision-research.glb",
+      "collisionManifest": "assets/models/warrior-collision-research.manifest.json",
+      "damageManifest": "assets/models/warrior-damage-zones.manifest.json"
+    },
+    "Alpha Warrior": {
+      "slug": "alpha-warrior",
+      "glb": "assets/models/alpha-warrior-collision-research.glb",
+      "collisionManifest": "assets/models/alpha-warrior-collision-research.manifest.json",
+      "damageManifest": "assets/models/alpha-warrior-damage-zones.manifest.json"
+    },
+    "Bile Warrior": {
+      "slug": "bile-warrior",
+      "glb": "assets/models/bile-warrior-collision-research.glb",
+      "collisionManifest": "assets/models/bile-warrior-collision-research.manifest.json",
+      "damageManifest": "assets/models/bile-warrior-damage-zones.manifest.json"
+    },
+    "Rupture Warrior": {
+      "slug": "rupture-warrior",
+      "glb": "assets/models/rupture-warrior-collision-research.glb",
+      "collisionManifest": "assets/models/rupture-warrior-collision-research.manifest.json",
+      "damageManifest": "assets/models/rupture-warrior-damage-zones.manifest.json"
+    },
+    "Spore Burst Warrior": {
+      "slug": "spore-burst-warrior",
+      "glb": "assets/models/spore-burst-warrior-collision-research.glb",
+      "collisionManifest": "assets/models/spore-burst-warrior-collision-research.manifest.json",
+      "damageManifest": "assets/models/spore-burst-warrior-damage-zones.manifest.json"
+    },
+    "Hive Guard": {
+      "slug": "hive-guard",
+      "glb": "assets/models/hive-guard-collision-research.glb",
+      "collisionManifest": "assets/models/hive-guard-collision-research.manifest.json",
+      "damageManifest": "assets/models/hive-guard-damage-zones.manifest.json"
+    },
+    "Hunter": {
+      "slug": "hunter",
+      "glb": "assets/models/hunter-collision-research.glb",
+      "collisionManifest": "assets/models/hunter-collision-research.manifest.json",
+      "damageManifest": "assets/models/hunter-damage-zones.manifest.json"
+    },
+    "Predator Hunter": {
+      "slug": "predator-hunter",
+      "glb": "assets/models/predator-hunter-collision-research.glb",
+      "collisionManifest": "assets/models/predator-hunter-collision-research.manifest.json",
+      "damageManifest": "assets/models/predator-hunter-damage-zones.manifest.json"
+    },
+    "Predator Stalker": {
+      "slug": "predator-stalker",
+      "assetSlug": "stalker",
+      "damageSlug": "predator-stalker",
+      "glb": "assets/models/stalker-collision-research.glb",
+      "collisionManifest": "assets/models/stalker-collision-research.manifest.json",
+      "damageManifest": "assets/models/predator-stalker-damage-zones.manifest.json"
+    },
+    "Scavenger": {
+      "slug": "scavenger",
+      "glb": "assets/models/scavenger-collision-research.glb",
+      "collisionManifest": "assets/models/scavenger-collision-research.manifest.json",
+      "damageManifest": "assets/models/scavenger-damage-zones.manifest.json"
+    },
+    "Pouncer": {
+      "slug": "pouncer",
+      "glb": "assets/models/pouncer-collision-research.glb",
+      "collisionManifest": "assets/models/pouncer-collision-research.manifest.json",
+      "damageManifest": "assets/models/pouncer-damage-zones.manifest.json"
+    },
+    "Bile Spitter": {
+      "slug": "bile-spitter",
+      "glb": "assets/models/bile-spitter-collision-research.glb",
+      "collisionManifest": "assets/models/bile-spitter-collision-research.manifest.json",
+      "damageManifest": "assets/models/bile-spitter-damage-zones.manifest.json"
+    },
+    "Nursing Spewer": {
+      "slug": "nursing-spewer",
+      "glb": "assets/models/nursing-spewer-collision-research.glb",
+      "collisionManifest": "assets/models/nursing-spewer-collision-research.manifest.json",
+      "damageManifest": "assets/models/nursing-spewer-damage-zones.manifest.json"
+    },
+    "Rupture Spewer": {
+      "slug": "rupture-spewer",
+      "glb": "assets/models/rupture-spewer-collision-research.glb",
+      "collisionManifest": "assets/models/rupture-spewer-collision-research.manifest.json",
+      "damageManifest": "assets/models/rupture-spewer-damage-zones.manifest.json"
+    },
+    "Berserker": {
+      "slug": "berserker",
+      "glb": "assets/models/berserker-collision-research.glb",
+      "renderGlb": "assets/models/berserker-authentic-render.glb",
+      "collisionManifest": "assets/models/berserker-collision-research.manifest.json",
+      "damageManifest": "assets/models/berserker-damage-zones.manifest.json"
+    },
+    "Trooper": {
+      "slug": "trooper",
+      "glb": "assets/models/trooper-collision-research.glb",
+      "collisionManifest": "assets/models/trooper-collision-research.manifest.json",
+      "damageManifest": "assets/models/trooper-damage-zones.manifest.json"
+    },
+    "Commissar": {
+      "slug": "commissar",
+      "glb": "assets/models/commissar-collision-research.glb",
+      "collisionManifest": "assets/models/commissar-collision-research.manifest.json",
+      "damageManifest": "assets/models/commissar-damage-zones.manifest.json"
+    },
+    "Conflagration Devastator": {
+      "slug": "conflagration-devastator",
+      "assetSlug": "devastator",
+      "damageSlug": "conflagration-devastator",
+      "glb": "assets/models/devastator-collision-research.glb",
+      "renderGlb": "assets/models/devastator-authentic-render.glb",
+      "collisionManifest": "assets/models/devastator-collision-research.manifest.json",
+      "damageManifest": "assets/models/conflagration-devastator-damage-zones.manifest.json",
+      "mountManifest": "assets/models/conflagration-devastator-mounted-units.manifest.json"
+    },
+    "Agitator": {
+      "slug": "agitator",
+      "glb": "assets/models/agitator-collision-research.glb",
+      "collisionManifest": "assets/models/agitator-collision-research.manifest.json",
+      "damageManifest": "assets/models/agitator-damage-zones.manifest.json"
+    },
+    "Radical": {
+      "slug": "radical",
+      "glb": "assets/models/radical-collision-research.glb",
+      "collisionManifest": "assets/models/radical-collision-research.manifest.json",
+      "damageManifest": "assets/models/radical-damage-zones.manifest.json"
+    },
+    "Voteless (Medium)": {
+      "slug": "voteless-medium",
+      "glb": "assets/models/voteless-medium-collision-research.glb",
+      "collisionManifest": "assets/models/voteless-medium-collision-research.manifest.json",
+      "damageManifest": "assets/models/voteless-medium-damage-zones.manifest.json"
+    },
+    "Obtruder": {
+      "slug": "obtruder",
+      "glb": "assets/models/obtruder-collision-research.glb",
+      "collisionManifest": "assets/models/obtruder-collision-research.manifest.json",
+      "damageManifest": "assets/models/obtruder-damage-zones.manifest.json"
     }
   }
 }

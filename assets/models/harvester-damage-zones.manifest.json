@@ -4,7 +4,7 @@
   "displayName": "Harvester",
   "gameObjectId": "0x0c3c0eb3",
   "mappingConfidence": "partial-actor-join",
-  "evidence": "HealthComponentData damageableZones[].actors matched collision node names or collider hashes; every hull matched exactly once.",
+  "evidence": "HealthComponentData damageableZones[].actors matched collision node names or collider hashes. Layered assignments are preserved when the game data explicitly places one collider actor in multiple damage pools.",
   "source": {
     "entitiesJson": {
       "path": "C:\\Users\\judes\\Downloads\\hd2-entity-components.json",
@@ -51,11 +51,25 @@
       "actor": "c_body_front"
     }
   ],
+  "redundantUnmatchedActorCount": 0,
+  "redundantUnmatchedActors": [],
+  "interactionCoverage": "complete-with-evidence-labeled-proxies",
+  "uncoveredDamageZoneCount": 1,
+  "uncoveredDamageZones": [
+    {
+      "zoneIndex": 1,
+      "zoneName": "body_front",
+      "zoneNameRaw": "body_front",
+      "actorReferenceCount": 1
+    }
+  ],
   "mappedColliderCount": 36,
   "unmappedColliderCount": 1,
   "unmappedColliderRecords": [
     24
   ],
+  "layeredColliderCount": 0,
+  "layeredColliderRecords": [],
   "duplicateColliderAssignments": 0,
   "zones": [
     {
@@ -63,6 +77,9 @@
       "zoneName": "body_default",
       "zoneNameRaw": "body_default",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "c_head",
@@ -103,6 +120,9 @@
       "zoneName": "body_front",
       "zoneNameRaw": "body_front",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 0,
+      "unmatchedActorReferenceCount": 1,
       "actors": [],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
@@ -134,6 +154,9 @@
       "zoneName": "0x1782c4af",
       "zoneNameRaw": "0x1782c4af",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xf8720bf5",
@@ -172,6 +195,9 @@
       "zoneName": "eye",
       "zoneNameRaw": "eye",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "c_eye",
@@ -212,6 +238,9 @@
       "zoneName": "0x28644b37",
       "zoneNameRaw": "0x28644b37",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x58a98e8a",
@@ -250,6 +279,9 @@
       "zoneName": "0xff0e19c4",
       "zoneNameRaw": "0xff0e19c4",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x9212fdd7",
@@ -288,6 +320,9 @@
       "zoneName": "0x719717c6",
       "zoneNameRaw": "0x719717c6",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x251fe443",
@@ -326,6 +361,9 @@
       "zoneName": "0x10e30d51",
       "zoneNameRaw": "0x10e30d51",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x918bc99f",
@@ -366,6 +404,9 @@
       "zoneName": "0x5f8bdfda",
       "zoneNameRaw": "0x5f8bdfda",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x53db7fab",
@@ -406,6 +447,9 @@
       "zoneName": "body_right",
       "zoneNameRaw": "body_right",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x285484ce",
@@ -446,6 +490,9 @@
       "zoneName": "0x14af980a",
       "zoneNameRaw": "0x14af980a",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x105602e6",
@@ -484,6 +531,9 @@
       "zoneName": "body_left",
       "zoneNameRaw": "body_left",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x9ee677a7",
@@ -524,6 +574,9 @@
       "zoneName": "0xf133b8b3",
       "zoneNameRaw": "0xf133b8b3",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x3d43b4b1",
@@ -562,6 +615,9 @@
       "zoneName": "left_hip",
       "zoneNameRaw": "left_hip",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x764e448d",
@@ -600,6 +656,9 @@
       "zoneName": "0x83a150ab",
       "zoneNameRaw": "0x83a150ab",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x1fcfcae3",
@@ -638,6 +697,9 @@
       "zoneName": "0x93c0058d",
       "zoneNameRaw": "0x93c0058d",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xcec2d2ea",
@@ -676,6 +738,9 @@
       "zoneName": "0x39241507",
       "zoneNameRaw": "0x39241507",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x0143255a",
@@ -714,6 +779,9 @@
       "zoneName": "0x5e8233fa",
       "zoneNameRaw": "0x5e8233fa",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x4bca1f07",
@@ -752,6 +820,9 @@
       "zoneName": "0x0aafe334",
       "zoneNameRaw": "0x0aafe334",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x470cf2c5",
@@ -790,6 +861,9 @@
       "zoneName": "0xe5abc38d",
       "zoneNameRaw": "0xe5abc38d",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 2,
+      "mappedActorReferenceCount": 2,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x8ffb63db",
@@ -836,6 +910,9 @@
       "zoneName": "right_hip",
       "zoneNameRaw": "right_hip",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xcd871ca9",
@@ -874,6 +951,9 @@
       "zoneName": "0x04b52e77",
       "zoneNameRaw": "0x04b52e77",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x0410bac8",
@@ -912,6 +992,9 @@
       "zoneName": "0x56eb4767",
       "zoneNameRaw": "0x56eb4767",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xf2931585",
@@ -950,6 +1033,9 @@
       "zoneName": "0xff9a5522",
       "zoneNameRaw": "0xff9a5522",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x599c3f71",
@@ -988,6 +1074,9 @@
       "zoneName": "0x50c392d7",
       "zoneNameRaw": "0x50c392d7",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xa7e3257e",
@@ -1026,6 +1115,9 @@
       "zoneName": "0x3ce2bc56",
       "zoneNameRaw": "0x3ce2bc56",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x7394dd4e",
@@ -1064,6 +1156,9 @@
       "zoneName": "0xdaec5c1a",
       "zoneNameRaw": "0xdaec5c1a",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 2,
+      "mappedActorReferenceCount": 2,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xd48608a6",
@@ -1110,6 +1205,9 @@
       "zoneName": "back_hip",
       "zoneNameRaw": "back_hip",
       "zoneNameResolution": "filediver-dictionary",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xcabc21d4",
@@ -1148,6 +1246,9 @@
       "zoneName": "0x3b75843b",
       "zoneNameRaw": "0x3b75843b",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xecf00ed4",
@@ -1186,6 +1287,9 @@
       "zoneName": "0x70828b7a",
       "zoneNameRaw": "0x70828b7a",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xdf038f71",
@@ -1224,6 +1328,9 @@
       "zoneName": "0xe3f951e2",
       "zoneNameRaw": "0xe3f951e2",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x84ffdd57",
@@ -1262,6 +1369,9 @@
       "zoneName": "0x83bab375",
       "zoneNameRaw": "0x83bab375",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0xc7134a8c",
@@ -1300,6 +1410,9 @@
       "zoneName": "0x1169970e",
       "zoneNameRaw": "0x1169970e",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 1,
+      "mappedActorReferenceCount": 1,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x2434f4a4",
@@ -1338,6 +1451,9 @@
       "zoneName": "0x7f762a37",
       "zoneNameRaw": "0x7f762a37",
       "zoneNameResolution": "raw-hash",
+      "actorReferenceCount": 2,
+      "mappedActorReferenceCount": 2,
+      "unmatchedActorReferenceCount": 0,
       "actors": [
         {
           "actor": "0x29ca953e",
@@ -1397,7 +1513,22 @@
       "affectsMainHealth": 0.6,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 27,
+          "zoneName": "back_hip",
+          "zoneNameRaw": "back_hip",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.7,
+          "affectsMainHealth": 0.6,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 1,
@@ -1415,7 +1546,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 28,
+          "zoneName": "0x3b75843b",
+          "zoneNameRaw": "0x3b75843b",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 2,
@@ -1433,7 +1579,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 29,
+          "zoneName": "0x70828b7a",
+          "zoneNameRaw": "0x70828b7a",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 3,
@@ -1451,7 +1612,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 30,
+          "zoneName": "0xe3f951e2",
+          "zoneNameRaw": "0xe3f951e2",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 4,
@@ -1469,7 +1645,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 31,
+          "zoneName": "0x83bab375",
+          "zoneNameRaw": "0x83bab375",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 5,
@@ -1487,7 +1678,22 @@
       "affectsMainHealth": 0.6,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 33,
+          "zoneName": "0x7f762a37",
+          "zoneNameRaw": "0x7f762a37",
+          "zoneNameResolution": "raw-hash",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.25,
+          "affectsMainHealth": 0.6,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 6,
@@ -1505,7 +1711,22 @@
       "affectsMainHealth": 0.6,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 32,
+          "zoneName": "0x1169970e",
+          "zoneNameRaw": "0x1169970e",
+          "zoneNameResolution": "raw-hash",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.25,
+          "affectsMainHealth": 0.6,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 7,
@@ -1523,7 +1744,22 @@
       "affectsMainHealth": 0.6,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 33,
+          "zoneName": "0x7f762a37",
+          "zoneNameRaw": "0x7f762a37",
+          "zoneNameResolution": "raw-hash",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.25,
+          "affectsMainHealth": 0.6,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 8,
@@ -1541,7 +1777,22 @@
       "affectsMainHealth": 0.6,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 20,
+          "zoneName": "right_hip",
+          "zoneNameRaw": "right_hip",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.7,
+          "affectsMainHealth": 0.6,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 9,
@@ -1559,7 +1810,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 21,
+          "zoneName": "0x04b52e77",
+          "zoneNameRaw": "0x04b52e77",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 10,
@@ -1577,7 +1843,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 22,
+          "zoneName": "0x56eb4767",
+          "zoneNameRaw": "0x56eb4767",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 11,
@@ -1595,7 +1876,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 23,
+          "zoneName": "0xff9a5522",
+          "zoneNameRaw": "0xff9a5522",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 12,
@@ -1613,7 +1909,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 24,
+          "zoneName": "0x50c392d7",
+          "zoneNameRaw": "0x50c392d7",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 13,
@@ -1631,7 +1942,22 @@
       "affectsMainHealth": 0.6,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 26,
+          "zoneName": "0xdaec5c1a",
+          "zoneNameRaw": "0xdaec5c1a",
+          "zoneNameResolution": "raw-hash",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.25,
+          "affectsMainHealth": 0.6,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 14,
@@ -1649,7 +1975,22 @@
       "affectsMainHealth": 0.45,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 25,
+          "zoneName": "0x3ce2bc56",
+          "zoneNameRaw": "0x3ce2bc56",
+          "zoneNameResolution": "raw-hash",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.25,
+          "affectsMainHealth": 0.45,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 15,
@@ -1667,7 +2008,22 @@
       "affectsMainHealth": 0.6,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 26,
+          "zoneName": "0xdaec5c1a",
+          "zoneNameRaw": "0xdaec5c1a",
+          "zoneNameResolution": "raw-hash",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.25,
+          "affectsMainHealth": 0.6,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 16,
@@ -1685,7 +2041,22 @@
       "affectsMainHealth": 0.45,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 13,
+          "zoneName": "left_hip",
+          "zoneNameRaw": "left_hip",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.7,
+          "affectsMainHealth": 0.45,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 17,
@@ -1703,7 +2074,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 14,
+          "zoneName": "0x83a150ab",
+          "zoneNameRaw": "0x83a150ab",
+          "zoneNameResolution": "raw-hash",
+          "health": 600,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 18,
@@ -1721,7 +2107,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 15,
+          "zoneName": "0x93c0058d",
+          "zoneNameRaw": "0x93c0058d",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 19,
@@ -1739,7 +2140,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 16,
+          "zoneName": "0x39241507",
+          "zoneNameRaw": "0x39241507",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 20,
@@ -1757,7 +2173,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 17,
+          "zoneName": "0x5e8233fa",
+          "zoneNameRaw": "0x5e8233fa",
+          "zoneNameResolution": "raw-hash",
+          "health": 900,
+          "armor": 4,
+          "projectileDurableResistance": 0,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 21,
@@ -1775,7 +2206,22 @@
       "affectsMainHealth": 0.6,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 19,
+          "zoneName": "0xe5abc38d",
+          "zoneNameRaw": "0xe5abc38d",
+          "zoneNameResolution": "raw-hash",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.25,
+          "affectsMainHealth": 0.6,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 22,
@@ -1793,7 +2239,22 @@
       "affectsMainHealth": 0.45,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 18,
+          "zoneName": "0x0aafe334",
+          "zoneNameRaw": "0x0aafe334",
+          "zoneNameResolution": "raw-hash",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.25,
+          "affectsMainHealth": 0.45,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 23,
@@ -1811,7 +2272,22 @@
       "affectsMainHealth": 0.6,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 19,
+          "zoneName": "0xe5abc38d",
+          "zoneNameRaw": "0xe5abc38d",
+          "zoneNameResolution": "raw-hash",
+          "health": 1000,
+          "armor": 3,
+          "projectileDurableResistance": 0.25,
+          "affectsMainHealth": 0.6,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 25,
@@ -1829,7 +2305,22 @@
       "affectsMainHealth": 1,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 11,
+          "zoneName": "body_left",
+          "zoneNameRaw": "body_left",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 800,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 1,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
     },
     {
       "recordIndex": 26,
@@ -1847,7 +2338,22 @@
       "affectsMainHealth": 1,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 9,
+          "zoneName": "body_right",
+          "zoneNameRaw": "body_right",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 800,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 1,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
     },
     {
       "recordIndex": 27,
@@ -1865,7 +2371,22 @@
       "affectsMainHealth": 1,
       "affectedByExplosions": true,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 0,
+          "zoneName": "body_default",
+          "zoneNameRaw": "body_default",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 2000,
+          "armor": 4,
+          "projectileDurableResistance": 0.75,
+          "affectsMainHealth": 1,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
     },
     {
       "recordIndex": 28,
@@ -1883,7 +2404,22 @@
       "affectsMainHealth": 1.2,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 3,
+          "zoneName": "eye",
+          "zoneNameRaw": "eye",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 350,
+          "armor": 2,
+          "projectileDurableResistance": 0,
+          "affectsMainHealth": 1.2,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 29,
@@ -1901,7 +2437,22 @@
       "affectsMainHealth": 1,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 7,
+          "zoneName": "0x10e30d51",
+          "zoneNameRaw": "0x10e30d51",
+          "zoneNameResolution": "raw-hash",
+          "health": 500,
+          "armor": 1,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 1,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 30,
@@ -1919,7 +2470,22 @@
       "affectsMainHealth": 1,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 8,
+          "zoneName": "0x5f8bdfda",
+          "zoneNameRaw": "0x5f8bdfda",
+          "zoneNameResolution": "raw-hash",
+          "health": 500,
+          "armor": 1,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 1,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 31,
@@ -1937,7 +2503,22 @@
       "affectsMainHealth": 0.1,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 4,
+          "zoneName": "0x28644b37",
+          "zoneNameRaw": "0x28644b37",
+          "zoneNameResolution": "raw-hash",
+          "health": 350,
+          "armor": 3,
+          "projectileDurableResistance": 0,
+          "affectsMainHealth": 0.1,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 32,
@@ -1955,7 +2536,22 @@
       "affectsMainHealth": 0.1,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 5,
+          "zoneName": "0xff0e19c4",
+          "zoneNameRaw": "0xff0e19c4",
+          "zoneNameResolution": "raw-hash",
+          "health": 350,
+          "armor": 3,
+          "projectileDurableResistance": 0,
+          "affectsMainHealth": 0.1,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 33,
@@ -1973,7 +2569,22 @@
       "affectsMainHealth": 0.1,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 6,
+          "zoneName": "0x719717c6",
+          "zoneNameRaw": "0x719717c6",
+          "zoneNameResolution": "raw-hash",
+          "health": 350,
+          "armor": 3,
+          "projectileDurableResistance": 0,
+          "affectsMainHealth": 0.1,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 34,
@@ -1991,7 +2602,22 @@
       "affectsMainHealth": 1,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 2,
+          "zoneName": "0x1782c4af",
+          "zoneNameRaw": "0x1782c4af",
+          "zoneNameResolution": "raw-hash",
+          "health": 800,
+          "armor": 3,
+          "projectileDurableResistance": 0.5,
+          "affectsMainHealth": 1,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
     },
     {
       "recordIndex": 35,
@@ -2009,7 +2635,22 @@
       "affectsMainHealth": 1,
       "affectedByExplosions": true,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 10,
+          "zoneName": "0x14af980a",
+          "zoneNameRaw": "0x14af980a",
+          "zoneNameResolution": "raw-hash",
+          "health": 800,
+          "armor": 2,
+          "projectileDurableResistance": 0.5,
+          "affectsMainHealth": 1,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
     },
     {
       "recordIndex": 36,
@@ -2027,7 +2668,46 @@
       "affectsMainHealth": 1,
       "affectedByExplosions": true,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 12,
+          "zoneName": "0xf133b8b3",
+          "zoneNameRaw": "0xf133b8b3",
+          "zoneNameResolution": "raw-hash",
+          "health": 800,
+          "armor": 2,
+          "projectileDurableResistance": 0.5,
+          "affectsMainHealth": 1,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
     }
-  ]
+  ],
+  "viewerDamageZoneProxies": {
+    "schemaVersion": 1,
+    "mode": "local-unassigned-collider-proxy",
+    "confidence": "inferred-single-candidate-game-collider",
+    "evidence": "The exact Harvester physics resource has one unassigned front-sized hull and one HealthComponent zone without a hull. The actor hash itself is absent, so the association is intentionally labeled inferred.",
+    "analogs": [],
+    "boxes": [],
+    "colliders": [
+      {
+        "id": "front-body",
+        "actor": "c_body_front",
+        "zoneIndex": 1,
+        "recordIndex": 24,
+        "expectedColliderHash": "43a3844e",
+        "label": "front body"
+      }
+    ]
+  },
+  "proxyCoveredDamageZoneCount": 1,
+  "proxyCoveredDamageZones": [
+    1
+  ],
+  "remainingUncoveredDamageZoneCount": 0,
+  "remainingUncoveredDamageZones": []
 }

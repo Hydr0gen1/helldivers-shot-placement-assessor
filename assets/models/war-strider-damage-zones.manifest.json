@@ -3,8 +3,8 @@
   "entity": "content/fac_cyborgs/vehicles/cyborg_assault_walker/cyborg_assault_walker",
   "displayName": "War Strider",
   "gameObjectId": "0xe2ab08d5",
-  "mappingConfidence": "partial-actor-join",
-  "evidence": "HealthComponentData damageableZones[].actors matched collision node names or collider hashes; every hull matched exactly once.",
+  "mappingConfidence": "verified-complete-actor-join",
+  "evidence": "HealthComponentData damageableZones[].actors matched collision node names or collider hashes. Layered assignments are preserved when the game data explicitly places one collider actor in multiple damage pools.",
   "source": {
     "entitiesJson": {
       "path": "C:\\Users\\judes\\Downloads\\hd2-entity-components.json",
@@ -12,7 +12,7 @@
     },
     "collisionManifest": {
       "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\war-strider-collision-research.manifest.json",
-      "sha256": "75D84E384A077ECCF9DDC2E48A7D67AAA7C6CF0D3F0E0F0DE96F2AFBB2607471"
+      "sha256": "A9A51AD24729742F6594112B2EC29369B755B0AAEF865E4D9C76F0C2F1F4A287"
     }
   },
   "mainHealth": 3500,
@@ -42,73 +42,27 @@
   },
   "zoneCount": 13,
   "actorCount": 24,
-  "mappedActorCount": 12,
-  "unmatchedActorCount": 12,
-  "unmatchedActors": [
-    {
-      "zoneIndex": 0,
-      "zoneName": "leg_left",
-      "actor": "l_ankle"
-    },
-    {
-      "zoneIndex": 1,
-      "zoneName": "0x9ce2c02d",
-      "actor": "l_hip"
-    },
-    {
-      "zoneIndex": 2,
-      "zoneName": "0xbab511f3",
-      "actor": "l_leg_shield"
-    },
-    {
-      "zoneIndex": 3,
-      "zoneName": "0xbfed2320",
-      "actor": "r_leg_shield"
-    },
-    {
-      "zoneIndex": 4,
-      "zoneName": "leg_right",
-      "actor": "r_ankle"
-    },
-    {
-      "zoneIndex": 5,
-      "zoneName": "0x3d919e2f",
-      "actor": "r_hip"
-    },
-    {
-      "zoneIndex": 6,
-      "zoneName": "turret",
-      "actor": "turret"
-    },
-    {
-      "zoneIndex": 6,
-      "zoneName": "turret",
-      "actor": "l_hardpoint_yaw"
-    },
-    {
-      "zoneIndex": 6,
-      "zoneName": "turret",
-      "actor": "r_hardpoint_yaw"
-    },
-    {
-      "zoneIndex": 6,
-      "zoneName": "turret",
-      "actor": "yaw"
-    },
-    {
-      "zoneIndex": 7,
-      "zoneName": "l_rocketpod",
-      "actor": "l_rocketpod"
-    },
-    {
-      "zoneIndex": 8,
-      "zoneName": "r_rocketpod",
-      "actor": "r_rocketpod"
-    }
+  "mappedActorCount": 24,
+  "unmatchedActorCount": 0,
+  "unmatchedActors": [],
+  "mappedColliderCount": 24,
+  "unmappedColliderCount": 12,
+  "unmappedColliderRecords": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
   ],
-  "mappedColliderCount": 15,
-  "unmappedColliderCount": 0,
-  "unmappedColliderRecords": [],
+  "layeredColliderCount": 0,
+  "layeredColliderRecords": [],
   "duplicateColliderAssignments": 0,
   "zones": [
     {
@@ -119,41 +73,41 @@
       "actors": [
         {
           "actor": "l_thigh",
-          "recordIndex": 13,
-          "colliderHash": "29bdbcff",
-          "nodeName": "hd2_collision_013_29bdbcff",
+          "recordIndex": 19,
+          "colliderHash": "8e1c9de6",
+          "nodeName": "hd2_collision_019_8e1c9de6",
           "boneHash": "8e1c9de6",
           "boneName": "l_thigh"
         },
         {
           "actor": "l_knee_1",
-          "recordIndex": 12,
-          "colliderHash": "3326c96e",
-          "nodeName": "hd2_collision_012_3326c96e",
+          "recordIndex": 26,
+          "colliderHash": "48741b07",
+          "nodeName": "hd2_collision_026_48741b07",
           "boneHash": "48741b07",
           "boneName": "l_knee_1"
         },
         {
           "actor": "l_knee_2",
-          "recordIndex": 7,
-          "colliderHash": "ce7c02c9",
-          "nodeName": "hd2_collision_007_ce7c02c9",
+          "recordIndex": 28,
+          "colliderHash": "5d8553b4",
+          "nodeName": "hd2_collision_028_5d8553b4",
           "boneHash": "5d8553b4",
           "boneName": "l_knee_2"
         },
         {
-          "actor": "l_foot",
-          "recordIndex": 3,
-          "colliderHash": "b2d0e941",
-          "nodeName": "hd2_collision_003_b2d0e941",
-          "boneHash": "8eb19d6a",
-          "boneName": "l_foot"
+          "actor": "l_ankle",
+          "recordIndex": 30,
+          "colliderHash": "00299bfb",
+          "nodeName": "hd2_collision_030_00299bfb",
+          "boneHash": "00299bfb",
+          "boneName": "l_ankle"
         },
         {
           "actor": "l_foot",
-          "recordIndex": 6,
-          "colliderHash": "e55b4e87",
-          "nodeName": "hd2_collision_006_e55b4e87",
+          "recordIndex": 34,
+          "colliderHash": "8eb19d6a",
+          "nodeName": "hd2_collision_034_8eb19d6a",
           "boneHash": "8eb19d6a",
           "boneName": "l_foot"
         }
@@ -186,7 +140,16 @@
       "zoneName": "0x9ce2c02d",
       "zoneNameRaw": "0x9ce2c02d",
       "zoneNameResolution": "raw-hash",
-      "actors": [],
+      "actors": [
+        {
+          "actor": "l_hip",
+          "recordIndex": 16,
+          "colliderHash": "fb340d40",
+          "nodeName": "hd2_collision_016_fb340d40",
+          "boneHash": "fb340d40",
+          "boneName": "l_hip"
+        }
+      ],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
       "projectile_durable_resistance": 0.8,
@@ -215,7 +178,16 @@
       "zoneName": "0xbab511f3",
       "zoneNameRaw": "0xbab511f3",
       "zoneNameResolution": "raw-hash",
-      "actors": [],
+      "actors": [
+        {
+          "actor": "l_leg_shield",
+          "recordIndex": 31,
+          "colliderHash": "c0e8f3b9",
+          "nodeName": "hd2_collision_031_c0e8f3b9",
+          "boneHash": "c0e8f3b9",
+          "boneName": "l_leg_shield"
+        }
+      ],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
       "projectile_durable_resistance": 0,
@@ -244,7 +216,16 @@
       "zoneName": "0xbfed2320",
       "zoneNameRaw": "0xbfed2320",
       "zoneNameResolution": "raw-hash",
-      "actors": [],
+      "actors": [
+        {
+          "actor": "r_leg_shield",
+          "recordIndex": 33,
+          "colliderHash": "bcbfce4f",
+          "nodeName": "hd2_collision_033_bcbfce4f",
+          "boneHash": "bcbfce4f",
+          "boneName": "r_leg_shield"
+        }
+      ],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
       "projectile_durable_resistance": 0,
@@ -276,41 +257,41 @@
       "actors": [
         {
           "actor": "r_thigh",
-          "recordIndex": 10,
-          "colliderHash": "83498e9e",
-          "nodeName": "hd2_collision_010_83498e9e",
+          "recordIndex": 20,
+          "colliderHash": "748f4281",
+          "nodeName": "hd2_collision_020_748f4281",
           "boneHash": "748f4281",
           "boneName": "r_thigh"
         },
         {
           "actor": "r_knee_1",
-          "recordIndex": 9,
-          "colliderHash": "2d729a79",
-          "nodeName": "hd2_collision_009_2d729a79",
+          "recordIndex": 27,
+          "colliderHash": "f9baf117",
+          "nodeName": "hd2_collision_027_f9baf117",
           "boneHash": "f9baf117",
           "boneName": "r_knee_1"
         },
         {
           "actor": "r_knee_2",
-          "recordIndex": 8,
-          "colliderHash": "807a2fe2",
-          "nodeName": "hd2_collision_008_807a2fe2",
+          "recordIndex": 29,
+          "colliderHash": "4cb04651",
+          "nodeName": "hd2_collision_029_4cb04651",
           "boneHash": "4cb04651",
           "boneName": "r_knee_2"
         },
         {
-          "actor": "r_foot",
-          "recordIndex": 4,
-          "colliderHash": "6f2078a8",
-          "nodeName": "hd2_collision_004_6f2078a8",
-          "boneHash": "46ddad11",
-          "boneName": "r_foot"
+          "actor": "r_ankle",
+          "recordIndex": 32,
+          "colliderHash": "176677a1",
+          "nodeName": "hd2_collision_032_176677a1",
+          "boneHash": "176677a1",
+          "boneName": "r_ankle"
         },
         {
           "actor": "r_foot",
-          "recordIndex": 5,
-          "colliderHash": "33dc3693",
-          "nodeName": "hd2_collision_005_33dc3693",
+          "recordIndex": 35,
+          "colliderHash": "46ddad11",
+          "nodeName": "hd2_collision_035_46ddad11",
           "boneHash": "46ddad11",
           "boneName": "r_foot"
         }
@@ -343,7 +324,16 @@
       "zoneName": "0x3d919e2f",
       "zoneNameRaw": "0x3d919e2f",
       "zoneNameResolution": "raw-hash",
-      "actors": [],
+      "actors": [
+        {
+          "actor": "r_hip",
+          "recordIndex": 17,
+          "colliderHash": "c2b88391",
+          "nodeName": "hd2_collision_017_c2b88391",
+          "boneHash": "c2b88391",
+          "boneName": "r_hip"
+        }
+      ],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
       "projectile_durable_resistance": 0.8,
@@ -372,7 +362,40 @@
       "zoneName": "turret",
       "zoneNameRaw": "turret",
       "zoneNameResolution": "filediver-dictionary",
-      "actors": [],
+      "actors": [
+        {
+          "actor": "turret",
+          "recordIndex": 25,
+          "colliderHash": "372f0418",
+          "nodeName": "hd2_collision_025_372f0418",
+          "boneHash": "372f0418",
+          "boneName": "turret"
+        },
+        {
+          "actor": "l_hardpoint_yaw",
+          "recordIndex": 21,
+          "colliderHash": "080cb271",
+          "nodeName": "hd2_collision_021_080cb271",
+          "boneHash": "080cb271",
+          "boneName": "l_hardpoint_yaw"
+        },
+        {
+          "actor": "r_hardpoint_yaw",
+          "recordIndex": 23,
+          "colliderHash": "c3c7128f",
+          "nodeName": "hd2_collision_023_c3c7128f",
+          "boneHash": "c3c7128f",
+          "boneName": "r_hardpoint_yaw"
+        },
+        {
+          "actor": "yaw",
+          "recordIndex": 18,
+          "colliderHash": "09a026f5",
+          "nodeName": "hd2_collision_018_09a026f5",
+          "boneHash": "09a026f5",
+          "boneName": "yaw"
+        }
+      ],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
       "projectile_durable_resistance": 1,
@@ -401,7 +424,16 @@
       "zoneName": "l_rocketpod",
       "zoneNameRaw": "l_rocketpod",
       "zoneNameResolution": "filediver-dictionary",
-      "actors": [],
+      "actors": [
+        {
+          "actor": "l_rocketpod",
+          "recordIndex": 22,
+          "colliderHash": "b7681bdc",
+          "nodeName": "hd2_collision_022_b7681bdc",
+          "boneHash": "b7681bdc",
+          "boneName": "l_rocketpod"
+        }
+      ],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
       "projectile_durable_resistance": 0.7,
@@ -430,7 +462,16 @@
       "zoneName": "r_rocketpod",
       "zoneNameRaw": "r_rocketpod",
       "zoneNameResolution": "filediver-dictionary",
-      "actors": [],
+      "actors": [
+        {
+          "actor": "r_rocketpod",
+          "recordIndex": 24,
+          "colliderHash": "1fb60c2a",
+          "nodeName": "hd2_collision_024_1fb60c2a",
+          "boneHash": "1fb60c2a",
+          "boneName": "r_rocketpod"
+        }
+      ],
       "damage_multiplier": "DamageMultiplier_Normal",
       "damage_multiplier_dps": "DamageMultiplier_Normal",
       "projectile_durable_resistance": 0.7,
@@ -462,17 +503,9 @@
       "actors": [
         {
           "actor": "boss",
-          "recordIndex": 11,
-          "colliderHash": "fd9562d4",
-          "nodeName": "hd2_collision_011_fd9562d4",
-          "boneHash": "9b115563",
-          "boneName": "boss"
-        },
-        {
-          "actor": "boss",
-          "recordIndex": 14,
-          "colliderHash": "87e4519b",
-          "nodeName": "hd2_collision_014_87e4519b",
+          "recordIndex": 15,
+          "colliderHash": "9b115563",
+          "nodeName": "hd2_collision_015_9b115563",
           "boneHash": "9b115563",
           "boneName": "boss"
         }
@@ -638,7 +671,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 10,
+          "zoneName": "eye",
+          "zoneNameRaw": "eye",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 500,
+          "armor": 4,
+          "projectileDurableResistance": 0.7,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 1,
@@ -656,7 +704,22 @@
       "affectsMainHealth": 0.3,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 11,
+          "zoneName": "0xb455b1ee",
+          "zoneNameRaw": "0xb455b1ee",
+          "zoneNameResolution": "raw-hash",
+          "health": 500,
+          "armor": 4,
+          "projectileDurableResistance": 0.7,
+          "affectsMainHealth": 0.3,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
       "recordIndex": 2,
@@ -674,156 +737,27 @@
       "affectsMainHealth": 0.7,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 12,
+          "zoneName": "0x9c34197b",
+          "zoneNameRaw": "0x9c34197b",
+          "zoneNameResolution": "raw-hash",
+          "health": 700,
+          "armor": 4,
+          "projectileDurableResistance": 0.7,
+          "affectsMainHealth": 0.7,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
-      "recordIndex": 3,
-      "colliderHash": "b2d0e941",
-      "nodeName": "hd2_collision_003_b2d0e941",
-      "boneHash": "8eb19d6a",
-      "boneName": "l_foot",
-      "zoneIndex": 0,
-      "zoneName": "leg_left",
-      "zoneNameRaw": "leg_left",
-      "zoneNameResolution": "filediver-dictionary",
-      "health": 1500,
-      "armor": 4,
-      "projectileDurableResistance": 0.8,
-      "affectsMainHealth": 0.8,
-      "affectedByExplosions": true,
-      "explosiveDamagePercentage": 0.6,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
-    },
-    {
-      "recordIndex": 4,
-      "colliderHash": "6f2078a8",
-      "nodeName": "hd2_collision_004_6f2078a8",
-      "boneHash": "46ddad11",
-      "boneName": "r_foot",
-      "zoneIndex": 4,
-      "zoneName": "leg_right",
-      "zoneNameRaw": "leg_right",
-      "zoneNameResolution": "filediver-dictionary",
-      "health": 1500,
-      "armor": 4,
-      "projectileDurableResistance": 0.8,
-      "affectsMainHealth": 0.8,
-      "affectedByExplosions": true,
-      "explosiveDamagePercentage": 0.6,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
-    },
-    {
-      "recordIndex": 5,
-      "colliderHash": "33dc3693",
-      "nodeName": "hd2_collision_005_33dc3693",
-      "boneHash": "46ddad11",
-      "boneName": "r_foot",
-      "zoneIndex": 4,
-      "zoneName": "leg_right",
-      "zoneNameRaw": "leg_right",
-      "zoneNameResolution": "filediver-dictionary",
-      "health": 1500,
-      "armor": 4,
-      "projectileDurableResistance": 0.8,
-      "affectsMainHealth": 0.8,
-      "affectedByExplosions": true,
-      "explosiveDamagePercentage": 0.6,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
-    },
-    {
-      "recordIndex": 6,
-      "colliderHash": "e55b4e87",
-      "nodeName": "hd2_collision_006_e55b4e87",
-      "boneHash": "8eb19d6a",
-      "boneName": "l_foot",
-      "zoneIndex": 0,
-      "zoneName": "leg_left",
-      "zoneNameRaw": "leg_left",
-      "zoneNameResolution": "filediver-dictionary",
-      "health": 1500,
-      "armor": 4,
-      "projectileDurableResistance": 0.8,
-      "affectsMainHealth": 0.8,
-      "affectedByExplosions": true,
-      "explosiveDamagePercentage": 0.6,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
-    },
-    {
-      "recordIndex": 7,
-      "colliderHash": "ce7c02c9",
-      "nodeName": "hd2_collision_007_ce7c02c9",
-      "boneHash": "5d8553b4",
-      "boneName": "l_knee_2",
-      "zoneIndex": 0,
-      "zoneName": "leg_left",
-      "zoneNameRaw": "leg_left",
-      "zoneNameResolution": "filediver-dictionary",
-      "health": 1500,
-      "armor": 4,
-      "projectileDurableResistance": 0.8,
-      "affectsMainHealth": 0.8,
-      "affectedByExplosions": true,
-      "explosiveDamagePercentage": 0.6,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
-    },
-    {
-      "recordIndex": 8,
-      "colliderHash": "807a2fe2",
-      "nodeName": "hd2_collision_008_807a2fe2",
-      "boneHash": "4cb04651",
-      "boneName": "r_knee_2",
-      "zoneIndex": 4,
-      "zoneName": "leg_right",
-      "zoneNameRaw": "leg_right",
-      "zoneNameResolution": "filediver-dictionary",
-      "health": 1500,
-      "armor": 4,
-      "projectileDurableResistance": 0.8,
-      "affectsMainHealth": 0.8,
-      "affectedByExplosions": true,
-      "explosiveDamagePercentage": 0.6,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
-    },
-    {
-      "recordIndex": 9,
-      "colliderHash": "2d729a79",
-      "nodeName": "hd2_collision_009_2d729a79",
-      "boneHash": "f9baf117",
-      "boneName": "r_knee_1",
-      "zoneIndex": 4,
-      "zoneName": "leg_right",
-      "zoneNameRaw": "leg_right",
-      "zoneNameResolution": "filediver-dictionary",
-      "health": 1500,
-      "armor": 4,
-      "projectileDurableResistance": 0.8,
-      "affectsMainHealth": 0.8,
-      "affectedByExplosions": true,
-      "explosiveDamagePercentage": 0.6,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
-    },
-    {
-      "recordIndex": 10,
-      "colliderHash": "83498e9e",
-      "nodeName": "hd2_collision_010_83498e9e",
-      "boneHash": "748f4281",
-      "boneName": "r_thigh",
-      "zoneIndex": 4,
-      "zoneName": "leg_right",
-      "zoneNameRaw": "leg_right",
-      "zoneNameResolution": "filediver-dictionary",
-      "health": 1500,
-      "armor": 4,
-      "projectileDurableResistance": 0.8,
-      "affectsMainHealth": 0.8,
-      "affectedByExplosions": true,
-      "explosiveDamagePercentage": 0.6,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
-    },
-    {
-      "recordIndex": 11,
-      "colliderHash": "fd9562d4",
-      "nodeName": "hd2_collision_011_fd9562d4",
+      "recordIndex": 15,
+      "colliderHash": "9b115563",
+      "nodeName": "hd2_collision_015_9b115563",
       "boneHash": "9b115563",
       "boneName": "boss",
       "zoneIndex": 9,
@@ -836,30 +770,126 @@
       "affectsMainHealth": 1,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 9,
+          "zoneName": "torso",
+          "zoneNameRaw": "torso",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1800,
+          "armor": 4,
+          "projectileDurableResistance": 1,
+          "affectsMainHealth": 1,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
-      "recordIndex": 12,
-      "colliderHash": "3326c96e",
-      "nodeName": "hd2_collision_012_3326c96e",
-      "boneHash": "48741b07",
-      "boneName": "l_knee_1",
-      "zoneIndex": 0,
-      "zoneName": "leg_left",
-      "zoneNameRaw": "leg_left",
-      "zoneNameResolution": "filediver-dictionary",
-      "health": 1500,
-      "armor": 4,
+      "recordIndex": 16,
+      "colliderHash": "fb340d40",
+      "nodeName": "hd2_collision_016_fb340d40",
+      "boneHash": "fb340d40",
+      "boneName": "l_hip",
+      "zoneIndex": 1,
+      "zoneName": "0x9ce2c02d",
+      "zoneNameRaw": "0x9ce2c02d",
+      "zoneNameResolution": "raw-hash",
+      "health": 750,
+      "armor": 3,
       "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.5,
+      "affectedByExplosions": false,
+      "explosiveDamagePercentage": 3.4028235e+38,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 1,
+          "zoneName": "0x9ce2c02d",
+          "zoneNameRaw": "0x9ce2c02d",
+          "zoneNameResolution": "raw-hash",
+          "health": 750,
+          "armor": 3,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.5,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 17,
+      "colliderHash": "c2b88391",
+      "nodeName": "hd2_collision_017_c2b88391",
+      "boneHash": "c2b88391",
+      "boneName": "r_hip",
+      "zoneIndex": 5,
+      "zoneName": "0x3d919e2f",
+      "zoneNameRaw": "0x3d919e2f",
+      "zoneNameResolution": "raw-hash",
+      "health": 750,
+      "armor": 3,
+      "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.5,
+      "affectedByExplosions": false,
+      "explosiveDamagePercentage": 3.4028235e+38,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 5,
+          "zoneName": "0x3d919e2f",
+          "zoneNameRaw": "0x3d919e2f",
+          "zoneNameResolution": "raw-hash",
+          "health": 750,
+          "armor": 3,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.5,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 18,
+      "colliderHash": "09a026f5",
+      "nodeName": "hd2_collision_018_09a026f5",
+      "boneHash": "09a026f5",
+      "boneName": "yaw",
+      "zoneIndex": 6,
+      "zoneName": "turret",
+      "zoneNameRaw": "turret",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 3300,
+      "armor": 4,
+      "projectileDurableResistance": 1,
       "affectsMainHealth": 0.8,
       "affectedByExplosions": true,
-      "explosiveDamagePercentage": 0.6,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
+      "explosiveDamagePercentage": 1,
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 6,
+          "zoneName": "turret",
+          "zoneNameRaw": "turret",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 3300,
+          "armor": 4,
+          "projectileDurableResistance": 1,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 1,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
     },
     {
-      "recordIndex": 13,
-      "colliderHash": "29bdbcff",
-      "nodeName": "hd2_collision_013_29bdbcff",
+      "recordIndex": 19,
+      "colliderHash": "8e1c9de6",
+      "nodeName": "hd2_collision_019_8e1c9de6",
       "boneHash": "8e1c9de6",
       "boneName": "l_thigh",
       "zoneIndex": 0,
@@ -872,25 +902,550 @@
       "affectsMainHealth": 0.8,
       "affectedByExplosions": true,
       "explosiveDamagePercentage": 0.6,
-      "explosionVerificationMode": "ExplosionVerificationMode_All"
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 0,
+          "zoneName": "leg_left",
+          "zoneNameRaw": "leg_left",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1500,
+          "armor": 4,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 0.6,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
     },
     {
-      "recordIndex": 14,
-      "colliderHash": "87e4519b",
-      "nodeName": "hd2_collision_014_87e4519b",
-      "boneHash": "9b115563",
-      "boneName": "boss",
-      "zoneIndex": 9,
-      "zoneName": "torso",
-      "zoneNameRaw": "torso",
+      "recordIndex": 20,
+      "colliderHash": "748f4281",
+      "nodeName": "hd2_collision_020_748f4281",
+      "boneHash": "748f4281",
+      "boneName": "r_thigh",
+      "zoneIndex": 4,
+      "zoneName": "leg_right",
+      "zoneNameRaw": "leg_right",
       "zoneNameResolution": "filediver-dictionary",
-      "health": 1800,
+      "health": 1500,
+      "armor": 4,
+      "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 0.6,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 4,
+          "zoneName": "leg_right",
+          "zoneNameRaw": "leg_right",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1500,
+          "armor": 4,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 0.6,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 21,
+      "colliderHash": "080cb271",
+      "nodeName": "hd2_collision_021_080cb271",
+      "boneHash": "080cb271",
+      "boneName": "l_hardpoint_yaw",
+      "zoneIndex": 6,
+      "zoneName": "turret",
+      "zoneNameRaw": "turret",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 3300,
       "armor": 4,
       "projectileDurableResistance": 1,
-      "affectsMainHealth": 1,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 1,
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 6,
+          "zoneName": "turret",
+          "zoneNameRaw": "turret",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 3300,
+          "armor": 4,
+          "projectileDurableResistance": 1,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 1,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
+    },
+    {
+      "recordIndex": 22,
+      "colliderHash": "b7681bdc",
+      "nodeName": "hd2_collision_022_b7681bdc",
+      "boneHash": "b7681bdc",
+      "boneName": "l_rocketpod",
+      "zoneIndex": 7,
+      "zoneName": "l_rocketpod",
+      "zoneNameRaw": "l_rocketpod",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 400,
+      "armor": 4,
+      "projectileDurableResistance": 0.7,
+      "affectsMainHealth": 0,
       "affectedByExplosions": false,
       "explosiveDamagePercentage": 3.4028235e+38,
-      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 7,
+          "zoneName": "l_rocketpod",
+          "zoneNameRaw": "l_rocketpod",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 400,
+          "armor": 4,
+          "projectileDurableResistance": 0.7,
+          "affectsMainHealth": 0,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
+    },
+    {
+      "recordIndex": 23,
+      "colliderHash": "c3c7128f",
+      "nodeName": "hd2_collision_023_c3c7128f",
+      "boneHash": "c3c7128f",
+      "boneName": "r_hardpoint_yaw",
+      "zoneIndex": 6,
+      "zoneName": "turret",
+      "zoneNameRaw": "turret",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 3300,
+      "armor": 4,
+      "projectileDurableResistance": 1,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 1,
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 6,
+          "zoneName": "turret",
+          "zoneNameRaw": "turret",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 3300,
+          "armor": 4,
+          "projectileDurableResistance": 1,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 1,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
+    },
+    {
+      "recordIndex": 24,
+      "colliderHash": "1fb60c2a",
+      "nodeName": "hd2_collision_024_1fb60c2a",
+      "boneHash": "1fb60c2a",
+      "boneName": "r_rocketpod",
+      "zoneIndex": 8,
+      "zoneName": "r_rocketpod",
+      "zoneNameRaw": "r_rocketpod",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 400,
+      "armor": 4,
+      "projectileDurableResistance": 0.7,
+      "affectsMainHealth": 0,
+      "affectedByExplosions": false,
+      "explosiveDamagePercentage": 3.4028235e+38,
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 8,
+          "zoneName": "r_rocketpod",
+          "zoneNameRaw": "r_rocketpod",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 400,
+          "armor": 4,
+          "projectileDurableResistance": 0.7,
+          "affectsMainHealth": 0,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
+    },
+    {
+      "recordIndex": 25,
+      "colliderHash": "372f0418",
+      "nodeName": "hd2_collision_025_372f0418",
+      "boneHash": "372f0418",
+      "boneName": "turret",
+      "zoneIndex": 6,
+      "zoneName": "turret",
+      "zoneNameRaw": "turret",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 3300,
+      "armor": 4,
+      "projectileDurableResistance": 1,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 1,
+      "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius",
+      "zoneStack": [
+        {
+          "zoneIndex": 6,
+          "zoneName": "turret",
+          "zoneNameRaw": "turret",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 3300,
+          "armor": 4,
+          "projectileDurableResistance": 1,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 1,
+          "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
+        }
+      ]
+    },
+    {
+      "recordIndex": 26,
+      "colliderHash": "48741b07",
+      "nodeName": "hd2_collision_026_48741b07",
+      "boneHash": "48741b07",
+      "boneName": "l_knee_1",
+      "zoneIndex": 0,
+      "zoneName": "leg_left",
+      "zoneNameRaw": "leg_left",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 1500,
+      "armor": 4,
+      "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 0.6,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 0,
+          "zoneName": "leg_left",
+          "zoneNameRaw": "leg_left",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1500,
+          "armor": 4,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 0.6,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 27,
+      "colliderHash": "f9baf117",
+      "nodeName": "hd2_collision_027_f9baf117",
+      "boneHash": "f9baf117",
+      "boneName": "r_knee_1",
+      "zoneIndex": 4,
+      "zoneName": "leg_right",
+      "zoneNameRaw": "leg_right",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 1500,
+      "armor": 4,
+      "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 0.6,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 4,
+          "zoneName": "leg_right",
+          "zoneNameRaw": "leg_right",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1500,
+          "armor": 4,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 0.6,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 28,
+      "colliderHash": "5d8553b4",
+      "nodeName": "hd2_collision_028_5d8553b4",
+      "boneHash": "5d8553b4",
+      "boneName": "l_knee_2",
+      "zoneIndex": 0,
+      "zoneName": "leg_left",
+      "zoneNameRaw": "leg_left",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 1500,
+      "armor": 4,
+      "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 0.6,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 0,
+          "zoneName": "leg_left",
+          "zoneNameRaw": "leg_left",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1500,
+          "armor": 4,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 0.6,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 29,
+      "colliderHash": "4cb04651",
+      "nodeName": "hd2_collision_029_4cb04651",
+      "boneHash": "4cb04651",
+      "boneName": "r_knee_2",
+      "zoneIndex": 4,
+      "zoneName": "leg_right",
+      "zoneNameRaw": "leg_right",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 1500,
+      "armor": 4,
+      "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 0.6,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 4,
+          "zoneName": "leg_right",
+          "zoneNameRaw": "leg_right",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1500,
+          "armor": 4,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 0.6,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 30,
+      "colliderHash": "00299bfb",
+      "nodeName": "hd2_collision_030_00299bfb",
+      "boneHash": "00299bfb",
+      "boneName": "l_ankle",
+      "zoneIndex": 0,
+      "zoneName": "leg_left",
+      "zoneNameRaw": "leg_left",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 1500,
+      "armor": 4,
+      "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 0.6,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 0,
+          "zoneName": "leg_left",
+          "zoneNameRaw": "leg_left",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1500,
+          "armor": 4,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 0.6,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 31,
+      "colliderHash": "c0e8f3b9",
+      "nodeName": "hd2_collision_031_c0e8f3b9",
+      "boneHash": "c0e8f3b9",
+      "boneName": "l_leg_shield",
+      "zoneIndex": 2,
+      "zoneName": "0xbab511f3",
+      "zoneNameRaw": "0xbab511f3",
+      "zoneNameResolution": "raw-hash",
+      "health": 150,
+      "armor": 5,
+      "projectileDurableResistance": 0,
+      "affectsMainHealth": 0.5,
+      "affectedByExplosions": false,
+      "explosiveDamagePercentage": 3.4028235e+38,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 2,
+          "zoneName": "0xbab511f3",
+          "zoneNameRaw": "0xbab511f3",
+          "zoneNameResolution": "raw-hash",
+          "health": 150,
+          "armor": 5,
+          "projectileDurableResistance": 0,
+          "affectsMainHealth": 0.5,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 32,
+      "colliderHash": "176677a1",
+      "nodeName": "hd2_collision_032_176677a1",
+      "boneHash": "176677a1",
+      "boneName": "r_ankle",
+      "zoneIndex": 4,
+      "zoneName": "leg_right",
+      "zoneNameRaw": "leg_right",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 1500,
+      "armor": 4,
+      "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 0.6,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 4,
+          "zoneName": "leg_right",
+          "zoneNameRaw": "leg_right",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1500,
+          "armor": 4,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 0.6,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 33,
+      "colliderHash": "bcbfce4f",
+      "nodeName": "hd2_collision_033_bcbfce4f",
+      "boneHash": "bcbfce4f",
+      "boneName": "r_leg_shield",
+      "zoneIndex": 3,
+      "zoneName": "0xbfed2320",
+      "zoneNameRaw": "0xbfed2320",
+      "zoneNameResolution": "raw-hash",
+      "health": 150,
+      "armor": 5,
+      "projectileDurableResistance": 0,
+      "affectsMainHealth": 0.5,
+      "affectedByExplosions": false,
+      "explosiveDamagePercentage": 3.4028235e+38,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 3,
+          "zoneName": "0xbfed2320",
+          "zoneNameRaw": "0xbfed2320",
+          "zoneNameResolution": "raw-hash",
+          "health": 150,
+          "armor": 5,
+          "projectileDurableResistance": 0,
+          "affectsMainHealth": 0.5,
+          "affectedByExplosions": false,
+          "explosiveDamagePercentage": 3.4028235e+38,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 34,
+      "colliderHash": "8eb19d6a",
+      "nodeName": "hd2_collision_034_8eb19d6a",
+      "boneHash": "8eb19d6a",
+      "boneName": "l_foot",
+      "zoneIndex": 0,
+      "zoneName": "leg_left",
+      "zoneNameRaw": "leg_left",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 1500,
+      "armor": 4,
+      "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 0.6,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 0,
+          "zoneName": "leg_left",
+          "zoneNameRaw": "leg_left",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1500,
+          "armor": 4,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 0.6,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
+    },
+    {
+      "recordIndex": 35,
+      "colliderHash": "46ddad11",
+      "nodeName": "hd2_collision_035_46ddad11",
+      "boneHash": "46ddad11",
+      "boneName": "r_foot",
+      "zoneIndex": 4,
+      "zoneName": "leg_right",
+      "zoneNameRaw": "leg_right",
+      "zoneNameResolution": "filediver-dictionary",
+      "health": 1500,
+      "armor": 4,
+      "projectileDurableResistance": 0.8,
+      "affectsMainHealth": 0.8,
+      "affectedByExplosions": true,
+      "explosiveDamagePercentage": 0.6,
+      "explosionVerificationMode": "ExplosionVerificationMode_All",
+      "zoneStack": [
+        {
+          "zoneIndex": 4,
+          "zoneName": "leg_right",
+          "zoneNameRaw": "leg_right",
+          "zoneNameResolution": "filediver-dictionary",
+          "health": 1500,
+          "armor": 4,
+          "projectileDurableResistance": 0.8,
+          "affectsMainHealth": 0.8,
+          "affectedByExplosions": true,
+          "explosiveDamagePercentage": 0.6,
+          "explosionVerificationMode": "ExplosionVerificationMode_All"
+        }
+      ]
     }
   ]
 }

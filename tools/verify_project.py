@@ -72,6 +72,19 @@ def main() -> None:
         'assets/favicon.svg',
         "localStorage.setItem",
         'id="showTargeting3dGeometryOnly"',
+        'id="targeting3dSimulateMode"',
+        'id="targeting3dTimeline"',
+        'id="targeting3dGridOpacity"',
+        "THREE.TOUCH.DOLLY_ROTATE",
+        "function targeting3dWheelLooksLikeTrackpad",
+        "orbitTargeting3dFromTrackpad",
+        "@media(any-pointer:fine)",
+        "function getExplosiveProfile",
+        "function buildCollisionSceneIndex",
+        "function simulateImpact",
+        "function simulateSequence",
+        "function generateBarragePattern",
+        "function summarizeSplashResult",
     ]
     absent = [marker for marker in required if marker not in html]
     if absent:
@@ -89,11 +102,17 @@ def main() -> None:
     if not viewer_bundle.is_file() or viewer_bundle.stat().st_size < 100_000:
         raise AssertionError("Local Three.js viewer bundle is missing or unexpectedly small")
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+    default_units = catalog.get("defaultUnitsPerMeter")
+    if not isinstance(default_units, (int, float)) or default_units <= 0:
+        raise AssertionError("3D model catalog is missing a positive defaultUnitsPerMeter")
     models = catalog.get("models", {})
-    if len(models) != 39:
-        raise AssertionError(f"Expected 39 large-enemy 3D models, found {len(models)}")
-    complete = partial = total_hulls = total_mapped = 0
+    if len(models) != 61:
+        raise AssertionError(f"Expected 61 enemy 3D models, found {len(models)}")
+    complete = partial = exact_zone_covered = proxy_zone_covered = incomplete_zone_coverage = total_hulls = total_mapped = 0
     for enemy, entry in models.items():
+        units_per_meter = entry.get("unitsPerMeter", default_units)
+        if not isinstance(units_per_meter, (int, float)) or units_per_meter <= 0:
+            raise AssertionError(f"{enemy} has an invalid unitsPerMeter value")
         model_path = project_root / entry["glb"]
         manifest_path = project_root / entry["collisionManifest"]
         damage_manifest_path = project_root / entry["damageManifest"]
@@ -119,6 +138,17 @@ def main() -> None:
         if len(records) != len(set(records)):
             raise AssertionError(f"{enemy} collision manifest contains duplicate records")
         damage = json.loads(damage_manifest_path.read_text(encoding="utf-8"))
+        for zone in damage.get("zones", []):
+            missing_explosion_fields = {
+                "affected_by_explosions",
+                "explosive_damage_percentage",
+                "explosion_verification_mode",
+            } - zone.keys()
+            if missing_explosion_fields:
+                raise AssertionError(
+                    f"{enemy} damage zone {zone.get('zoneIndex')} is missing explosion metadata: "
+                    f"{sorted(missing_explosion_fields)}"
+                )
         confidence = damage.get("mappingConfidence")
         if confidence not in {
             "verified-exact-actor-join",
@@ -151,6 +181,27 @@ def main() -> None:
             partial += 1
             if damage.get("unmatchedActorCount", 0) < 1:
                 raise AssertionError(f"{enemy} is marked partial without an unresolved actor")
+            interaction = damage.get("interactionCoverage")
+            if interaction == "verified-exact-zone-coverage":
+                exact_zone_covered += 1
+                if damage.get("uncoveredDamageZoneCount") != 0:
+                    raise AssertionError(f"{enemy} claims exact zone coverage with an uncovered zone")
+            elif interaction == "complete-with-evidence-labeled-proxies":
+                proxy_zone_covered += 1
+                proxies = damage.get("viewerDamageZoneProxies", {})
+                proxy_count = len(proxies.get("boxes", [])) + len(proxies.get("colliders", []))
+                if (
+                    proxies.get("confidence") not in {
+                        "inferred-from-game-colliders",
+                        "inferred-single-candidate-game-collider",
+                    }
+                    or proxy_count < 1
+                    or damage.get("proxyCoveredDamageZoneCount", 0) < 1
+                    or damage.get("remainingUncoveredDamageZoneCount") != 0
+                ):
+                    raise AssertionError(f"{enemy} damage-zone proxy evidence is incomplete")
+            else:
+                incomplete_zone_coverage += 1
         else:
             complete += 1
             if damage.get("unmatchedActorCount", 0) != 0:
@@ -161,10 +212,11 @@ def main() -> None:
     expanded_enemy_expectations = {
         "Hive Lord": (91, 56, 150000, "partial-actor-join", 10),
         "Vox Engine": (39, 30, 9000, "partial-layered-actor-join", 1),
+        "War Strider": (36, 24, 3500, "verified-complete-actor-join", 0),
         "Dropship": (18, 6, 3500, "verified-complete-actor-join", 0),
         "Gunship": (5, 5, 950, "verified-complete-actor-join", 0),
-        "Bile Spewer": (5, 4, 750, "partial-actor-join", 16),
-        "Fleshmob": (11, 10, 5000, "partial-actor-join", 8),
+        "Bile Spewer": (29, 20, 750, "verified-complete-actor-join", 0),
+        "Fleshmob": (39, 18, 5000, "verified-complete-actor-join", 0),
         "Leviathan": (19, 14, 15000, "verified-complete-actor-join", 0),
         "Hulk (Scorcher)": (21, 16, 1800, "verified-complete-actor-join", 0),
         "Brood Commander": (26, 21, 800, "verified-complete-actor-join", 0),
@@ -181,6 +233,28 @@ def main() -> None:
         "Crescent Overseer": (50, 48, 600, "verified-complete-actor-join", 0),
         "Watcher": (8, 6, 600, "verified-complete-actor-join", 0),
         "Stingray": (10, 9, 800, "partial-actor-join", 1),
+        "Warrior": (26, 21, 325, "verified-complete-actor-join", 0),
+        "Alpha Warrior": (26, 21, 325, "verified-complete-actor-join", 0),
+        "Bile Warrior": (26, 21, 325, "verified-complete-actor-join", 0),
+        "Rupture Warrior": (27, 21, 250, "verified-complete-actor-join", 0),
+        "Spore Burst Warrior": (26, 21, 325, "verified-complete-actor-join", 0),
+        "Hive Guard": (24, 20, 500, "partial-layered-actor-join", 1),
+        "Hunter": (27, 21, 160, "verified-complete-actor-join", 0),
+        "Predator Hunter": (27, 21, 175, "verified-complete-actor-join", 0),
+        "Predator Stalker": (48, 46, 650, "partial-actor-join", 1),
+        "Scavenger": (25, 7, 60, "verified-layered-actor-join", 0),
+        "Pouncer": (31, 7, 60, "verified-layered-actor-join", 0),
+        "Bile Spitter": (25, 7, 60, "verified-layered-actor-join", 0),
+        "Nursing Spewer": (29, 20, 750, "verified-complete-actor-join", 0),
+        "Rupture Spewer": (30, 20, 750, "verified-complete-actor-join", 0),
+        "Berserker": (21, 18, 750, "partial-actor-join", 2),
+        "Trooper": (22, 21, 125, "verified-complete-actor-join", 0),
+        "Commissar": (22, 21, 125, "verified-complete-actor-join", 0),
+        "Conflagration Devastator": (23, 22, 750, "verified-complete-actor-join", 0),
+        "Agitator": (39, 27, 750, "verified-layered-actor-join", 0),
+        "Radical": (39, 27, 750, "verified-layered-actor-join", 0),
+        "Voteless (Medium)": (18, 10, 130, "partial-actor-join", 4),
+        "Obtruder": (8, 6, 400, "verified-complete-actor-join", 0),
     }
     ragdoll_expectations = {
         "Hive Lord": (47, 44),
@@ -201,6 +275,43 @@ def main() -> None:
         "Crescent Overseer": (29, 21),
         "Watcher": (6, 2),
         "Stingray": (0, 10),
+        "Bile Spewer": (5, 24),
+        "Fleshmob": (11, 28),
+        "War Strider": (15, 21),
+        "Warrior": (2, 24),
+        "Alpha Warrior": (2, 24),
+        "Bile Warrior": (2, 24),
+        "Rupture Warrior": (3, 24),
+        "Spore Burst Warrior": (2, 24),
+        "Hive Guard": (2, 22),
+        "Hunter": (1, 26),
+        "Predator Hunter": (1, 26),
+        "Predator Stalker": (7, 41),
+        "Scavenger": (1, 24),
+        "Pouncer": (1, 30),
+        "Bile Spitter": (1, 24),
+        "Nursing Spewer": (5, 24),
+        "Rupture Spewer": (6, 24),
+        "Berserker": (1, 20),
+        "Trooper": (1, 21),
+        "Commissar": (1, 21),
+        "Conflagration Devastator": (1, 22),
+        "Agitator": (20, 19),
+        "Radical": (20, 19),
+        "Voteless (Medium)": (2, 16),
+        "Obtruder": (6, 2),
+    }
+    partial_zone_coverage_expectations = {
+        "Hive Lord": "verified-exact-zone-coverage",
+        "Vox Engine": "verified-exact-zone-coverage",
+        "Factory Strider": "verified-exact-zone-coverage",
+        "Harvester": "complete-with-evidence-labeled-proxies",
+        "Stalker": "verified-exact-zone-coverage",
+        "Stingray": "complete-with-evidence-labeled-proxies",
+        "Hive Guard": "verified-exact-zone-coverage",
+        "Predator Stalker": "verified-exact-zone-coverage",
+        "Berserker": "complete-with-evidence-labeled-proxies",
+        "Voteless (Medium)": "verified-exact-zone-coverage",
     }
     for enemy, (hulls, mapped, main_health, confidence, unmatched) in expanded_enemy_expectations.items():
         entry = models[enemy]
@@ -214,6 +325,9 @@ def main() -> None:
             or damage.get("unmatchedActorCount") != unmatched
         ):
             raise AssertionError(f"{enemy} expanded-model evidence changed unexpectedly")
+        expected_coverage = partial_zone_coverage_expectations.get(enemy)
+        if expected_coverage and damage.get("interactionCoverage") != expected_coverage:
+            raise AssertionError(f"{enemy} damage-zone interaction coverage regressed")
         document = glb_json(project_root / entry["glb"])
         visible_alternates = [
             node.get("name", "")
@@ -237,6 +351,38 @@ def main() -> None:
                 or len(ragdoll_source.get("sha256", "")) != 64
             ):
                 raise AssertionError(f"{enemy} lost its exact ragdoll body-to-shape evidence")
+
+    for enemy, expected_coverage in partial_zone_coverage_expectations.items():
+        entry = models[enemy]
+        damage = json.loads((project_root / entry["damageManifest"]).read_text(encoding="utf-8"))
+        if damage.get("interactionCoverage") != expected_coverage:
+            raise AssertionError(f"{enemy} damage-zone interaction coverage regressed")
+    berserker_proxies = json.loads(
+        (models_root / "berserker-damage-zones.manifest.json").read_text(encoding="utf-8")
+    )["viewerDamageZoneProxies"]
+    if (
+        berserker_proxies.get("mode") != "comparative-box-proxy"
+        or len(berserker_proxies.get("boxes", [])) != 2
+        or set(berserker_proxies.get("analogs", []))
+        != {"Devastator", "Heavy Devastator", "Rocket Devastator"}
+        or any(proxy.get("boxSize") != [0.435137, 0.395236, 0.377271] for proxy in berserker_proxies["boxes"])
+    ):
+        raise AssertionError("Berserker shoulderplate proxy evidence changed")
+    for slug, expected_record, expected_hash in (
+        ("harvester", 24, "43a3844e"),
+        ("stingray", 0, "9b115563"),
+    ):
+        proxy = json.loads((models_root / f"{slug}-damage-zones.manifest.json").read_text(encoding="utf-8"))[
+            "viewerDamageZoneProxies"
+        ]
+        records = proxy.get("colliders", [])
+        if (
+            proxy.get("mode") != "local-unassigned-collider-proxy"
+            or len(records) != 1
+            or records[0].get("recordIndex") != expected_record
+            or records[0].get("expectedColliderHash") != expected_hash
+        ):
+            raise AssertionError(f"{slug} local collider proxy evidence changed")
 
     hulk_render_path = models_root / "hulk-scorcher-authentic-render.glb"
     hulk_render = glb_json(hulk_render_path)
@@ -292,6 +438,7 @@ def main() -> None:
         "Devastator": ("devastator-mounted-units.manifest.json", 1),
         "Heavy Devastator": ("heavy-devastator-mounted-units.manifest.json", 2),
         "Rocket Devastator": ("rocket-devastator-mounted-units.manifest.json", 1),
+        "Conflagration Devastator": ("conflagration-devastator-mounted-units.manifest.json", 2),
     }
     for enemy, (filename, mount_count) in devastator_mount_expectations.items():
         assembly = json.loads((models_root / filename).read_text(encoding="utf-8"))
@@ -321,6 +468,38 @@ def main() -> None:
         or shield_zone.get("projectile_durable_resistance") != 0.7
     ):
         raise AssertionError("Heavy Devastator shield collision or HealthComponent data changed unexpectedly")
+
+    conflagration_mounts = json.loads(
+        (models_root / "conflagration-devastator-mounted-units.manifest.json").read_text(encoding="utf-8")
+    )
+    conflagration_shield = next(
+        (mount for mount in conflagration_mounts["mounts"] if mount["id"] == "shield"), None
+    )
+    conflagration_gun = next(
+        (mount for mount in conflagration_mounts["mounts"] if mount["id"] == "incendiary-rifle"), None
+    )
+    if (
+        not conflagration_shield
+        or not conflagration_gun
+        or conflagration_shield.get("attachNode") != "attach_l_hand"
+        or conflagration_gun.get("attachNode") != "attach_r_hand"
+    ):
+        raise AssertionError("Conflagration Devastator lost its exact hand-socket equipment assembly")
+    conflagration_shield_collision = json.loads(
+        (models_root / conflagration_shield["collisionManifest"]).read_text(encoding="utf-8")
+    )
+    conflagration_shield_damage = json.loads(
+        (models_root / conflagration_shield["damageManifest"]).read_text(encoding="utf-8")
+    )
+    conflagration_shield_zone = conflagration_shield_damage.get("zones", [{}])[0]
+    if (
+        conflagration_shield_collision.get("hullCount") != 2
+        or conflagration_shield_damage.get("mappedColliderCount") != 1
+        or conflagration_shield_damage.get("mainHealth") != 800
+        or conflagration_shield_zone.get("armor") != 4
+        or conflagration_shield_zone.get("projectile_durable_resistance") != 0.7
+    ):
+        raise AssertionError("Conflagration Devastator shield evidence changed unexpectedly")
 
     scout_mount_expectations = {
         "Scout Strider": ("scout-strider-mounted-units.manifest.json", 2),
@@ -552,6 +731,9 @@ def main() -> None:
         or "automaton-heavy-cannon-turret-authentic-render.glb" not in html
         or "object.userData.hd2GeometryOnly=!damage" not in html
         or "hull.visible=showHulls&&(!hull.userData.hd2GeometryOnly||showGeometry)" not in html
+        or "viewerDamageZoneProxies" not in html
+        or "bodyProxyDamage" not in html
+        or "DAMAGE ZONES VERIFIED / ACTOR REFERENCES PARTIAL" not in html
     ):
         raise AssertionError("Shared tank geometry or exact mounted-turret evidence is not connected to the viewer")
 
@@ -592,10 +774,14 @@ def main() -> None:
     if "factory-strider-authentic-render.glb" not in html or "if(authenticRender)" not in html:
         raise AssertionError("Factory Strider authentic render is not connected to the viewer")
 
+    if incomplete_zone_coverage or exact_zone_covered + proxy_zone_covered != partial:
+        raise AssertionError("At least one actor-partial model still has incomplete damage-zone interaction coverage")
     print(f"Verified {len(references)} image references and {len(actual)} WebP files")
     print(
         f"Verified {len(models)} hydrated large-enemy GLBs: {total_hulls} collision hulls, "
-        f"{total_mapped} mapped damage hulls, {complete} complete and {partial} partial models"
+        f"{total_mapped} exact mapped damage hulls, {complete} actor-complete models, "
+        f"{exact_zone_covered} exact-zone-covered models with redundant unresolved actor references, "
+        f"and {proxy_zone_covered} proxy-zone-covered models; 0 models have incomplete zone interaction coverage"
     )
     print("Verified 3 Factory Strider mounted weapon instances on decoded attachment sockets")
     print("Verified 7 selectable Factory Strider mounted-weapon box proxies with destroyable HealthComponents")

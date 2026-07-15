@@ -216,6 +216,7 @@ TEMPLATE_DIR = Path(__file__).parent / "templates"
 STYLE = (TEMPLATE_DIR / "style.css").read_text(encoding="utf-8")
 BODY = (TEMPLATE_DIR / "body.html").read_text(encoding="utf-8")
 UI_SOURCE = (TEMPLATE_DIR / "ui.js").read_text(encoding="utf-8")
+SPLASH_SOURCE = (TEMPLATE_DIR / "splash-simulator.js").read_text(encoding="utf-8")
 # Ranking/calculation helpers live in the preserved script block. The template
 # owns only the DOM application so rebuilding cannot duplicate or roll back
 # independently maintained calculation changes.
@@ -235,6 +236,13 @@ def build(source: Path, destination: Path) -> None:
     if len(derived_positions) > 1:
         ui_start = script_start + derived_positions[-1]
     preserved = text[script_start:ui_start].rstrip()
+    splash_start = "// ============ 3D SPLASH SIMULATOR (pure helpers) ============"
+    splash_end = "// ============ END 3D SPLASH SIMULATOR ============"
+    if splash_start in preserved:
+        before, remainder = preserved.split(splash_start, 1)
+        if splash_end not in remainder:
+            raise ValueError("Could not locate the end of the generated splash simulator block")
+        preserved = (before + remainder.split(splash_end, 1)[1]).rstrip()
     date_match = re.search(r"DATA \(helldivers\.wiki\.gg, (\d{4}-\d{2}-\d{2})\)", text)
     data_date = date_match.group(1) if date_match else "unknown"
     body = BODY.replace("{{DATA_DATE}}", data_date)
@@ -252,6 +260,8 @@ def build(source: Path, destination: Path) -> None:
 <body>
 {body}
 <script>{preserved}
+
+{SPLASH_SOURCE}
 
 {ui}
 </script>

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "extractionDate": "2026-07-13",
+  "extractionDate": "2026-07-14",
   "enemy": "Heavy Devastator",
   "assemblyConfidence": "verified-mount-component-join",
   "sources": {
@@ -15,6 +15,10 @@
     "heavy-devastator-shield.glb": {
       "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_shield\\soldier_shield.unit.glb",
       "sha256": "3698547B92CC14EAC6835D6F442541AF345F670B40211796D4107F5E0E65F8BE"
+    },
+    "conflagration-devastator-shield.glb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_shield\\soldier_shield_ivory_legion.unit.glb",
+      "sha256": "51A39E8476815D63DC9FE2028C53E107D7093726B13E8900BC76095503B6A300"
     }
   },
   "mounts": [
@@ -22,7 +26,7 @@
       "id": "machinegun",
       "label": "Heavy machine gun",
       "asset": "heavy-devastator-machinegun.glb",
-      "assetSha256": "BDB1D03F6614F84424648ED0DC58E95440FAA1434B26BC91EB843912FB91C452",
+      "assetSha256": "564CAAC90BEF1791B78A87353B69E0C2F8368A6773BEC3E7CD704E398AC173C8",
       "attachNode": "attach_r_hand",
       "mountEntity": "content/fac_cyborgs/equipment/weapons/soldier_machinegun/soldier_machinegun",
       "unitResource": "content/fac_cyborgs/equipment/weapons/soldier_machinegun/soldier_machinegun"
@@ -31,12 +35,12 @@
       "id": "shield",
       "label": "Ballistic shield",
       "asset": "heavy-devastator-shield.glb",
-      "assetSha256": "8EED0A852ED2DE5A0DA3E3B35B41A468F206D6EFA6D7D5FE688D3B3F35ADCA6B",
+      "assetSha256": "8046352F4A12BCD3CA9C9BD8FE80BFF34415C23F4B31DD24B48DC256DD7C9201",
       "attachNode": "attach_l_hand",
       "mountEntity": "content/fac_cyborgs/equipment/weapons/soldier_shield/soldier_shield",
       "unitResource": "content/fac_cyborgs/equipment/weapons/soldier_shield/soldier_shield",
       "hitboxAsset": "heavy-devastator-shield-hitboxes.glb",
-      "hitboxAssetSha256": "CBD177CFD35A75192771728724E95152566524B0517D27893F94A5CC76934A36",
+      "hitboxAssetSha256": "40D5AD33C039DA23EDA8CD402594A282ABFDFBC78C6139C6B75F8EB496D5E9FD",
       "collisionManifest": "heavy-devastator-shield-collision.manifest.json",
       "damageManifest": "heavy-devastator-shield-damage.manifest.json"
     }
@@ -52,11 +56,14 @@
     ],
     "heavy-devastator-shield.glb": [
       2
+    ],
+    "conflagration-devastator-shield.glb": [
+      2
     ]
   },
   "notes": [
     "Mounted equipment paths and sockets come directly from the enemy MountComponentData.",
-    "The Heavy Devastator shield uses its separate exact Havok collision and HealthComponent; no proxy geometry is substituted.",
+    "The Heavy and Conflagration Devastator shields use their separate exact Havok collision and HealthComponents; no proxy geometry is substituted.",
     "Hand-held guns have no HealthComponent and are render-only equipment, not selectable damage zones."
   ]
 }

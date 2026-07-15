@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-14",
+  "source": {
+    "physics": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_shield\\soldier_shield_ivory_legion.physics.main",
+      "sha256": "B658E797A626BA51F89B072B20087CC9EEF9E52CD9F62D65674A9753FE148F7F"
+    },
+    "ragdollProfile": null,
+    "unitGlb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_shield\\soldier_shield_ivory_legion.unit.glb",
+      "sha256": "51A39E8476815D63DC9FE2028C53E107D7093726B13E8900BC76095503B6A300"
+    },
+    "bonesJson": null,
+    "havokVersion": [
+      "20190100"
+    ]
+  },
+  "output": {
+    "path": "C:\\Users\\judes\\OneDrive\\Documents\\Claude\\Projects\\Helldivers Shot Placement Assesor\\assets\\models\\conflagration-devastator-shield-collision.glb",
+    "sha256": "572B9BDBE7CEDD5365442E42006F0FCD1CC75DC71EFF3598912860B0E7C38ACA"
+  },
+  "hullCount": 2,
+  "physicsRecordCount": 2,
+  "basePhysicsHullCount": 2,
+  "ragdollHullCount": 0,
+  "ragdollMappingEvidence": null,
+  "unsupportedColliderCount": 0,
+  "unsupportedColliders": [],
+  "vertexCount": 56,
+  "triangleCount": 96,
+  "geometryConfidence": "verified",
+  "vertexSpace": "skeleton-bone-local-with-compound-instance-or-ragdoll-body-shape",
+  "gameplayMappingConfidence": "unverified",
+  "renderMaterials": {
+    "mode": "embedded-game-materials",
+    "embeddedImageCount": 6,
+    "approximatedMaterialIndices": [
+      2
+    ],
+    "hiddenAlternateNodeNames": []
+  },
+  "metadataSets": {
+    "shapeTags": [
+      65535
+    ],
+    "destructionTags": [
+      65535
+    ],
+    "shapeTagCodecInfo": [
+      4294967295
+    ],
+    "rootUserDataHex": [
+      "feb484ee00000000"
+    ],
+    "childUserDataHex": [
+      "feb484ee00000000"
+    ]
+  },
+  "colliders": [
+    {
+      "recordIndex": 0,
+      "nodeIndex": 16,
+      "nodeName": "hd2_collision_000_cae4ee78",
+      "parentNodeIndex": 6,
+      "parentNodeName": "collision",
+      "colliderHash": "cae4ee78",
+      "boneHash": "a3d491d1",
+      "boneName": null,
+      "vertices": 28,
+      "triangles": 48,
+      "localSize": [
+        0.241586,
+        1.082647,
+        1.718045
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    },
+    {
+      "recordIndex": 1,
+      "nodeIndex": 17,
+      "nodeName": "hd2_collision_001_fde1fe36",
+      "parentNodeIndex": 0,
+      "parentNodeName": "StingrayEntityRoot",
+      "colliderHash": "fde1fe36",
+      "boneHash": "4a182741",
+      "boneName": null,
+      "vertices": 28,
+      "triangles": 48,
+      "localSize": [
+        0.241586,
+        1.082647,
+        1.718045
+      ],
+      "geometryConfidence": "verified",
+      "gameplayDamagePool": null,
+      "shapeTypes": [
+        "hknpConvexShape",
+        "hknpConvexShape"
+      ],
+      "subshapeCount": 2
+    }
+  ]
+}

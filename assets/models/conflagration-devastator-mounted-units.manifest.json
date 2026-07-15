@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "extractionDate": "2026-07-14",
+  "enemy": "Conflagration Devastator",
+  "assemblyConfidence": "verified-mount-component-join",
+  "sources": {
+    "devastator-standard-rifle.glb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_standard_rifle\\soldier_standard_rifle.unit.glb",
+      "sha256": "51F7EF7CF630E4867DFCE2E69E3B1CD4DCE07E6D6948451455BC446C5CE63E77"
+    },
+    "heavy-devastator-machinegun.glb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_machinegun\\soldier_machinegun.unit.glb",
+      "sha256": "52F33877C261F1F874B35A080E1363F85B91D4E018F9BADE9AD0CB41AF179E2F"
+    },
+    "heavy-devastator-shield.glb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_shield\\soldier_shield.unit.glb",
+      "sha256": "3698547B92CC14EAC6835D6F442541AF345F670B40211796D4107F5E0E65F8BE"
+    },
+    "conflagration-devastator-shield.glb": {
+      "path": "C:\\Users\\judes\\Downloads\\hd2-devastator-extract\\content\\fac_cyborgs\\equipment\\weapons\\soldier_shield\\soldier_shield_ivory_legion.unit.glb",
+      "sha256": "51A39E8476815D63DC9FE2028C53E107D7093726B13E8900BC76095503B6A300"
+    }
+  },
+  "mounts": [
+    {
+      "id": "incendiary-rifle",
+      "label": "Incendiary fusion assault gun",
+      "asset": "devastator-standard-rifle.glb",
+      "assetSha256": "6651694EF1BC0069FCB0EB91F1331EF13352ED688E4B856EDDC7BEE5A81A079D",
+      "attachNode": "attach_r_hand",
+      "mountEntity": "0x0db407ede5603524",
+      "unitResource": "content/fac_cyborgs/equipment/weapons/soldier_standard_rifle/soldier_standard_rifle"
+    },
+    {
+      "id": "shield",
+      "label": "Incineration Corps ballistic shield",
+      "asset": "conflagration-devastator-shield.glb",
+      "assetSha256": "9CD0D8E7966ADF82E16FC8FF6F3203F67E59DD0282C9757AC0E90E008690EF64",
+      "attachNode": "attach_l_hand",
+      "mountEntity": "content/fac_cyborgs/equipment/weapons/soldier_shield/soldier_shield_ivory_legion",
+      "unitResource": "content/fac_cyborgs/equipment/weapons/soldier_shield/soldier_shield_ivory_legion",
+      "hitboxAsset": "conflagration-devastator-shield-hitboxes.glb",
+      "hitboxAssetSha256": "EDCD92E1A328E3E94073C3719CDF997527DF0A22A78F79E6C3701A72140D1F96",
+      "collisionManifest": "conflagration-devastator-shield-collision.manifest.json",
+      "damageManifest": "conflagration-devastator-shield-damage.manifest.json"
+    }
+  ],
+  "authenticShaderBakes": [],
+  "viewerMaterialApproximations": {
+    "devastator-standard-rifle.glb": [
+      0,
+      2
+    ],
+    "heavy-devastator-machinegun.glb": [
+      2
+    ],
+    "heavy-devastator-shield.glb": [
+      2
+    ],
+    "conflagration-devastator-shield.glb": [
+      2
+    ]
+  },
+  "notes": [
+    "Mounted equipment paths and sockets come directly from the enemy MountComponentData.",
+    "The Heavy and Conflagration Devastator shields use their separate exact Havok collision and HealthComponents; no proxy geometry is substituted.",
+    "Hand-held guns have no HealthComponent and are render-only equipment, not selectable damage zones."
+  ]
+}

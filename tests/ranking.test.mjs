@@ -8,9 +8,9 @@ const core = script.split("// ============ DERIVED RANKING", 1)[0];
 const derived = script.split("// ============ DERIVED RANKING", 2)[1].split("// ============ DOM APP", 1)[0];
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,RELOAD_S,componentBlastRadius,blastFactor,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule,evaluateOrbitalExposure};`, context);
+vm.runInContext(`${core}\n// ============ DERIVED RANKING${derived}\nconst ANGLE_SHORT=["Direct","Slight","Large","Extreme"],RANGE_SHORT=["Point blank","25 m","50 m","75 m","100 m+"];globalThis.api={ENEMIES,WEAPONS,FALLOFF,STAGGER,FIRE_PER_HIT,RELOAD_S,componentBlastRadius,blastFactor,damagePerShot,assess,resolveWeapon,firingTime,evaluatePart,rankParts,rankWeapons,compareEvaluations,buildRecoveryAdvice,ACCESS_RULES,accessRule,evaluateOrbitalExposure};`, context);
 
-const {ENEMIES, WEAPONS, STAGGER, RELOAD_S, componentBlastRadius, blastFactor, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule, evaluateOrbitalExposure} = context.api;
+const {ENEMIES, WEAPONS, STAGGER, FIRE_PER_HIT, RELOAD_S, componentBlastRadius, blastFactor, damagePerShot, assess, resolveWeapon, firingTime, evaluatePart, rankParts, rankWeapons, compareEvaluations, buildRecoveryAdvice, ACCESS_RULES, accessRule, evaluateOrbitalExposure} = context.api;
 const enemy = name => ENEMIES.find(item => item.name === name);
 const weapon = name => WEAPONS.find(item => item.name === name);
 const part = (target, name) => target.parts.find(item => item.name === name);
@@ -92,6 +92,7 @@ const currentWeaponStats = {
   "AR-61 Tenderizer": [35,600,105,30,[2,2,2,0]],
   "AR-32 Pacifier": [40,700,55,10,[3,3,3,0]],
   "R-2 Amendment": [20,480,200,50,[2,2,2,0]],
+  "R-4 Hyena": [15,190,220,45,[3,3,3,0]],
   "R-2124 Constitution": [5,60,180,50,[3,3,3,0]],
   "SMG-37 Defender": [45,520,110,22,[2,2,2,0]],
   "SMG-72 Pummeler": [45,475,85,17,[2,2,2,0]],
@@ -173,6 +174,11 @@ for (const [name,[mag,rpm,std,dur,ap]] of Object.entries(currentWeaponStats)) {
 const haltFlechette = weapon("SG-20 Halt").modes[0].comps[0];
 assert.deepEqual([haltFlechette.std,haltFlechette.dur],[385,110],"Halt aggregates the current eleven flechettes");
 assert.equal(STAGGER["GR-8 Recoilless Rifle"],50,"Recoilless Rifle stagger matches current attack data");
+const hyena=weapon("R-4 Hyena");
+assert.equal(STAGGER[hyena.name],20,"Hyena uses its mined force/stagger strength");
+assert.equal(FIRE_PER_HIT[hyena.name],3,"Hyena applies three points of fire buildup per connecting round");
+assert.equal(RELOAD_S[hyena.name],3.0,"Hyena uses the direct three-second reload component duration");
+assert.ok(Math.abs(firingTime(resolveWeapon(hyena),16)-(3+15/(190/60)))<1e-9,"Hyena includes its reload after exhausting the first 15-round magazine");
 
 const charger = enemy("Charger");
 const coyote = resolveWeapon(weapon("AR-2 Coyote"));
