@@ -33,6 +33,16 @@ function getExplosiveProfile(base,modeIndex=0){
 }
 
 const v3=(x=0,y=0,z=0)=>({x,y,z});
+
+// Browsers expose mouse wheels and trackpad scroll gestures through the same
+// WheelEvent interface, without a reliable device-type field. Keep the
+// navigation choice explicit so large trackpad deltas cannot be mistaken for
+// mouse-wheel input. Pinch gestures retain native OrbitControls zoom behavior.
+function classifyTargeting3dWheelGesture(event,navigationMode="trackpad"){
+  if(event.ctrlKey||event.metaKey)return "zoom";
+  return navigationMode==="trackpad"?"orbit":"zoom";
+}
+
 const vadd=(a,b)=>v3(a.x+b.x,a.y+b.y,a.z+b.z);
 const vsub=(a,b)=>v3(a.x-b.x,a.y-b.y,a.z-b.z);
 const vmul=(a,s)=>v3(a.x*s,a.y*s,a.z*s);

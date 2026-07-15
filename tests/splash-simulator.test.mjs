@@ -5,8 +5,13 @@ import vm from "node:vm";
 const source = fs.readFileSync(new URL("../tools/templates/splash-simulator.js", import.meta.url), "utf8");
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${source}\nglobalThis.api={getExplosiveProfile,guidedTopAttackDirection,closestPointOnTriangle,pointBoundsDistance,humanizePhysicalPartName,damageZoneTechnicalLabel,physicalPartLabel,buildCollisionSceneIndex,nearestGroupPoint,blastFalloff,simulateImpact,simulateSequence,generateBarragePattern,summarizeSplashResult,fibonacciDirections};`, context);
+vm.runInContext(`${source}\nglobalThis.api={getExplosiveProfile,classifyTargeting3dWheelGesture,guidedTopAttackDirection,closestPointOnTriangle,pointBoundsDistance,humanizePhysicalPartName,damageZoneTechnicalLabel,physicalPartLabel,buildCollisionSceneIndex,nearestGroupPoint,blastFalloff,simulateImpact,simulateSequence,generateBarragePattern,summarizeSplashResult,fibonacciDirections};`, context);
 const api = context.api;
+
+assert.equal(api.classifyTargeting3dWheelGesture({ctrlKey:false,metaKey:false,deltaMode:0,deltaY:100},"trackpad"),"orbit");
+assert.equal(api.classifyTargeting3dWheelGesture({ctrlKey:false,metaKey:false,deltaMode:1,deltaY:3},"trackpad"),"orbit");
+assert.equal(api.classifyTargeting3dWheelGesture({ctrlKey:true,metaKey:false,deltaMode:0,deltaY:-4},"trackpad"),"zoom");
+assert.equal(api.classifyTargeting3dWheelGesture({ctrlKey:false,metaKey:false,deltaMode:0,deltaY:12},"mouse"),"zoom");
 
 assert.deepEqual(
   JSON.parse(JSON.stringify(api.physicalPartLabel({zoneIndex:12,zoneName:"0xb9d9a25d"},[{boneName:"boss"},{boneName:"r_back_tracks"}]))),
