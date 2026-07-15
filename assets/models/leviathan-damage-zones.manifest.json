@@ -92,7 +92,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg0 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 1,
@@ -130,7 +132,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg0 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 2,
@@ -168,7 +172,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg0 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 3,
@@ -206,7 +212,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg1 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 4,
@@ -244,7 +252,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg1 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 5,
@@ -282,7 +292,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg1 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 6,
@@ -320,7 +332,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg2 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 7,
@@ -358,7 +372,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg2 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 8,
@@ -396,7 +412,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg2 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 9,
@@ -434,7 +452,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg3 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 10,
@@ -472,7 +492,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg3 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 11,
@@ -510,7 +532,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg3 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 12,
@@ -548,7 +572,9 @@
       "explosive_damage_percentage": 0.65,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Seg4 Adjust",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 13,
@@ -586,7 +612,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Rotator",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     }
   ],
   "colliders": [
@@ -842,5 +870,10 @@
       "explosiveDamagePercentage": 0.65,
       "explosionVerificationMode": "ExplosionVerificationMode_All"
     }
-  ]
+  ],
+  "physicalLabeling": {
+    "version": 1,
+    "policy": "decoded zone name, otherwise verified actor/bone attachment",
+    "technicalIdsPreserved": true
+  }
 }

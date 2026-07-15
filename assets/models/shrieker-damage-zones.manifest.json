@@ -189,7 +189,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Rear Leg / Right Front Leg / Right Rear Leg / Left Front Leg",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 1,
@@ -227,7 +229,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Head",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 2,
@@ -305,7 +309,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Front Wing Flap1 / Right Front Wing Flap2 / Right Front Wing",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 3,
@@ -383,7 +389,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Front Wing Flap1 / Left Front Wing Flap2 / Left Front Wing",
+      "physicalLabelEvidence": "verified-attachment-name"
     }
   ],
   "colliders": [
@@ -1212,5 +1220,10 @@
         }
       ]
     }
-  ]
+  ],
+  "physicalLabeling": {
+    "version": 1,
+    "policy": "decoded zone name, otherwise verified actor/bone attachment",
+    "technicalIdsPreserved": true
+  }
 }

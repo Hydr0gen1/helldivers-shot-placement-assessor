@@ -4,6 +4,7 @@ const EXPLOSIVE_DELIVERY_PROFILES={
   "Orbital 380mm HE Barrage":{kind:"barrage",spread:36,salvos:5,shellsPerSalvo:3,shellInterval:1.5,salvoInterval:3,shockwave:18},
   "Orbital Walking Barrage":{kind:"walking-barrage",spread:25,salvos:5,shellsPerSalvo:3,shellInterval:1.5,salvoInterval:3,salvoStep:25,shockwave:18},
   "Orbital Precision Strike":{kind:"single",shockwave:18},
+  "MS-11 Solo Silo":{kind:"guided-top-attack",shockwave:35,terminalElevation:70,maxLifetime:15,preferredSpeed:200,acceleration:50,turnPriorityAngle:45,guidance:"continuous-laser"},
   "G-6 Frag":{kind:"shrapnel",fragmentCount:35},
   "G-123 Thermite":{kind:"sticky",delay:6.5},
   "TD-220 Bastion Main Cannon":{kind:"single"}
@@ -40,6 +41,14 @@ const vlen2=a=>vdot(a,a);
 const vlen=a=>Math.sqrt(vlen2(a));
 const vcross=(a,b)=>v3(a.y*b.z-a.z*b.y,a.z*b.x-a.x*b.z,a.x*b.y-a.y*b.x);
 const vnorm=a=>{const length=vlen(a)||1;return vmul(a,1/length);};
+
+// Representative terminal segment for the Solo Silo. The decoded missile
+// continuously follows the laser and does not contain a fixed terminal angle,
+// so elevation is an evidence-labeled viewer policy rather than a game constant.
+function guidedTopAttackDirection(heading=0,elevation=70){
+  const radians=elevation*Math.PI/180,horizontal=Math.cos(radians);
+  return vnorm(v3(Math.sin(heading)*horizontal,-Math.sin(radians),Math.cos(heading)*horizontal));
+}
 
 // Real-Time Collision Detection, Christer Ericson: closest point on triangle.
 function closestPointOnTriangle(point,a,b,c){
@@ -81,7 +90,30 @@ function rayTriangleDistance(origin,direction,triangle){
 
 function normalizedZoneDamage(damage={}){
   const get=(camel,snake,fallback)=>damage[camel]??damage[snake]??fallback,explosive=+get("explosiveDamagePercentage","explosive_damage_percentage",1);
-  return {...damage,health:+get("health","health",-1),armor:+get("armor","armor",0),durability:+get("projectileDurableResistance","projectile_durable_resistance",0),affectsMain:+get("affectsMainHealth","affects_main_health",0),affectedByExplosions:!!get("affectedByExplosions","affected_by_explosions",false),explosiveMultiplier:Number.isFinite(explosive)&&explosive<100?explosive:1,verificationMode:get("explosionVerificationMode","explosion_verification_mode","ExplosionVerificationMode_All"),capMain:!!get("mainHealthAffectCappedByZoneHealth","main_health_affect_capped_by_zone_health",true),fatal:!!(get("causesDeathOnDeath","causes_death_on_death",false)||get("causesDownedOnDeath","causes_downed_on_death",false)),bleedout:!!get("causesDownedOnDeath","causes_downed_on_death",false)};
+  return {...damage,health:+get("health","health",-1),armor:+get("armor","armor",0),durability:+get("projectileDurableResistance","projectile_durable_resistance",0),affectsMain:+get("affectsMainHealth","affects_main_health",0),redirectExplosionToMain:!!get("affectedByExplosions","affected_by_explosions",false),affectedByExplosions:!!get("affectedByExplosions","affected_by_explosions",false),explosiveMultiplier:Number.isFinite(explosive)&&explosive<100?explosive:1,verificationMode:get("explosionVerificationMode","explosion_verification_mode","ExplosionVerificationMode_All"),capMain:!!get("mainHealthAffectCappedByZoneHealth","main_health_affect_capped_by_zone_health",true),fatal:!!(get("causesDeathOnDeath","causes_death_on_death",false)||get("causesDownedOnDeath","causes_downed_on_death",false)),bleedout:!!get("causesDownedOnDeath","causes_downed_on_death",false)};
+}
+
+function humanizePhysicalPartName(value){
+  const replacements={l:"Left",r:"Right",c:"Center",back:"Rear",mid:"Middle",lhs:"Left",rhs:"Right"},words=String(value||"").replace(/([a-z0-9])([A-Z])/g,"$1_$2").split(/[^a-z0-9]+/i).filter(Boolean).map(word=>replacements[word.toLowerCase()]||word.toLowerCase());
+  return words.map(word=>word.length<=2&&/^(hp|ap|av)$/i.test(word)?word.toUpperCase():word[0].toUpperCase()+word.slice(1)).join(" ");
+}
+
+function damageZoneTechnicalLabel(damage={}){
+  const name=damage.zoneName||damage.zoneNameRaw||"Unresolved zone";
+  if(/^0x[0-9a-f]+$/i.test(name))return `Zone ${Number(damage.zoneIndex)+1} · ${name}`;
+  return humanizePhysicalPartName(name);
+}
+
+function physicalPartLabel(damage={},collisions=[]){
+  const technicalLabel=damageZoneTechnicalLabel(damage),unique=values=>[...new Set(values.filter(Boolean))],mounts=unique(collisions.map(collision=>collision.mountLabel)),proxies=unique(collisions.map(collision=>collision.proxyLabel)),rawName=damage.zoneName||damage.zoneNameRaw||"",rawHash=/^0x[0-9a-f]+$/i.test(rawName),genericZone=/^(?:main|default|zone|body_main|main_body)$/i.test(rawName),bones=unique(collisions.flatMap(collision=>[collision.boneName,collision.parentNodeName]).filter(name=>name&&!/^hd2_collision_/i.test(name))),genericBone=/^(?:boss|root|unit_root|entity_root|stingrayentityroot|c_body|body|center|centre)$/i,specificBones=bones.filter(name=>!genericBone.test(name));
+  if(mounts.length)return {label:mounts.map(humanizePhysicalPartName).join(" / "),technicalLabel,partEvidence:`Verified mounted unit · ${mounts.join(" / ")}`};
+  if(proxies.length)return {label:proxies.map(humanizePhysicalPartName).join(" / "),technicalLabel,partEvidence:"Evidence-labeled inferred proxy"};
+  if(damage.physicalLabel){const sources=damage.physicalLabelSources?.length?damage.physicalLabelSources:specificBones.length?specificBones:bones;return {label:damage.physicalLabel,technicalLabel,partEvidence:damage.physicalLabelEvidence==="decoded-damage-zone-name"?"Decoded damage-zone name":damage.physicalLabelEvidence==="verified-attachment-name"?`Verified attachment name${sources.length===1?"":"s"}${sources.length?` · ${sources.join(" / ")}`:""}`:damage.physicalLabelEvidence==="verified-root-attachment"?"Verified root attachment":damage.physicalLabelEvidence==="evidence-labeled-physical-proxy"?"Evidence-labeled physical proxy":"Physical attachment unresolved"};}
+  if(!rawHash&&!genericZone&&rawName)return {label:humanizePhysicalPartName(rawName),technicalLabel,partEvidence:"Decoded damage-zone name"};
+  if(specificBones.length)return {label:specificBones.map(humanizePhysicalPartName).join(" / "),technicalLabel,partEvidence:`Verified attachment bone${specificBones.length===1?"":"s"} · ${specificBones.join(" / ")}`};
+  if(!rawHash&&rawName)return {label:humanizePhysicalPartName(rawName),technicalLabel,partEvidence:"Decoded damage-zone name"};
+  if(bones.length)return {label:"Central Body / Chassis",technicalLabel,partEvidence:`Root-attached collision hull · ${bones.join(" / ")}`};
+  return {label:"Unresolved Physical Attachment",technicalLabel,partEvidence:"No named attachment bone recovered"};
 }
 
 function buildCollisionSceneIndex(hulls,{mainHealth=0,unitsPerMeter=1}={}){
@@ -92,6 +124,7 @@ function buildCollisionSceneIndex(hulls,{mainHealth=0,unitsPerMeter=1}={}){
     const copy={...hull,triangles:hull.triangles||[],bounds:hull.bounds,poolKey};occluders.push(copy);
     if(!groups.has(poolKey))groups.set(poolKey,{poolKey,damage,hulls:[],label:hull.label||damage.zoneName||damage.zoneNameRaw||poolKey,evidence:hull.evidence||damage.evidenceLabel||"Game-derived damage mapping"});groups.get(poolKey).hulls.push(copy);
   }
+  for(const group of groups.values()){const physical=physicalPartLabel(group.damage,group.hulls.map(hull=>hull.collision||{}));group.label=physical.label;group.technicalLabel=physical.technicalLabel;group.partEvidence=physical.partEvidence;}
   return {groups:[...groups.values()],groupsByKey:groups,occluders,mainHealth:+mainHealth||0,unitsPerMeter:+unitsPerMeter||1};
 }
 
@@ -133,14 +166,17 @@ function simulateImpact(scene,impact,profile,policy="primary",priorState=null){
   const state=freshSplashState(scene,priorState),origin=impact.position,zoneResults=[],directKey=impact.directPoolKey||null;
   for(const group of scene.groups){
     const nearest=nearestGroupPoint(scene,origin,group,profile.outer||0),damage=group.damage;let explosionDamage=0,directDamage=0,falloff=0,visible=true,eligible=false,distance=nearest?.distance??Infinity;
-    if(nearest&&damage.affectedByExplosions&&distance<=profile.outer){
+    // affected_by_explosions controls a once-per-explosion redirect to Main
+    // HP; it is not blanket blast immunity. Small-enemy pools commonly store
+    // false here and still take radial damage normally.
+    if(nearest&&distance<=profile.outer){
       visible=hasLineOfSight(scene,origin,nearest.point,group.poolKey);const inOuter=distance>profile.inner,mode=damage.verificationMode,requires=policy==="conservative"||policy==="primary"&&(mode==="ExplosionVerificationMode_All"||mode==="ExplosionVerificationMode_OuterRadius"&&inOuter);eligible=policy==="raw"||!requires||visible;
       if(eligible)for(const component of profile.explosions){const componentFalloff=blastFalloff(component.radius,distance),value=componentDamage(component,damage,componentFalloff,true);explosionDamage+=value.damage;falloff=Math.max(falloff,componentFalloff);}
     }
     if(group.poolKey===directKey)for(const component of profile.direct)directDamage+=componentDamage(component,damage,1,false,impact.angleIndex||0).damage;
-    const total=directDamage+explosionDamage;if(!total)continue;const applied=applyPoolDamage(state,group,total);zoneResults.push({poolKey:group.poolKey,label:group.label,evidence:group.evidence,distance,nearestPoint:nearest?.point||origin,visible,eligible,verificationMode:damage.verificationMode,falloff,directDamage,explosionDamage,shrapnelDamage:0,total,...applied,armor:damage.armor,durability:damage.durability});
+    const total=directDamage+explosionDamage;if(!total)continue;const applied=applyPoolDamage(state,group,total);zoneResults.push({poolKey:group.poolKey,label:group.label,technicalLabel:group.technicalLabel,partEvidence:group.partEvidence,evidence:group.evidence,distance,nearestPoint:nearest?.point||origin,visible,eligible,verificationMode:damage.verificationMode,falloff,directDamage,explosionDamage,shrapnelDamage:0,total,...applied,armor:damage.armor,durability:damage.durability});
   }
-  if(profile.shrapnel.length){const fragment=profile.shrapnel[0],hits=new Map();for(const direction of fibonacciDirections(profile.maxShrapnel||fragment.count||1,impact.seed||1)){const hit=firstRayGroupHit(scene,origin,direction,250);if(hit){const bucket=hits.get(hit.group.poolKey)||[];bucket.push(hit);hits.set(hit.group.poolKey,bucket);}}for(const [poolKey,fragmentHits] of hits){const group=scene.groupsByKey.get(poolKey),total=fragmentHits.reduce((sum,hit)=>sum+componentDamage(fragment,group.damage,1,false,hit.angleIndex).damage,0),count=fragmentHits.length;if(!total)continue;const existing=zoneResults.find(item=>item.poolKey===poolKey),applied=applyPoolDamage(state,group,total);if(existing){existing.shrapnelDamage+=total;existing.fragmentHits=(existing.fragmentHits||0)+count;existing.total+=total;existing.mainDamage+=applied.mainDamage;existing.healthAfter=applied.healthAfter;existing.destroyed=existing.destroyed||applied.destroyed;}else zoneResults.push({poolKey,label:group.label,evidence:group.evidence,distance:null,visible:true,eligible:true,verificationMode:"Ballistic fragment",falloff:1,directDamage:0,explosionDamage:0,shrapnelDamage:total,fragmentHits:count,total,...applied,armor:group.damage.armor,durability:group.damage.durability});}}
+  if(profile.shrapnel.length){const fragment=profile.shrapnel[0],hits=new Map();for(const direction of fibonacciDirections(profile.maxShrapnel||fragment.count||1,impact.seed||1)){const hit=firstRayGroupHit(scene,origin,direction,250);if(hit){const bucket=hits.get(hit.group.poolKey)||[];bucket.push(hit);hits.set(hit.group.poolKey,bucket);}}for(const [poolKey,fragmentHits] of hits){const group=scene.groupsByKey.get(poolKey),total=fragmentHits.reduce((sum,hit)=>sum+componentDamage(fragment,group.damage,1,false,hit.angleIndex).damage,0),count=fragmentHits.length;if(!total)continue;const existing=zoneResults.find(item=>item.poolKey===poolKey),applied=applyPoolDamage(state,group,total);if(existing){existing.shrapnelDamage+=total;existing.fragmentHits=(existing.fragmentHits||0)+count;existing.total+=total;existing.mainDamage+=applied.mainDamage;existing.healthAfter=applied.healthAfter;existing.destroyed=existing.destroyed||applied.destroyed;}else zoneResults.push({poolKey,label:group.label,technicalLabel:group.technicalLabel,partEvidence:group.partEvidence,evidence:group.evidence,distance:null,visible:true,eligible:true,verificationMode:"Ballistic fragment",falloff:1,directDamage:0,explosionDamage:0,shrapnelDamage:total,fragmentHits:count,total,...applied,armor:group.damage.armor,durability:group.damage.durability});}}
   let mainOnlyDamage=0;if(directKey&&profile.mainOnly.length){const group=scene.groupsByKey.get(directKey);for(const component of profile.mainOnly)mainOnlyDamage+=componentDamage(component,group?.damage||normalizedZoneDamage(),1,false).damage;state.mainHP=Math.max(0,state.mainHP-mainOnlyDamage);if(state.mainHP<=0)state.dead=true;}
   return {impact,policy,state,zones:zoneResults.sort((a,b)=>b.total-a.total),mainOnlyDamage,totalDamage:zoneResults.reduce((sum,item)=>sum+item.total,0)+mainOnlyDamage,mainDamage:zoneResults.reduce((sum,item)=>sum+item.mainDamage,0)+mainOnlyDamage,killed:state.dead,remainingMainHP:state.mainHP};
 }

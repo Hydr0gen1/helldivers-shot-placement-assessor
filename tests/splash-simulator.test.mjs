@@ -5,8 +5,16 @@ import vm from "node:vm";
 const source = fs.readFileSync(new URL("../tools/templates/splash-simulator.js", import.meta.url), "utf8");
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${source}\nglobalThis.api={getExplosiveProfile,closestPointOnTriangle,pointBoundsDistance,buildCollisionSceneIndex,nearestGroupPoint,blastFalloff,simulateImpact,simulateSequence,generateBarragePattern,summarizeSplashResult,fibonacciDirections};`, context);
+vm.runInContext(`${source}\nglobalThis.api={getExplosiveProfile,guidedTopAttackDirection,closestPointOnTriangle,pointBoundsDistance,humanizePhysicalPartName,damageZoneTechnicalLabel,physicalPartLabel,buildCollisionSceneIndex,nearestGroupPoint,blastFalloff,simulateImpact,simulateSequence,generateBarragePattern,summarizeSplashResult,fibonacciDirections};`, context);
 const api = context.api;
+
+assert.deepEqual(
+  JSON.parse(JSON.stringify(api.physicalPartLabel({zoneIndex:12,zoneName:"0xb9d9a25d"},[{boneName:"boss"},{boneName:"r_back_tracks"}]))),
+  {label:"Right Rear Tracks",technicalLabel:"Zone 13 · 0xb9d9a25d",partEvidence:"Verified attachment bone · r_back_tracks"}
+);
+assert.equal(api.physicalPartLabel({zoneIndex:0,zoneName:"torso"},[{boneName:"boss"}]).label,"Torso");
+assert.equal(api.physicalPartLabel({zoneIndex:15,zoneName:"0xf32f319b"},[{boneName:"boss"}]).label,"Central Body / Chassis");
+assert.equal(api.physicalPartLabel({zoneIndex:1,zoneName:"0x5c06dea6",physicalLabel:"Left Front Leg",physicalLabelEvidence:"verified-attachment-name",physicalLabelSources:["l_front_leg_1","l_front_leg_2"]},[{boneName:"l_front_leg_1"}]).label,"Left Front Leg");
 
 const component = (std=100, inner=1, outer=5, ap=5) => ({std,dur:std,ap:[ap,ap,ap,ap],explosive:true,radius:{inner,outer}});
 const profile = (overrides={}) => ({name:"Test explosive",direct:[],explosions:[component()],shrapnel:[],mainOnly:[],inner:1,outer:5,delivery:{kind:"single"},sticky:false,delay:0,maxShrapnel:0,...overrides});
@@ -24,6 +32,13 @@ assert.equal(api.blastFalloff({inner:1,outer:5},3),.5);
 const weapon={name:"G-12 High Explosive",comps:[{label:"Explosion 1.5-7 m",std:800,dur:800,ap:[4,4,4,4],explosive:true}],mag:5};
 const normalized=api.getExplosiveProfile(weapon);
 assert.deepEqual([normalized.inner,normalized.outer,normalized.explosions.length],[1.5,7,1]);
+
+const solo=api.getExplosiveProfile({name:"MS-11 Solo Silo",comps:[{label:"Impact explosion (3–6 m, AP9)",std:1500,dur:1500,ap:[9,9,9,9],explosive:true},{label:"Main explosion (10–25 m, AP7)",std:2500,dur:2500,ap:[7,7,7,7],explosive:true}]});
+assert.deepEqual([solo.inner,solo.outer,solo.explosions.length,solo.delivery.kind,solo.delivery.shockwave],[10,25,2,"guided-top-attack",35]);
+const soloDirection=api.guidedTopAttackDirection(0,70);
+assert.ok(Math.abs(Math.hypot(soloDirection.x,soloDirection.y,soloDirection.z)-1)<1e-12);
+assert.ok(Math.abs(soloDirection.y+Math.sin(70*Math.PI/180))<1e-12);
+assert.ok(soloDirection.z>0&&Math.abs(soloDirection.x)<1e-12);
 
 // Multiple hulls for one HealthComponent pool must receive one closest-point blast.
 const samePoolScene=api.buildCollisionSceneIndex([hull("body:0",2),hull("body:0",4,zone(),{recordIndex:1})],{mainHealth:1000});
@@ -48,6 +63,14 @@ const raw=api.simulateImpact(blockedScene,{position:{x:0,y:0,z:0}},profile(),"ra
 assert.ok(conservative.mainDamage<=primary.mainDamage&&primary.mainDamage<=raw.mainDamage);
 assert.equal(raw.mainDamage,75);
 assert.equal(primary.mainDamage,0);
+
+// affected_by_explosions is a redirect-to-Main flag, not radial immunity.
+// Small enemies commonly store false plus the no-reduction float sentinel.
+const smallBugScene=api.buildCollisionSceneIndex([hull("hunter",2,zone({health:175,affected_by_explosions:false,explosive_damage_percentage:3.4028235e38}))],{mainHealth:175});
+const opsNearMiss=profile({inner:4,outer:12,explosions:[component(1500,4,12,6)]});
+const smallBugResult=api.simulateImpact(smallBugScene,{position:{x:0,y:0,z:0}},opsNearMiss,"primary");
+assert.equal(smallBugResult.zones.length,1);
+assert.equal(smallBugResult.killed,true);
 
 const outerOnlyScene=api.buildCollisionSceneIndex([hull("target",2,zone({explosion_verification_mode:"ExplosionVerificationMode_OuterRadius"})),occluder],{mainHealth:1000});
 const wideInner=profile({inner:3,explosions:[component(100,3,5)]});

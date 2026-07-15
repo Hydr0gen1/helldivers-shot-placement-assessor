@@ -88,7 +88,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Head",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 1,
@@ -126,7 +128,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Torso Inside",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 2,
@@ -164,7 +168,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Torso Outside",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 3,
@@ -218,7 +224,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Middle Leg 2 / Left Center Middle Leg 2 / Left Middle Leg 3 / Left Center Middle Leg 3 / Left Middle Leg 1 / Left Center Middle Leg 1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 4,
@@ -272,7 +280,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Middle Leg 3 / Left Middle Leg 2 / Left Middle Leg 1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 5,
@@ -326,7 +336,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Middle Leg 2 / Right Center Middle Leg 2 / Right Middle Leg 3 / Right Center Middle Leg 3 / Right Middle Leg 1 / Right Center Middle Leg 1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 6,
@@ -380,7 +392,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Middle Leg 3 / Right Middle Leg 2 / Right Middle Leg 1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 7,
@@ -434,7 +448,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Rear Leg 2 / Left Center Rear Leg 2 / Left Rear Leg 3 / Left Center Rear Leg 3 / Left Rear Leg 1 / Left Center Rear Leg 1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 8,
@@ -488,7 +504,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Rear Leg 2 / Right Center Rear Leg 2 / Right Rear Leg 3 / Right Center Rear Leg 3 / Right Rear Leg 1 / Right Center Rear Leg 1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 9,
@@ -542,7 +560,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Rear Leg 3 / Left Rear Leg 2 / Left Rear Leg 1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 10,
@@ -596,7 +616,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Rear Leg 3 / Right Rear Leg 2 / Right Rear Leg 1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 11,
@@ -634,7 +656,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Headplate1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 12,
@@ -680,7 +704,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Shield5 / Shield3",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 13,
@@ -726,7 +752,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Shield1 / Shield2",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 14,
@@ -772,7 +800,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Shield1 / Shield2",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 15,
@@ -842,7 +872,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Body Rear",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 16,
@@ -880,7 +912,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Torso Underside",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 17,
@@ -918,7 +952,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Tentacle",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 18,
@@ -956,7 +992,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "M Tentacle",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 19,
@@ -994,7 +1032,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Tentacle",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 20,
@@ -1032,7 +1072,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Tentacle Left Claw",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 21,
@@ -1070,7 +1112,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Tentacle Middle Claw",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 22,
@@ -1108,7 +1152,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Tentacle Right Claw",
+      "physicalLabelEvidence": "verified-attachment-name"
     }
   ],
   "colliders": [
@@ -1940,5 +1986,10 @@
       "explosiveDamagePercentage": 3.4028235e+38,
       "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
     }
-  ]
+  ],
+  "physicalLabeling": {
+    "version": 1,
+    "policy": "decoded zone name, otherwise verified actor/bone attachment",
+    "technicalIdsPreserved": true
+  }
 }

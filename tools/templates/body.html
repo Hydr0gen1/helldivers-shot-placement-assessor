@@ -117,7 +117,7 @@
     </div>
     <div class="targeting-3d-toolbar" aria-label="3D view controls">
       <button class="action" id="resetTargeting3d" type="button">Reset view</button>
-      <label class="targeting-3d-toggle" for="showTargeting3dHulls"><input id="showTargeting3dHulls" type="checkbox" checked> Show collision hulls</label>
+      <label class="targeting-3d-toggle" for="showTargeting3dHulls"><input id="showTargeting3dHulls" type="checkbox" checked> Show exact game collision</label>
       <label class="targeting-3d-toggle" for="showTargeting3dGeometryOnly"><input id="showTargeting3dGeometryOnly" type="checkbox"> Show geometry-only hulls</label>
       <label class="targeting-3d-toggle" for="showTargeting3dGrid"><input id="showTargeting3dGrid" type="checkbox" checked> Distance rings</label>
       <label class="targeting-3d-toggle" for="showTargeting3dLabels"><input id="showTargeting3dLabels" type="checkbox" checked> Ring labels</label>
@@ -136,7 +136,8 @@
         <div class="simulator-field"><label for="targeting3dWeapon">Explosive weapon</label><select id="targeting3dWeapon"></select></div>
         <div class="simulator-field"><label for="targeting3dDelivery">Impact pattern</label><select id="targeting3dDelivery"><option value="single">Single impact</option><option value="generated">Generated barrage</option><option value="manual">Manual impacts</option></select></div>
         <div class="simulator-field" id="targeting3dSeedField" hidden><label for="targeting3dSeed">Pattern seed</label><div class="seed-row"><input id="targeting3dSeed" type="number" min="1" step="1" value="1"><button class="action" id="rerollTargeting3d" type="button">Reroll</button></div></div>
-        <div class="simulator-field" id="targeting3dHeadingField" hidden><label for="targeting3dHeading">Walking direction</label><input id="targeting3dHeading" type="range" min="0" max="359" value="0"><output id="targeting3dHeadingValue" for="targeting3dHeading">0&deg;</output></div>
+        <div class="simulator-field" id="targeting3dHeadingField" hidden><label id="targeting3dHeadingLabel" for="targeting3dHeading">Walking direction</label><input id="targeting3dHeading" type="range" min="0" max="359" value="0"><output id="targeting3dHeadingValue" for="targeting3dHeading">0&deg;</output></div>
+        <p class="simulator-guidance-note" id="targeting3dGuidanceNote" hidden></p>
         <fieldset class="simulator-upgrades" id="targeting3dUpgrades" hidden><legend>Ship modules</legend><label><input id="targeting3dMoreGuns" type="checkbox"> More Guns</label><label><input id="targeting3dAtmospheric" type="checkbox"> Atmospheric Monitoring</label><label><input id="targeting3dHighDensity" type="checkbox"> High-Density Explosives</label></fieldset>
         <div class="simulator-actions"><button class="action" id="undoTargeting3dImpact" type="button">Undo</button><button class="action" id="clearTargeting3dImpacts" type="button">Clear</button><button class="action" id="estimateTargeting3dBarrage" type="button" hidden>Estimate 200 patterns</button></div>
         <div class="barrage-playback" id="targeting3dPlayback" hidden><div><button class="action" id="playTargeting3dBarrage" type="button">Play</button><button class="action" id="pauseTargeting3dBarrage" type="button">Pause</button><button class="action" id="restartTargeting3dBarrage" type="button">Restart</button></div><label for="targeting3dTimeline">Timeline <output id="targeting3dTimelineValue" for="targeting3dTimeline">0.0 s</output></label><input id="targeting3dTimeline" type="range" min="0" max="1" step="0.05" value="1"></div>

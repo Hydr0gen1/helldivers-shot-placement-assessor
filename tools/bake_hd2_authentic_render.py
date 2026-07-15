@@ -123,6 +123,21 @@ def bake_material_output(
     nodes.active = image_node
     image_node.select = True
 
+    # Blender validates the active bake target for every material slot on a
+    # selected mesh, even though only the faces assigned to ``material`` write
+    # into this image.  HD2 vehicle meshes commonly contain several armor
+    # materials in one object.  Without harmless targets in the other slots,
+    # Cycles clears the requested image and leaves it completely black.  This
+    # went unnoticed on simpler single-material units and on whichever
+    # material happened to bake last.
+    dummy_image = bpy.data.images.new(
+        f"{material.name} {output_name} unused-slot target",
+        width=1,
+        height=1,
+        alpha=False,
+    )
+    dummy_nodes: list[tuple[bpy.types.Material, bpy.types.Node, bpy.types.Node | None]] = []
+
     emission = nodes.new("ShaderNodeEmission")
     emission.name = f"HD2 Bake Emission {output_name}"
     links.new(group.outputs[socket_name], emission.inputs["Color"])
@@ -134,11 +149,32 @@ def bake_material_output(
         for obj in objects
         if any(slot.material == material for slot in obj.material_slots)
     ]
+    for obj in target_objects:
+        for slot in obj.material_slots:
+            other = slot.material
+            if other is None or other == material or not other.use_nodes:
+                continue
+            other_nodes = other.node_tree.nodes
+            previous_active = other_nodes.active
+            dummy_node = other_nodes.new("ShaderNodeTexImage")
+            dummy_node.name = f"HD2 Unused Bake Target {material.name} {output_name}"
+            dummy_node.image = dummy_image
+            dummy_node.select = True
+            other_nodes.active = dummy_node
+            dummy_nodes.append((other, dummy_node, previous_active))
     ensure_bake_uvs(target_objects)
     select_objects(target_objects)
-    bpy.ops.object.bake(type="EMIT", use_clear=True, margin=12)
-    image.save()
-    image.pack()
+    try:
+        bpy.ops.object.bake(type="EMIT", use_clear=True, margin=12)
+        image.save()
+        image.pack()
+    finally:
+        for other, dummy_node, previous_active in dummy_nodes:
+            other_nodes = other.node_tree.nodes
+            other_nodes.remove(dummy_node)
+            if previous_active is not None and previous_active.name in other_nodes:
+                other_nodes.active = previous_active
+        bpy.data.images.remove(dummy_image)
 
     if original_surface:
         links.new(original_surface, output.inputs["Surface"])

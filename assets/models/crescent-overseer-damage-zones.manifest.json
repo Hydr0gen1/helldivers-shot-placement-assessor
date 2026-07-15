@@ -99,7 +99,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Head",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 1,
@@ -153,7 +155,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Torso",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 2,
@@ -215,7 +219,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Arms",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 3,
@@ -277,7 +283,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Arms",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 4,
@@ -339,7 +347,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Legs",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 5,
@@ -401,7 +411,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Legs",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 6,
@@ -439,7 +451,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Right Shoulder",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 7,
@@ -477,7 +491,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Shoulder",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 8,
@@ -515,7 +531,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Right Elbow",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 9,
@@ -553,7 +571,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Elbow",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 10,
@@ -599,7 +619,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Left Shoulder",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 11,
@@ -637,7 +659,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Shoulder",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 12,
@@ -675,7 +699,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Left Elbow",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 13,
@@ -713,7 +739,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Elbow",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 14,
@@ -751,7 +779,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Right Leg",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 15,
@@ -789,7 +819,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Leg",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 16,
@@ -835,7 +867,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Right Knee / Right Ankle",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 17,
@@ -881,7 +915,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Knee / Right Ankle",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 18,
@@ -919,7 +955,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Left Leg",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 19,
@@ -957,7 +995,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Leg",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 20,
@@ -1003,7 +1043,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Left Knee / Left Ankle",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 21,
@@ -1049,7 +1091,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Knee / Left Ankle",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 22,
@@ -1095,7 +1139,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Torso Armor",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 23,
@@ -1141,7 +1187,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Spine / Chest",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 24,
@@ -1179,7 +1227,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14"
+      "hit_effect_receiver_type": "HitEffectReceiverType_Value_21_Len_14",
+      "physicalLabel": "Hips Armor",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 25,
@@ -1217,7 +1267,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Pelvis",
+      "physicalLabelEvidence": "verified-attachment-name"
     }
   ],
   "colliders": [
@@ -2805,5 +2857,10 @@
         }
       ]
     }
-  ]
+  ],
+  "physicalLabeling": {
+    "version": 1,
+    "policy": "decoded zone name, otherwise verified actor/bone attachment",
+    "technicalIdsPreserved": true
+  }
 }

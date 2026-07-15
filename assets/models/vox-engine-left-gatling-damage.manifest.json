@@ -11,8 +11,8 @@
       "sha256": "83285FDB1C0549D49A3FFEB7064FAF182C3CECCFD8866A1CAA190BC09E2B7ADB"
     },
     "collisionManifest": {
-      "path": "C:\\Users\\judes\\Downloads\\hd2-factory-mounts\\chin-collision.manifest.json",
-      "sha256": "99854421DB957E5DFF1C804B98FD4360D9A42AA1DB1CD43371C7BD533023F1A1"
+      "path": "C:\\Users\\judes\\Downloads\\hd2-vox-minigun-reaudit\\vox-gatling-collision.manifest.json",
+      "sha256": "134DC7F1C1110105F4DD29BB448741CF88F6DBF75E20182A6D9BBB5680A9A1B2"
     }
   },
   "mainHealth": 300,
@@ -64,6 +64,6 @@
   "preparedOutput": {
     "path": "vox-engine-left-gatling-damage.manifest.json",
     "hitboxAsset": "vox-engine-gatling-hitboxes.glb",
-    "hitboxAssetSha256": "6F64EA6B9C67949EAE1BD4C78BBE3FBD785198BD1066FE5802C4C0A521BACEC5"
+    "hitboxAssetSha256": "FD4E72886FF70D7F2B3FA23D23676550920D240ED87FE4943C203A7D7DFA4E47"
   }
 }

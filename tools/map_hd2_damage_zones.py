@@ -17,6 +17,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from label_hd2_damage_zones import annotate_manifest
+
 
 DEFAULT_ENTITY = "content/fac_bugs/cha_strider/cha_strider"
 
@@ -322,7 +324,7 @@ def main() -> None:
         if not uncovered_damage_zones
         else "partial-zone-coverage"
     )
-    result = {
+    result = annotate_manifest({
         "schemaVersion": 1,
         "entity": args.entity,
         "displayName": args.display_name,
@@ -363,7 +365,7 @@ def main() -> None:
         "duplicateColliderAssignments": len(layered_records),
         "zones": zones,
         "colliders": collider_map,
-    }
+    })
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

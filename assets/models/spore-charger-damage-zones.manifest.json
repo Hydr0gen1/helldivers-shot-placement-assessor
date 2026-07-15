@@ -99,7 +99,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Head",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 1,
@@ -153,7 +155,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Body Rear",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 2,
@@ -207,7 +211,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 3,
@@ -245,7 +251,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Torso Underside",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 4,
@@ -291,7 +299,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Torso Inside",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     },
     {
       "zoneIndex": 5,
@@ -337,7 +347,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 6,
@@ -383,7 +395,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 7,
@@ -437,7 +451,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Center Rear Leg 1 / Left Center Rear Leg 2 / Left Center Rear Leg 3",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 8,
@@ -491,7 +507,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Center Rear Leg 1 / Right Center Rear Leg 2 / Right Center Rear Leg 3",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 9,
@@ -545,7 +563,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Center Middle Leg 2 / Left Center Middle Leg 3 / Left Center Middle Leg 1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 10,
@@ -599,7 +619,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Center Middle Leg 2 / Right Center Middle Leg 3 / Right Center Middle Leg 1",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 11,
@@ -653,7 +675,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 12,
@@ -707,7 +731,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 13,
@@ -761,7 +787,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 14,
@@ -815,7 +843,9 @@
       "explosive_damage_percentage": 0.75,
       "explosion_verification_mode": "ExplosionVerificationMode_All",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 15,
@@ -869,7 +899,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Left Center Front Leg 3 / Left Center Front Leg 1 / Left Center Front Leg 2",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 16,
@@ -923,7 +955,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": false,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Right Center Front Leg 3 / Right Center Front Leg 1 / Right Center Front Leg 2",
+      "physicalLabelEvidence": "verified-attachment-name"
     },
     {
       "zoneIndex": 17,
@@ -969,7 +1003,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 18,
@@ -1023,7 +1059,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 19,
@@ -1061,7 +1099,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 20,
@@ -1099,7 +1139,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 21,
@@ -1145,7 +1187,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 22,
@@ -1191,7 +1235,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Central Body / Chassis",
+      "physicalLabelEvidence": "verified-root-attachment"
     },
     {
       "zoneIndex": 23,
@@ -1229,7 +1275,9 @@
       "explosive_damage_percentage": 3.4028235e+38,
       "explosion_verification_mode": "ExplosionVerificationMode_OuterRadius",
       "main_health_affect_capped_by_zone_health": true,
-      "hit_effect_receiver_type": "HitEffectReceiverType(27)"
+      "hit_effect_receiver_type": "HitEffectReceiverType(27)",
+      "physicalLabel": "Neck",
+      "physicalLabelEvidence": "decoded-damage-zone-name"
     }
   ],
   "colliders": [
@@ -2259,5 +2307,10 @@
       "explosiveDamagePercentage": 3.4028235e+38,
       "explosionVerificationMode": "ExplosionVerificationMode_OuterRadius"
     }
-  ]
+  ],
+  "physicalLabeling": {
+    "version": 1,
+    "policy": "decoded zone name, otherwise verified actor/bone attachment",
+    "technicalIdsPreserved": true
+  }
 }

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import io
 import json
 import re
 import struct
@@ -13,16 +14,49 @@ from PIL import Image
 PNG_RE = re.compile(r'"([^"\r\n]+\.png)"', re.IGNORECASE)
 
 
+def glb_chunks(path: Path) -> tuple[dict, bytes]:
+    raw = path.read_bytes()
+    if len(raw) < 20 or raw[:4] != b"glTF":
+        raise AssertionError(f"{path.name} is not a valid binary glTF")
+    offset = 12
+    document = None
+    binary = b""
+    while offset + 8 <= len(raw):
+        chunk_length, chunk_type = struct.unpack_from("<II", raw, offset)
+        payload = raw[offset + 8 : offset + 8 + chunk_length]
+        if chunk_type == 0x4E4F534A:
+            document = json.loads(payload.decode("utf-8").rstrip("\0 "))
+        elif chunk_type == 0x004E4942:
+            binary = payload
+        offset += 8 + chunk_length
+    if document is None:
+        raise AssertionError(f"{path.name} does not contain a JSON chunk")
+    return document, binary
+
+
 def glb_json(path: Path) -> dict:
-    with path.open("rb") as source:
-        header = source.read(20)
-        if len(header) != 20 or header[:4] != b"glTF":
-            raise AssertionError(f"{path.name} is not a valid binary glTF")
-        chunk_length, chunk_type = struct.unpack_from("<II", header, 12)
-        if chunk_type != 0x4E4F534A:
-            raise AssertionError(f"{path.name} does not start with a JSON chunk")
-        payload = header[20:] + source.read(chunk_length)
-    return json.loads(payload[:chunk_length].decode("utf-8").rstrip("\0 "))
+    return glb_chunks(path)[0]
+
+
+def assert_nonblank_base_color(path: Path) -> None:
+    document, binary = glb_chunks(path)
+    for material in document.get("materials", []):
+        if material.get("extras", {}).get("hd2BrowserMaterial") != "filediver-accurate-shader-bake":
+            continue
+        texture_info = material.get("pbrMetallicRoughness", {}).get("baseColorTexture")
+        if not texture_info:
+            raise AssertionError(f"{path.name} material {material.get('name')} has no baked base color")
+        texture = document["textures"][texture_info["index"]]
+        image_info = document["images"][texture["source"]]
+        view = document["bufferViews"][image_info["bufferView"]]
+        start = view.get("byteOffset", 0)
+        payload = binary[start : start + view["byteLength"]]
+        with Image.open(io.BytesIO(payload)) as image:
+            extrema = image.convert("RGB").getextrema()
+        if not any(channel_max > 0 for _, channel_max in extrema):
+            raise AssertionError(
+                f"{path.name} material {material.get('name')} has an all-black failed base-color bake"
+            )
 
 
 def calculation_core(html: str) -> str:
@@ -77,15 +111,24 @@ def main() -> None:
         'id="targeting3dGridOpacity"',
         "THREE.TOUCH.DOLLY_ROTATE",
         "touches.ONE=simulate?THREE.TOUCH.PAN:THREE.TOUCH.ROTATE",
+        "mouseButtons.LEFT=THREE.MOUSE.PAN",
         "screenSpacePanning=false",
         "function targeting3dWheelLooksLikeTrackpad",
         "orbitTargeting3dFromTrackpad",
         "@media(any-pointer:fine)",
         "function getExplosiveProfile",
+        '"MS-11 Solo Silo":{kind:"guided-top-attack"',
+        "function guidedTopAttackDirection",
+        "function resolveGuidedTopAttackImpact",
+        "representative 70° terminal descent",
+        "function physicalPartLabel",
+        "damage.physicalLabel",
+        "redirectExplosionToMain",
         "function buildCollisionSceneIndex",
         "function simulateImpact",
         "function simulateSequence",
         "function generateBarragePattern",
+        "const showRadii=barrage||visibleImpacts.length<=3",
         "function summarizeSplashResult",
     ]
     absent = [marker for marker in required if marker not in html]
@@ -140,6 +183,8 @@ def main() -> None:
         if len(records) != len(set(records)):
             raise AssertionError(f"{enemy} collision manifest contains duplicate records")
         damage = json.loads(damage_manifest_path.read_text(encoding="utf-8"))
+        if damage.get("physicalLabeling", {}).get("version") != 1:
+            raise AssertionError(f"{enemy} damage manifest has stale physical labels")
         for zone in damage.get("zones", []):
             missing_explosion_fields = {
                 "affected_by_explosions",
@@ -151,6 +196,51 @@ def main() -> None:
                     f"{enemy} damage zone {zone.get('zoneIndex')} is missing explosion metadata: "
                     f"{sorted(missing_explosion_fields)}"
                 )
+            physical_label = zone.get("physicalLabel", "")
+            if not physical_label or re.fullmatch(r"(?:Zone\s+\d+\s*[·-]\s*)?0x[0-9a-f]+", physical_label, re.I):
+                raise AssertionError(
+                    f"{enemy} zone {zone.get('zoneIndex')} lacks a physical user-facing label"
+                )
+        if manifest.get("source", {}).get("ragdollProfile"):
+            if not str(manifest.get("ragdollMappingEvidence", "")).startswith("Exact "):
+                raise AssertionError(f"{enemy} articulated hulls are not tied to exact ragdoll records")
+            for collider in colliders:
+                if collider.get("geometryConfidence") != "verified":
+                    raise AssertionError(f"{enemy} contains a non-verified articulated collider")
+                if enemy in {
+                    "Hunter", "Stalker", "Scavenger", "Pouncer", "Warrior",
+                    "Devastator", "Heavy Devastator", "Rocket Devastator",
+                } and "hknpCapsuleShape" in collider.get("shapeTypes", []):
+                    size = sorted(collider.get("localSize", []))
+                    if len(size) != 3 or size[1] <= 0.02:
+                        raise AssertionError(
+                            f"{enemy} capsule collider {collider.get('recordIndex')} has a collapsed radius"
+                        )
+        expected_capsules = {
+            "Hunter": 20,
+            "Stalker": 30,
+            "Scavenger": 20,
+            "Pouncer": 20,
+            "Warrior": 10,
+        }
+        if enemy in expected_capsules:
+            capsules = sum(
+                "hknpCapsuleShape" in collider.get("shapeTypes", [])
+                for collider in colliders
+            )
+            if capsules < expected_capsules[enemy]:
+                raise AssertionError(
+                    f"{enemy} lost exact game capsule records ({capsules} found)"
+                )
+        if enemy in {"Devastator", "Heavy Devastator", "Rocket Devastator"}:
+            arms = {collider.get("boneName"): collider for collider in colliders}
+            for bone_name in ("l_shoulder", "r_shoulder"):
+                if "hknpBoxShape" not in arms.get(bone_name, {}).get("shapeTypes", []):
+                    raise AssertionError(f"{enemy} {bone_name} lost its exact game box collider")
+            for bone_name in ("l_elbow", "r_elbow"):
+                arm = arms.get(bone_name, {})
+                if not set(arm.get("shapeTypes", [])) & {"hknpCapsuleShape", "hknpConvexShape"}:
+                    raise AssertionError(f"{enemy} {bone_name} lost its exact game articulated collider")
         confidence = damage.get("mappingConfidence")
         if confidence not in {
             "verified-exact-actor-join",
@@ -238,6 +328,8 @@ def main() -> None:
         ]
         if not baked or len(render.get("images", [])) < 3 or alternate_meshes:
             raise AssertionError(f"{enemy} lost its intact authentic shader bake: {alternate_meshes}")
+        if enemy in {"Vox Engine", "War Strider"}:
+            assert_nonblank_base_color(models_root / filename)
 
     automaton_vehicle_mounts = {
         "Vox Engine": {
