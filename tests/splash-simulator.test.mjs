@@ -5,7 +5,7 @@ import vm from "node:vm";
 const source = fs.readFileSync(new URL("../tools/templates/splash-simulator.js", import.meta.url), "utf8");
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${source}\nglobalThis.api={getExplosiveProfile,normalizeImpactForDelivery,classifyTargeting3dWheelGesture,guidedTopAttackDirection,closestPointOnTriangle,pointBoundsDistance,humanizePhysicalPartName,damageZoneTechnicalLabel,physicalPartLabel,buildCollisionSceneIndex,nearestGroupPoint,blastFalloff,simulateImpact,simulateSequence,generateBarragePattern,summarizeSplashResult,explainSplashDestruction,fibonacciDirections};`, context);
+vm.runInContext(`${source}\nglobalThis.api={getExplosiveProfile,isPatternDelivery,normalizeImpactForDelivery,classifyTargeting3dWheelGesture,guidedTopAttackDirection,closestPointOnTriangle,pointBoundsDistance,humanizePhysicalPartName,damageZoneTechnicalLabel,physicalPartLabel,buildCollisionSceneIndex,nearestGroupPoint,blastFalloff,simulateImpact,simulateSequence,generateBarragePattern,summarizeSplashResult,explainSplashDestruction,fibonacciDirections};`, context);
 const api = context.api;
 
 assert.equal(api.classifyTargeting3dWheelGesture({ctrlKey:false,metaKey:false,deltaMode:0,deltaY:100},"trackpad"),"orbit");
@@ -48,6 +48,18 @@ const soloDirection=api.guidedTopAttackDirection(0,70);
 assert.ok(Math.abs(Math.hypot(soloDirection.x,soloDirection.y,soloDirection.z)-1)<1e-12);
 assert.ok(Math.abs(soloDirection.y+Math.sin(70*Math.PI/180))<1e-12);
 assert.ok(soloDirection.z>0&&Math.abs(soloDirection.x)<1e-12);
+
+const eagle500=api.getExplosiveProfile({name:"Eagle 500kg Bomb",comps:[{label:"500kg bomb impact",std:2000,dur:2000,ap:[7,7,7,7]},{label:"500kg impact explosion (1-3 m)",std:100,dur:100,ap:[3,3,3,3],explosive:true},{label:"500kg delayed explosion (10-25 m)",std:1500,dur:1500,ap:[6,6,6,6],explosive:true}]});
+assert.deepEqual([eagle500.delivery.kind,eagle500.delivery.detonationDelay,eagle500.inner,eagle500.outer],["eagle-500kg",.8,10,25]);
+const eagleAirstrike=api.getExplosiveProfile({name:"Eagle Airstrike",modes:[{name:"One bomb hits",comps:[{label:"100kg bomb impact",std:1500,dur:1500,ap:[7,7,7,7]},{label:"100kg bomb explosion (5-10 m)",std:800,dur:800,ap:[5,5,5,5],explosive:true}]}]});
+const rocketPods=api.getExplosiveProfile({name:"Eagle 110mm Rocket Pods",modes:[{name:"One rocket hits",comps:[{label:"110mm rocket impact",std:600,dur:600,ap:[7,7,7,7]},{label:"110mm rocket explosion (1.6-5 m)",std:300,dur:300,ap:[4,4,4,4],explosive:true}]}]});
+const strafingRun=api.getExplosiveProfile({name:"Eagle Strafing Run",modes:[{name:"One explosive round hits",comps:[{label:"23mm projectile",std:350,dur:200,ap:[5,5,4,1]},{label:"23mm HE explosion (2.5-5 m)",std:350,dur:350,ap:[3,3,3,3],explosive:true}]}]});
+const gatlingBarrage=api.getExplosiveProfile({name:"Orbital Gatling Barrage",modes:[{name:"One explosive round hits",comps:[{label:"23mm projectile",std:350,dur:200,ap:[5,5,4,1]},{label:"23mm HE explosion (1.5-4.5 m)",std:350,dur:350,ap:[3,3,3,3],explosive:true}]}]});
+assert.equal(api.isPatternDelivery(eagleAirstrike.delivery),true);
+assert.equal(api.isPatternDelivery(rocketPods.delivery),true);
+assert.equal(api.isPatternDelivery(strafingRun.delivery),true);
+assert.equal(api.isPatternDelivery(gatlingBarrage.delivery),true);
+assert.equal(api.getExplosiveProfile({name:"E/AT-12 Anti-Tank Emplacement",splash3d:false,comps:[{label:"75mm APHE explosion (3-6 m)",std:150,dur:150,ap:[3,3,3,3],explosive:true}]}),null);
 
 // Multiple hulls for one HealthComponent pool must receive one closest-point blast.
 const samePoolScene=api.buildCollisionSceneIndex([hull("body:0",2),hull("body:0",4,zone(),{recordIndex:1})],{mainHealth:1000});
@@ -92,6 +104,11 @@ const directScene=api.buildCollisionSceneIndex([hull("target",0)],{mainHealth:10
 const directResult=api.simulateImpact(directScene,{position:{x:0,y:0,z:0},directPoolKey:"target"},directProfile,"raw");
 assert.deepEqual([directResult.zones[0].directDamage,directResult.zones[0].explosionDamage],[200,100]);
 
+const eagle500Result=api.simulateSequence(directScene,[{position:{x:0,y:0,z:0},directPoolKey:"target",time:0}],eagle500,"raw");
+assert.deepEqual(Array.from(eagle500Result.events,event=>[event.impact.deliveryLabel,event.impact.time]),[["500kg bomb impact",0],["500kg delayed detonation",.8]]);
+assert.equal(eagle500Result.events[0].zones[0].directDamage,2000);
+assert.equal(eagle500Result.events[0].zones[0].explosionDamage,100);
+
 // Thermite attachment and delayed detonation are separate chronological events.
 const stickyProfile=profile({sticky:true,delay:6.5,mainOnly:[{std:50,dur:50,ap:[5,5,5,5],mainOnly:true}]});
 const sticky=api.simulateSequence(directScene,[{position:{x:0,y:0,z:0},directPoolKey:"target",time:0}],stickyProfile,"raw");
@@ -112,6 +129,28 @@ assert.deepEqual(barrageA,barrageB);
 assert.equal(barrageA.length,15);
 assert.ok(barrageA.every(impact=>Math.hypot(impact.position.x,impact.position.z)<=27));
 assert.equal(api.generateBarragePattern(barrageProfile,{x:0,y:0,z:0},0,42,{moreGuns:true}).length,18);
+
+const airstrikePattern=api.generateBarragePattern(eagleAirstrike,{x:0,y:0,z:0},0,1,{});
+assert.equal(airstrikePattern.length,6);
+assert.deepEqual(Array.from(airstrikePattern,impact=>impact.time),[0,.2,.4,.6000000000000001,.8,1]);
+assert.ok(airstrikePattern.every(impact=>impact.deliveryLabel.startsWith("Eagle Airstrike bomb")));
+const rocketPattern=api.generateBarragePattern(rocketPods,{x:0,y:0,z:0},0,1,{});
+assert.equal(rocketPattern.length,6);
+assert.deepEqual(Array.from(rocketPattern,impact=>impact.salvo),[1,1,2,2,3,3]);
+assert.ok(rocketPattern.every(impact=>Math.hypot(impact.position.x,impact.position.z)<2));
+const strafePattern=api.generateBarragePattern(strafingRun,{x:0,y:0,z:0},0,5,{});
+assert.equal(strafePattern.length,100);
+assert.equal(strafePattern.filter(impact=>!impact.suppressExplosion).length,25);
+assert.equal(strafePattern.at(-1).time,1.4849999999999999);
+assert.ok(strafePattern.every(impact=>impact.position.z>=0&&impact.position.z<=50));
+const gatlingPattern=api.generateBarragePattern(gatlingBarrage,{x:0,y:0,z:0},0,7,{});
+assert.equal(gatlingPattern.length,240);
+assert.equal(gatlingPattern.filter(impact=>!impact.suppressExplosion).length,60);
+assert.equal(gatlingPattern.at(-1).time,10.754999999999999);
+assert.ok(gatlingPattern.every(impact=>Math.hypot(impact.position.x,impact.position.z)<=20));
+assert.equal(api.generateBarragePattern(gatlingBarrage,{x:0,y:0,z:0},0,7,{moreGuns:true}).length,300);
+const suppressedBlast=api.simulateImpact(directScene,{position:{x:0,y:0,z:0},directPoolKey:"target",suppressExplosion:true},gatlingBarrage,"raw");
+assert.deepEqual([suppressedBlast.zones[0].directDamage,suppressedBlast.zones[0].explosionDamage],[350,0]);
 
 const walkingProfile=profile({delivery:{kind:"walking-barrage",spread:25,salvos:5,shellsPerSalvo:3,shellInterval:1.5,salvoInterval:3,salvoStep:25}});
 const walking=api.generateBarragePattern(walkingProfile,{x:0,y:0,z:0},0,9,{});

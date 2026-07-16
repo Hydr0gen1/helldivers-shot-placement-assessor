@@ -1,5 +1,10 @@
 // ============ 3D SPLASH SIMULATOR (pure helpers) ============
 const EXPLOSIVE_DELIVERY_PROFILES={
+  "Eagle 500kg Bomb":{kind:"eagle-500kg",shockwave:35,detonationDelay:.8},
+  "Eagle Airstrike":{kind:"eagle-airstrike",pattern:"6Z",count:6,interval:.2,spacing:8,targetAngle:90,shockwave:14},
+  "Eagle 110mm Rocket Pods":{kind:"eagle-rocket-pods",pattern:"6Z",count:6,volleys:3,rocketsPerVolley:2,interval:.5,pairInterval:.06,pairSpread:1.4,searchRadius:20,shockwave:8},
+  "Eagle Strafing Run":{kind:"eagle-strafing",count:100,interval:.015,length:50,lateralSpread:2.5,explosiveEvery:4,shockwave:6.5},
+  "Orbital Gatling Barrage":{kind:"gatling-barrage",spread:20,decodedAreaSize:7,salvos:4,shellsPerSalvo:60,shellInterval:.045,salvoInterval:0,explosiveEvery:4,shockwave:6.5,atmosphericEligible:false},
   "Orbital 120mm HE Barrage":{kind:"barrage",spread:27,salvos:5,shellsPerSalvo:3,shellInterval:.75,salvoInterval:2,shockwave:11},
   "Orbital 380mm HE Barrage":{kind:"barrage",spread:36,salvos:5,shellsPerSalvo:3,shellInterval:1.5,salvoInterval:3,shockwave:18},
   "Orbital Walking Barrage":{kind:"walking-barrage",spread:25,salvos:5,shellsPerSalvo:3,shellInterval:1.5,salvoInterval:3,salvoStep:25,shockwave:18},
@@ -18,10 +23,10 @@ function splashRadius(component){
 }
 
 function getExplosiveProfile(base,modeIndex=0){
-  if(!base)return null;
+  if(!base||base.splash3d===false)return null;
   const delivery=EXPLOSIVE_DELIVERY_PROFILES[base.name]||{kind:base.sticky?"sticky":"single"};
-  const barrage=/barrage/i.test(delivery.kind);
-  const selected=barrage?(base.modes?.[0]||base):(base.modes?.[modeIndex]||base);
+  const patterned=isPatternDelivery(delivery);
+  const selected=patterned?(base.modes?.[0]||base):(base.modes?.[modeIndex]||base);
   const components=(selected.comps||base.comps||[]).map(component=>({...component,radius:splashRadius(component)||(component.explosive&&delivery.radius?{...delivery.radius}:null)}));
   const explosions=components.filter(component=>component.explosive&&component.radius);
   const shrapnel=components.filter(component=>component.shrapnel);
@@ -32,6 +37,8 @@ function getExplosiveProfile(base,modeIndex=0){
   const inner=Math.max(0,...explosions.map(component=>component.radius.inner));
   return {name:base.name,base,modeIndex,components,explosions,shrapnel,direct,mainOnly,inner,outer,delivery:{...delivery},sticky:!!base.sticky,delay:base.activationDelay??base.detonationDelay??delivery.delay??0,maxShrapnel:base.maxShrapnel||delivery.fragmentCount||0};
 }
+
+function isPatternDelivery(delivery){return /barrage/i.test(delivery?.kind||"")||/^eagle-(?:airstrike|rocket-pods|strafing)$/.test(delivery?.kind||"");}
 
 const v3=(x=0,y=0,z=0)=>({x,y,z});
 
@@ -187,7 +194,7 @@ function simulateImpact(scene,impact,profile,policy="primary",priorState=null){
     // false here and still take radial damage normally.
     if(nearest&&distance<=profile.outer){
       visible=hasLineOfSight(scene,origin,nearest.point,group.poolKey);const inOuter=distance>profile.inner,mode=damage.verificationMode,requires=policy==="conservative"||policy==="primary"&&(mode==="ExplosionVerificationMode_All"||mode==="ExplosionVerificationMode_OuterRadius"&&inOuter);eligible=policy==="raw"||!requires||visible;
-      if(eligible)for(const component of profile.explosions){const componentFalloff=blastFalloff(component.radius,distance),value=componentDamage(component,damage,componentFalloff,true);explosionDamage+=value.damage;falloff=Math.max(falloff,componentFalloff);}
+      if(eligible&&!impact.suppressExplosion)for(const component of profile.explosions){const componentFalloff=blastFalloff(component.radius,distance),value=componentDamage(component,damage,componentFalloff,true);explosionDamage+=value.damage;falloff=Math.max(falloff,componentFalloff);}
     }
     if(group.poolKey===directKey)for(const component of profile.direct)directDamage+=componentDamage(component,damage,1,false,impact.angleIndex||0).damage;
     const total=directDamage+explosionDamage;if(!total)continue;const applied=applyPoolDamage(state,group,total);zoneResults.push({poolKey:group.poolKey,label:group.label,technicalLabel:group.technicalLabel,partEvidence:group.partEvidence,evidence:group.evidence,distance,nearestPoint:nearest?.point||origin,visible,eligible,verificationMode:damage.verificationMode,falloff,directDamage,explosionDamage,shrapnelDamage:0,total,...applied,armor:damage.armor,durability:damage.durability,fatal:damage.fatal,bleedout:damage.bleedout,affectsMain:damage.affectsMain,redirectExplosionToMain:damage.redirectExplosionToMain});
@@ -199,13 +206,31 @@ function simulateImpact(scene,impact,profile,policy="primary",priorState=null){
 }
 
 function simulateSequence(scene,impacts,profile,policy="primary"){
-  let state=freshSplashState(scene),killedAt=null,totalDamage=0,totalMainDamage=0;const events=[],queue=[];for(const rawImpact of impacts){const impact=normalizeImpactForDelivery(rawImpact,profile,0);if(profile.sticky&&profile.delay>0){queue.push({impact:{...impact,phase:"attach"},profile:{...profile,explosions:[],shrapnel:[],mainOnly:[]}});queue.push({impact:{...impact,time:(impact.time||0)+profile.delay,phase:"detonation"},profile:{...profile,direct:[]}});}else if(profile.delivery?.kind==="ground-timed"){queue.push({impact:{...impact,time:(impact.time||0)+profile.delay,phase:"detonation",deliveryLabel:profile.delivery.label||"Timed explosive detonation"},profile:{...profile,direct:[]}});}else queue.push({impact,profile});}for(const entry of queue.sort((a,b)=>(a.impact.time||0)-(b.impact.time||0))){const result=simulateImpact(scene,entry.impact,entry.profile,policy,state);state=result.state;totalDamage+=result.totalDamage;totalMainDamage+=result.mainDamage;events.push(result);if(killedAt==null&&result.killed)killedAt=entry.impact.time||0;}return {policy,state,events,totalDamage,totalMainDamage,killed:state.dead,killedAt,remainingMainHP:state.mainHP};
+  let state=freshSplashState(scene),killedAt=null,totalDamage=0,totalMainDamage=0;const events=[],queue=[];for(const rawImpact of impacts){const impact=normalizeImpactForDelivery(rawImpact,profile,0);if(profile.sticky&&profile.delay>0){queue.push({impact:{...impact,phase:"attach"},profile:{...profile,explosions:[],shrapnel:[],mainOnly:[]}});queue.push({impact:{...impact,time:(impact.time||0)+profile.delay,phase:"detonation"},profile:{...profile,direct:[]}});}else if(profile.delivery?.kind==="ground-timed"){queue.push({impact:{...impact,time:(impact.time||0)+profile.delay,phase:"detonation",deliveryLabel:profile.delivery.label||"Timed explosive detonation"},profile:{...profile,direct:[]}});}else if(profile.delivery?.kind==="eagle-500kg"){const delay=profile.delivery.detonationDelay??.8;queue.push({impact:{...impact,phase:"impact",deliveryLabel:"500kg bomb impact"},profile:{...profile,explosions:profile.explosions.slice(0,1)}});queue.push({impact:{...impact,time:(impact.time||0)+delay,phase:"detonation",deliveryLabel:"500kg delayed detonation"},profile:{...profile,direct:[],explosions:profile.explosions.slice(1)}});}else queue.push({impact,profile});}for(const entry of queue.sort((a,b)=>(a.impact.time||0)-(b.impact.time||0))){const result=simulateImpact(scene,entry.impact,entry.profile,policy,state);state=result.state;totalDamage+=result.totalDamage;totalMainDamage+=result.mainDamage;events.push(result);if(killedAt==null&&result.killed)killedAt=entry.impact.time||0;}return {policy,state,events,totalDamage,totalMainDamage,killed:state.dead,killedAt,remainingMainHP:state.mainHP};
 }
 
 function mulberry32(seed){let value=seed>>>0;return function(){value+=0x6D2B79F5;let result=value;result=Math.imul(result^result>>>15,result|1);result^=result+Math.imul(result^result>>>7,result|61);return ((result^result>>>14)>>>0)/4294967296;};}
 
 function generateBarragePattern(profile,beacon={x:0,y:0,z:0},heading=0,seed=1,upgrades={}){
-  const delivery=profile.delivery,random=mulberry32(seed),salvos=delivery.salvos+(upgrades.moreGuns?1:0),spread=delivery.spread*(upgrades.atmosphericMonitoring?.85:1),radiusScale=upgrades.highDensityExplosives?1.1:1,impacts=[];
+  const delivery=profile.delivery,random=mulberry32(seed),salvos=(delivery.salvos||0)+(upgrades.moreGuns?1:0),spread=(delivery.spread||0)*((upgrades.atmosphericMonitoring&&delivery.atmosphericEligible!==false)?.85:1),radiusScale=upgrades.highDensityExplosives?1.1:1,impacts=[];
+  if(delivery.kind==="eagle-airstrike"){
+    const count=delivery.count||6,spacing=delivery.spacing||8,axis=heading+Math.PI/2,along=v3(Math.sin(axis),0,Math.cos(axis)),across=v3(Math.cos(axis),0,-Math.sin(axis));
+    for(let index=0;index<count;index++){const offset=(index-(count-1)/2)*spacing,zigzag=(index%2?1:-1)*spacing*.16;impacts.push({id:`B${index+1}`,salvo:1,shell:index+1,time:index*(delivery.interval||.2),position:v3(beacon.x+along.x*offset+across.x*zigzag,beacon.y,beacon.z+along.z*offset+across.z*zigzag),seed:seed*100+index,radiusScale:1,deliveryLabel:`Eagle Airstrike bomb ${index+1}`});}
+    return impacts;
+  }
+  if(delivery.kind==="eagle-rocket-pods"){
+    const volleys=delivery.volleys||3,pairSpread=delivery.pairSpread||1.4,along=v3(Math.sin(heading),0,Math.cos(heading)),across=v3(Math.cos(heading),0,-Math.sin(heading));
+    for(let volley=0;volley<volleys;volley++)for(let rocket=0;rocket<(delivery.rocketsPerVolley||2);rocket++){const index=volley*(delivery.rocketsPerVolley||2)+rocket,longitudinal=(volley-(volleys-1)/2)*.75,lateral=(rocket?1:-1)*pairSpread/2;impacts.push({id:`${volley+1}.${rocket+1}`,salvo:volley+1,shell:rocket+1,time:volley*(delivery.interval||.5)+rocket*(delivery.pairInterval||.06),position:v3(beacon.x+along.x*longitudinal+across.x*lateral,beacon.y,beacon.z+along.z*longitudinal+across.z*lateral),seed:seed*100+index,radiusScale:1,deliveryLabel:`Rocket-pod volley ${volley+1}, rocket ${rocket+1}`});}
+    return impacts;
+  }
+  if(delivery.kind==="eagle-strafing"){
+    const count=delivery.count||100,length=delivery.length||50,along=v3(Math.sin(heading),0,Math.cos(heading)),across=v3(Math.cos(heading),0,-Math.sin(heading));
+    for(let index=0;index<count;index++){const forward=length*index/Math.max(1,count-1),lateral=(random()-.5)*(delivery.lateralSpread||2.5),explosive=(index+1)%(delivery.explosiveEvery||4)===0;impacts.push({id:`R${index+1}`,salvo:1,shell:index+1,time:index*(delivery.interval||.015),position:v3(beacon.x+along.x*forward+across.x*lateral,beacon.y,beacon.z+along.z*forward+across.z*lateral),seed:seed*1000+index,radiusScale:1,suppressExplosion:!explosive,deliveryLabel:`Strafing round ${index+1}${explosive?' (HE)':''}`});}
+    return impacts;
+  }
+  if(delivery.kind==="gatling-barrage"){
+    const total=salvos*(delivery.shellsPerSalvo||60);for(let index=0;index<total;index++){const salvo=Math.floor(index/(delivery.shellsPerSalvo||60)),shell=index%(delivery.shellsPerSalvo||60),radius=spread*Math.sqrt(random()),angle=random()*Math.PI*2,explosive=(index+1)%(delivery.explosiveEvery||4)===0;impacts.push({id:`${salvo+1}.${shell+1}`,salvo:salvo+1,shell:shell+1,time:index*(delivery.shellInterval||.045),position:v3(beacon.x+Math.sin(angle)*radius,beacon.y,beacon.z+Math.cos(angle)*radius),seed:seed*1000+index,radiusScale,suppressExplosion:!explosive,deliveryLabel:`Gatling round ${index+1}${explosive?' (HE)':''}`});}return impacts;
+  }
   for(let salvo=0;salvo<salvos;salvo++){const walk=delivery.kind==="walking-barrage"?(delivery.salvoStep||0)*salvo:0,centerX=beacon.x+Math.sin(heading)*walk,centerZ=beacon.z+Math.cos(heading)*walk,phase=random()*Math.PI*2;for(let shell=0;shell<delivery.shellsPerSalvo;shell++){const radius=spread*Math.sqrt(.12+.88*random()),angle=phase+shell*Math.PI*2/delivery.shellsPerSalvo+(random()-.5)*.45,time=salvo*((delivery.shellsPerSalvo-1)*delivery.shellInterval+delivery.salvoInterval)+shell*delivery.shellInterval;impacts.push({id:`${salvo+1}.${shell+1}`,salvo:salvo+1,shell:shell+1,time,position:v3(centerX+Math.sin(angle)*radius,beacon.y,centerZ+Math.cos(angle)*radius),seed:seed*100+salvo*delivery.shellsPerSalvo+shell,radiusScale});}}
   return impacts;
 }

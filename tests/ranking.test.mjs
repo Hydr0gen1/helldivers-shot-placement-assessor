@@ -40,6 +40,42 @@ assert.equal(nearTitan.mainDamage,7650,"OPS inner blast uses the documented Bile
 assert.equal(nearTitan.shots,1,"OPS can one-shot a Bile Titan without a direct projectile hit");
 assert.ok(edgeTitan.shots>1,"OPS Bile Titan one-shot tolerance ends before six meters");
 assert.equal(nearTitan.blastExposure.affected.length,10,"Bile Titan blast exposure counts documented repeated zones instead of dataset rows");
+const eagle500=weapon("Eagle 500kg Bomb");
+assert.ok(eagle500&&eagle500.cat==="Stratagem","Eagle 500kg Bomb is available as a stratagem");
+assert.deepEqual([eagle500.mag,eagle500.activationDelay,eagle500.cooldown],[1,3.45,15],"500kg records base stock, call-in, and cooldown");
+assert.deepEqual(Array.from(eagle500.comps,component=>component.std),[2000,100,1500],"500kg separates projectile, impact burst, and delayed explosion damage");
+assert.deepEqual(Array.from(eagle500.comps[0].ap),[7,7,7,7],"500kg projectile uses Anti-Tank III penetration at every angle");
+assert.deepEqual(Object.values(componentBlastRadius(eagle500.comps[2])),[10,25],"500kg exposes its 10-25 m main blast radius");
+for(const [name,stock,projectile,explosion,inner,outer] of [
+  ["Eagle Airstrike",2,1500,800,5,10],
+  ["Eagle 110mm Rocket Pods",3,600,300,1.6,5]
+]){
+  const eagle=weapon(name),one=resolveWeapon(eagle,0),full=resolveWeapon(eagle,3);
+  assert.ok(eagle&&eagle.cat==="Stratagem",`${name} is available as a stratagem`);
+  assert.deepEqual([eagle.modes.length,eagle.mag,eagle.cooldown],[4,stock,15],`${name} records hit scenarios, stock, and cooldown`);
+  assert.deepEqual([one.comps[0].std,one.comps[1].std,one.comps[0].ap[0]],[projectile,explosion,7],`${name} one-hit mode uses current direct and explosion stats`);
+  assert.deepEqual([full.comps[0].std,full.comps[1].std],[projectile*6,explosion*6],`${name} full-pass mode scales all six projectiles`);
+  assert.deepEqual(Object.values(componentBlastRadius(full.comps[1])),[inner,outer],`${name} retains per-projectile blast radii in multi-hit modes`);
+}
+for(const [name,stock,delay,count,inner,outer] of [
+  ["Eagle Strafing Run",4,2.4,100,2.5,5],
+  ["Orbital Gatling Barrage",1,3.05,240,1.5,4.5]
+]){
+  const strike=weapon(name),one=resolveWeapon(strike,0),full=resolveWeapon(strike,3);
+  assert.ok(strike&&strike.cat==="Stratagem",`${name} is available as a stratagem`);
+  assert.deepEqual([strike.modes.length,strike.mag,strike.activationDelay,strike.cooldown],[4,stock,delay,name.startsWith("Eagle")?15:70],`${name} records delivery timing and hit scenarios`);
+  assert.deepEqual([one.comps[0].std,one.comps[0].dur,one.comps[1].std],[350,200,350],`${name} uses the current 23mm projectile and HE damage`);
+  assert.deepEqual(Array.from(one.comps[0].ap),[5,5,4,1],`${name} preserves angle-dependent Anti-Tank I projectile penetration`);
+  assert.deepEqual([full.comps[0].std,full.comps[1].std],[350*count,350*count/4],`${name} full-pattern scenario keeps the one-in-four HE cadence`);
+  assert.deepEqual(Object.values(componentBlastRadius(one.comps[1])),[inner,outer],`${name} exposes its documented HE blast radius`);
+}
+const antiTankEmplacement=weapon("E/AT-12 Anti-Tank Emplacement");
+assert.ok(antiTankEmplacement&&antiTankEmplacement.cat==="Emplacement","Anti-Tank Emplacement is available in the 2D emplacement category");
+assert.deepEqual([antiTankEmplacement.mag,antiTankEmplacement.rpm,antiTankEmplacement.callInDelay,antiTankEmplacement.cooldown],[30,60,7.75,180],"Anti-Tank Emplacement records capacity, cadence, call-in, and cooldown");
+assert.deepEqual([antiTankEmplacement.comps[0].std,antiTankEmplacement.comps[1].std],[1300,150],"Anti-Tank Emplacement separates projectile and explosion damage");
+assert.deepEqual(Array.from(antiTankEmplacement.comps[0].ap),[6,6,6,3],"Anti-Tank Emplacement uses Anti-Tank II except at extreme angle");
+assert.deepEqual(Object.values(componentBlastRadius(antiTankEmplacement.comps[1])),[3,6],"Anti-Tank Emplacement exposes its 3-6 m blast radius");
+assert.equal(firingTime(resolveWeapon(antiTankEmplacement),3),2,"Anti-Tank Emplacement TTK uses cannon cadence without repeating call-in delay");
 const bastionCannon=weapon("TD-220 Bastion Main Cannon");
 assert.ok(bastionCannon&&bastionCannon.cat==="Vehicle","Bastion main cannon is available as a vehicle-mounted weapon");
 assert.deepEqual([bastionCannon.mag,bastionCannon.rpm,bastionCannon.comps[0].std,bastionCannon.comps[1].std],[31,12,3500,750],"Bastion records its 31 shells, five-second cycle, projectile, and explosion damage");
