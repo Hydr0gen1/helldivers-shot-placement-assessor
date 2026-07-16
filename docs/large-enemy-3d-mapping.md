@@ -172,3 +172,18 @@ ragdoll profiles are the authoritative collision source, so the extractor also
 supports verified ragdoll-only builds. The aircraft compressed-mesh hulls are
 decoded through their exact `hknpCompressedMeshShapeData` ITEM references; the
 render meshes are not substituted as hitboxes.
+
+## Browser runtime collision assets
+
+Models that load a separate authentic render GLB also have a compact
+`*-collision-runtime.glb`. These runtime files retain the complete node
+hierarchy, transforms, sockets, and every manifest-named game collision mesh,
+while removing the duplicate render meshes, textures, materials, skins, and
+animations already supplied by the authentic render asset. The hydrated
+`*-collision-research.glb` remains the evidence artifact and is never replaced.
+
+`tools/build_collision_runtime_glb.py` regenerates a runtime file from the
+research GLB and collision manifest. Project verification requires the runtime
+mesh-node set to exactly equal the manifest collider set and rejects runtime
+files that retain render payloads or are not materially smaller than their
+research source.

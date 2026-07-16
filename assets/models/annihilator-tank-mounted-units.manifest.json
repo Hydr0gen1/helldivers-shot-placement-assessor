@@ -28,6 +28,8 @@
       "unitResource": "content/fac_cyborgs/turrets/cyborg_tank_turret_cannon/cyborg_tank_turret_cannon",
       "hitboxAsset": "automaton-heavy-cannon-turret-collision-research.glb",
       "hitboxAssetSha256": "E84F0B1825AE31E032C167D9D4E9DC4AD8E6C014C5416302461B93166262C34F",
+      "runtimeHitboxAsset": "automaton-heavy-cannon-turret-collision-runtime.glb",
+      "runtimeHitboxAssetSha256": "A7CFE63E814F4DF6766731AAD77DE579AE2D30C69F3BD1AD605DF71769AA2921",
       "collisionManifest": "automaton-heavy-cannon-turret-collision-research.manifest.json",
       "damageManifest": "automaton-heavy-cannon-turret-damage-zones.manifest.json",
       "axisRootRotation": [

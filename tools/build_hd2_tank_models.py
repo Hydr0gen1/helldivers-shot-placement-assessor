@@ -27,6 +27,7 @@ TURRETS = (
         "asset": "automaton-heavy-cannon-turret.glb",
         "authenticAsset": "automaton-heavy-cannon-turret-authentic-render.glb",
         "hitboxAsset": "automaton-heavy-cannon-turret-collision-research.glb",
+        "runtimeHitboxAsset": "automaton-heavy-cannon-turret-collision-runtime.glb",
         "collisionManifest": "automaton-heavy-cannon-turret-collision-research.manifest.json",
         "damageManifest": "automaton-heavy-cannon-turret-damage-zones.manifest.json",
         "mountEntity": "content/fac_cyborgs/turrets/cyborg_tank_turret_cannon/cyborg_tank_turret_heavycannon",
@@ -40,6 +41,7 @@ TURRETS = (
         "asset": "automaton-shredder-turret.glb",
         "authenticAsset": "automaton-shredder-turret-authentic-render.glb",
         "hitboxAsset": "automaton-shredder-turret-collision-research.glb",
+        "runtimeHitboxAsset": "automaton-shredder-turret-collision-runtime.glb",
         "collisionManifest": "automaton-shredder-turret-collision-research.manifest.json",
         "damageManifest": "automaton-shredder-turret-damage-zones.manifest.json",
         "mountEntity": "content/fac_cyborgs/turrets/cyborg_tank_turret_autocannons/cyborg_tank_turret_autocannons",
@@ -53,6 +55,7 @@ TURRETS = (
         "asset": "automaton-barrager-turret.glb",
         "authenticAsset": "automaton-barrager-turret-authentic-render.glb",
         "hitboxAsset": "automaton-barrager-turret-collision-research.glb",
+        "runtimeHitboxAsset": "automaton-barrager-turret-collision-runtime.glb",
         "collisionManifest": "automaton-barrager-turret-collision-research.manifest.json",
         "damageManifest": "automaton-barrager-turret-damage-zones.manifest.json",
         "mountEntity": "content/fac_cyborgs/turrets/cyborg_tank_turret_rocketlauncher/cyborg_tank_turret_rocketlauncher",
@@ -117,9 +120,10 @@ def main() -> None:
                 f"{authentic or turret['authenticAsset']}"
             )
         hitbox_asset = output_root / turret["hitboxAsset"]
+        runtime_hitbox_asset = output_root / turret["runtimeHitboxAsset"]
         collision_manifest = output_root / turret["collisionManifest"]
         damage_manifest = output_root / turret["damageManifest"]
-        for required in (hitbox_asset, collision_manifest, damage_manifest):
+        for required in (hitbox_asset, runtime_hitbox_asset, collision_manifest, damage_manifest):
             if not required.is_file():
                 raise FileNotFoundError(f"Missing prepared tank evidence: {required}")
 
@@ -133,6 +137,8 @@ def main() -> None:
             "unitResource": turret["source"].removesuffix(".unit.glb"),
             "hitboxAsset": turret["hitboxAsset"],
             "hitboxAssetSha256": sha256(hitbox_asset),
+            "runtimeHitboxAsset": turret["runtimeHitboxAsset"],
+            "runtimeHitboxAssetSha256": sha256(runtime_hitbox_asset),
             "collisionManifest": turret["collisionManifest"],
             "damageManifest": turret["damageManifest"],
             # Blender's glTF exporter rebases the skinned Filediver unit from

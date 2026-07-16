@@ -1678,10 +1678,10 @@ const TARGETING_3D_MODELS={
   "Charger Behemoth":{slug:"charger-behemoth"},
   "Spore Charger":{slug:"spore-charger"},
   "Rupture Charger":{slug:"rupture-charger"},
-  "Annihilator Tank":{slug:"annihilator-tank",assetSlug:"automaton-tank-base",renderGlb:"assets/models/automaton-tank-base-authentic-render.glb",cameraVector:[-.68,.26,-1.45],mountManifest:"assets/models/annihilator-tank-mounted-units.manifest.json"},
-  "Shredder Tank":{slug:"shredder-tank",assetSlug:"automaton-tank-base",renderGlb:"assets/models/automaton-tank-base-authentic-render.glb",cameraVector:[-.68,.26,-1.45],mountManifest:"assets/models/shredder-tank-mounted-units.manifest.json"},
-  "Barrager Tank":{slug:"barrager-tank",assetSlug:"automaton-tank-base",renderGlb:"assets/models/automaton-tank-base-authentic-render.glb",cameraVector:[-.68,.26,-1.45],mountManifest:"assets/models/barrager-tank-mounted-units.manifest.json"},
-  "Cannon Turret":{slug:"cannon-turret",assetSlug:"automaton-heavy-cannon-turret",renderGlb:"assets/models/automaton-heavy-cannon-turret-authentic-render.glb",cameraVector:[-.62,.22,-1.45]},
+  "Annihilator Tank":{slug:"annihilator-tank",assetSlug:"automaton-tank-base",damageSlug:"automaton-tank-base",collisionGlb:"assets/models/automaton-tank-base-collision-runtime.glb",renderGlb:"assets/models/automaton-tank-base-authentic-render.glb",cameraVector:[-.68,.26,-1.45],mountManifest:"assets/models/annihilator-tank-mounted-units.manifest.json"},
+  "Shredder Tank":{slug:"shredder-tank",assetSlug:"automaton-tank-base",damageSlug:"automaton-tank-base",collisionGlb:"assets/models/automaton-tank-base-collision-runtime.glb",renderGlb:"assets/models/automaton-tank-base-authentic-render.glb",cameraVector:[-.68,.26,-1.45],mountManifest:"assets/models/shredder-tank-mounted-units.manifest.json"},
+  "Barrager Tank":{slug:"barrager-tank",assetSlug:"automaton-tank-base",damageSlug:"automaton-tank-base",collisionGlb:"assets/models/automaton-tank-base-collision-runtime.glb",renderGlb:"assets/models/automaton-tank-base-authentic-render.glb",cameraVector:[-.68,.26,-1.45],mountManifest:"assets/models/barrager-tank-mounted-units.manifest.json"},
+  "Cannon Turret":{slug:"cannon-turret",assetSlug:"automaton-heavy-cannon-turret",damageSlug:"automaton-heavy-cannon-turret",collisionGlb:"assets/models/automaton-heavy-cannon-turret-collision-runtime.glb",renderGlb:"assets/models/automaton-heavy-cannon-turret-authentic-render.glb",cameraVector:[-.62,.22,-1.45]},
   "Spore Burst Bile Titan":{slug:"spore-burst-bile-titan"},
   "Dragonroach":{slug:"dragonroach"},
   "Impaler":{slug:"impaler"},
@@ -2137,8 +2137,8 @@ async function attachTargeting3dMounts(entry,GLTFLoader,baseScene,status,materia
     socket.add(unit);mounted.push(unit);
     if(mount.hitboxAsset&&mount.collisionManifest&&mount.damageManifest){
       status.textContent=`Loading ${mount.label} hitboxes`;
-      const hitboxVersion=mount.hitboxAssetSha256?`?v=${mount.hitboxAssetSha256.slice(0,16)}`:'',[hitboxGltf,collisionManifest,damageManifest]=await Promise.all([
-        loadTargeting3dGlb(GLTFLoader,`assets/models/${mount.hitboxAsset}${hitboxVersion}`),
+      const hitboxAsset=mount.runtimeHitboxAsset||mount.hitboxAsset,hitboxHash=mount.runtimeHitboxAssetSha256||mount.hitboxAssetSha256,hitboxVersion=hitboxHash?`?v=${hitboxHash.slice(0,16)}`:'',[hitboxGltf,collisionManifest,damageManifest]=await Promise.all([
+        loadTargeting3dGlb(GLTFLoader,`assets/models/${hitboxAsset}${hitboxVersion}`),
         fetch(`assets/models/${mount.collisionManifest}`,{cache:'no-store'}).then(result=>{if(!result.ok)throw new Error(`Could not load ${mount.label} collision manifest`);return result.json();}),
         fetch(`assets/models/${mount.damageManifest}`,{cache:'no-store'}).then(result=>{if(!result.ok)throw new Error(`Could not load ${mount.label} damage manifest`);return result.json();})
       ]);
@@ -2178,7 +2178,7 @@ async function initializeTargeting3d(enemyName=selectedEnemy().name){
   try{
     const {THREE,GLTFLoader,OrbitControls}=await loadTargeting3dBundle(),probe=document.createElement('canvas');if(!probe.getContext('webgl2')&&!probe.getContext('webgl'))throw new Error('WebGL is unavailable; use the 2D anatomy view instead.');
     const host=$('targeting3dCanvas'),renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.setClearColor(0x111416,1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;renderer.localClippingEnabled=true;host.replaceChildren(renderer.domElement);const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(36,1,.05,500);camera.up.set(0,1,0);const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.08;controls.screenSpacePanning=true;scene.add(new THREE.HemisphereLight(0xe0e8ea,0x51483b,3.3));const key=new THREE.DirectionalLight(0xffffff,4.2);key.position.set(-8,10,-14);scene.add(key);const fill=new THREE.DirectionalLight(0xb9d3e2,2.1);fill.position.set(10,2,-8);scene.add(fill);targeting3d.renderer=renderer;targeting3d.scene=scene;targeting3d.camera=camera;targeting3d.controls=controls;
-    const collisionBase=`assets/models/${entry.assetSlug||entry.slug}`,damageBase=`assets/models/${entry.damageSlug||entry.slug}`,assetVersion=entry.assetVersion?`?v=${encodeURIComponent(entry.assetVersion)}`:'',renderVersion=entry.renderVersion?`?v=${encodeURIComponent(entry.renderVersion)}`:'',paths={glb:`${collisionBase}-collision-research.glb${assetVersion}`,collision:`${collisionBase}-collision-research.manifest.json`,damage:`${damageBase}-damage-zones.manifest.json`};status.textContent=`Loading ${enemyName} model`;
+    const collisionBase=`assets/models/${entry.assetSlug||entry.slug}`,damageBase=`assets/models/${entry.damageSlug||entry.slug}`,assetVersion=entry.assetVersion?`?v=${encodeURIComponent(entry.assetVersion)}`:'',renderVersion=entry.renderVersion?`?v=${encodeURIComponent(entry.renderVersion)}`:'',runtimeCollision=entry.collisionGlb||(entry.renderGlb?`${collisionBase}-collision-runtime.glb`:null),paths={glb:runtimeCollision?`${runtimeCollision}${assetVersion}`:`${collisionBase}-collision-research.glb${assetVersion}`,collision:`${collisionBase}-collision-research.manifest.json`,damage:`${damageBase}-damage-zones.manifest.json`};status.textContent=`Loading ${enemyName} model`;
     const [gltf,authenticRender,manifest,damageManifest]=await Promise.all([
       loadTargeting3dGlb(GLTFLoader,paths.glb,event=>{if(event.total)status.textContent=`Loading model · ${Math.round(event.loaded/event.total*100)}%`;}),
       entry.renderGlb?loadTargeting3dGlb(GLTFLoader,`${entry.renderGlb}${renderVersion}`):Promise.resolve(null),

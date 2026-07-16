@@ -28,6 +28,8 @@
       "unitResource": "content/fac_cyborgs/turrets/cyborg_tank_turret_rocketlauncher/cyborg_tank_turret_rocketlauncher",
       "hitboxAsset": "automaton-barrager-turret-collision-research.glb",
       "hitboxAssetSha256": "C0BE5DAC6360F4755A71CBA10D1ADAC21312584CE52C0964AA9F63EF8943C1D2",
+      "runtimeHitboxAsset": "automaton-barrager-turret-collision-runtime.glb",
+      "runtimeHitboxAssetSha256": "76218CBC3EC208A2460A0C8338AE4DE0A901C43965921B229FBA653D2F414D5B",
       "collisionManifest": "automaton-barrager-turret-collision-research.manifest.json",
       "damageManifest": "automaton-barrager-turret-damage-zones.manifest.json",
       "axisRootRotation": [

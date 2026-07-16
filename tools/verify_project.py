@@ -38,6 +38,33 @@ def glb_json(path: Path) -> dict:
     return glb_chunks(path)[0]
 
 
+def assert_runtime_collision_glb(
+    runtime_path: Path,
+    research_path: Path,
+    collision_manifest: dict,
+) -> None:
+    if not runtime_path.is_file() or runtime_path.stat().st_size < 1_000:
+        raise AssertionError(f"{runtime_path.name} is missing or unexpectedly small")
+    document = glb_json(runtime_path)
+    metadata = document.get("asset", {}).get("extras", {}).get("hd2RuntimeCollision", {})
+    expected_names = {collider["nodeName"] for collider in collision_manifest.get("colliders", [])}
+    mesh_node_names = {node.get("name") for node in document.get("nodes", []) if "mesh" in node}
+    if mesh_node_names != expected_names:
+        missing = sorted(expected_names - mesh_node_names)
+        extra = sorted(mesh_node_names - expected_names)
+        raise AssertionError(
+            f"{runtime_path.name} does not contain the exact manifest hull set; "
+            f"missing={missing}, extra={extra}"
+        )
+    if metadata.get("hullCount") != collision_manifest.get("hullCount"):
+        raise AssertionError(f"{runtime_path.name} has stale runtime collision metadata")
+    forbidden = [key for key in ("images", "textures", "materials", "skins", "animations") if document.get(key)]
+    if forbidden:
+        raise AssertionError(f"{runtime_path.name} retained non-collision payloads: {forbidden}")
+    if runtime_path.stat().st_size >= research_path.stat().st_size * 0.2:
+        raise AssertionError(f"{runtime_path.name} is not materially smaller than its research GLB")
+
+
 def assert_nonblank_base_color(path: Path) -> None:
     document, binary = glb_chunks(path)
     for material in document.get("materials", []):
@@ -148,6 +175,11 @@ def main() -> None:
         "new THREE.Vector3(0,1,0),-targeting3d.groundY",
         "renderer.localClippingEnabled=true",
         "Why the target was destroyed",
+        'collisionGlb:"assets/models/automaton-tank-base-collision-runtime.glb"',
+        'damageSlug:"automaton-tank-base"',
+        'damageSlug:"automaton-heavy-cannon-turret"',
+        "mount.runtimeHitboxAsset||mount.hitboxAsset",
+        "runtimeCollision=entry.collisionGlb||",
     ]
     absent = [marker for marker in required if marker not in html]
     if absent:
@@ -194,6 +226,15 @@ def main() -> None:
         if not model_document.get("images") or not model_document.get("textures"):
             raise AssertionError(f"{enemy} research GLB does not retain embedded color textures")
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        runtime_glb = entry.get("runtimeGlb")
+        if render_path and not runtime_glb:
+            runtime_glb = entry["glb"].replace("-collision-research.glb", "-collision-runtime.glb")
+        if runtime_glb:
+            assert_runtime_collision_glb(
+                project_root / runtime_glb,
+                model_path,
+                manifest,
+            )
         colliders = manifest.get("colliders", [])
         records = [collider.get("recordIndex") for collider in colliders]
         if manifest.get("geometryConfidence") != "verified" or len(colliders) != manifest.get("hullCount"):
@@ -868,7 +909,7 @@ def main() -> None:
         or "axisRoot.quaternion.fromArray(mount.axisRootRotation)" not in html
         or "axisRoot.quaternion.identity()" not in html
         or "mountedDamageZone" not in html
-        or "hitboxAssetSha256.slice(0,16)" not in html
+        or "hitboxHash.slice(0,16)" not in html
         or "new THREE.BoxGeometry" not in html
         or "renderSource.parent.add(object)" not in html
         or "Gatekeeper / War Strider analog" not in html
@@ -899,10 +940,15 @@ def main() -> None:
             raise AssertionError(f"{enemy} authentic turret lost its socket-local axis correction")
         render_path = models_root / mount["asset"]
         hitbox_path = models_root / mount["hitboxAsset"]
+        runtime_hitbox_path = models_root / mount["runtimeHitboxAsset"]
         if hashlib.sha256(render_path.read_bytes()).hexdigest() != mount.get("assetSha256", "").lower():
             raise AssertionError(f"{enemy} mounted turret render revision is stale")
         if hashlib.sha256(hitbox_path.read_bytes()).hexdigest() != mount.get("hitboxAssetSha256", "").lower():
             raise AssertionError(f"{enemy} mounted turret collision revision is stale")
+        if hashlib.sha256(runtime_hitbox_path.read_bytes()).hexdigest() != mount.get(
+            "runtimeHitboxAssetSha256", ""
+        ).lower():
+            raise AssertionError(f"{enemy} mounted turret runtime collision revision is stale")
         render_document = glb_json(render_path)
         mesh_nodes = [node for node in render_document.get("nodes", []) if "mesh" in node]
         alternate_meshes = [
@@ -918,6 +964,7 @@ def main() -> None:
         if not baked or len(render_document.get("images", [])) < 3 or alternate_meshes:
             raise AssertionError(f"{enemy} mounted turret lost its intact authentic textures: {alternate_meshes}")
         collision = json.loads((models_root / mount["collisionManifest"]).read_text(encoding="utf-8"))
+        assert_runtime_collision_glb(runtime_hitbox_path, hitbox_path, collision)
         damage = json.loads((models_root / mount["damageManifest"]).read_text(encoding="utf-8"))
         if collision.get("geometryConfidence") != "verified" or collision.get("hullCount") != expected_hulls:
             raise AssertionError(f"{enemy} mounted turret collision geometry changed unexpectedly")
@@ -981,7 +1028,16 @@ def main() -> None:
     ):
         raise AssertionError("Shared tank geometry or exact mounted-turret evidence is not connected to the viewer")
 
-    factory_document = glb_json(models_root / "factory-strider-collision-research.glb")
+    factory_research_path = models_root / "factory-strider-collision-research.glb"
+    factory_collision_manifest = json.loads(
+        (models_root / "factory-strider-collision-research.manifest.json").read_text(encoding="utf-8")
+    )
+    assert_runtime_collision_glb(
+        models_root / "factory-strider-collision-runtime.glb",
+        factory_research_path,
+        factory_collision_manifest,
+    )
+    factory_document = glb_json(factory_research_path)
     hidden_variants = [node for node in factory_document.get("nodes", []) if node.get("extras", {}).get("default_hidden") == 1]
     if len(hidden_variants) < 10 or "object.userData?.default_hidden===1" not in html:
         raise AssertionError("Factory Strider damaged/hidden render variants are not being suppressed")

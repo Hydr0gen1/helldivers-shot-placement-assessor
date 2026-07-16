@@ -28,6 +28,8 @@
       "unitResource": "content/fac_cyborgs/turrets/cyborg_tank_turret_autocannons/cyborg_tank_turret_autocannons",
       "hitboxAsset": "automaton-shredder-turret-collision-research.glb",
       "hitboxAssetSha256": "9B7FAF9ADD4E6029496020AFF0C97B77D596EA6E8E4C2733F7F516F145BE20BE",
+      "runtimeHitboxAsset": "automaton-shredder-turret-collision-runtime.glb",
+      "runtimeHitboxAssetSha256": "C14E4B078CC9E455FDFFFD9BCE0DBBF98F39525FD041D097CA205DB3178CC63C",
       "collisionManifest": "automaton-shredder-turret-collision-research.manifest.json",
       "damageManifest": "automaton-shredder-turret-damage-zones.manifest.json",
       "axisRootRotation": [
