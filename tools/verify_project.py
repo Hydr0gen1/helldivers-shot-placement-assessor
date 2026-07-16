@@ -136,6 +136,8 @@ def main() -> None:
         "const showRadii=barrage||visibleImpacts.length<=3",
         "function summarizeSplashResult",
         "function explainSplashDestruction",
+        "function makeGroundClippedBlastSphere",
+        "renderer.localClippingEnabled=true",
         "Why the target was destroyed",
     ]
     absent = [marker for marker in required if marker not in html]
