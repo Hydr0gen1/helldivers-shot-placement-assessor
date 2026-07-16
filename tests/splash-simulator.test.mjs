@@ -5,7 +5,7 @@ import vm from "node:vm";
 const source = fs.readFileSync(new URL("../tools/templates/splash-simulator.js", import.meta.url), "utf8");
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${source}\nglobalThis.api={getExplosiveProfile,normalizeImpactForDelivery,classifyTargeting3dWheelGesture,guidedTopAttackDirection,closestPointOnTriangle,pointBoundsDistance,humanizePhysicalPartName,damageZoneTechnicalLabel,physicalPartLabel,buildCollisionSceneIndex,nearestGroupPoint,blastFalloff,simulateImpact,simulateSequence,generateBarragePattern,summarizeSplashResult,fibonacciDirections};`, context);
+vm.runInContext(`${source}\nglobalThis.api={getExplosiveProfile,normalizeImpactForDelivery,classifyTargeting3dWheelGesture,guidedTopAttackDirection,closestPointOnTriangle,pointBoundsDistance,humanizePhysicalPartName,damageZoneTechnicalLabel,physicalPartLabel,buildCollisionSceneIndex,nearestGroupPoint,blastFalloff,simulateImpact,simulateSequence,generateBarragePattern,summarizeSplashResult,explainSplashDestruction,fibonacciDirections};`, context);
 const api = context.api;
 
 assert.equal(api.classifyTargeting3dWheelGesture({ctrlKey:false,metaKey:false,deltaMode:0,deltaY:100},"trackpad"),"orbit");
@@ -119,5 +119,18 @@ for(const impact of walking)assert.ok(Math.hypot(impact.position.x,impact.positi
 
 const summary=api.summarizeSplashResult(api.simulateSequence(limbScene,[{position:{x:0,y:0,z:0},time:0}],profile(),"raw"));
 assert.equal(summary.affectedZones.length,2);
+
+const fatalScene=api.buildCollisionSceneIndex([hull("head",0,zone({zoneName:"Head",health:50,affects_main_health:0,causes_death_on_death:true}))],{mainHealth:1000});
+const fatalResult=api.simulateSequence(fatalScene,[{position:{x:0,y:0,z:0},time:0}],profile(),"raw");
+const fatalExplanation=api.explainSplashDestruction(fatalResult,fatalScene);
+assert.equal(fatalExplanation.reasons[0].kind,"fatal-zone");
+assert.equal(fatalExplanation.reasons[0].title,"Head was destroyed");
+
+const mainKillScene=api.buildCollisionSceneIndex([hull("torso",0,zone({zoneName:"Torso",health:500,affects_main_health:1}))],{mainHealth:50});
+const mainKillResult=api.simulateSequence(mainKillScene,[{position:{x:0,y:0,z:0},time:0}],profile(),"raw");
+const mainExplanation=api.explainSplashDestruction(mainKillResult,mainKillScene);
+assert.equal(mainExplanation.reasons[0].kind,"main-hp");
+assert.equal(mainExplanation.reasons[0].contributors[0].label,"Torso");
+assert.equal(api.explainSplashDestruction(api.simulateSequence(limbScene,[{position:{x:20,y:0,z:0},time:0}],profile(),"raw"),limbScene).destroyed,false);
 
 console.log("Splash simulator tests passed");

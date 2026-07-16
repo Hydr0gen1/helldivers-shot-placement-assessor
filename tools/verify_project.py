@@ -135,6 +135,8 @@ def main() -> None:
         "function generateBarragePattern",
         "const showRadii=barrage||visibleImpacts.length<=3",
         "function summarizeSplashResult",
+        "function explainSplashDestruction",
+        "Why the target was destroyed",
     ]
     absent = [marker for marker in required if marker not in html]
     if absent:
