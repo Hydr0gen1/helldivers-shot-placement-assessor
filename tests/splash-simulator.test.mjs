@@ -5,7 +5,7 @@ import vm from "node:vm";
 const source = fs.readFileSync(new URL("../tools/templates/splash-simulator.js", import.meta.url), "utf8");
 const context = {console};
 vm.createContext(context);
-vm.runInContext(`${source}\nglobalThis.api={getExplosiveProfile,classifyTargeting3dWheelGesture,guidedTopAttackDirection,closestPointOnTriangle,pointBoundsDistance,humanizePhysicalPartName,damageZoneTechnicalLabel,physicalPartLabel,buildCollisionSceneIndex,nearestGroupPoint,blastFalloff,simulateImpact,simulateSequence,generateBarragePattern,summarizeSplashResult,fibonacciDirections};`, context);
+vm.runInContext(`${source}\nglobalThis.api={getExplosiveProfile,normalizeImpactForDelivery,classifyTargeting3dWheelGesture,guidedTopAttackDirection,closestPointOnTriangle,pointBoundsDistance,humanizePhysicalPartName,damageZoneTechnicalLabel,physicalPartLabel,buildCollisionSceneIndex,nearestGroupPoint,blastFalloff,simulateImpact,simulateSequence,generateBarragePattern,summarizeSplashResult,fibonacciDirections};`, context);
 const api = context.api;
 
 assert.equal(api.classifyTargeting3dWheelGesture({ctrlKey:false,metaKey:false,deltaMode:0,deltaY:100},"trackpad"),"orbit");
@@ -37,6 +37,10 @@ assert.equal(api.blastFalloff({inner:1,outer:5},3),.5);
 const weapon={name:"G-12 High Explosive",comps:[{label:"Explosion 1.5-7 m",std:800,dur:800,ap:[4,4,4,4],explosive:true}],mag:5};
 const normalized=api.getExplosiveProfile(weapon);
 assert.deepEqual([normalized.inner,normalized.outer,normalized.explosions.length],[1.5,7,1]);
+
+const portableHellbomb=api.getExplosiveProfile({name:"B-100 Portable Hellbomb (inner blast)",activationDelay:10,comps:[{label:"Hellbomb inner blast (10,000 damage, AP10)",std:10000,dur:10000,ap:[10,10,10,10],explosive:true}]});
+assert.deepEqual([portableHellbomb.inner,portableHellbomb.outer,portableHellbomb.explosions.length,portableHellbomb.delivery.kind,portableHellbomb.delivery.groundOnly,portableHellbomb.delay],[17,25,1,"ground-timed",true,10]);
+assert.deepEqual(JSON.parse(JSON.stringify(api.normalizeImpactForDelivery({position:{x:4,y:9,z:-2},directPoolKey:"head",angleIndex:3},portableHellbomb,0))),{position:{x:4,y:0,z:-2},directPoolKey:null,angleIndex:0});
 
 const solo=api.getExplosiveProfile({name:"MS-11 Solo Silo",comps:[{label:"Impact explosion (3–6 m, AP9)",std:1500,dur:1500,ap:[9,9,9,9],explosive:true},{label:"Main explosion (10–25 m, AP7)",std:2500,dur:2500,ap:[7,7,7,7],explosive:true}]});
 assert.deepEqual([solo.inner,solo.outer,solo.explosions.length,solo.delivery.kind,solo.delivery.shockwave],[10,25,2,"guided-top-attack",35]);
@@ -92,6 +96,11 @@ assert.deepEqual([directResult.zones[0].directDamage,directResult.zones[0].explo
 const stickyProfile=profile({sticky:true,delay:6.5,mainOnly:[{std:50,dur:50,ap:[5,5,5,5],mainOnly:true}]});
 const sticky=api.simulateSequence(directScene,[{position:{x:0,y:0,z:0},directPoolKey:"target",time:0}],stickyProfile,"raw");
 assert.deepEqual(Array.from(sticky.events,event=>[event.impact.phase,event.impact.time]),[["attach",0],["detonation",6.5]]);
+
+// Portable Hellbombs detonate after activation and can never retain a direct-hit target.
+const groundTimed=api.simulateSequence(directScene,[{position:{x:0,y:0,z:0},directPoolKey:"target",time:0}],portableHellbomb,"raw");
+assert.deepEqual(Array.from(groundTimed.events,event=>[event.impact.phase,event.impact.time,event.impact.directPoolKey,event.impact.deliveryLabel]),[["detonation",10,null,"Portable Hellbomb detonation"]]);
+assert.equal(groundTimed.events[0].zones[0].directDamage,0);
 
 // Fragment directions and outcomes are reproducible for a fixed seed.
 assert.deepEqual(api.fibonacciDirections(35,17),api.fibonacciDirections(35,17));

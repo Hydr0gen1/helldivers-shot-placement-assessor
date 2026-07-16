@@ -4,6 +4,7 @@ const EXPLOSIVE_DELIVERY_PROFILES={
   "Orbital 380mm HE Barrage":{kind:"barrage",spread:36,salvos:5,shellsPerSalvo:3,shellInterval:1.5,salvoInterval:3,shockwave:18},
   "Orbital Walking Barrage":{kind:"walking-barrage",spread:25,salvos:5,shellsPerSalvo:3,shellInterval:1.5,salvoInterval:3,salvoStep:25,shockwave:18},
   "Orbital Precision Strike":{kind:"single",shockwave:18},
+  "B-100 Portable Hellbomb (inner blast)":{kind:"ground-timed",groundOnly:true,delay:10,radius:{inner:17,outer:25},label:"Portable Hellbomb detonation"},
   "MS-11 Solo Silo":{kind:"guided-top-attack",shockwave:35,terminalElevation:70,maxLifetime:15,preferredSpeed:200,acceleration:50,turnPriorityAngle:45,guidance:"continuous-laser"},
   "G-6 Frag":{kind:"shrapnel",fragmentCount:35},
   "G-123 Thermite":{kind:"sticky",delay:6.5},
@@ -21,7 +22,7 @@ function getExplosiveProfile(base,modeIndex=0){
   const delivery=EXPLOSIVE_DELIVERY_PROFILES[base.name]||{kind:base.sticky?"sticky":"single"};
   const barrage=/barrage/i.test(delivery.kind);
   const selected=barrage?(base.modes?.[0]||base):(base.modes?.[modeIndex]||base);
-  const components=(selected.comps||base.comps||[]).map(component=>({...component,radius:splashRadius(component)}));
+  const components=(selected.comps||base.comps||[]).map(component=>({...component,radius:splashRadius(component)||(component.explosive&&delivery.radius?{...delivery.radius}:null)}));
   const explosions=components.filter(component=>component.explosive&&component.radius);
   const shrapnel=components.filter(component=>component.shrapnel);
   const direct=components.filter(component=>!component.explosive&&!component.shrapnel&&!component.mainOnly);
@@ -29,10 +30,15 @@ function getExplosiveProfile(base,modeIndex=0){
   if(!explosions.length&&!shrapnel.length&&!base.sticky)return null;
   const outer=Math.max(0,...explosions.map(component=>component.radius.outer));
   const inner=Math.max(0,...explosions.map(component=>component.radius.inner));
-  return {name:base.name,base,modeIndex,components,explosions,shrapnel,direct,mainOnly,inner,outer,delivery:{...delivery},sticky:!!base.sticky,delay:base.detonationDelay??delivery.delay??0,maxShrapnel:base.maxShrapnel||delivery.fragmentCount||0};
+  return {name:base.name,base,modeIndex,components,explosions,shrapnel,direct,mainOnly,inner,outer,delivery:{...delivery},sticky:!!base.sticky,delay:base.activationDelay??base.detonationDelay??delivery.delay??0,maxShrapnel:base.maxShrapnel||delivery.fragmentCount||0};
 }
 
 const v3=(x=0,y=0,z=0)=>({x,y,z});
+
+function normalizeImpactForDelivery(impact,profile,groundY=0){
+  if(profile?.delivery?.groundOnly!==true)return {...impact,position:{...impact.position}};
+  return {...impact,position:v3(impact.position.x,groundY,impact.position.z),directPoolKey:null,angleIndex:0};
+}
 
 // Browsers expose mouse wheels and trackpad scroll gestures through the same
 // WheelEvent interface, without a reliable device-type field. Keep the
@@ -192,7 +198,7 @@ function simulateImpact(scene,impact,profile,policy="primary",priorState=null){
 }
 
 function simulateSequence(scene,impacts,profile,policy="primary"){
-  let state=freshSplashState(scene),killedAt=null,totalDamage=0,totalMainDamage=0;const events=[],queue=[];for(const impact of impacts){if(profile.sticky&&profile.delay>0){queue.push({impact:{...impact,phase:"attach"},profile:{...profile,explosions:[],shrapnel:[],mainOnly:[]}});queue.push({impact:{...impact,time:(impact.time||0)+profile.delay,phase:"detonation"},profile:{...profile,direct:[]}});}else queue.push({impact,profile});}for(const entry of queue.sort((a,b)=>(a.impact.time||0)-(b.impact.time||0))){const result=simulateImpact(scene,entry.impact,entry.profile,policy,state);state=result.state;totalDamage+=result.totalDamage;totalMainDamage+=result.mainDamage;events.push(result);if(killedAt==null&&result.killed)killedAt=entry.impact.time||0;}return {policy,state,events,totalDamage,totalMainDamage,killed:state.dead,killedAt,remainingMainHP:state.mainHP};
+  let state=freshSplashState(scene),killedAt=null,totalDamage=0,totalMainDamage=0;const events=[],queue=[];for(const rawImpact of impacts){const impact=normalizeImpactForDelivery(rawImpact,profile,0);if(profile.sticky&&profile.delay>0){queue.push({impact:{...impact,phase:"attach"},profile:{...profile,explosions:[],shrapnel:[],mainOnly:[]}});queue.push({impact:{...impact,time:(impact.time||0)+profile.delay,phase:"detonation"},profile:{...profile,direct:[]}});}else if(profile.delivery?.kind==="ground-timed"){queue.push({impact:{...impact,time:(impact.time||0)+profile.delay,phase:"detonation",deliveryLabel:profile.delivery.label||"Timed explosive detonation"},profile:{...profile,direct:[]}});}else queue.push({impact,profile});}for(const entry of queue.sort((a,b)=>(a.impact.time||0)-(b.impact.time||0))){const result=simulateImpact(scene,entry.impact,entry.profile,policy,state);state=result.state;totalDamage+=result.totalDamage;totalMainDamage+=result.mainDamage;events.push(result);if(killedAt==null&&result.killed)killedAt=entry.impact.time||0;}return {policy,state,events,totalDamage,totalMainDamage,killed:state.dead,killedAt,remainingMainHP:state.mainHP};
 }
 
 function mulberry32(seed){let value=seed>>>0;return function(){value+=0x6D2B79F5;let result=value;result=Math.imul(result^result>>>15,result|1);result^=result+Math.imul(result^result>>>7,result|61);return ((result^result>>>14)>>>0)/4294967296;};}
